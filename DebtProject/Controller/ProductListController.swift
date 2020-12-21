@@ -11,6 +11,8 @@ import SideMenu
 class ProductListController: BaseSideMenuViewController{
     @IBOutlet weak var collectview: UICollectionView!
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var btnAdd:UIButton!
+    var btnAddIsHidden = true
     var platform:String!
     var layer:CAGradientLayer!
     var buttonText = [String]()
@@ -20,24 +22,35 @@ class ProductListController: BaseSideMenuViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSlider()
         //設定背景顏色
 //        layer = Global.setBackgroundColor(view);
 //        view.layer.insertSublayer(layer, at: 0)
         
+//        collectview.layer.insertSublayer(layer, at: 0)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,
+             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
         collectview.delegate = self
         collectview.dataSource = self
-        buttonText = ["遊戲","主機","周邊"]
         products = ProductModel.defaultGameLists
+        //設定按鈕
+        (btnAddIsHidden) ?(btnAdd.isHidden = true):(btnAdd.isHidden = false)
+    }
+    override func viewWillAppear(_ animated: Bool) {
         setupSlider()
-//        collectview.layer.insertSublayer(layer, at: 0)
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: 90, height: 3)
-        self.slider.center.y = collectview.bounds.maxY - 3
-        collectview.addSubview(self.slider)
+        self.slider.frame.size = CGSize(width: 90, height: 10)
+        self.slider.center.y = collectview.bounds.maxY-3
+        collectview.addSubview(slider)
         collectionView(collectview, didSelectItemAt:[0,0])
+    }
+    @IBAction func addProductClick(){
+        if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
+            self.show(vcMain, sender: nil);
+        }
     }
 }
 extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSource{
@@ -66,20 +79,21 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     self.slider.center.x = cell.center.x
                 }
             }
+            products.removeAll()
+            let productType = buttonText[indexPath.row]
+            switch productType {
+            case "主機":
+                products = ProductModel.defaultHostLists
+            case "周邊":
+                products = ProductModel.defaultMerchLists
+            case "遊戲":
+                products = ProductModel.defaultGameLists
+            default:
+                products = ProductModel.defaultGameLists
+            }
+            tableview.reloadData()
         }
-        products.removeAll()
-        let productType = buttonText[indexPath.row]
-        switch productType {
-        case "主機":
-            products = ProductModel.defaultHostLists
-        case "周邊":
-            products = ProductModel.defaultMerchLists
-        case "遊戲":
-            products = ProductModel.defaultGameLists
-        default:
-            products = ProductModel.defaultGameLists
-        }
-        tableview.reloadData()
+        
     }
 }
 extension ProductListController :UITableViewDelegate,UITableViewDataSource{

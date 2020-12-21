@@ -17,24 +17,28 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         setMenu()
         //設定左邊button
         let btnSideMenu = UIButton(type: UIButton.ButtonType.custom)
-        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+//        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+        btnSideMenu.setBackgroundImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchDragInside)
-        btnSideMenu.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btnSideMenu.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊cart button
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
-        btnCart.setImage(UIImage(systemName: "cart"), for: .normal)
+//        btnCart.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+        
+        btnCart.setBackgroundImage(UIImage(systemName: "cart.fill"), for: .normal)
         btnCart.addTarget(self, action:#selector(didTapCart), for: .touchDragInside)
-        btnCart.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btnCart.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊ring button
         let btnNotify = UIButton(type: UIButton.ButtonType.custom)
-        btnNotify.setImage(UIImage(systemName: "bell"), for: .normal)
+//        btnNotify.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        btnNotify.setBackgroundImage(UIImage(systemName: "bell.fill"), for: .normal)
         btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchDragInside)
-        btnNotify.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btnNotify.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定抽屜圖示的顏色
-        btnSideMenu.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
+        btnSideMenu.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
         //設定右列圖示的顏色
-        btnCart.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
-        btnNotify.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
+        btnCart.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
+        btnNotify.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
         let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
         self.navigationItem.leftBarButtonItems = [leftBarButton]
         let rightCartButton = UIBarButtonItem(customView: btnCart)
@@ -64,43 +68,56 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         let selectedItem = itemNamed.rawValue
 //        let selectedTitle = titleNamed.rawValue
         //設定換頁
+        var view = UIViewController()
         switch itemNamed {
         case .store:
-            if let vcMain = productStoryboard.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
+                vcMain.btnAddIsHidden = false
+                    vcMain.slider.backgroundColor = .white
+                vcMain.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
+                view = vcMain
             }
         case .home:
                 if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
-                    vcMain.title = selectedItem
-                    self.show(vcMain, sender: nil);
+                    view = vcMain
                 }
         case .ps4:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+                vcMain.slider.backgroundColor = .blue
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
             }
         case .ps5:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+                vcMain.slider.backgroundColor = .blue
+                
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
             }
         case .xbox:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+                vcMain.slider.backgroundColor = .green
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
             }
         case .one:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+                vcMain.slider.backgroundColor = .green
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
             }
         case .Switch:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
-                vcMain.title = selectedItem
-                self.show(vcMain, sender: nil);
+                vcMain.slider.backgroundColor = .red
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
             }
         }
+//        view.title = selectedItem
+        view.title = selectedItem
+        self.show(view, sender: nil);
+        
     }
     
     private func setMenu(){

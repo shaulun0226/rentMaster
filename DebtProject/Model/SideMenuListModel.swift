@@ -8,7 +8,7 @@
 import Foundation
 
 enum SideMenuItem: String, CaseIterable {
-    case store = "Store"
+    case store = "我的賣場"
     case home = "Home"
     case ps4 = "PS4"
     case ps5 = "PS5"

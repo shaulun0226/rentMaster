@@ -7,7 +7,6 @@ target 'DebtProject' do
 
   # Pods for DebtProject
 pod 'Alamofire', '~>5.2'
-pod 'SignaturePad', '~> 1.0.3'
 pod 'SideMenu', '~> 6.5'
 pod "TLPhotoPicker"
 

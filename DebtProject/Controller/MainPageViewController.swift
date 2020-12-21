@@ -80,6 +80,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "PlayStation"
             vcMain.slider.backgroundColor = .blue
+            vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
         self.show(vcMain, sender: nil);
         }
     }
@@ -88,6 +89,8 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Xbox"
             vcMain.slider.backgroundColor = .green
+            
+            vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
         self.show(vcMain, sender: nil);
         }
     }
@@ -95,6 +98,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Switch"
+            vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .red
         self.show(vcMain, sender: nil);
         }
@@ -103,6 +107,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "桌遊"
+            vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .blue
         self.show(vcMain, sender: nil);
         }

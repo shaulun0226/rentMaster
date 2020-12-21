@@ -13,10 +13,10 @@ class ProductModelCell: UITableViewCell {
     @IBOutlet weak var lbPrice :UILabel!
     
     var cornerRadius: CGFloat = 20
-    var shadowOffsetWidth: Int = 5
-    var shadowOffsetHeight: Int = 5
-    var shadowColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 5
+    var shadowOffsetWidth: Int = 1
+    var shadowOffsetHeight: Int = 1
+    var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
+    var shadowOpacity: Float = 1
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -34,8 +34,8 @@ class ProductModelCell: UITableViewCell {
         }
         set (newFrame) {
             var frame =  newFrame
-            frame.origin.y += 10//調整y起點
-            frame.origin.x += 10//調整x起點
+            frame.origin.y += 5//調整y起點
+            frame.origin.x += 5//調整x起點
             frame.size.height -= 15//調整高度
             frame.size.width -= 2 * 10//調整寬度
             super.frame = frame
@@ -52,7 +52,7 @@ class ProductModelCell: UITableViewCell {
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath
-        //設定框線
+//        設定框線
 //        layer.borderWidth = 1.0
 //        layer.borderColor = UIColor.black.cgColor
     }
