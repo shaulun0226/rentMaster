@@ -7,6 +7,7 @@
 
 import UIKit
 import SideMenu
+
 class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate {
     
     var menu :SideMenuNavigationController?
@@ -14,21 +15,49 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         setMenu()
-        let button = UIButton(type: UIButton.ButtonType.custom)
-        button.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
-        button.addTarget(self, action:#selector(didTapMenu), for: .touchDragInside)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        //設定左邊button
+        let btnSideMenu = UIButton(type: UIButton.ButtonType.custom)
+        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+        btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchDragInside)
+        btnSideMenu.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        //設定右邊cart button
+        let btnCart = UIButton(type: UIButton.ButtonType.custom)
+        btnCart.setImage(UIImage(systemName: "cart"), for: .normal)
+        btnCart.addTarget(self, action:#selector(didTapCart), for: .touchDragInside)
+        btnCart.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        //設定右邊ring button
+        let btnNotify = UIButton(type: UIButton.ButtonType.custom)
+        btnNotify.setImage(UIImage(systemName: "bell"), for: .normal)
+        btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchDragInside)
+        btnNotify.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         //設定抽屜圖示的顏色
-        button.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
-        let barButton = UIBarButtonItem(customView: button)
-        self.navigationItem.leftBarButtonItems = [barButton]
+        btnSideMenu.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
+        //設定右列圖示的顏色
+        btnCart.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
+        btnNotify.tintColor = #colorLiteral(red: 0.01798310503, green: 0.9727620482, blue: 0.856649816, alpha: 1)
+        let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
+        self.navigationItem.leftBarButtonItems = [leftBarButton]
+        let rightCartButton = UIBarButtonItem(customView: btnCart)
+        let rightNotifyButton = UIBarButtonItem(customView: btnNotify)
+        self.navigationItem.rightBarButtonItems = [rightNotifyButton,rightCartButton]
         // Do any additional setup after loading the view.
     }
     @objc func didTapMenu() {
             present(menu!, animated: true)
      }
+    @objc func didTapCart() {
+        //尚未設定跳至何頁
+//            present(menu!, animated: true)
+        
+     }
+    @objc func didTapNotify() {
+        //尚未設定跳至何頁
+//            present(menu!, animated: true)
+        
+     }
     
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
+        //關閉抽屜
         menu?.dismiss(animated: true, completion: nil)
         //設定畫面title的文字
         let selectedItem = itemNamed.rawValue
