@@ -8,6 +8,7 @@
 import Foundation
 
 enum SideMenuItem: String, CaseIterable {
+    case store = "Store"
     case home = "Home"
     case ps4 = "PS4"
     case ps5 = "PS5"
@@ -16,6 +17,7 @@ enum SideMenuItem: String, CaseIterable {
     case Switch = "Switch"
 }
 enum SideMenuSelectTitle:String,CaseIterable{
+    case store = "Store"
     case homePage = "Home"
     case ps = "PlayStation"
     case xbox = "XBOX"

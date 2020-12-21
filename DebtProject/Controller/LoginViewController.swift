@@ -48,8 +48,10 @@ class LoginViewController: BaseViewController {
     }
     @IBAction func loginOnClick(_ sender: Any) {
         //切換畫面
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "MainPageViewController");
-        self.show(vcMain!, sender: LoginViewController.self);
+        let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
+        if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+            self.show(vcMain, sender: LoginViewController.self);
+        }
 //        let body: [String : Any] = ["title": "foo",
 //                                    "body": "bar",
 //                                    "userId": 1]

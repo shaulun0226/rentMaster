@@ -59,38 +59,47 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
         //關閉抽屜
         menu?.dismiss(animated: true, completion: nil)
+        let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
         //設定畫面title的文字
         let selectedItem = itemNamed.rawValue
 //        let selectedTitle = titleNamed.rawValue
         //設定換頁
         switch itemNamed {
+        case .store:
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
+                vcMain.title = selectedItem
+                self.show(vcMain, sender: nil);
+            }
         case .home:
-                if let vcMain = self.storyboard?.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+                if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
                     vcMain.title = selectedItem
                     self.show(vcMain, sender: nil);
                 }
         case .ps4:
-            if let vcMain = self.storyboard?.instantiateViewController(identifier: "mainView") as? ProductListController{
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.title = selectedItem
                 self.show(vcMain, sender: nil);
             }
         case .ps5:
-            let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-            vcMain?.title = selectedItem
-            self.show(vcMain!, sender: nil);
-            
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.title = selectedItem
+                self.show(vcMain, sender: nil);
+            }
         case .xbox:
-            let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-            vcMain?.title = selectedItem
-            self.show(vcMain!, sender: nil);
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.title = selectedItem
+                self.show(vcMain, sender: nil);
+            }
         case .one:
-            let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-            vcMain?.title = selectedItem
-            self.show(vcMain!, sender: nil);
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.title = selectedItem
+                self.show(vcMain, sender: nil);
+            }
         case .Switch:
-            let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-            vcMain?.title = selectedItem
-            self.show(vcMain!, sender: nil);
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.title = selectedItem
+                self.show(vcMain, sender: nil);
+            }
         }
     }
     
@@ -98,6 +107,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         
         var sideMenulist = [SideMenuListModel]();
         //設定menu內容
+        sideMenulist.append(SideMenuListModel.init(title: .store, item:[SideMenuItem.store]))
         sideMenulist.append(SideMenuListModel.init(title:.homePage, item: [SideMenuItem.home]))
         sideMenulist.append(SideMenuListModel.init(title:.ps, item: [SideMenuItem.ps5,SideMenuItem.ps4]))
         sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.xbox,SideMenuItem.one]))
