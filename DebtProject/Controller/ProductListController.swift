@@ -15,6 +15,8 @@ class ProductListController: BaseSideMenuViewController{
     var layer:CAGradientLayer!
     var buttonText = [String]()
     var products = [ProductModel]()
+    //collectionview底線
+    var slider = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,14 @@ class ProductListController: BaseSideMenuViewController{
         collectview.dataSource = self
         buttonText = ["遊戲","主機","周邊"]
         products = ProductModel.defaultGameLists
+        setupSlider()
 //        collectview.layer.insertSublayer(layer, at: 0)
+    }
+    private func setupSlider(){
+        self.slider.frame.size = CGSize(width: 90, height: 3)
+        self.slider.center.y = collectview.bounds.maxY - 3
+        collectview.addSubview(self.slider)
+        collectionView(collectview, didSelectItemAt:[0,0])
     }
 }
 extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSource{
@@ -50,6 +59,14 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        self.title = buttonText[indexPath.row]
         // 先清空
+        if let cell = collectview.cellForItem(at: indexPath){
+            collectview.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            UIView.animate(withDuration: 0.4) { [weak self] in
+                if let self = self{
+                    self.slider.center.x = cell.center.x
+                }
+            }
+        }
         products.removeAll()
         let productType = buttonText[indexPath.row]
         switch productType {

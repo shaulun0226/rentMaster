@@ -34,6 +34,8 @@
 		9F6C4D842577F6110091BEA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D832577F6110091BEA5 /* Global.swift */; };
 		9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C532582831D0082A94E /* UnderLineTextField.swift */; };
 		9F6E6C61258316820082A94E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */; };
+		9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */; };
+		9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D57258F059E0030A175 /* AddProductViewController.swift */; };
 		9F972585257E666300EF310D /* SigntureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972584257E666300EF310D /* SigntureViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
@@ -44,6 +46,7 @@
 		9FB025DE2589F93500D6715E /* BaseSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025DD2589F93500D6715E /* BaseSideMenuViewController.swift */; };
 		9FB025E3258A0D3F00D6715E /* MainPageProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025E2258A0D3F00D6715E /* MainPageProductCell.swift */; };
 		9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025E7258A197000D6715E /* MainPageTableViewCell.swift */; };
+		9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB0FF86258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift */; };
 		9FE54ECA258CD2BA0016FDC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9FE54EC9258CD2BA0016FDC6 /* .gitignore */; };
 		9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF0412258364DD0041F557 /* SideMenuController.swift */; };
 /* End PBXBuildFile section */
@@ -101,6 +104,8 @@
 		9F6C4D832577F6110091BEA5 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9F6E6C532582831D0082A94E /* UnderLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
 		9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F877D57258F059E0030A175 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		9F972584257E666300EF310D /* SigntureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigntureViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +116,7 @@
 		9FB025DD2589F93500D6715E /* BaseSideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSideMenuViewController.swift; sourceTree = "<group>"; };
 		9FB025E2258A0D3F00D6715E /* MainPageProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageProductCell.swift; sourceTree = "<group>"; };
 		9FB025E7258A197000D6715E /* MainPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageTableViewCell.swift; sourceTree = "<group>"; };
+		9FB0FF86258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9FE54EC9258CD2BA0016FDC6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9FEF0412258364DD0041F557 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		A835E2BC0DD6912DFB43658B /* Pods_DebtProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DebtProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +188,8 @@
 				9F3F2D74258B560900E156A8 /* PageTableViewCell.xib */,
 				9F3F2D7A258B563400E156A8 /* PageCollectionViewCell.swift */,
 				9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */,
+				9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */,
+				9FB0FF86258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -277,6 +285,7 @@
 				9FEF0412258364DD0041F557 /* SideMenuController.swift */,
 				9FB025B42588AB3500D6715E /* ProductInfoViewController.swift */,
 				9FB025D82589F84C00D6715E /* MainPageViewController.swift */,
+				9F877D57258F059E0030A175 /* AddProductViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -570,10 +579,13 @@
 				9F6E6C61258316820082A94E /* ForgotPasswordViewController.swift in Sources */,
 				9F12BD5625885F2400813616 /* ProductModelCell.swift in Sources */,
 				9F3F2D7C258B563400E156A8 /* PageCollectionViewCell.swift in Sources */,
+				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
 				9F3C77DA2577E3240063E641 /* NetworkController.swift in Sources */,
+				9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */,
 				9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */,
 				9F3F2D5A258B103F00E156A8 /* CardView.swift in Sources */,
+				9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */,
 				9F3C77932577BF3B0063E641 /* LoginViewController.swift in Sources */,
 				9F12BCF92585EBC900813616 /* ProductModel.swift in Sources */,
 				9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */,

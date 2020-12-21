@@ -77,27 +77,35 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
     //設定點擊查看更多會發生的事件
     @objc func handleTapPS(gestureRecognizer: UIGestureRecognizer) {
         //設定跳轉
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-        vcMain?.title = "PlayStation"
-        self.show(vcMain!, sender: nil);
+        if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
+            vcMain.title = "PlayStation"
+            vcMain.slider.backgroundColor = .blue
+        self.show(vcMain, sender: nil);
+        }
     }
     @objc func handleTapXbox(gestureRecognizer: UIGestureRecognizer) {
         //設定跳轉
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-        vcMain?.title = "Xbox"
-        self.show(vcMain!, sender: nil);
+        if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
+            vcMain.title = "Xbox"
+            vcMain.slider.backgroundColor = .green
+        self.show(vcMain, sender: nil);
+        }
     }
     @objc func handleTapSwitch(gestureRecognizer: UIGestureRecognizer) {
         //設定跳轉
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-        vcMain?.title = "Switch"
-        self.show(vcMain!, sender: nil);
+        if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
+            vcMain.title = "Switch"
+            vcMain.slider.backgroundColor = .red
+        self.show(vcMain, sender: nil);
+        }
     }
     @objc func handleTapBoardgame(gestureRecognizer: UIGestureRecognizer) {
         //設定跳轉
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView");
-        vcMain?.title = "桌遊"
-        self.show(vcMain!, sender: nil);
+        if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
+            vcMain.title = "桌遊"
+            vcMain.slider.backgroundColor = .blue
+        self.show(vcMain, sender: nil);
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400

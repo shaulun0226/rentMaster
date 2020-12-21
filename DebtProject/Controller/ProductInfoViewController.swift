@@ -18,16 +18,35 @@ class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbOther: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
     
-    @IBOutlet weak var ProductInfoTableView: UITableView!
+    @IBOutlet weak var productInfoTableView: UITableView!
+    @IBOutlet weak var productInfoCollectionView: UICollectionView!
+    @IBOutlet weak var productInfoPC: UIPageControl!
     var products = [ProductModel]()
+    var productsImage = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.ProductInfoTableView.delegate = self
-        self.ProductInfoTableView.dataSource = self
-        self.ProductInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
-
+        self.productInfoTableView.delegate = self
+        self.productInfoTableView.dataSource = self
+        self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
+        self.productInfoCollectionView.delegate = self
+        self.productInfoCollectionView.dataSource = self
+        self.productInfoCollectionView.isPagingEnabled = true
+        productsImage.append("monsterhunter")
+        productsImage.append("ps4")
+        productsImage.append("ps5Controller")
+        self.productInfoCollectionView.reloadData()
+        lbOther.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
+        
+        //設定換頁控制器有幾頁
+        productInfoPC.numberOfPages = productsImage.count
+        //起始在第0頁
+        productInfoPC.currentPage = 0;
         // Do any additional setup after loading the view.
     }
+    func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
+        return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
+        }
+    //按下立即下單按鈕
     @IBAction func confirmOnClicked(_ sender: Any) {
         //連網下單
         //跳出alert顯示成功失敗
@@ -67,7 +86,7 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
             default:
                 cell.lbMainPageTitle.text = ""
             }
-            cell.lbMainPageHint.text = "查看更多 >"
+            cell.lbMainPageHint.isHidden = true
             //設定cell內容
             cell.products = ProductModel.defaultGameLists
             let layer = Global.setBackgroundColor(view)
@@ -86,23 +105,35 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
 //        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
 //    }
 }
-//extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDataSource{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        products.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCollectionViewCell", for: indexPath) as? PageCollectionViewCell {
-//            cell.configure(with: products[indexPath.row])
-//            return cell;
-//        }
-//        return UICollectionViewCell()
-//    }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductInfoView");
-//
-////        vcMain?.title = selectedItem
-//        self.show(vcMain!, sender: nil);
-//    }
-//}
+extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        productsImage.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductInfoImageCollectionViewCell", for: indexPath) as? ProductInfoImageCollectionViewCell {
+            cell.configure(with: productsImage[indexPath.row])
+            productInfoPC.currentPage = indexPath.row
+            
+            return cell;
+        }
+        return UICollectionViewCell()
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+}
+extension ProductInfoViewController:UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = productInfoCollectionView.frame.size
+        return CGSize(width: size.width, height: size.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+}
