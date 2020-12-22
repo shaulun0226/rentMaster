@@ -44,7 +44,7 @@ class ProductModelCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1).cgColor
+//        layer.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1).cgColor
 //
         layer.cornerRadius = cornerRadius
         //設定陰影

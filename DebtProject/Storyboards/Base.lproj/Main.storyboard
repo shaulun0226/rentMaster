@@ -581,8 +581,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
-                                <rect key="frame" x="33" y="106" width="348" height="600"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
+                                <rect key="frame" x="33" y="106" width="348" height="534"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="kuA-eK-HD6">
                                         <rect key="frame" x="0.0" y="0.0" width="348" height="129"/>
@@ -615,13 +615,13 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GN7-gf-lce" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="159" width="348" height="50"/>
+                                        <rect key="frame" x="0.0" y="149" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入信箱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hg5-d8-DOY" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="0.0" width="288" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="288" height="40"/>
                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="cy2-5k-bzz"/>
+                                                    <constraint firstAttribute="height" constant="40" id="cy2-5k-bzz"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="vd9-kG-sES"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -639,7 +639,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lmH-pN-sym">
-                                                <rect key="frame" x="0.0" y="-6.3333333333333535" width="58" height="55.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="-6.333333333333325" width="58" height="45.333333333333343"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -669,13 +669,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMz-Yw-qi1" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="239" width="348" height="50"/>
+                                        <rect key="frame" x="0.0" y="209" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3jn-lc-7X1" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="0.0" width="288" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="288" height="40"/>
                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="IiG-8T-qz0"/>
+                                                    <constraint firstAttribute="height" constant="40" id="IiG-8T-qz0"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -689,7 +689,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="lock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hvi-tf-9lX">
-                                                <rect key="frame" x="0.0" y="-7.6666666666666856" width="58" height="57.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.6666666666666856" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -719,13 +719,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b33-01-vrM" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="319" width="348" height="50"/>
+                                        <rect key="frame" x="0.0" y="269" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="再次確認密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OoH-0g-36l" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="0.0" width="288" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="288" height="40"/>
                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="Hig-1a-b6s"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Hig-1a-b6s"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -739,7 +739,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="lock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2N3-sM-qLF">
-                                                <rect key="frame" x="0.0" y="-7.6666666666666856" width="58" height="57.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.6666666666666856" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -769,13 +769,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="174-re-ZQI" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="399" width="348" height="50"/>
+                                        <rect key="frame" x="0.0" y="329" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="姓名" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GbK-fx-PQ4" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="0.0" width="288" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="288" height="40"/>
                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="SpF-uf-2AK"/>
+                                                    <constraint firstAttribute="height" constant="40" id="SpF-uf-2AK"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -792,7 +792,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lJH-SK-Zbm">
-                                                <rect key="frame" x="0.0" y="-7.0000000000000213" width="58" height="56.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="-7.0000000000000213" width="58" height="46.666666666666671"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -822,13 +822,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVM-3m-T5x" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="479" width="348" height="50"/>
+                                        <rect key="frame" x="0.0" y="389" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="聯絡電話" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wPN-bK-eXi" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="0.0" width="288" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="288" height="40"/>
                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="GqU-sL-JDL"/>
+                                                    <constraint firstAttribute="height" constant="40" id="GqU-sL-JDL"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -845,7 +845,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="phone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pis-Db-1BZ">
-                                                <rect key="frame" x="0.0" y="-7.3333333333332966" width="58" height="57.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.3333333333333535" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -874,8 +874,14 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEh-pi-Wwg">
+                                        <rect key="frame" x="0.0" y="449" width="348" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-qO-hv7">
-                                        <rect key="frame" x="0.0" y="559" width="348" height="41"/>
+                                        <rect key="frame" x="0.0" y="493" width="348" height="41"/>
                                         <color key="backgroundColor" name="Button"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="註冊">
@@ -886,8 +892,19 @@
                                                 <integer key="value" value="25"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="confirmOnClick:" destination="1Eg-KH-YXT" eventType="touchUpInside" id="90m-Y4-Fa5"/>
+                                        </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="nVM-3m-T5x" firstAttribute="leading" secondItem="GN7-gf-lce" secondAttribute="leading" id="F8L-Gs-QyL"/>
+                                    <constraint firstItem="GN7-gf-lce" firstAttribute="leading" secondItem="qMz-Yw-qi1" secondAttribute="leading" id="WRd-9X-Vc3"/>
+                                    <constraint firstItem="GN7-gf-lce" firstAttribute="leading" secondItem="Fw6-27-SmR" secondAttribute="leading" id="m2k-pW-U8G"/>
+                                    <constraint firstItem="174-re-ZQI" firstAttribute="leading" secondItem="GN7-gf-lce" secondAttribute="leading" id="pBk-mT-Nc0"/>
+                                    <constraint firstAttribute="trailing" secondItem="GN7-gf-lce" secondAttribute="trailing" id="r7v-Fr-7bv"/>
+                                    <constraint firstItem="b33-01-vrM" firstAttribute="leading" secondItem="GN7-gf-lce" secondAttribute="leading" id="t8l-e0-UCw"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sNz-Ak-Qpa"/>
@@ -901,6 +918,7 @@
                     <navigationItem key="navigationItem" id="6oL-r6-E87"/>
                     <connections>
                         <outlet property="btnRegisterConfirm" destination="wdv-qO-hv7" id="sF8-NY-WOF"/>
+                        <outlet property="errorHint" destination="jEh-pi-Wwg" id="vsb-Pm-FVm"/>
                         <outlet property="tfEmail" destination="hg5-d8-DOY" id="i23-Rv-gA5"/>
                         <outlet property="tfName" destination="GbK-fx-PQ4" id="kD4-bO-OlF"/>
                         <outlet property="tfPassword" destination="3jn-lc-7X1" id="jtm-Zz-esU"/>

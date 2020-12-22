@@ -68,9 +68,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             cell.lbMainPageHint.text = "查看更多 >"
             //設定cell內容
             cell.products = ProductModel.defaultGameLists
-            //設定cell背景顏色
-            let layer = Global.setBackgroundColor(view)
-            cell.layer.insertSublayer(layer, at: 0)
             return cell;
         }
         return UITableViewCell()

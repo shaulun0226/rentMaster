@@ -22,7 +22,6 @@
 		9F3C779B2577BF3D0063E641 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C77992577BF3D0063E641 /* LaunchScreen.storyboard */; };
 		9F3C77A62577BF3D0063E641 /* DebtProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77A52577BF3D0063E641 /* DebtProjectTests.swift */; };
 		9F3C77B12577BF3D0063E641 /* DebtProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77B02577BF3D0063E641 /* DebtProjectUITests.swift */; };
-		9F3C77DA2577E3240063E641 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77D92577E3240063E641 /* NetworkController.swift */; };
 		9F3F2D5A258B103F00E156A8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3F2D59258B103F00E156A8 /* CardView.swift */; };
 		9F3F2D75258B560900E156A8 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3F2D73258B560900E156A8 /* PageTableViewCell.swift */; };
 		9F3F2D76258B560900E156A8 /* PageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3F2D74258B560900E156A8 /* PageTableViewCell.xib */; };
@@ -36,6 +35,9 @@
 		9F85280E25919173004454E6 /* NotifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85280D25919173004454E6 /* NotifyModel.swift */; };
 		9F852816259195F0004454E6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F852815259195F0004454E6 /* Box.swift */; };
 		9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85281A25919687004454E6 /* NotifyViewController.swift */; };
+		9F85282025920AFF004454E6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85281F25920AFF004454E6 /* BaseTableViewCell.swift */; };
+		9F85282625920B20004454E6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85282525920B20004454E6 /* BaseCollectionViewCell.swift */; };
+		9F85282F25921D63004454E6 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85282E25921D63004454E6 /* NetworkController.swift */; };
 		9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */; };
 		9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D57258F059E0030A175 /* AddProductViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
@@ -94,7 +96,6 @@
 		9F3C77AC2577BF3D0063E641 /* DebtProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DebtProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3C77B02577BF3D0063E641 /* DebtProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtProjectUITests.swift; sourceTree = "<group>"; };
 		9F3C77B22577BF3D0063E641 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F3C77D92577E3240063E641 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		9F3F2D59258B103F00E156A8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9F3F2D73258B560900E156A8 /* PageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
 		9F3F2D74258B560900E156A8 /* PageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageTableViewCell.xib; sourceTree = "<group>"; };
@@ -108,6 +109,9 @@
 		9F85280D25919173004454E6 /* NotifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModel.swift; sourceTree = "<group>"; };
 		9F852815259195F0004454E6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		9F85281A25919687004454E6 /* NotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyViewController.swift; sourceTree = "<group>"; };
+		9F85281F25920AFF004454E6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		9F85282525920B20004454E6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F85282E25921D63004454E6 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F877D57258F059E0030A175 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 		9F12BCDA25852ED200813616 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				9F85282425920B06004454E6 /* Base Cell */,
 				9F12BD5525885F2400813616 /* ProductModelCell.swift */,
 				9F12BD5F2588634100813616 /* TabBarCell.swift */,
 				9FB025D32589F7F100D6715E /* MainProductModelCell.swift */,
@@ -238,6 +243,7 @@
 		9F3C778D2577BF3B0063E641 /* DebtProject */ = {
 			isa = PBXGroup;
 			children = (
+				9F85282D25921D3E004454E6 /* Helper */,
 				9F12BCF72585EBAF00813616 /* Model */,
 				9F6E6C52258282DD0082A94E /* View */,
 				9F6C4D822577F6020091BEA5 /* utils */,
@@ -275,7 +281,6 @@
 			children = (
 				9F80A0ED258A74D000EDE3D2 /* BaseController */,
 				9F3C77922577BF3B0063E641 /* LoginViewController.swift */,
-				9F3C77D92577E3240063E641 /* NetworkController.swift */,
 				9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */,
 				9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */,
 				9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */,
@@ -314,6 +319,23 @@
 				9FB025DD2589F93500D6715E /* BaseSideMenuViewController.swift */,
 			);
 			path = BaseController;
+			sourceTree = "<group>";
+		};
+		9F85282425920B06004454E6 /* Base Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9F85281F25920AFF004454E6 /* BaseTableViewCell.swift */,
+				9F85282525920B20004454E6 /* BaseCollectionViewCell.swift */,
+			);
+			path = "Base Cell";
+			sourceTree = "<group>";
+		};
+		9F85282D25921D3E004454E6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9F85282E25921D63004454E6 /* NetworkController.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		9FC9F0DF25822C5D004D20F7 /* Storyboards */ = {
@@ -523,9 +545,10 @@
 				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
 				9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */,
-				9F3C77DA2577E3240063E641 /* NetworkController.swift in Sources */,
 				9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */,
+				9F85282025920AFF004454E6 /* BaseTableViewCell.swift in Sources */,
 				9FB0FFBE2590838E00A02A44 /* PickerViewController.swift in Sources */,
+				9F85282F25921D63004454E6 /* NetworkController.swift in Sources */,
 				9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */,
 				9F3F2D5A258B103F00E156A8 /* CardView.swift in Sources */,
 				9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */,
@@ -535,6 +558,7 @@
 				9F3F2D75258B560900E156A8 /* PageTableViewCell.swift in Sources */,
 				9F6C4D842577F6110091BEA5 /* Global.swift in Sources */,
 				9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */,
+				9F85282625920B20004454E6 /* BaseCollectionViewCell.swift in Sources */,
 				9F852816259195F0004454E6 /* Box.swift in Sources */,
 				9F12BD132586177500813616 /* SideMenuListModel.swift in Sources */,
 				9F12BCCE2584B19700813616 /* TabBar.swift in Sources */,

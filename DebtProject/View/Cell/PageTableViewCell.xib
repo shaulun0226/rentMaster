@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +26,7 @@
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Adr-ii-cKP">
                         <rect key="frame" x="0.0" y="67" width="414" height="258"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="card"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="GfV-tF-piD">
                             <size key="itemSize" width="200" height="255"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -70,7 +71,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="Adr-ii-cKP" secondAttribute="bottom" constant="20" id="y8j-I7-q8E"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" name="card"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Adr-ii-cKP" secondAttribute="trailing" id="2Ks-hF-4C2"/>
                 <constraint firstItem="Adr-ii-cKP" firstAttribute="leading" secondItem="Hgy-nm-d6p" secondAttribute="leading" id="kvR-bg-yNY"/>
@@ -83,4 +84,9 @@
             <point key="canvasLocation" x="-1270" y="59"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="card">
+            <color red="0.27843137254901962" green="0.27450980392156865" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

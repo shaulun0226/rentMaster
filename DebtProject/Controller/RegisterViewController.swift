@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterViewController: BaseViewController,UITextFieldDelegate {
-    
+    @IBOutlet weak var errorHint:UILabel!
     let border = CALayer();
     //設定每個label的tag代表順序
     @IBOutlet weak var tfEmail: UnderLineTextField! {
@@ -31,7 +31,6 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
             tfPasswordConfirm.delegate = self
         }
     }
-    @IBOutlet weak var btnRegisterConfirm: UIButton!
     @IBOutlet weak var tfPhone: UnderLineTextField!{
         didSet {
             tfPhone.tag = 4
@@ -45,6 +44,7 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
             tfName.layer.masksToBounds = true
         }
     }
+    @IBOutlet weak var btnRegisterConfirm: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定按鈕
@@ -53,18 +53,61 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
         tfPasswordConfirm.textColor = .white
         tfName.textColor = .white
         tfPhone.textColor = .white
+        //設定hint
+        errorHint.leftAnchor.constraint(equalToSystemSpacingAfter: self.view.leftAnchor, multiplier: 0).isActive = true
         //        btnRegisterConfirm.backgroundColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1);
         // Do any additional setup after loading the view.
     }
     
- //設定按下return 自動跳到下一格，因為自定義textField的關係兩邊都需要實現UITextFieldDelegate，所以沒辦法用
- func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-     if let nextTextField = view.viewWithTag(textField.tag + 1) {
-         textField.resignFirstResponder()
-         nextTextField.becomeFirstResponder()
-     }
-     return true
- }
+    //設定按下return 自動跳到下一格，因為自定義textField的關係兩邊都需要實現UITextFieldDelegate，所以沒辦法用
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextTextField = view.viewWithTag(textField.tag + 1) {
+            textField.resignFirstResponder()
+            nextTextField.becomeFirstResponder()
+        }
+        return true
+    }
+    func emptyCheck()-> Bool{
+        if(tfEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfPasswordConfirm.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfName.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+            return false;
+        }
+        return true;
+    }
+    @IBAction func confirmOnClick(_ sender: Any) {
+        if(!emptyCheck()){
+            errorHint.textColor = .red;
+            errorHint.text = "請確認資料是否輸入完整";
+            return;
+        }
+        let email = tfEmail.text!
+        let password = tfPassword.text!
+        let passwordConfirm = tfPasswordConfirm.text!
+        let name = tfName.text!
+        let phone = tfPhone.text!
+        if(!password.elementsEqual(passwordConfirm)){
+            errorHint.textColor = .red;
+            errorHint.text = "請確認密碼是否相符";
+        }
+        NetworkController.instance().register(email: email, password: password, name: name, phone: phone) { (Bool) in
+            if(Bool){
+                let controller = UIAlertController(title: "註冊成功！", message: "註冊成功！", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                controller.addAction(okAction)
+                self.present(controller, animated: true, completion: nil)
+            }else{
+                
+                let controller = UIAlertController(title: "註冊失敗！", message: "註冊失敗！", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                controller.addAction(okAction)
+                self.present(controller, animated: true, completion: nil)
+            }
+        }
+        
+    }
     //設定註冊成功跳出alert提示
     
     /*

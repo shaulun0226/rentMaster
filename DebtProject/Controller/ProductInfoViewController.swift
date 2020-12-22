@@ -58,18 +58,6 @@ class ProductInfoViewController: BaseViewController {
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,8 +77,6 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
             cell.lbMainPageHint.isHidden = true
             //設定cell內容
             cell.products = ProductModel.defaultGameLists
-            let layer = Global.setBackgroundColor(view)
-            cell.layer.insertSublayer(layer, at: 0)
             return cell;
         }
         return UITableViewCell()
