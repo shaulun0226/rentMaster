@@ -44,13 +44,15 @@ class MainPageTableViewCell: UITableViewCell {
         
         
         layer.cornerRadius = cornerRadius
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         //
         //            layer.masksToBounds = false//超過框線的地方會被裁掉
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
+//        //設定陰影
+//        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+//        layer.shadowColor = shadowColor?.cgColor
+//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+//        layer.shadowOpacity = shadowOpacity
+//        layer.shadowPath = shadowPath.cgPath
+        //設定外框線
         //            layer.borderWidth = 1.0
         //            layer.borderColor = UIColor.black.cgColor
     }

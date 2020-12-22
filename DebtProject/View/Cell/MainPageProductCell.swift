@@ -15,8 +15,8 @@ class MainPageProductCell: UICollectionViewCell {
     @IBOutlet weak var lbPrice: UILabel!
     func configure(with model: ProductModel) {
         self.lbTitle.text = model.name
-        self.lbPrice.text = String(model.money)
+        self.lbPrice.text = String(model.price)
         self.imgGame.image = UIImage(named: model.imgUrl)
-        self.lbstate.text = model.house
+        self.lbstate.text = model.discription
     }
 }

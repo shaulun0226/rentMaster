@@ -11,6 +11,7 @@ class ProductModelCell: UITableViewCell {
     @IBOutlet weak var img:UIImageView!
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbPrice :UILabel!
+    @IBOutlet weak var lbDiscription:UILabel!
     
     var cornerRadius: CGFloat = 20
     var shadowOffsetWidth: Int = 1
@@ -46,19 +47,21 @@ class ProductModelCell: UITableViewCell {
         layer.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1).cgColor
 //
         layer.cornerRadius = cornerRadius
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        layer.masksToBounds = false
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
+        //設定陰影
+//        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+//        layer.masksToBounds = false
+//        layer.shadowColor = shadowColor?.cgColor
+//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+//        layer.shadowOpacity = shadowOpacity
+//        layer.shadowPath = shadowPath.cgPath
 //        設定框線
 //        layer.borderWidth = 1.0
 //        layer.borderColor = UIColor.black.cgColor
     }
     func configure(with model: ProductModel) {
         self.lbName.text = model.name
-        self.lbPrice.text = String(model.money)
+        self.lbDiscription.text = model.discription
+        self.lbPrice.text = String(model.price)
         self.img.image = UIImage(named: model.imgUrl)
         //        let url = model.img
         //        let url = URL(string: "\(model.imgUrl)")

@@ -32,6 +32,10 @@
 		9F6C4D842577F6110091BEA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D832577F6110091BEA5 /* Global.swift */; };
 		9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C532582831D0082A94E /* UnderLineTextField.swift */; };
 		9F6E6C61258316820082A94E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */; };
+		9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8528082591915B004454E6 /* NotifyModelCell.swift */; };
+		9F85280E25919173004454E6 /* NotifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85280D25919173004454E6 /* NotifyModel.swift */; };
+		9F852816259195F0004454E6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F852815259195F0004454E6 /* Box.swift */; };
+		9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85281A25919687004454E6 /* NotifyViewController.swift */; };
 		9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */; };
 		9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D57258F059E0030A175 /* AddProductViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
@@ -100,6 +104,10 @@
 		9F6C4D832577F6110091BEA5 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9F6E6C532582831D0082A94E /* UnderLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
 		9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		9F8528082591915B004454E6 /* NotifyModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModelCell.swift; sourceTree = "<group>"; };
+		9F85280D25919173004454E6 /* NotifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModel.swift; sourceTree = "<group>"; };
+		9F852815259195F0004454E6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		9F85281A25919687004454E6 /* NotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyViewController.swift; sourceTree = "<group>"; };
 		9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F877D57258F059E0030A175 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
@@ -178,6 +186,7 @@
 				9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */,
 				9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */,
 				9FB0FF86258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift */,
+				9F8528082591915B004454E6 /* NotifyModelCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 			children = (
 				9F12BCF82585EBC900813616 /* ProductModel.swift */,
 				9F12BD122586177500813616 /* SideMenuListModel.swift */,
+				9F85280D25919173004454E6 /* NotifyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -274,6 +284,7 @@
 				9FB025D82589F84C00D6715E /* MainPageViewController.swift */,
 				9F877D57258F059E0030A175 /* AddProductViewController.swift */,
 				9FB0FFBD2590838E00A02A44 /* PickerViewController.swift */,
+				9F85281A25919687004454E6 /* NotifyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				9F6C4D832577F6110091BEA5 /* Global.swift */,
+				9F852815259195F0004454E6 /* Box.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -500,6 +512,7 @@
 				9F12BD602588634100813616 /* TabBarCell.swift in Sources */,
 				9F972593257FA02B00EF310D /* DesignableView.swift in Sources */,
 				9FB025DE2589F93500D6715E /* BaseSideMenuViewController.swift in Sources */,
+				9F85280E25919173004454E6 /* NotifyModel.swift in Sources */,
 				9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */,
 				9FB025D42589F7F100D6715E /* MainProductModelCell.swift in Sources */,
 				9FB025E3258A0D3F00D6715E /* MainPageProductCell.swift in Sources */,
@@ -509,6 +522,7 @@
 				9F3F2D7C258B563400E156A8 /* PageCollectionViewCell.swift in Sources */,
 				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
+				9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */,
 				9F3C77DA2577E3240063E641 /* NetworkController.swift in Sources */,
 				9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */,
 				9FB0FFBE2590838E00A02A44 /* PickerViewController.swift in Sources */,
@@ -521,9 +535,11 @@
 				9F3F2D75258B560900E156A8 /* PageTableViewCell.swift in Sources */,
 				9F6C4D842577F6110091BEA5 /* Global.swift in Sources */,
 				9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */,
+				9F852816259195F0004454E6 /* Box.swift in Sources */,
 				9F12BD132586177500813616 /* SideMenuListModel.swift in Sources */,
 				9F12BCCE2584B19700813616 /* TabBar.swift in Sources */,
 				9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */,
+				9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */,
 				9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

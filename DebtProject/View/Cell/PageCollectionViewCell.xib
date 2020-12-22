@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1m-lc-YfV">
                         <rect key="frame" x="0.0" y="0.0" width="198" height="258"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="monsterhunter2" translatesAutoresizingMaskIntoConstraints="NO" id="ni4-uy-98T">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="monsterhunter2" translatesAutoresizingMaskIntoConstraints="NO" id="ni4-uy-98T">
                                 <rect key="frame" x="8" y="8" width="182" height="182"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ni4-uy-98T" secondAttribute="height" multiplier="1:1" id="xzz-Yi-Hkx"/>
@@ -55,6 +55,8 @@
                             <constraint firstItem="ni4-uy-98T" firstAttribute="top" secondItem="I1m-lc-YfV" secondAttribute="top" constant="8" id="GF3-SO-Tdp"/>
                             <constraint firstAttribute="bottom" secondItem="gqZ-rT-LEw" secondAttribute="bottom" constant="2" id="GwS-mU-7Ek"/>
                             <constraint firstItem="6L1-cp-5YP" firstAttribute="trailing" secondItem="ni4-uy-98T" secondAttribute="trailing" id="IQA-1j-azJ"/>
+                            <constraint firstAttribute="trailing" secondItem="6L1-cp-5YP" secondAttribute="trailing" constant="8" id="aKK-uS-fpO"/>
+                            <constraint firstItem="6L1-cp-5YP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gqZ-rT-LEw" secondAttribute="trailing" constant="5" id="nyJ-JI-aWl"/>
                             <constraint firstItem="Ho4-9B-M58" firstAttribute="leading" secondItem="gqZ-rT-LEw" secondAttribute="leading" id="nyd-do-BEf"/>
                             <constraint firstItem="ni4-uy-98T" firstAttribute="leading" secondItem="I1m-lc-YfV" secondAttribute="leading" constant="8" id="rZN-h8-JMe"/>
                             <constraint firstItem="Ho4-9B-M58" firstAttribute="top" secondItem="ni4-uy-98T" secondAttribute="bottom" constant="8" symbolic="YES" id="uzq-J3-wsw"/>

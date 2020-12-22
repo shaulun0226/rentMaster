@@ -11,26 +11,26 @@ import SideMenu
 class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate {
     
     var menu :SideMenuNavigationController?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setMenu()
         //設定左邊button
         let btnSideMenu = UIButton(type: UIButton.ButtonType.custom)
-//        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+        //        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.setBackgroundImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchDragInside)
         btnSideMenu.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊cart button
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
-//        btnCart.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+        //        btnCart.setImage(UIImage(systemName: "cart.fill"), for: .normal)
         
         btnCart.setBackgroundImage(UIImage(systemName: "cart.fill"), for: .normal)
         btnCart.addTarget(self, action:#selector(didTapCart), for: .touchDragInside)
         btnCart.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊ring button
         let btnNotify = UIButton(type: UIButton.ButtonType.custom)
-//        btnNotify.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        //        btnNotify.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         btnNotify.setBackgroundImage(UIImage(systemName: "bell.fill"), for: .normal)
         btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchDragInside)
         btnNotify.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
@@ -45,20 +45,39 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         let rightNotifyButton = UIBarButtonItem(customView: btnNotify)
         self.navigationItem.rightBarButtonItems = [rightNotifyButton,rightCartButton]
         // Do any additional setup after loading the view.
+        self.modalPresentationStyle = UIModalPresentationStyle.popover
     }
     @objc func didTapMenu() {
-            present(menu!, animated: true)
-     }
+        present(menu!, animated: true)
+    }
     @objc func didTapCart() {
         //尚未設定跳至何頁
-//            present(menu!, animated: true)
+        //            present(menu!, animated: true)
         
-     }
+    }
     @objc func didTapNotify() {
-        //尚未設定跳至何頁
-//            present(menu!, animated: true)
-        
-     }
+        //設定popover
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let popoverController = storyboard.instantiateViewController(withIdentifier: "NotifyViewController") as? NotifyViewController {
+            //設定popoverview backgroundColor
+            let layer = Global.setBackgroundColor(view);
+            popoverController.view.layer.insertSublayer(layer, at: 0)
+            //設定以 popover 的效果跳轉
+            popoverController.modalPresentationStyle = .popover
+            //設定popover的來源視圖
+            popoverController.popoverPresentationController?.sourceView = self.view
+            //下面註解掉的這行可以指定箭頭指的座標
+//            popoverController.popoverPresentationController?.sourceRect = buttonFrame
+            popoverController.popoverPresentationController?.delegate = self
+            //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
+            popoverController.popoverPresentationController?.permittedArrowDirections = .up
+            popoverController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+            //設定popover視窗大小
+            popoverController.preferredContentSize = CGSize(width: 350, height: 500)
+            //跳轉頁面
+            present(popoverController, animated: true, completion: nil)
+          }
+    }
     
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
         //關閉抽屜
@@ -66,7 +85,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
         //設定畫面title的文字
         let selectedItem = itemNamed.rawValue
-//        let selectedTitle = titleNamed.rawValue
+        //        let selectedTitle = titleNamed.rawValue
         //設定換頁
         var view = UIViewController()
         switch itemNamed {
@@ -74,14 +93,14 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
                 vcMain.btnAddIsHidden = false
-                    vcMain.slider.backgroundColor = .white
+                vcMain.slider.backgroundColor = .white
                 vcMain.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
                 view = vcMain
             }
         case .home:
-                if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
-                    view = vcMain
-                }
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+                view = vcMain
+            }
         case .ps4:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .blue
@@ -114,7 +133,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 view = vcMain
             }
         }
-//        view.title = selectedItem
+        //        view.title = selectedItem
         view.title = selectedItem
         self.show(view, sender: nil);
         
@@ -154,17 +173,11 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //設定左邊抽屜為menu
         SideMenuManager.default.leftMenuNavigationController = menu
     }
-//    @IBAction func didTapMenu(){
-//        present(menu!, animated: true)
-//    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+extension BaseSideMenuViewController : UIPopoverPresentationControllerDelegate{
+    //如果是iphone的話不會讓popover變成全螢幕
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+

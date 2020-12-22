@@ -68,6 +68,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             cell.lbMainPageHint.text = "查看更多 >"
             //設定cell內容
             cell.products = ProductModel.defaultGameLists
+            //設定cell背景顏色
             let layer = Global.setBackgroundColor(view)
             cell.layer.insertSublayer(layer, at: 0)
             return cell;
@@ -108,7 +109,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "桌遊"
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
-            vcMain.slider.backgroundColor = .blue
+            vcMain.slider.backgroundColor = .orange
         self.show(vcMain, sender: nil);
         }
     }

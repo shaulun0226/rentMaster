@@ -42,8 +42,8 @@ class ProductListController: BaseSideMenuViewController{
         setupSlider()
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: 90, height: 10)
-        self.slider.center.y = collectview.bounds.maxY-3
+        self.slider.frame.size = CGSize(width: 90, height: 3)
+        self.slider.center.y = collectview.bounds.maxY-8
         collectview.addSubview(slider)
         collectionView(collectview, didSelectItemAt:[0,0])
     }
@@ -114,5 +114,8 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductInfoView");
         self.show(vcMain!, sender: nil);
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        250
     }
 }

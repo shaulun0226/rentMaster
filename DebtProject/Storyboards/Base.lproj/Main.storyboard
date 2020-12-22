@@ -978,6 +978,66 @@
             </objects>
             <point key="canvasLocation" x="-1907" y="402"/>
         </scene>
+        <!--Notify View Controller-->
+        <scene sceneID="htm-8W-1nc">
+            <objects>
+                <viewController storyboardIdentifier="NotifyViewController" id="ggM-xF-xuU" customClass="NotifyViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MpJ-gu-7pk">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ITC-j0-t5Y">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotifyModelCell" rowHeight="50" id="b9G-Um-NhS" customClass="NotifyModelCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="400" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b9G-Um-NhS" id="hkp-hz-mz1">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCs-yZ-yQH">
+                                                    <rect key="frame" x="32" y="15" width="48" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DCs-yZ-yQH" secondAttribute="trailing" constant="10" id="BHn-nX-k3Z"/>
+                                                <constraint firstItem="DCs-yZ-yQH" firstAttribute="leading" secondItem="hkp-hz-mz1" secondAttribute="leading" constant="32" id="JR5-AQ-iuP"/>
+                                                <constraint firstItem="DCs-yZ-yQH" firstAttribute="top" secondItem="hkp-hz-mz1" secondAttribute="top" constant="15" id="i2U-sc-QDz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="lbNotify" destination="DCs-yZ-yQH" id="V7K-2T-qN0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hGs-87-acf"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hGs-87-acf" firstAttribute="bottom" secondItem="ITC-j0-t5Y" secondAttribute="bottom" id="ZcF-mM-70W"/>
+                            <constraint firstItem="ITC-j0-t5Y" firstAttribute="leading" secondItem="hGs-87-acf" secondAttribute="leading" id="dyW-7a-IPf"/>
+                            <constraint firstItem="ITC-j0-t5Y" firstAttribute="top" secondItem="hGs-87-acf" secondAttribute="top" id="oWg-gT-tKt"/>
+                            <constraint firstItem="hGs-87-acf" firstAttribute="trailing" secondItem="ITC-j0-t5Y" secondAttribute="trailing" id="ygq-Al-uMQ"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="600"/>
+                    <size key="freeformSize" width="400" height="600"/>
+                    <connections>
+                        <outlet property="notifyTableView" destination="ITC-j0-t5Y" id="Wl1-6U-2xP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JfT-tp-k90" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-270" y="457"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="grw-fa-Nia">
             <objects>

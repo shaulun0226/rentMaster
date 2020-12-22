@@ -30,6 +30,9 @@ class AddProductViewController: BaseViewController {
     var currentButton:UIButton!
     let popoverViewHeight = CGFloat(256)
     var selectedAssets = [TLPHAsset]()
+    var location:String?
+    var host:String?
+    var type:String?
     
     @IBAction func doneClick(_ sender: Any) {
         let title  = list[pickerView.selectedRow(inComponent: 0)]
@@ -50,7 +53,7 @@ class AddProductViewController: BaseViewController {
         
         currentButton = btnProductHost
         list.removeAll()
-        list = ["PS5","PS4","Xbox One","Xbox Series"]
+        list = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
         pickerView.reloadAllComponents()
         displayPicker(true)
     }
