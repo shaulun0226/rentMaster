@@ -44,8 +44,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         let rightCartButton = UIBarButtonItem(customView: btnCart)
         let rightNotifyButton = UIBarButtonItem(customView: btnNotify)
         self.navigationItem.rightBarButtonItems = [rightNotifyButton,rightCartButton]
-        // Do any additional setup after loading the view.
-        self.modalPresentationStyle = UIModalPresentationStyle.popover
     }
     @objc func didTapMenu() {
         present(menu!, animated: true)
@@ -104,31 +102,35 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         case .ps4:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .blue
+                vcMain.productType1 = "PS4"
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .ps5:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .blue
-                
+                vcMain.productType1 = "PS5"
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .xbox:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .green
+                vcMain.productType1 = "XBOX"
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .one:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .green
+                vcMain.productType1 = "XBOX ONE"
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .Switch:
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .red
+                vcMain.productType1 = "SWITCH"
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }

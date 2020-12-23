@@ -13,10 +13,10 @@ class PageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lbState: UILabel!
     @IBOutlet weak var lbPrice: UILabel!
     func configure(with model: ProductModel) {
-        self.lbTitle.text = model.name
-        self.lbPrice.text = String(model.price)
-        self.imgGame.image = UIImage(named: model.imgUrl)
-        self.lbState.text = model.discription
+        self.lbTitle.text = model.title
+        self.lbPrice.text = String(model.salePrice)
+        self.imgGame.image = UIImage(named: model.pics[0])
+        self.lbState.text = model.description
     }
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -59,10 +59,14 @@ class ProductModelCell: UITableViewCell {
 //        layer.borderColor = UIColor.black.cgColor
     }
     func configure(with model: ProductModel) {
-        self.lbName.text = model.name
-        self.lbDiscription.text = model.discription
-        self.lbPrice.text = String(model.price)
-        self.img.image = UIImage(named: model.imgUrl)
+        self.lbName.text = model.title
+        self.lbDiscription.text = model.description
+        self.lbPrice.text = String(model.salePrice)
+        if model.pics.count == 0 {
+            self.img.image = UIImage(named: "monsterhunter")
+            return
+        }
+        self.img.image = UIImage(named: model.pics[0])
         //        let url = model.img
         //        let url = URL(string: "\(model.imgUrl)")
         //

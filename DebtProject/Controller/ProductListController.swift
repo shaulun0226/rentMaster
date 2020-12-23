@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SideMenu
+import SwiftyJSON
 
 class ProductListController: BaseSideMenuViewController{
     @IBOutlet weak var collectview: UICollectionView!
@@ -19,9 +19,49 @@ class ProductListController: BaseSideMenuViewController{
     var products = [ProductModel]()
     //collectionview底線
     var slider = UIView()
+    var productType1:String?
+    var productType2:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard productType1 != nil else {
+            print("productType is nil")
+            return
+        }
+        NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
+            guard let weakSelf = self else {return}
+            if(isSuccess){
+                let jsonArr = JSON(value)
+                print("解析\(jsonArr)")
+                print(jsonArr.type)
+                for index in 0..<jsonArr.count{
+                    print("inter進迴圈")
+                    let title = jsonArr[index]["title"].string!
+                    print("title是\(title)")
+                    let description = jsonArr[index]["description"].string!
+                    let isSale = jsonArr[index]["isSale"].bool!
+                    let isRent = jsonArr[index]["isRent"].bool!
+                    let deposit = jsonArr[index]["deposit"].int!
+                    let rent = jsonArr[index]["rent"].int!
+                    let salePrice = jsonArr[index]["salePrice"].int!
+                    let rentMethod = jsonArr[index]["rentMethod"].string!
+                    let amount = jsonArr[index]["amount"].int!
+                    let type1 = jsonArr[index]["type1"].string!
+                    let type2 = jsonArr[index]["type2"].string!
+                    let userId = jsonArr[index]["userId"].string!
+                    let picsArr = jsonArr[index]["pics"].array!
+                    var pics = [String]()
+                    for index in 0..<picsArr.count{
+                        pics.append(picsArr[index][""].string ?? "")
+                    }
+                    weakSelf.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type1: type1, type2: type2, userId: userId, pics:pics))
+                }
+                weakSelf.tableview.reloadData()
+                weakSelf.collectview.reloadData()
+            }else{
+                weakSelf.products = ProductModel.defaultGameLists
+            }
+        }
         setupSlider()
         //設定背景顏色
         //        layer = Global.setBackgroundColor(view);
@@ -34,7 +74,7 @@ class ProductListController: BaseSideMenuViewController{
         tableview.dataSource = self
         collectview.delegate = self
         collectview.dataSource = self
-        products = ProductModel.defaultGameLists
+        print("？？？？？？？物件數量\(self.products.count)")
         //設定按鈕
         (btnAddIsHidden) ?(btnAdd.isHidden = true):(btnAdd.isHidden = false)
     }
@@ -86,18 +126,57 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
             products.removeAll()
-            let productType = buttonText[indexPath.row]
-            switch productType {
+            let selectedProductType = buttonText[indexPath.row]
+            switch selectedProductType {
+            case "所有":
+                productType2 = "all"
             case "主機":
-                products = ProductModel.defaultHostLists
+                productType2 = "host"
             case "周邊":
-                products = ProductModel.defaultMerchLists
+                productType2 = "other"
             case "遊戲":
-                products = ProductModel.defaultGameLists
+                productType2 = "game"
             default:
                 products = ProductModel.defaultGameLists
             }
+            print(productType1!)
+            print(productType2!)
+            productType1 = "xbox"
+            productType2 = "other"
+            NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: 1, pageEnd: 5) {
+                [weak self](value, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(value)
+                    print(jsonArr.type)
+                    for index in 0..<jsonArr.count{
+                        let title = jsonArr[index]["title"].string!
+                        let description = jsonArr[index]["description"].string!
+                        let isSale = jsonArr[index]["isSale"].bool!
+                        let isRent = jsonArr[index]["isRent"].bool!
+                        let deposit = jsonArr[index]["deposit"].int!
+                        let rent = jsonArr[index]["rent"].int!
+                        let salePrice = jsonArr[index]["salePrice"].int!
+                        let rentMethod = jsonArr[index]["rentMethod"].string!
+                        let amount = jsonArr[index]["amount"].int!
+                        let type1 = jsonArr[index]["type1"].string!
+                        let type2 = jsonArr[index]["type2"].string!
+                        let userId = jsonArr[index]["userId"].string!
+                        let picsArr = jsonArr[index]["pics"].array!
+                        var pics = [String]()
+                        for index in 0..<picsArr.count{
+                            pics.append(picsArr[index][""].string ?? "")
+                        }
+                        weakSelf.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type1: type1, type2: type2, userId: userId, pics:pics))
+                    }
+                    weakSelf.tableview.reloadData()
+                    weakSelf.collectview.reloadData()
+                }else{
+                    weakSelf.products = ProductModel.defaultHostLists
+                }
+            }
             tableview.reloadData()
+            collectview.reloadData()
         }
     }
 }

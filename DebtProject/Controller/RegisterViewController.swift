@@ -92,18 +92,21 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
             errorHint.textColor = .red;
             errorHint.text = "請確認密碼是否相符";
         }
-        NetworkController.instance().register(email: email, password: password, name: name, phone: phone) { (Bool) in
-            if(Bool){
+        NetworkController.instance().register(email: email, password: password, name: name, phone: phone) {
+            [weak self] (isSuccess) in
+            // 如果此 weakSelf 賦值失敗，就 return
+            guard let weakSelf = self else {return}
+            if(isSuccess){
                 let controller = UIAlertController(title: "註冊成功！", message: "註冊成功！", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "確定", style: .default)
                 controller.addAction(okAction)
-                self.present(controller, animated: true, completion: nil)
+                weakSelf.present(controller, animated: true, completion: nil)
             }else{
                 
                 let controller = UIAlertController(title: "註冊失敗！", message: "註冊失敗！", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "確定", style: .default)
                 controller.addAction(okAction)
-                self.present(controller, animated: true, completion: nil)
+                weakSelf.present(controller, animated: true, completion: nil)
             }
         }
         

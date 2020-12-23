@@ -22,24 +22,24 @@ class LoginViewController: BaseViewController {
         errorHint.leftAnchor.constraint(equalToSystemSpacingAfter: self.view.leftAnchor, multiplier: 0).isActive = true
         //設定提示字顏色
         self.tfAccount.attributedPlaceholder = NSAttributedString(string:
-            "Account", attributes:
-                [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+                                                                    "Account", attributes:
+                                                                        [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
         self.tfPassword.attributedPlaceholder = NSAttributedString(string:
-            "Password", attributes:
-                [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+                                                                    "Password", attributes:
+                                                                        [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
         tfAccount.textColor = .white
         tfPassword.textColor = .white
-//        btnLogin.backgroundColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1)
+        //        btnLogin.backgroundColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1)
     }
     func verify()-> Bool{
         if(tfAccount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
-           tfPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
-
+            tfPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+            
             return false;
         }
         return true;
     }
-
+    
     struct Post: Codable{
         let userId: Int
         let id: Int
@@ -47,55 +47,46 @@ class LoginViewController: BaseViewController {
         let body: String
     }
     @IBAction func loginOnClick(_ sender: Any) {
-        //切換畫面
-        let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
-        if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
-            self.show(vcMain, sender: LoginViewController.self);
-        }
-//        let body: [String : Any] = ["title": "foo",
-//                                    "body": "bar",
-//                                    "userId": 1]
-//        NetworkController(data: body, url: nil, service: .posts, method: .post).executeQuery(){
-//            (result: Result<Post,Error>) in
-//            switch result{
-//            case .success(let post):
-//                print(post)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        
+        
         if(!verify()){
             errorHint.textColor = .red;
             errorHint.text = "請輸入帳號和密碼";
             return;
         }
-        let account =  tfAccount.text!;
+        let email =  tfAccount.text!;
         let password = tfPassword.text!;
-
-        let parameters: [String: String] = [
-            "account": account,
-            "password": password,
-        ];
-        AF.request(Global.URL+"/user/login",method: .post,parameters: parameters)
-            .responseJSON { (response) in
-                switch response.result {
-                case .success(let value):
-                    if let JSON = value as? [String: Any] {
-                        let errorCode = JSON["errorCode"] as! Int
-                        if(errorCode==200){
-                        let vcMain = self.storyboard?.instantiateViewController(identifier: "MainPageViewController");
-                        self.show(vcMain!, sender: LoginViewController.self);
-                        }
-                        print(errorCode)
+        
+        if(Global.isOnline){
+            NetworkController.instance().login(email: email, password: password) {
+                
+                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
+                [weak self]
+                (value,isSuccess)  in
+                // 如果此 weakSelf 賦值失敗，就 return
+                guard let weakSelf = self else {return}
+            
+                if(isSuccess){
+                    Global.token = value as? String//怪怪的
+                    print(Global.token ?? "??????")
+                    let storyboard = UIStoryboard(name: "Product", bundle: nil)
+                    if let vcMain = storyboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+                        weakSelf.show(vcMain, sender: LoginViewController.self);
                     }
-                case .failure(let error):
-                    print(error);
-                    break
-                // error handling
+                }else{
+                    let controller = UIAlertController(title: "登入失敗！", message: "登入失敗！", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .default)
+                    controller.addAction(okAction)
+                    weakSelf.present(controller, animated: true, completion: nil)
                 }
-
-            };
+            }
+        }else{
+            //切換畫面
+            let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+                self.show(vcMain, sender: LoginViewController.self);
+            }
+        }
     }
-
+    
 }
-

@@ -7,6 +7,8 @@
 import UIKit
 import Foundation
 class Global{
+    static var isOnline = false
+    static var token:String? = "";
     static let URL:String = "http://35.184.167.119:3000/api";
     static let BACKGROUND_COLOR = [UIColor(named: "GradientBegin")?.cgColor
                                    ,UIColor(named: "GradientEnd")?.cgColor] ;

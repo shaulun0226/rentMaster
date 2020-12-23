@@ -8,54 +8,34 @@
 import Foundation
 
 struct ProductModel {
-    var name:String
-    var discription:String
-    var price:Int
-    var date:String
-    var imgUrl:String
+    var title:String
+    var description:String
+    var isSale:Bool
+    var isRent:Bool
+    var deposit:Int
+    var rent:Int
+    var salePrice:Int
+    var rentMethod:String
+    var amount:Int
+    var type1:String
+    var type2:String
+    var userId:String
+    var pics:[String]
 }
 extension ProductModel{
     static var defaultGameLists:[ProductModel] = [
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter2"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter2"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter2"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "monsterhunter"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 555, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 777, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg"),
-        ProductModel.init(name: "MonsterHunter", discription: "派對遊戲，便宜租", price: 666, date: "2020-12-12", imgUrl: "https://storage.googleapis.com/gold-bruin-237907.appspot.com/1590032783606-f11c50ab-b5db-45d5-a6d1-969da850cfc3.jpg")]
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 999, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 999, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 999, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 999, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 666, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter2"]),
+        ProductModel.init(title: "MonsterHunter2", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 666, rentMethod: "全家店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter2"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 666, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter2"]),
+        ProductModel.init(title: "MonsterHunter", description: "便宜租", isSale: true, isRent: true, deposit: 500, rent: 10, salePrice: 666, rentMethod: "7-11店到店", amount: 1, type1: "PS4", type2: "game", userId: "08d8a57d-545d-483e-8ed4-db1b4a16d82a", pics: ["monsterhunter2"]),
+        ]
     static var defaultHostLists:[ProductModel] = [
-        ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),
-        ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),ProductModel.init(name: "PS5", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps5"),
-        ProductModel.init(name: "PS4", discription: "主機", price: 555, date: "2020-12-12", imgUrl: "ps4"),ProductModel.init(name: "PS5", discription: "信義", price: 555, date: "2020-12-12", imgUrl: "ps5"),
+        
         ]
     static var defaultMerchLists:[ProductModel] = [
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller"),
-        ProductModel.init(name: "PS5搖桿", discription: "PS5搖桿", price: 555, date: "2020-12-12", imgUrl: "ps5Controller"),
-        ProductModel.init(name: "PS4搖桿", discription: "PS4搖桿", price: 555, date: "2020-12-12", imgUrl: "ps4Controller")]
+        ]
 }
