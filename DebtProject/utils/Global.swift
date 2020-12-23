@@ -6,6 +6,24 @@
 //
 import UIKit
 import Foundation
+enum Storyboard:String, CaseIterable {
+    case main = "Main"
+    case product = "Product"
+}
+enum MainStoryboardController:String, CaseIterable{
+    case login = "loginView"
+    case forgotPasswordViewController = "ForgotPasswordViewController"
+    case registerViewController = "RegisterViewController"
+    case notifyViewController = "NotifyViewController"
+}
+enum ProductStoryboardController:String,CaseIterable{
+    case cartViewController = "CartViewController"
+    case productListController = "ProductListView"
+    case mainPageViewController = "MainPageViewController"
+    case productInfoViewController = "ProductInfoView"
+    case addProductViewController = "AddProductViewController"
+    case cartCellMenuViewController = "CartCellMenuViewController"
+}
 class Global{
     static var isOnline = false
     static var token:String? = "";

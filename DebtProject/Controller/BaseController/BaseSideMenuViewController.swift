@@ -51,12 +51,18 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     @objc func didTapCart() {
         //尚未設定跳至何頁
         //            present(menu!, animated: true)
+        let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
+        if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
+            view.cartProducts = ProductModel.defaultGameLists
+            view.title = "購物車"
+            self.show(view, sender: nil);
+        }
         
     }
     @objc func didTapNotify() {
         //設定popover
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let popoverController = storyboard.instantiateViewController(withIdentifier: "NotifyViewController") as? NotifyViewController {
+        let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
+        if let popoverController = storyboard.instantiateViewController(withIdentifier: MainStoryboardController.notifyViewController.rawValue) as? NotifyViewController {
             //設定popoverview backgroundColor
             let layer = Global.setBackgroundColor(view);
             popoverController.view.layer.insertSublayer(layer, at: 0)
@@ -80,7 +86,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
         //關閉抽屜
         menu?.dismiss(animated: true, completion: nil)
-        let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
+        let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         //設定畫面title的文字
         let selectedItem = itemNamed.rawValue
         //        let selectedTitle = titleNamed.rawValue
