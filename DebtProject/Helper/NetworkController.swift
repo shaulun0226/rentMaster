@@ -40,9 +40,9 @@ class NetworkController{
         let msg = json["msg"]
         print("error mag: \(msg)")
     }
-    func register(email:String,password:String,name:String,phone:String,completionHandler:@escaping (Bool) -> ()){
+    func register(email:String,verityCode:String,password:String,name:String,phone:String,completionHandler:@escaping (_ status :String,Bool) -> ()){
         let url = "\(serverUrl)/Users/register";
-        let parameters: Parameters = ["Email":email,"Password":password,"Name":name,"Phone":phone]
+        let parameters: Parameters = ["Email":email,"VerityCode":verityCode,"Password":password,"Name":name,"Phone":phone]
         AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: nil)
             .responseString{ response in
                 switch response.result {
@@ -52,23 +52,25 @@ class NetworkController{
                     print("連線成功")
                     //當響應成功時，使用臨時變數value接收伺服器返回的資訊並判斷是否為[String: AnyObject]型別，如果是那麼將其傳給定義方法中的success
                     if let status = response.response?.statusCode {
+                        print(status)
                         switch(status){
                         case 200:
                             //to get JSON return value
                             print("success")
                             print(value)
-                            completionHandler(true)
+                            completionHandler(value,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
-                            completionHandler(false)
+                            completionHandler(value,false)
                             break
                         }
                     }
                 case .failure(let error):
-                    print("error:\(error)")
-                    completionHandler(false)
-                    break
+                        print("error:\(error)")
+                    completionHandler(error.localizedDescription,false)
+                        break
+                    
                 }
             }
     }
@@ -159,51 +161,80 @@ class NetworkController{
                 }
             }
     }
-//     這裡傳入的匿名內部類 handler:@escaping (Bool) -> () 要是逃逸閉包，因為 AF.request 後面的閉包是逃逸閉包，只有逃逸閉包能在逃逸閉包裡使用
-//        func getNewestEpisodeList(userID:Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
-//            AF.request("\(serverUrl)PodcastRSS/GetNewestList?userId=\(userID)").responseJSON { (data) in
-//                switch data.result {
-//                case .success: // 連線成功時
-//                    let json = try! JSON(data: data.data!)
-//                    if(self.wrappingJSON(json: json)){
-//                        let jsonArr = json["msg"]
-//                        let showingPlaylist = ShowingPlaylist.instance()
-//                        showingPlaylist.clear()
-//                        for index in 0...jsonArr.count - 1 {
-//                            showingPlaylist.add(episode: Episode(id: jsonArr[index]["podcastRSSId"].int!, title: jsonArr[index]["title"].string!, author: jsonArr[index]["author"].string!, img: jsonArr[index]["imgLink"].string!, duration: jsonArr[index]["duration"].int!, pubDate: jsonArr[index]["pubdate"].string!, mp3: jsonArr[index]["mp3Link"].string!, desc: jsonArr[index]["description"].string!, timestamp: jsonArr[index]["timestamp"].int!, isCollect: jsonArr[index]["isCollect"].bool!, isToListen: jsonArr[index]["isToListen"].bool!))
-//                        }
-//                        PlayingPlaylist.instance().add(showingPlaylist: ShowingPlaylist.instance().getPlaylist())
-//                    }
-//                    handler(true)
-//                    break;
-//                case .failure: // 連線失敗時
-//                    handler(false)
-//                    break;
-//                }
-//            }
-//        }
-//    
-//        func getHashTagList( handler:@escaping (Bool) -> ()){
-//            AF.request("\(serverUrl)PodcastRSS/GetAllTag").responseJSON { (data) in
-//                switch data.result {
-//                case .success: // 連線成功時
-//                    let json = try! JSON(data: data.data!)
-//                    if(self.wrappingJSON(json: json)){
-//                        let jsonArr = json["msg"]
-//                        let hashtagList = HashtagList.instance()
-//    
-//                        for index in 0...jsonArr.count - 1 {
-//                            hashtagList.add(hashtag: Hashtag(name: jsonArr[index]["hashTag"].string!, hashtagID: jsonArr[index]["hashTagId"].int!))
-//                        }
-//                    }
-//                    handler(true)
-//                    break;
-//                case .failure: // 連線失敗時
-//                    handler(false)
-//                    break;
-//                }
-//            }
-//        }
+    func emailConfirm(email:String,completionHandler:@escaping (Bool) -> ()){
+        let parameters :Parameters = ["Email":email]
+        let url = "\(serverUrl)/Users/security/check";
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( false)
+                    break
+                }
+            }
+    }
+    //     這裡傳入的匿名內部類 handler:@escaping (Bool) -> () 要是逃逸閉包，因為 AF.request 後面的閉包是逃逸閉包，只有逃逸閉包能在逃逸閉包裡使用
+    //        func getNewestEpisodeList(userID:Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
+    //            AF.request("\(serverUrl)PodcastRSS/GetNewestList?userId=\(userID)").responseJSON { (data) in
+    //                switch data.result {
+    //                case .success: // 連線成功時
+    //                    let json = try! JSON(data: data.data!)
+    //                    if(self.wrappingJSON(json: json)){
+    //                        let jsonArr = json["msg"]
+    //                        let showingPlaylist = ShowingPlaylist.instance()
+    //                        showingPlaylist.clear()
+    //                        for index in 0...jsonArr.count - 1 {
+    //                            showingPlaylist.add(episode: Episode(id: jsonArr[index]["podcastRSSId"].int!, title: jsonArr[index]["title"].string!, author: jsonArr[index]["author"].string!, img: jsonArr[index]["imgLink"].string!, duration: jsonArr[index]["duration"].int!, pubDate: jsonArr[index]["pubdate"].string!, mp3: jsonArr[index]["mp3Link"].string!, desc: jsonArr[index]["description"].string!, timestamp: jsonArr[index]["timestamp"].int!, isCollect: jsonArr[index]["isCollect"].bool!, isToListen: jsonArr[index]["isToListen"].bool!))
+    //                        }
+    //                        PlayingPlaylist.instance().add(showingPlaylist: ShowingPlaylist.instance().getPlaylist())
+    //                    }
+    //                    handler(true)
+    //                    break;
+    //                case .failure: // 連線失敗時
+    //                    handler(false)
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //
+    //        func getHashTagList( handler:@escaping (Bool) -> ()){
+    //            AF.request("\(serverUrl)PodcastRSS/GetAllTag").responseJSON { (data) in
+    //                switch data.result {
+    //                case .success: // 連線成功時
+    //                    let json = try! JSON(data: data.data!)
+    //                    if(self.wrappingJSON(json: json)){
+    //                        let jsonArr = json["msg"]
+    //                        let hashtagList = HashtagList.instance()
+    //
+    //                        for index in 0...jsonArr.count - 1 {
+    //                            hashtagList.add(hashtag: Hashtag(name: jsonArr[index]["hashTag"].string!, hashtagID: jsonArr[index]["hashTagId"].int!))
+    //                        }
+    //                    }
+    //                    handler(true)
+    //                    break;
+    //                case .failure: // 連線失敗時
+    //                    handler(false)
+    //                    break;
+    //                }
+    //            }
+    //        }
     //
     //    func getHashTagEpisodeList(userID:Int, hashID: Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
     //        AF.request("\(serverUrl)PodcastRSS/GetTagList?userId=\(userID)&hashtagId=\(hashID)").responseJSON { (data) in

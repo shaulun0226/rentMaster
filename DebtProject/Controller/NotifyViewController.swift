@@ -19,7 +19,7 @@ class NotifyViewController: BaseViewController ,UITableViewDelegate,UITableViewD
         // Do any additional setup after loading the view.
         notifyTableView.delegate = self
         notifyTableView.dataSource = self
-        notifyTableView.backgroundColor = .darkGray
+        notifyTableView.backgroundColor = .clear
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,9 +31,10 @@ class NotifyViewController: BaseViewController ,UITableViewDelegate,UITableViewD
             cell.lbNotify.textColor = .white
             cell.lbNotify.text = notifyList[indexPath.row].title
             
-            //設定cell背景顏色
-            let layer = Global.setBackgroundColor(view)
-            cell.layer.insertSublayer(layer, at: 0)
+//            //設定cell背景顏色
+//            let layer = Global.setBackgroundColor(view)
+//            cell.layer.insertSublayer(layer, at: 0)
+            cell.backgroundColor = .darkGray
             return cell
         }
         return UITableViewCell()

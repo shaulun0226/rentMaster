@@ -13,8 +13,19 @@ class LoginViewController: BaseViewController {
     
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var errorHint: UILabel!
-    @IBOutlet weak var tfAccount: UnderLineTextField!
-    @IBOutlet weak var tfPassword: UnderLineTextField!
+    @IBOutlet weak var tfAccount: UnderLineTextField!{
+        didSet {
+            tfAccount.tag = 1
+            print("&7777777777")
+//            tfAccount.delegate = self
+        }
+    }
+    @IBOutlet weak var tfPassword: UnderLineTextField!{
+        didSet {
+            tfPassword.tag = 2
+//            tfPassword.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +40,6 @@ class LoginViewController: BaseViewController {
                                                                         [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
         tfAccount.textColor = .white
         tfPassword.textColor = .white
-        //        btnLogin.backgroundColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1)
     }
     func verify()-> Bool{
         if(tfAccount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||

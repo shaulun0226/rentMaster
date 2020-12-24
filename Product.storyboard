@@ -429,7 +429,7 @@
                                                         </constraints>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
                                                                 <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1137,10 +1137,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qvj-9T-kzb">
-                                <rect key="frame" x="0.0" y="119" width="250" height="30"/>
+                                <rect key="frame" x="20" y="140" width="210" height="30"/>
                                 <color key="backgroundColor" name="Button"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="刪除"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="deleteClick" destination="mDp-G6-4E2" eventType="touchUpInside" id="pSQ-zu-nDK"/>
                                 </connections>
@@ -1149,10 +1154,10 @@
                         <viewLayoutGuide key="safeArea" id="lwY-53-IUQ"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="lwY-53-IUQ" firstAttribute="bottom" secondItem="Qvj-9T-kzb" secondAttribute="bottom" constant="51" id="0Aq-0m-vgd"/>
-                            <constraint firstItem="Qvj-9T-kzb" firstAttribute="top" secondItem="lwY-53-IUQ" secondAttribute="top" constant="75" id="1fg-N6-UlC"/>
-                            <constraint firstItem="Qvj-9T-kzb" firstAttribute="leading" secondItem="lwY-53-IUQ" secondAttribute="leading" id="2gt-nz-vvo"/>
-                            <constraint firstItem="lwY-53-IUQ" firstAttribute="trailing" secondItem="Qvj-9T-kzb" secondAttribute="trailing" id="CBs-9a-Qxr"/>
+                            <constraint firstItem="Qvj-9T-kzb" firstAttribute="leading" secondItem="lwY-53-IUQ" secondAttribute="leading" constant="20" id="2gt-nz-vvo"/>
+                            <constraint firstItem="lwY-53-IUQ" firstAttribute="trailing" secondItem="Qvj-9T-kzb" secondAttribute="trailing" constant="20" id="CBs-9a-Qxr"/>
+                            <constraint firstItem="Qvj-9T-kzb" firstAttribute="height" secondItem="1Ua-qD-zuY" secondAttribute="height" multiplier="0.15" id="IX9-d5-tHj"/>
+                            <constraint firstItem="lwY-53-IUQ" firstAttribute="bottom" secondItem="Qvj-9T-kzb" secondAttribute="bottom" constant="30" id="mjO-KB-xtU"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="250" height="200"/>

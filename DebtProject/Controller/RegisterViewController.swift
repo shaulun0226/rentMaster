@@ -7,39 +7,45 @@
 
 import UIKit
 
-class RegisterViewController: BaseViewController,UITextFieldDelegate {
+class RegisterViewController: BaseViewController {
     @IBOutlet weak var errorHint:UILabel!
     let border = CALayer();
     //設定每個label的tag代表順序
+    @IBOutlet weak var btnEmailConfirm: UIButton!
     @IBOutlet weak var tfEmail: UnderLineTextField! {
         didSet {
             tfEmail.tag = 1
-            tfEmail.becomeFirstResponder()
-            tfEmail.delegate = self
+            tfEmail.underLineTextFieldDelegate = self
+        }
+    }
+    @IBOutlet weak var tfVerityCode: UnderLineTextField!{
+        didSet {
+            tfVerityCode.tag = 2
+            tfVerityCode.underLineTextFieldDelegate = self
         }
     }
     @IBOutlet weak var tfPassword: UnderLineTextField!{
         didSet {
-            tfPassword.tag = 2
-            tfPassword.delegate = self
+            tfPassword.tag = 3
+            tfPassword.underLineTextFieldDelegate = self
         }
     }
     
     @IBOutlet weak var tfPasswordConfirm: UnderLineTextField!{
         didSet {
-            tfPasswordConfirm.tag = 3
-            tfPasswordConfirm.delegate = self
+            tfPasswordConfirm.tag = 4
+            tfPasswordConfirm.underLineTextFieldDelegate = self
         }
     }
     @IBOutlet weak var tfPhone: UnderLineTextField!{
         didSet {
-            tfPhone.tag = 4
-            tfPhone.delegate = self
+            tfPhone.tag = 5
+            tfPhone.underLineTextFieldDelegate = self
         }
     }
     @IBOutlet weak var tfName: UnderLineTextField!{
         didSet {
-            tfName.tag = 5
+            tfName.tag = 6
             tfName.layer.cornerRadius = 5.0
             tfName.layer.masksToBounds = true
         }
@@ -60,15 +66,37 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
     }
     
     //設定按下return 自動跳到下一格，因為自定義textField的關係兩邊都需要實現UITextFieldDelegate，所以沒辦法用
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nextTextField = view.viewWithTag(textField.tag + 1) {
-            textField.resignFirstResponder()
-            nextTextField.becomeFirstResponder()
+    @IBAction func emailConfirmClick(_ sender: Any) {
+        if(!emailCheck()){
+            errorHint.textColor = .red;
+            errorHint.text = "請輸入Email";
+            return;
         }
-        return true
+        let email = tfEmail.text!
+        NetworkController.instance().emailConfirm(email: email) { [weak self](isSuccess) in
+            guard let weakSelf = self else {return}
+            if(isSuccess){
+                let controller = UIAlertController(title: "傳送！", message: "傳送！", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                controller.addAction(okAction)
+                weakSelf.present(controller, animated: true, completion: nil)
+            }else{
+                let controller = UIAlertController(title: "網路錯誤！", message: "網路錯誤！", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                controller.addAction(okAction)
+                weakSelf.present(controller, animated: true, completion: nil)
+            }
+        }
+    }
+    func emailCheck()->Bool{
+        if(tfEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+            return false;
+        }
+        return true;
     }
     func emptyCheck()-> Bool{
         if(tfEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfVerityCode.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfPasswordConfirm.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfName.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
@@ -84,6 +112,7 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
             return;
         }
         let email = tfEmail.text!
+        let verityCode = tfVerityCode.text!
         let password = tfPassword.text!
         let passwordConfirm = tfPasswordConfirm.text!
         let name = tfName.text!
@@ -92,18 +121,17 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
             errorHint.textColor = .red;
             errorHint.text = "請確認密碼是否相符";
         }
-        NetworkController.instance().register(email: email, password: password, name: name, phone: phone) {
-            [weak self] (isSuccess) in
+        NetworkController.instance().register(email: email,verityCode:verityCode, password: password, name: name, phone: phone) {
+            [weak self] (responseValue,isSuccess) in
             // 如果此 weakSelf 賦值失敗，就 return
             guard let weakSelf = self else {return}
             if(isSuccess){
-                let controller = UIAlertController(title: "註冊成功！", message: "註冊成功！", preferredStyle: .alert)
+                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "確定", style: .default)
                 controller.addAction(okAction)
                 weakSelf.present(controller, animated: true, completion: nil)
             }else{
-                
-                let controller = UIAlertController(title: "註冊失敗！", message: "註冊失敗！", preferredStyle: .alert)
+                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "確定", style: .default)
                 controller.addAction(okAction)
                 weakSelf.present(controller, animated: true, completion: nil)
@@ -111,16 +139,4 @@ class RegisterViewController: BaseViewController,UITextFieldDelegate {
         }
         
     }
-    //設定註冊成功跳出alert提示
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

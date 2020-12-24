@@ -65,18 +65,21 @@ extension CartViewController:CartTableViewCellDelegate{
             popoverController.view.layer.insertSublayer(layer, at: 0)
             //設定以 popover 的效果跳轉
             popoverController.modalPresentationStyle = .popover
-            //設定popover的來源視圖
-            popoverController.popoverPresentationController?.sourceView = self.view
-            //下面註解掉的這行可以指定箭頭指的座標
+            //設定indexpath
             let indexpath = IndexPath(item: index, section: 0)
+            //設定popover的來源視圖
+            popoverController.popoverPresentationController?.sourceView = cartTableView.cellForRow(at: indexpath)
+            //下面註解掉的這行可以指定箭頭指的座標
             if let cell = cartTableView.cellForRow(at: indexpath) as? CartTableViewCell{
+                print("設定位置")
+                popoverController.popoverPresentationController?.sourceView = cell.btnMenu
                 popoverController.popoverPresentationController?.sourceRect = cell.btnMenu.bounds
             }
             popoverController.popoverPresentationController?.delegate = self
             //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
-            popoverController.popoverPresentationController?.permittedArrowDirections = .up
+            popoverController.popoverPresentationController?.permittedArrowDirections = .right
             //設定popover視窗大小
-            popoverController.preferredContentSize = CGSize(width: 250, height: 250)
+            popoverController.preferredContentSize = CGSize(width: 250, height: 150)
             //跳轉頁面
             present(popoverController, animated: true, completion: nil)
         }

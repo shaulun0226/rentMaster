@@ -6,9 +6,12 @@
 //
 
 import UIKit
-
+protocol UnderLineTextFieldDelegate {
+    func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool
+}
 class UnderLineTextField: UITextField,UITextFieldDelegate{
     let border = CALayer();
+    var  underLineTextFieldDelegate:UnderLineTextFieldDelegate?
     
     //底線的顏色
     @IBInspectable open var lineColor : UIColor = UIColor.black {
@@ -62,4 +65,12 @@ class UnderLineTextField: UITextField,UITextFieldDelegate{
         border.borderColor = UIColor.darkGray.cgColor
 //           border.borderColor = lineColor.cgColor
        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.endEditing(true)
+        }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return ((underLineTextFieldDelegate?.underLineTextFieldShouldReturn(textField)) != nil)
+        
+    }
 }

@@ -24,43 +24,26 @@ class ProductListController: BaseSideMenuViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard productType1 != nil else {
-            print("productType is nil")
-            return
-        }
-        NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
-            guard let weakSelf = self else {return}
-            if(isSuccess){
-                let jsonArr = JSON(value)
-                print("解析\(jsonArr)")
-                print(jsonArr.type)
-                for index in 0..<jsonArr.count{
-                    print("inter進迴圈")
-                    let title = jsonArr[index]["title"].string!
-                    print("title是\(title)")
-                    let description = jsonArr[index]["description"].string!
-                    let isSale = jsonArr[index]["isSale"].bool!
-                    let isRent = jsonArr[index]["isRent"].bool!
-                    let deposit = jsonArr[index]["deposit"].int!
-                    let rent = jsonArr[index]["rent"].int!
-                    let salePrice = jsonArr[index]["salePrice"].int!
-                    let rentMethod = jsonArr[index]["rentMethod"].string!
-                    let amount = jsonArr[index]["amount"].int!
-                    let type1 = jsonArr[index]["type1"].string!
-                    let type2 = jsonArr[index]["type2"].string!
-                    let userId = jsonArr[index]["userId"].string!
-                    let picsArr = jsonArr[index]["pics"].array!
-                    var pics = [String]()
-                    for index in 0..<picsArr.count{
-                        pics.append(picsArr[index][""].string ?? "")
-                    }
-                    weakSelf.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type1: type1, type2: type2, userId: userId, pics:pics))
-                }
-                weakSelf.tableview.reloadData()
-                weakSelf.collectview.reloadData()
-            }else{
-                weakSelf.products = ProductModel.defaultGameLists
+        if(Global.isOnline){
+            guard productType1 != nil else {
+                print("productType is nil")
+                return
             }
+            NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(value)
+                    print("解析\(jsonArr)")
+                    print(jsonArr.type)
+                    weakSelf.parseProduct(jsonArr: jsonArr)
+                    weakSelf.tableview.reloadData()
+                    weakSelf.collectview.reloadData()
+                }else{
+                    weakSelf.products = ProductModel.defaultGameLists
+                }
+            }
+        }else{
+            self.products = ProductModel.defaultAllList
         }
         setupSlider()
         //設定背景顏色
@@ -74,7 +57,6 @@ class ProductListController: BaseSideMenuViewController{
         tableview.dataSource = self
         collectview.delegate = self
         collectview.dataSource = self
-        print("？？？？？？？物件數量\(self.products.count)")
         //設定按鈕
         (btnAddIsHidden) ?(btnAdd.isHidden = true):(btnAdd.isHidden = false)
     }
@@ -139,44 +121,69 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             default:
                 products = ProductModel.defaultGameLists
             }
-            print(productType1!)
-            print(productType2!)
+            if let productType1 = productType1 {
+                print(productType1)
+            }
+            if let productType2 = productType2 {
+                
+                print(productType2)
+            }
             productType1 = "xbox"
             productType2 = "other"
-            NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: 1, pageEnd: 5) {
-                [weak self](value, isSuccess) in
-                guard let weakSelf = self else {return}
-                if(isSuccess){
-                    let jsonArr = JSON(value)
-                    print(jsonArr.type)
-                    for index in 0..<jsonArr.count{
-                        let title = jsonArr[index]["title"].string!
-                        let description = jsonArr[index]["description"].string!
-                        let isSale = jsonArr[index]["isSale"].bool!
-                        let isRent = jsonArr[index]["isRent"].bool!
-                        let deposit = jsonArr[index]["deposit"].int!
-                        let rent = jsonArr[index]["rent"].int!
-                        let salePrice = jsonArr[index]["salePrice"].int!
-                        let rentMethod = jsonArr[index]["rentMethod"].string!
-                        let amount = jsonArr[index]["amount"].int!
-                        let type1 = jsonArr[index]["type1"].string!
-                        let type2 = jsonArr[index]["type2"].string!
-                        let userId = jsonArr[index]["userId"].string!
-                        let picsArr = jsonArr[index]["pics"].array!
-                        var pics = [String]()
-                        for index in 0..<picsArr.count{
-                            pics.append(picsArr[index][""].string ?? "")
-                        }
-                        weakSelf.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type1: type1, type2: type2, userId: userId, pics:pics))
+            if(Global.isOnline){
+                NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: 1, pageEnd: 5) {
+                    [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print(jsonArr.type)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                        weakSelf.collectview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultHostLists
                     }
-                    weakSelf.tableview.reloadData()
-                    weakSelf.collectview.reloadData()
-                }else{
-                    weakSelf.products = ProductModel.defaultHostLists
+                }
+            }else{
+                let selectedProductType = buttonText[indexPath.row]
+                switch selectedProductType {
+                case "所有":
+                    products = ProductModel.defaultAllList
+                case "主機":
+                    products = ProductModel.defaultHostLists
+                case "周邊":
+                    products = ProductModel.defaultMerchLists
+                case "遊戲":
+                    products = ProductModel.defaultGameLists
+                default:
+                    products = ProductModel.defaultGameLists
                 }
             }
             tableview.reloadData()
             collectview.reloadData()
+        }
+    }
+    private func parseProduct(jsonArr:JSON){
+        for index in 0..<jsonArr.count{
+            let title = jsonArr[index]["title"].string!
+            let description = jsonArr[index]["description"].string!
+            let isSale = jsonArr[index]["isSale"].bool!
+            let isRent = jsonArr[index]["isRent"].bool!
+            let deposit = jsonArr[index]["deposit"].int!
+            let rent = jsonArr[index]["rent"].int!
+            let salePrice = jsonArr[index]["salePrice"].int!
+            let rentMethod = jsonArr[index]["rentMethod"].string!
+            let amount = jsonArr[index]["amount"].int!
+            let type = jsonArr[index]["type"].string!
+            let type1 = jsonArr[index]["type1"].string!
+            let type2 = jsonArr[index]["type2"].string!
+            let userId = jsonArr[index]["userId"].string!
+            let picsArr = jsonArr[index]["pics"].array!
+            var pics = [String]()
+            for index in 0..<picsArr.count{
+                pics.append(picsArr[index][""].string ?? "")
+            }
+            self.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics:pics))
         }
     }
 }

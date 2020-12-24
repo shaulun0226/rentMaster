@@ -102,7 +102,12 @@ class AddProductViewController: BaseViewController {
         pickerView.dataSource = self
         pickerView.setValue(UIColor.white, forKeyPath: "textColor")
         // Do any additional setup after loading the view.
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+                self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
+    }
+    //點擊空白收回鍵盤
+    @objc func dismissKeyBoard() {
+        self.view.endEditing(true)
     }
 //    private func setPicker(){
 //        let locationPicker = PickerViewController()
@@ -255,3 +260,4 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
         //選取超過最大上限數量的照片
     }
 }
+//圖片轉bmp再轉64bit

@@ -19,20 +19,18 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         let btnSideMenu = UIButton(type: UIButton.ButtonType.custom)
         //        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.setBackgroundImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
-        btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchDragInside)
+        btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchUpInside)
         btnSideMenu.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊cart button
+//        let btnCart = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action:#selector(didTapCart))
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
-        //        btnCart.setImage(UIImage(systemName: "cart.fill"), for: .normal)
-        
         btnCart.setBackgroundImage(UIImage(systemName: "cart.fill"), for: .normal)
-        btnCart.addTarget(self, action:#selector(didTapCart), for: .touchDragInside)
+        btnCart.addTarget(self, action:#selector(didTapCart), for: .touchUpInside)//沒選touchUpInside會有重複點擊的可能
         btnCart.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊ring button
         let btnNotify = UIButton(type: UIButton.ButtonType.custom)
-        //        btnNotify.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         btnNotify.setBackgroundImage(UIImage(systemName: "bell.fill"), for: .normal)
-        btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchDragInside)
+        btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
         btnNotify.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定抽屜圖示的顏色
         btnSideMenu.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
@@ -50,14 +48,12 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     }
     @objc func didTapCart() {
         //尚未設定跳至何頁
-        //            present(menu!, animated: true)
         let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
             view.cartProducts = ProductModel.defaultGameLists
             view.title = "購物車"
             self.show(view, sender: nil);
         }
-        
     }
     @objc func didTapNotify() {
         //設定popover
@@ -98,6 +94,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
                 vcMain.btnAddIsHidden = false
                 vcMain.slider.backgroundColor = .white
+                vcMain.productType1 = "PS5"
                 vcMain.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
                 view = vcMain
             }
@@ -188,4 +185,3 @@ extension BaseSideMenuViewController : UIPopoverPresentationControllerDelegate{
         return .none
     }
 }
-

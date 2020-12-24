@@ -582,7 +582,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
-                                <rect key="frame" x="33" y="106" width="348" height="534"/>
+                                <rect key="frame" x="33" y="106" width="348" height="594"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="kuA-eK-HD6">
                                         <rect key="frame" x="0.0" y="0.0" width="348" height="129"/>
@@ -625,7 +625,7 @@
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="vd9-kG-sES"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
                                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -668,8 +668,80 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMz-Yw-qi1" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="njO-J5-qWq" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="209" width="348" height="40"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入驗證碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-XE-Bw4" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="60" y="0.0" width="211" height="40"/>
+                                                <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="C5Q-LY-u9T"/>
+                                                    <constraint firstAttribute="height" constant="40" id="UFC-4v-Y3o"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                        <color key="value" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="key.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yhD-EA-jt7">
+                                                <rect key="frame" x="0.0" y="-9.6666666666666892" width="58" height="51.666666666666671"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eil-k2-6zw">
+                                                <rect key="frame" x="271" y="5" width="77" height="30"/>
+                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="傳送驗證碼">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="emailConfirmClick:" destination="1Eg-KH-YXT" eventType="touchUpInside" id="mAi-Ob-Ji0"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="yhD-EA-jt7" secondAttribute="bottom" constant="-0.66666666666667851" id="09x-RK-fxh"/>
+                                            <constraint firstItem="yhD-EA-jt7" firstAttribute="top" secondItem="njO-J5-qWq" secondAttribute="top" constant="-8.6666666666666625" id="3Rx-hb-lTl"/>
+                                            <constraint firstItem="Eil-k2-6zw" firstAttribute="leading" secondItem="aIb-XE-Bw4" secondAttribute="trailing" id="BOT-dh-OJl"/>
+                                            <constraint firstItem="aIb-XE-Bw4" firstAttribute="centerY" secondItem="njO-J5-qWq" secondAttribute="centerY" id="Ovo-ea-8yn"/>
+                                            <constraint firstItem="Eil-k2-6zw" firstAttribute="centerY" secondItem="njO-J5-qWq" secondAttribute="centerY" id="Pfe-JQ-Lu8"/>
+                                            <constraint firstItem="aIb-XE-Bw4" firstAttribute="top" secondItem="njO-J5-qWq" secondAttribute="top" id="UFD-Sb-j0I"/>
+                                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Eil-k2-6zw" secondAttribute="trailing" id="cKi-O5-YiH"/>
+                                            <constraint firstItem="aIb-XE-Bw4" firstAttribute="leading" secondItem="njO-J5-qWq" secondAttribute="leading" constant="60" id="kVg-4f-Txg"/>
+                                            <constraint firstItem="aIb-XE-Bw4" firstAttribute="leading" secondItem="yhD-EA-jt7" secondAttribute="trailing" constant="2" id="mzg-k2-6Fc"/>
+                                            <constraint firstItem="yhD-EA-jt7" firstAttribute="leading" secondItem="njO-J5-qWq" secondAttribute="leading" id="ncz-bG-zr3"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                <real key="value" value="-3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMz-Yw-qi1" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="269" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3jn-lc-7X1" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -719,7 +791,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b33-01-vrM" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="269" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="329" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="再次確認密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OoH-0g-36l" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -769,7 +841,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="174-re-ZQI" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="329" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="389" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="姓名" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GbK-fx-PQ4" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -822,7 +894,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVM-3m-T5x" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="389" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="449" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="聯絡電話" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wPN-bK-eXi" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -845,7 +917,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="phone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pis-Db-1BZ">
-                                                <rect key="frame" x="0.0" y="-7.3333333333333535" width="58" height="47.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.3333333333332966" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -875,13 +947,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEh-pi-Wwg">
-                                        <rect key="frame" x="0.0" y="449" width="348" height="24"/>
+                                        <rect key="frame" x="0.0" y="509" width="348" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-qO-hv7">
-                                        <rect key="frame" x="0.0" y="493" width="348" height="41"/>
+                                        <rect key="frame" x="0.0" y="553" width="348" height="41"/>
                                         <color key="backgroundColor" name="Button"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="註冊">
@@ -917,6 +989,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6oL-r6-E87"/>
                     <connections>
+                        <outlet property="btnEmailConfirm" destination="Eil-k2-6zw" id="oFE-Oq-pYy"/>
                         <outlet property="btnRegisterConfirm" destination="wdv-qO-hv7" id="sF8-NY-WOF"/>
                         <outlet property="errorHint" destination="jEh-pi-Wwg" id="vsb-Pm-FVm"/>
                         <outlet property="tfEmail" destination="hg5-d8-DOY" id="i23-Rv-gA5"/>
@@ -924,6 +997,7 @@
                         <outlet property="tfPassword" destination="3jn-lc-7X1" id="jtm-Zz-esU"/>
                         <outlet property="tfPasswordConfirm" destination="OoH-0g-36l" id="Eck-Qy-FsJ"/>
                         <outlet property="tfPhone" destination="wPN-bK-eXi" id="Wu8-Tn-S2o"/>
+                        <outlet property="tfVerityCode" destination="aIb-XE-Bw4" id="hAo-Td-ahh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1q-Dj-p0m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1080,7 +1154,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="MainPageViewController" storyboardName="Main" referencedIdentifier="MainPageViewController" id="LX0-UH-PwY" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0lu-5M-1Kv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308" y="1849"/>
+            <point key="canvasLocation" x="1220" y="1586"/>
         </scene>
         <!--ProductInfoView-->
         <scene sceneID="nX2-Ok-BDQ">
@@ -1088,11 +1162,12 @@
                 <viewControllerPlaceholder storyboardIdentifier="ProductInfoView" storyboardName="Product" referencedIdentifier="ProductInfoView" id="sRi-I6-qGg" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fs1-bZ-Drj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1683" y="1849"/>
+            <point key="canvasLocation" x="1528" y="1671"/>
         </scene>
     </scenes>
     <resources>
         <image name="envelope" catalog="system" width="128" height="93"/>
+        <image name="key.fill" catalog="system" width="83" height="128"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
