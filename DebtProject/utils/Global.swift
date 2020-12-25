@@ -25,7 +25,7 @@ enum ProductStoryboardController:String,CaseIterable{
     case cartCellMenuViewController = "CartCellMenuViewController"
 }
 class Global{
-    static var isOnline = true
+    static var isOnline = false
     static var token:String? = "";
     static let URL:String = "http://35.184.167.119:3000/api";
     static let BACKGROUND_COLOR = [UIColor(named: "GradientBegin")?.cgColor

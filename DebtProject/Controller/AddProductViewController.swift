@@ -11,7 +11,6 @@ import TLPhotoPicker
 class AddProductViewController: BaseViewController {
     var images = [UIImage]()
     var list = [String]()
-    @IBOutlet var selectView: UIView!
     @IBOutlet weak var lbProductName: UILabel!
     @IBOutlet weak var tfProductName: UnderLineTextField!
     @IBOutlet weak var lbProductDescription: UILabel!
@@ -26,34 +25,47 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnProductLocation: UIButton!
     @IBOutlet weak var btnProductHost: UIButton!
     @IBOutlet weak var btnProductType: UIButton!
-    @IBOutlet weak var pickerView: UIPickerView!
-    var currentButton:UIButton!
-    let popoverViewHeight = CGFloat(256)
     var selectedAssets = [TLPHAsset]()
+    
+    var currentButton:UIButton!
+    //popoverview榜定
+    @IBOutlet var selectView: UIView!
+    //popover裡的picker榜定
+    @IBOutlet weak var pickerView: UIPickerView!
+    //設定popover出來的高度
+    let popoverViewHeight = CGFloat(256)
     var location:String?
     var host:String?
     var type:String?
-    
+    //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
         let title  = list[pickerView.selectedRow(inComponent: 0)]
         currentButton.setTitle(title, for: .normal)
+        //關閉pickerview
         displayPicker(false)
     }
+    
+    //popover裡按下取消按鍵的action
     @IBAction func cancelClick(_ sender: Any) {
+        
+        //關閉popoverview
         displayPicker(false)
     }
+    //按下位置按鈕後的action
     @IBAction func locationClick(_ sender: Any) {
         currentButton = btnProductLocation
         list.removeAll()
         list = ["台北市","新北市","基隆市","桃園市","臺中市","臺南市","高雄市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣","澎湖縣","金門縣","連江縣","新竹市","嘉義市"]
+        //刷新pick內容
         pickerView.reloadAllComponents()
+        //跳出popoverview
         displayPicker(true)
     }
     @IBAction func hostClick(_ sender: Any) {
-        
         currentButton = btnProductHost
         list.removeAll()
         list = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
+        //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
     }
@@ -61,25 +73,33 @@ class AddProductViewController: BaseViewController {
         currentButton = btnProductType
         list.removeAll()
         list = ["遊戲","主機","周邊","其他"]
+        //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
     }
     //設定彈出的方法 ture就顯示false就藏在下面
     func displayPicker(_ show:Bool){
         for c in view.constraints{
+            //判斷constraints id
             if(c.identifier == "bottom"){
+                //判斷彈出
                 c.constant = (show) ? -10 : popoverViewHeight
                 break
             }
         }
+        //設定動畫
         UIView.animate(withDuration: 0.5){
+            //立即更新佈局
             self.view.layoutIfNeeded()
         }
     }
     override func viewWillAppear(_ animated: Bool) {
+        //加入子視圖(在這裡是要彈出的popoverview)
         view.addSubview(selectView)
+        /*在所有有繼承自 UIView 的 object 中都會有一個名為 “translatesAutoresizingMaskIntoConstraints”
+        的 property，這 property 的用途是告訴 iOS自動建立放置位置的約束條件，而第一步是須明確告訴它不要這樣做，因此需設為false。*/
         selectView.translatesAutoresizingMaskIntoConstraints = false
-        //一定要加isActive = true 不然排版會沒有用
+        //設定子試圖畫面高度，一定要加.isActive = true 不然排版會沒有用
         selectView.heightAnchor.constraint(equalToConstant: popoverViewHeight).isActive = true
         //設定左右邊界(左邊要是-10)
         selectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
@@ -87,6 +107,7 @@ class AddProductViewController: BaseViewController {
         //先設定這個畫面在螢幕bottom下方height高度位置，等等調整這個數值就可以達到由下往上滑出的效果
         //設為變數等等才方便調整
         let constraint = selectView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: popoverViewHeight)
+        //設定constraint id
         constraint.identifier = "bottom"
         constraint.isActive = true
         //設定圓角
@@ -109,43 +130,18 @@ class AddProductViewController: BaseViewController {
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
     }
-//    private func setPicker(){
-//        let locationPicker = PickerViewController()
-//        self.addChild(locationPicker)
-//        locationPicker.pickerData = ["台北市","新北市","基隆市"]
-//        pvProductLocation.delegate = locationPicker
-//        pvProductLocation.dataSource = locationPicker
-//
-//        //將點擊事件塞給reusableView(Footer)
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickerViewTapped))
-//        pvProductLocation.addGestureRecognizer(tapGesture)
-////        self.view.addSubview(pvProductLocation)
-//
-//
-//        let hostPicker = PickerViewController()
-//        self.addChild(hostPicker)
-//        hostPicker.pickerData = ["PS5","PS4","Xbox-one","Xbox-series","Switch","桌遊"]
-//        pvProductLocation.delegate = hostPicker
-//        pvProductLocation.dataSource = hostPicker
-////        self.view.addSubview(pvProductHost)
-//
-//        let typePicker = PickerViewController()
-//        self.addChild(typePicker)
-//        typePicker.pickerData = ["遊戲","主機","周邊","其他"]
-//        pvProductLocation.delegate = typePicker
-//        pvProductLocation.dataSource = typePicker
-////        self.view.addSubview(pvProductType)
-//    }
 }
 
 extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
+    //設定有幾個bar可以滾動
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+    //設定bar的內容有幾項
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return list.count
     }
+    //設定bar的內容
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return list[row]
     }
@@ -159,6 +155,7 @@ extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         label.textColor = UIColor.white
         return label
     }
+    //設定每個選項的高度
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         50
     }

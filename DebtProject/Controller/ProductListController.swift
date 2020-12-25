@@ -101,6 +101,18 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
         //        self.title = buttonText[indexPath.row]
         // 先清空
         if let cell = collectview.cellForItem(at: indexPath){
+            //設定點擊背景色變化
+            if(indexPath.row != 0){
+                if let firstcell = collectview.cellForItem(at: IndexPath(item: 0, section: 0)){
+                    if(firstcell.isSelected){
+                        firstcell.isSelected = false
+                        firstcell.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.168627451, blue: 0.168627451, alpha: 1)
+                    }
+                }
+            }
+            cell.isSelected = true
+            cell.backgroundColor = UIColor(named: "card")
+            
             collectview.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             UIView.animate(withDuration: 0.4) { [weak self] in
                 if let self = self{
@@ -160,7 +172,6 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
             tableview.reloadData()
-            collectview.reloadData()
         }
     }
     private func parseProduct(jsonArr:JSON){
