@@ -12,7 +12,7 @@ class ProductListController: BaseSideMenuViewController{
     @IBOutlet weak var collectview: UICollectionView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var btnAdd:UIButton!
-    var btnAddIsHidden = true
+    var isMyStore = true
     var platform:String!
     var layer:CAGradientLayer!
     var buttonText = [String]()
@@ -24,25 +24,43 @@ class ProductListController: BaseSideMenuViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(Global.isOnline){
-            guard productType1 != nil else {
-                print("productType is nil")
-                return
-            }
-            NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
-                guard let weakSelf = self else {return}
-                if(isSuccess){
-                    let jsonArr = JSON(value)
-                    print("解析\(jsonArr)")
-                    print(jsonArr.type)
-                    weakSelf.parseProduct(jsonArr: jsonArr)
-                    weakSelf.tableview.reloadData()
-                }else{
-                    weakSelf.products = ProductModel.defaultGameLists
+        if(isMyStore){
+            if(Global.isOnline){
+                NetworkController.instance().getOwnitem{ [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print("解析\(jsonArr)")
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultGameLists
+                    }
                 }
+            }else{
+                self.products = ProductModel.defaultAllList
             }
-        }else{
-            self.products = ProductModel.defaultAllList
+        }else{//不是我的賣場就call list的API
+            if(Global.isOnline){
+                guard productType1 != nil else {
+                    print("productType is nil")
+                    return
+                }
+                NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print("解析\(jsonArr)")
+                        print(jsonArr.type)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultGameLists
+                    }
+                }
+            }else{
+                self.products = ProductModel.defaultAllList
+            }
         }
         setupSlider()
         //設定標題大小
@@ -52,7 +70,7 @@ class ProductListController: BaseSideMenuViewController{
         collectview.delegate = self
         collectview.dataSource = self
         //設定按鈕
-        (btnAddIsHidden) ?(btnAdd.isHidden = true):(btnAdd.isHidden = false)
+        (isMyStore) ?(btnAdd.isHidden = false):(btnAdd.isHidden = true)
     }
     override func viewWillAppear(_ animated: Bool) {
         setupSlider()
@@ -185,7 +203,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             let picsArr = jsonArr[index]["pics"].array!
             var pics = [String]()
             for index in 0..<picsArr.count{
-                pics.append(picsArr[index][""].string ?? "")
+                pics.append(picsArr[index]["path"].string ?? "")
             }
             self.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics:pics))
         }

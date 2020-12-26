@@ -231,6 +231,35 @@ class NetworkController{
                 }
             }
     }
+    func getOwnitem(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let url = "\(serverUrl)/Products/ownItem";
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     //     這裡傳入的匿名內部類 handler:@escaping (Bool) -> () 要是逃逸閉包，因為 AF.request 後面的閉包是逃逸閉包，只有逃逸閉包能在逃逸閉包裡使用
     //        func getNewestEpisodeList(userID:Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
     //            AF.request("\(serverUrl)PodcastRSS/GetNewestList?userId=\(userID)").responseJSON { (data) in

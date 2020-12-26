@@ -106,7 +106,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             }
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
-                vcMain.btnAddIsHidden = false
+                vcMain.isMyStore = true
                 vcMain.slider.backgroundColor = .white
                 vcMain.productType1 = "PS5"//暫時先用這個代替
                 vcMain.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
@@ -120,6 +120,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS4"
+                vcMain.isMyStore = false
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
@@ -127,6 +128,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS5"
+                vcMain.isMyStore = false
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
@@ -134,6 +136,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .green
                 vcMain.productType1 = "XBOX"
+                vcMain.isMyStore = false
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
@@ -141,6 +144,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .green
                 vcMain.productType1 = "XBOX ONE"
+                vcMain.isMyStore = false
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
@@ -148,6 +152,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.slider.backgroundColor = .red
                 vcMain.productType1 = "SWITCH"
+                vcMain.isMyStore = false
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }

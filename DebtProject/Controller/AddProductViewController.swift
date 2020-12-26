@@ -221,8 +221,18 @@ class AddProductViewController: BaseViewController {
         self.view.endEditing(true)
     }
     func emptyCheck()-> Bool{
+        if(productIsSale){
+            if(tfProductPrice.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+                return false;
+            }
+        }
+        if(productIsRent){
+            if(tfProductRentDay.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+                tfProductDeposit.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+                return false;
+            }
+        }
         if(tfProductTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
-            tfProductPrice.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfProductAmount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfProductDescription.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ){
             return false;
@@ -267,9 +277,8 @@ class AddProductViewController: BaseViewController {
                     let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
                     if let myStoreView = productStoryboard.instantiateViewController(identifier:ProductStoryboardController.productListController.rawValue ) as? ProductListController{
                         myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
-                        myStoreView.btnAddIsHidden = false
+                        myStoreView.isMyStore = true
                         myStoreView.slider.backgroundColor = .white
-                        myStoreView.productType1 = "PS5"//暫時先用這個代替
                         myStoreView.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
                         weakSelf.show(myStoreView, sender: nil);
                     }
