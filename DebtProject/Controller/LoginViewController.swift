@@ -77,10 +77,10 @@ class LoginViewController: BaseViewController {
                 guard let weakSelf = self else {return}
             
                 if(isSuccess){
-                    Global.token = value as? String//怪怪的
-                    print(Global.token ?? "??????")
-                    let storyboard = UIStoryboard(name: "Product", bundle: nil)
-                    if let vcMain = storyboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+                    User.token = value as? String ?? ""
+                    print(User.token)
+                    let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
+                    if let vcMain = storyboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
                         weakSelf.show(vcMain, sender: LoginViewController.self);
                     }
                 }else{

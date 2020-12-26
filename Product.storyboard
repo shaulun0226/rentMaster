@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Vg-Hf-4vO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4624" identifier="iOS"/>
@@ -11,58 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="ULy-GF-tGQ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Vg-Hf-4vO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="wWG-SN-dYI">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dWb-X1-qaL" kind="relationship" relationship="rootViewController" id="tYf-38-1r5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gB5-4P-Id2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="294.20289855072468" y="1983.4239130434785"/>
-        </scene>
-        <!--Main Page View Controller-->
-        <scene sceneID="Dnj-gD-vvg">
-            <objects>
-                <viewController storyboardIdentifier="MainPageViewController" id="dWb-X1-qaL" customClass="MainPageViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="05L-p0-Ctt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5dd-Mn-sRU">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="separatorInset" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="JbN-On-oG8"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="JbN-On-oG8" firstAttribute="bottom" secondItem="5dd-Mn-sRU" secondAttribute="bottom" id="5i9-Ww-Nuu"/>
-                            <constraint firstItem="JbN-On-oG8" firstAttribute="trailing" secondItem="5dd-Mn-sRU" secondAttribute="trailing" id="GmU-M6-xQD"/>
-                            <constraint firstItem="5dd-Mn-sRU" firstAttribute="leading" secondItem="JbN-On-oG8" secondAttribute="leading" id="Smr-Cr-flF"/>
-                            <constraint firstItem="5dd-Mn-sRU" firstAttribute="top" secondItem="JbN-On-oG8" secondAttribute="top" id="s53-cF-k59"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="F0z-CD-rtS"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="tableView" destination="5dd-Mn-sRU" id="aKT-nn-KUD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Opa-yP-f21" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1113.0434782608697" y="1982.608695652174"/>
-        </scene>
         <!--Product Info View Controller-->
         <scene sceneID="y9Z-XT-dfl">
             <objects>
@@ -1039,6 +987,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="上架"/>
+                                        <connections>
+                                            <action selector="addProductClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="v80-N1-nYa"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1082,9 +1033,9 @@
                         <outlet property="tfProductAmount" destination="4k2-A2-tez" id="SPJ-QD-chq"/>
                         <outlet property="tfProductDeposit" destination="5EV-VQ-Oy1" id="tv1-bk-eYp"/>
                         <outlet property="tfProductDescription" destination="r1u-kq-H0Q" id="09M-Cz-07P"/>
-                        <outlet property="tfProductName" destination="nd1-10-9yb" id="3zz-aT-FWq"/>
                         <outlet property="tfProductPrice" destination="xld-4e-1vm" id="PJM-SM-4jC"/>
                         <outlet property="tfProductRentDay" destination="13t-Gj-QrA" id="zZz-Un-bHF"/>
+                        <outlet property="tfProductTitle" destination="nd1-10-9yb" id="3zz-aT-FWq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKc-Ni-G3q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1495,9 +1446,6 @@
         <namedColor name="card">
             <color red="0.27799999713897705" green="0.27500000596046448" blue="0.43900001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

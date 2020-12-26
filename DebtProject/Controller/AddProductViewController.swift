@@ -10,7 +10,7 @@ import TLPhotoPicker
 
 class AddProductViewController: BaseViewController {
     @IBOutlet weak var lbProductName: UILabel!
-    @IBOutlet weak var tfProductName: UnderLineTextField!
+    @IBOutlet weak var tfProductTitle: UnderLineTextField!
     @IBOutlet weak var lbProductDescription: UILabel!
     @IBOutlet weak var tfProductDescription: UnderLineTextField!
     @IBOutlet weak var lbProductAmount: UILabel!
@@ -37,7 +37,7 @@ class AddProductViewController: BaseViewController {
     var productIsSale:Bool!
     var productIsRent:Bool!
     var productDeposit:Int!
-    var productRentDay:Int!
+    var productRent:Int!
     var productSalePrice:Int!
     var productRentMethod:String!
     var productAmount:Int!
@@ -57,7 +57,6 @@ class AddProductViewController: BaseViewController {
     var type:String?
     //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
-        
         let title  = list[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnSellType:
@@ -85,7 +84,6 @@ class AddProductViewController: BaseViewController {
             productRentMethod = title
         case btnProductType:
             productType = title
-            print("??????\(productType)")
         case btnProductType1:
             productType1 = title
         case btnProductType2:
@@ -144,8 +142,6 @@ class AddProductViewController: BaseViewController {
     @IBAction func type1Click(_ sender: Any) {
         currentButton = btnProductType1
         list.removeAll()
-        print("!!!!!!!!!!!!!!")
-        print(productType)
         switch productType {
         case "PlayStation":
             list = ["PS5","PS4"]
@@ -223,6 +219,70 @@ class AddProductViewController: BaseViewController {
     //點擊空白收回鍵盤
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
+    }
+    func emptyCheck()-> Bool{
+        if(tfProductTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfProductPrice.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfProductAmount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            tfProductDescription.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ){
+            return false;
+        }
+        return true;
+    }
+//    func selectCheck()->Bool{
+//        if{
+//            return false;
+//        }
+//        return true;
+//    }
+    @IBAction func addProductClick(_ sender: Any) {
+        if(!emptyCheck()){
+            let controller = UIAlertController(title: "請確認資料是否完整", message: "請確認資料是否完整", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確定", style: .default)
+            controller.addAction(okAction)
+            self.present(controller, animated: true, completion: nil)
+            return
+        }
+        productTitle = tfProductTitle.text!
+        productDescription = tfProductDescription.text!
+        productAmount = Int(tfProductAmount.text!)
+        if(productIsRent){
+            productDeposit = Int(tfProductDeposit.text!)
+            productRent = Int(tfProductRentDay.text!)
+        }else{
+            productDeposit = 0
+            productRent = 0
+        }
+        if(productIsSale){
+            productSalePrice = Int(tfProductPrice.text!)
+        }else{
+            productSalePrice = 0
+        }
+        
+        NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, type: productType, type1: productType1, type2: productType2, pics:productImages) {  [weak self] (responseValue,isSuccess) in
+            guard let weakSelf = self else {return}
+            if(isSuccess){
+                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+                    let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
+                    if let myStoreView = productStoryboard.instantiateViewController(identifier:ProductStoryboardController.productListController.rawValue ) as? ProductListController{
+                        myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
+                        myStoreView.btnAddIsHidden = false
+                        myStoreView.slider.backgroundColor = .white
+                        myStoreView.productType1 = "PS5"//暫時先用這個代替
+                        myStoreView.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
+                        weakSelf.show(myStoreView, sender: nil);
+                    }
+                }
+                controller.addAction(okAction)
+                weakSelf.present(controller, animated: true, completion: nil)
+            }else{
+                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                controller.addAction(okAction)
+                weakSelf.present(controller, animated: true, completion: nil)
+            }
+        }
     }
 }
 

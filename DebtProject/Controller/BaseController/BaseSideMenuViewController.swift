@@ -83,6 +83,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //關閉抽屜
         menu?.dismiss(animated: true, completion: nil)
         let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
+        let mainStoryboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
         //設定畫面title的文字
         let selectedItem = itemNamed.rawValue
         //        let selectedTitle = titleNamed.rawValue
@@ -90,16 +91,29 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         var view = UIViewController()
         switch itemNamed {
         case .store:
+            if (User.token.isEmpty){
+                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        self.show(loginView, sender: nil);
+                    }
+                 }
+                controller.addAction(okAction)
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                controller.addAction(cancelAction)
+                self.present(controller, animated: true, completion: nil)
+                return
+            }
             if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
                 vcMain.btnAddIsHidden = false
                 vcMain.slider.backgroundColor = .white
-                vcMain.productType1 = "PS5"
+                vcMain.productType1 = "PS5"//暫時先用這個代替
                 vcMain.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
                 view = vcMain
             }
         case .home:
-            if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+            if let vcMain = mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
                 view = vcMain
             }
         case .ps4:

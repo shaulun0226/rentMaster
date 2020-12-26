@@ -37,7 +37,6 @@ class ProductListController: BaseSideMenuViewController{
                     print(jsonArr.type)
                     weakSelf.parseProduct(jsonArr: jsonArr)
                     weakSelf.tableview.reloadData()
-                    weakSelf.collectview.reloadData()
                 }else{
                     weakSelf.products = ProductModel.defaultGameLists
                 }
@@ -46,11 +45,6 @@ class ProductListController: BaseSideMenuViewController{
             self.products = ProductModel.defaultAllList
         }
         setupSlider()
-        //設定背景顏色
-        //        layer = Global.setBackgroundColor(view);
-        //        view.layer.insertSublayer(layer, at: 0)
-        
-        //        collectview.layer.insertSublayer(layer, at: 0)
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
@@ -151,7 +145,6 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                         print(jsonArr.type)
                         weakSelf.parseProduct(jsonArr: jsonArr)
                         weakSelf.tableview.reloadData()
-                        weakSelf.collectview.reloadData()
                     }else{
                         weakSelf.products = ProductModel.defaultHostLists
                     }

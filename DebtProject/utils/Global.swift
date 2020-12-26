@@ -14,18 +14,18 @@ enum MainStoryboardController:String, CaseIterable{
     case login = "loginView"
     case forgotPasswordViewController = "ForgotPasswordViewController"
     case registerViewController = "RegisterViewController"
+    case mainPageViewController = "MainPageViewController"
     case notifyViewController = "NotifyViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"
     case productListController = "ProductListView"
-    case mainPageViewController = "MainPageViewController"
     case productInfoViewController = "ProductInfoView"
     case addProductViewController = "AddProductViewController"
     case cartCellMenuViewController = "CartCellMenuViewController"
 }
 class Global{
-    static var isOnline = false
+    static var isOnline = true
     static var token:String? = "";
     static let URL:String = "http://35.184.167.119:3000/api";
     static let BACKGROUND_COLOR = [UIColor(named: "GradientBegin")?.cgColor
