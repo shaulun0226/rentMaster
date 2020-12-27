@@ -27,6 +27,8 @@ enum ProductStoryboardController:String,CaseIterable{
 class Global{
     
     static var isOnline = true
+    static let pageBegin = 1
+    static let pageEnd = 10
     
     //storyboard
     static let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)

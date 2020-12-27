@@ -40,6 +40,36 @@ class NetworkController{
         let msg = json["msg"]
         print("error mag: \(msg)")
     }
+    func login(email:String,password:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Users/login";
+        let parameter: [String: String] = ["Email":email,"Password":password]
+        print(parameter)
+        AF.request(url,method: .post,parameters: parameter,encoding:JSONEncoding.default)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     func register(email:String,verityCode:String,password:String,name:String,phone:String,completionHandler:@escaping (_ status :String,Bool) -> ()){
         let url = "\(serverUrl)/Users/register";
         let parameters: Parameters = ["Email":email,"VerityCode":verityCode,"Password":password,"Name":name,"Phone":phone]
@@ -75,12 +105,48 @@ class NetworkController{
             }
     }
     
-    func login(email:String,password:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
-        let url = "\(serverUrl)/Users/login";
-        let parameter: [String: String] = ["Email":email,"Password":password]
-        print(parameter)
-        AF.request(url,method: .post,parameters: parameter,encoding:JSONEncoding.default)
+    func forgotPassword(email:String,verityCode:String,newPassword:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Users/security/vp";
+        let parameters: Parameters = ["Email":email,"VerityCode":verityCode,"NewPassword":newPassword]
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: nil)
             .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    print("連線成功")
+                    //當響應成功時，使用臨時變數value接收伺服器返回的資訊並判斷是否為[String: AnyObject]型別，如果是那麼將其傳給定義方法中的success
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            print("success")
+                            print(value)
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler(error.localizedDescription,false)
+                    break
+                    
+                }
+            }
+    }
+    // MARK: - productList
+    //產品清單區
+    func getProductListByType(type:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/listByType/\(type)/\(pageBegin)/\(pageEnd)";
+        //因為網址含有中文，需要做編碼處理
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功
                 case.success(let value):

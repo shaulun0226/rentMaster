@@ -6,12 +6,15 @@
 //
 
 import UIKit
-
+protocol PageTableViewCellDelegate {
+    func cellClick()
+}
 class PageTableViewCell: UITableViewCell {
     var myCollectionView:UICollectionView?
     @IBOutlet weak var pageCollectionView:UICollectionView!
     @IBOutlet weak var lbMainPageTitle: UILabel!
     @IBOutlet weak var lbMainPageHint: UILabel!
+    let pageTableViewCellDelegate:PageTableViewCellDelegate?
     
     var products = [ProductModel]()
     override func awakeFromNib() {
@@ -85,6 +88,7 @@ extension PageTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        pageTableViewCellDelegate?.cellClick()
     }
     
 }

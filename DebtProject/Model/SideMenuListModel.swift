@@ -15,6 +15,7 @@ enum SideMenuItem: String, CaseIterable {
     case xbox = "Xbox"
     case one = "Xbox One"
     case Switch = "Switch"
+    case boardgame = "桌遊"
 }
 enum SideMenuSelectTitle:String,CaseIterable{
     case store = "Store"
@@ -22,6 +23,7 @@ enum SideMenuSelectTitle:String,CaseIterable{
     case ps = "PlayStation"
     case xbox = "XBOX"
     case Switch = "Switch"
+    case boardgame = "桌遊"
 }
 
 struct SideMenuListModel {

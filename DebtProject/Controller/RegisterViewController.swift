@@ -127,7 +127,11 @@ class RegisterViewController: BaseViewController {
             guard let weakSelf = self else {return}
             if(isSuccess){
                 let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
+                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        weakSelf.show(loginView, sender: nil);
+                    }
+                }
                 controller.addAction(okAction)
                 weakSelf.present(controller, animated: true, completion: nil)
             }else{

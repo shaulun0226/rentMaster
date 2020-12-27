@@ -6,33 +6,42 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MainPageViewController: BaseSideMenuViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var products = [ProductModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        products = ProductModel.defaultGameLists
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
-//        tableView.register(UINib(nibName: "MainPageTableViewCell", bundle: nil), forCellReuseIdentifier: "MainPageTableViewCell")
-        // Do any additional setup after loading the view.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string!
+            let title = jsonArr[index]["title"].string!
+            let description = jsonArr[index]["description"].string!
+            let isSale = jsonArr[index]["isSale"].bool!
+            let isRent = jsonArr[index]["isRent"].bool!
+            let deposit = jsonArr[index]["deposit"].int!
+            let rent = jsonArr[index]["rent"].int!
+            let salePrice = jsonArr[index]["salePrice"].int!
+            let rentMethod = jsonArr[index]["rentMethod"].string!
+            let amount = jsonArr[index]["amount"].int!
+            let type = jsonArr[index]["type"].string!
+            let type1 = jsonArr[index]["type1"].string!
+            let type2 = jsonArr[index]["type2"].string!
+            let userId = jsonArr[index]["userId"].string!
+            let picsArr = jsonArr[index]["pics"].array!
+            var pics = [String]()
+            for index in 0..<picsArr.count{
+                pics.append(picsArr[index]["path"].string ?? "")
+            }
+            cell.products.append(ProductModel.init(id: id, title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics:pics))
+        }
+    }
 }
 extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,27 +56,86 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 //設定label的手勢
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapPS))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType(type: "PlayStation"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                        [weak self](value, isSuccess) in
+                        guard let weakSelf = self else {return}
+                        if(isSuccess){
+                            let jsonArr = JSON(value)
+                            print(jsonArr.type)
+                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            cell.products = ProductModel.defaultAllList
+                        }
+                    }
+                }else{
+                }
             case 1:
                 cell.lbMainPageTitle.text = "Xbox最新資訊"
                 //設定label的手勢
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapXbox(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType(type: "Xbox"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                        [weak self](value, isSuccess) in
+                        guard let weakSelf = self else {return}
+                        if(isSuccess){
+                            let jsonArr = JSON(value)
+                            print(jsonArr.type)
+                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            cell.products = ProductModel.defaultAllList
+                        }
+                    }
+                }else{
+                }
             case 2:
-                cell.lbMainPageTitle.text = "Switch最新資訊"
+                cell.lbMainPageTitle.text = "任天堂最新資訊"
                 //設定label的手勢
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapSwitch(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType(type: "任天堂",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                        [weak self](value, isSuccess) in
+                        guard let weakSelf = self else {return}
+                        if(isSuccess){
+                            let jsonArr = JSON(value)
+                            print(jsonArr.type)
+                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            cell.products = ProductModel.defaultAllList
+                        }
+                    }
+                }else{
+                }
             case 3:
                 cell.lbMainPageTitle.text = "桌遊最新資訊"
                 //設定label的手勢
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapBoardgame(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType(type: "桌遊"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                        [weak self](value, isSuccess) in
+                        guard let weakSelf = self else {return}
+                        if(isSuccess){
+                            let jsonArr = JSON(value)
+                            print(jsonArr.type)
+                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            cell.products = ProductModel.defaultAllList
+                        }
+                    }
+                }else{
+                }
             default:
                 cell.lbMainPageTitle.text = ""
             }
             cell.lbMainPageHint.text = "查看更多 >"
             //設定cell內容
-            cell.products = ProductModel.defaultGameLists
             return cell;
         }
         return UITableViewCell()
@@ -77,6 +145,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "PlayStation"
+            vcMain.isMyStore = false
             vcMain.slider.backgroundColor = .blue
             vcMain.productType1 = "PS5"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
@@ -87,10 +156,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Xbox"
-            
+            vcMain.isMyStore = false
             vcMain.productType1 = "XBOX"//暫定
             vcMain.slider.backgroundColor = .green
-            
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
         self.show(vcMain, sender: nil);
         }
@@ -99,6 +167,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Switch"
+            vcMain.isMyStore = false
             vcMain.productType1 = "SWITCH"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .red
@@ -109,6 +178,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "桌遊"
+            vcMain.isMyStore = false
             vcMain.productType1 = "桌遊"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .orange

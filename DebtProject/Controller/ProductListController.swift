@@ -46,7 +46,8 @@ class ProductListController: BaseSideMenuViewController{
                     print("productType is nil")
                     return
                 }
-                NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 5) { [weak self](value, isSuccess) in
+                print("進到getProductListByType1")
+                NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
                         let jsonArr = JSON(value)
@@ -55,6 +56,7 @@ class ProductListController: BaseSideMenuViewController{
                         weakSelf.parseProduct(jsonArr: jsonArr)
                         weakSelf.tableview.reloadData()
                     }else{
+                        print("失敗")
                         weakSelf.products = ProductModel.defaultGameLists
                     }
                 }
@@ -187,6 +189,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
     }
     private func parseProduct(jsonArr:JSON){
         for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string!
             let title = jsonArr[index]["title"].string!
             let description = jsonArr[index]["description"].string!
             let isSale = jsonArr[index]["isSale"].bool!
@@ -205,7 +208,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             for index in 0..<picsArr.count{
                 pics.append(picsArr[index]["path"].string ?? "")
             }
-            self.products.append(ProductModel.init(title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics:pics))
+            self.products.append(ProductModel.init(id: id, title: title , description: description, isSale: isSale, isRent: isRent, deposit: deposit, rent: rent, salePrice: salePrice, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics:pics))
         }
     }
 }

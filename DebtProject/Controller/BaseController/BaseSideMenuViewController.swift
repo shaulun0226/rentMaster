@@ -22,7 +22,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchUpInside)
         btnSideMenu.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊cart button
-//        let btnCart = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action:#selector(didTapCart))
+        //        let btnCart = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action:#selector(didTapCart))
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
         btnCart.setBackgroundImage(UIImage(systemName: "cart.fill"), for: .normal)
         btnCart.addTarget(self, action:#selector(didTapCart), for: .touchUpInside)//沒選touchUpInside會有重複點擊的可能
@@ -67,7 +67,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             //設定popover的來源視圖
             popoverController.popoverPresentationController?.sourceView = self.view
             //下面註解掉的這行可以指定箭頭指的座標
-//            popoverController.popoverPresentationController?.sourceRect = buttonFrame
+            //            popoverController.popoverPresentationController?.sourceRect = buttonFrame
             popoverController.popoverPresentationController?.delegate = self
             //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
             popoverController.popoverPresentationController?.permittedArrowDirections = .up
@@ -76,7 +76,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             popoverController.preferredContentSize = CGSize(width: 350, height: 500)
             //跳轉頁面
             present(popoverController, animated: true, completion: nil)
-          }
+        }
     }
     
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
@@ -97,7 +97,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
                         self.show(loginView, sender: nil);
                     }
-                 }
+                }
                 controller.addAction(okAction)
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                 controller.addAction(cancelAction)
@@ -156,7 +156,16 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
+        case .boardgame:
+            if let vcMain = productStoryboard.instantiateViewController(identifier: "ProductListView") as? ProductListController{
+                vcMain.slider.backgroundColor = .yellow
+                vcMain.productType1 = "桌遊"
+                vcMain.isMyStore = false
+                vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
+                view = vcMain
+            }
         }
+        
         //        view.title = selectedItem
         view.title = selectedItem
         self.show(view, sender: nil);
@@ -172,6 +181,8 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         sideMenulist.append(SideMenuListModel.init(title:.ps, item: [SideMenuItem.ps5,SideMenuItem.ps4]))
         sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.xbox,SideMenuItem.one]))
         sideMenulist.append(SideMenuListModel.init(title:.Switch, item:[ SideMenuItem.Switch]))
+        sideMenulist.append(SideMenuListModel.init(title:.boardgame, item:[ SideMenuItem.boardgame]))
+        
         let menuListController = SideMenuController.init(with: sideMenulist)
         
         menuListController.delegate = self;
