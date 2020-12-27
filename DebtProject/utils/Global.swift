@@ -16,6 +16,7 @@ enum MainStoryboardController:String, CaseIterable{
     case registerViewController = "RegisterViewController"
     case mainPageViewController = "MainPageViewController"
     case notifyViewController = "NotifyViewController"
+    case changePasswordViewController = "ChangePasswordViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"
@@ -23,6 +24,12 @@ enum ProductStoryboardController:String,CaseIterable{
     case productInfoViewController = "ProductInfoView"
     case addProductViewController = "AddProductViewController"
     case cartCellMenuViewController = "CartCellMenuViewController"
+}
+enum TableViewCell:String,CaseIterable{
+    case pageTableViewCell = "PageTableViewCell"
+}
+enum CollectionViewCell:String,CaseIterable{
+    case pageCollectionViewCell = "PageCollectionViewCell"
 }
 class Global{
     

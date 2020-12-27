@@ -9,7 +9,7 @@ import UIKit
 
 class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定navigation bar
@@ -25,17 +25,21 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
     func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag+1
         print(textField.tag)
-        print("????????/?")
-//        if case textField.superview? == DesignableView{
-//            
-//        }
-        if let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) {
-            print("@@@@@@@@")
-             nextResponder.becomeFirstResponder()
-          } else {
-            print("!!!!!!!")
-            textField.resignFirstResponder()
-          }
+        if(textField.superview is DesignableView){
+            if let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) {
+                print("@@@@@@@@")
+                nextResponder.becomeFirstResponder()
+            } else {
+                print("!!!!!!!")
+                textField.resignFirstResponder()
+            }
+        }else{
+            if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+                nextResponder.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+            }
+        }
         return true
     }
 }

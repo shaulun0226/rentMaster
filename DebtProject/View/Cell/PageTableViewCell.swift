@@ -7,15 +7,14 @@
 
 import UIKit
 protocol PageTableViewCellDelegate {
-    func cellClick()
+    func cellClick(indexPath: IndexPath,products:[ProductModel])
 }
 class PageTableViewCell: UITableViewCell {
     var myCollectionView:UICollectionView?
     @IBOutlet weak var pageCollectionView:UICollectionView!
     @IBOutlet weak var lbMainPageTitle: UILabel!
     @IBOutlet weak var lbMainPageHint: UILabel!
-    let pageTableViewCellDelegate:PageTableViewCellDelegate?
-    
+    var tableViewCellDelegate:PageTableViewCellDelegate?
     var products = [ProductModel]()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,7 +79,7 @@ extension PageTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource{
         products.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCollectionViewCell", for: indexPath) as? PageCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.pageCollectionViewCell.rawValue, for: indexPath) as? PageCollectionViewCell {
             cell.configure(with: products[indexPath.row])
             return cell;
         }
@@ -88,7 +87,7 @@ extension PageTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        pageTableViewCellDelegate?.cellClick()
+        tableViewCellDelegate?.cellClick(indexPath: indexPath,products :self.products)
     }
     
 }

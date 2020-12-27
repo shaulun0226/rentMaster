@@ -19,36 +19,36 @@ class ProductInfoImageCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     func configure(with imgUrl: String) {
-        self.productImage.image = UIImage(named: imgUrl)
+        if (!imgUrl.contains("http")){
+            self.productImage.image = UIImage(named: "monsterhunter")
+            return
+        }
+        let url = URL(string: imgUrl)
+        // load img
+        let session = URLSession(configuration: .default)
+        
+        // 下載資料後存檔在加目錄中的tmp目錄下，完整路徑在location參數中
+        
+        let dnTask = session.downloadTask(with: url!) { (location, response, error) in
+                    // 注意此 block 區段已在另外一個執行緒
+                    if error == nil, let location = location {
+                        do {
+                            // 從存檔中讀取資料
+                            if let data = try? Data(contentsOf: location) {
+                                DispatchQueue.main.sync {
+                                    self.productImage.image = UIImage(data: data)
+                                }
+                            }
+                        }
+                    } else {
+                        print("讀取資料錯誤")
+                    }
+                }
+                // 開始執行
+                dnTask.resume()
     }
+    
     func configureWithImg(with image:UIImage) {
         self.productImage.image = image
     }
-//    func configure(with model: ProductModel) {
-//        self.productImage.image = UIImage(named: model.imgUrl)
-//        //        let url = model.img
-//        //        let url = URL(string: "\(model.imgUrl)")
-//        //
-//        //        // load img
-//        //        let session = URLSession(configuration: .default)
-//        //
-//        //        // 下載資料後存檔在加目錄中的tmp目錄下，完整路徑在location參數中
-//        //        let dnTask = session.downloadTask(with: url!) { (location, response, error) in
-//        //            // 注意此 block 區段已在另外一個執行緒
-//        //            if error == nil, let location = location {
-//        //                do {
-//        //                    // 從存檔中讀取資料
-//        //                    if let data = try? Data(contentsOf: location) {
-//        //                        DispatchQueue.main.sync {
-//        //                            self.img.image = UIImage(data: data)
-//        //                        }
-//        //                    }
-//        //                }
-//        //            } else {
-//        //                print("讀取資料錯誤")
-//        //            }
-//        //        }
-//        //        // 開始執行
-//        //        dnTask.resume()
-//    }
 }

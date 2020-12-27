@@ -50,7 +50,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableViewCell",for: indexPath) as? PageTableViewCell {
-             switch indexPath.row {
+            switch indexPath.row {
             case 0:
                 cell.lbMainPageTitle.text = "PlayStation最新資訊"
                 //設定label的手勢
@@ -135,6 +135,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.lbMainPageTitle.text = ""
             }
             cell.lbMainPageHint.text = "查看更多 >"
+            cell.tableViewCellDelegate = self
             //設定cell內容
             return cell;
         }
@@ -149,7 +150,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.slider.backgroundColor = .blue
             vcMain.productType1 = "PS5"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
-        self.show(vcMain, sender: nil);
+            self.show(vcMain, sender: nil);
         }
     }
     @objc func handleTapXbox(gestureRecognizer: UIGestureRecognizer) {
@@ -160,7 +161,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.productType1 = "XBOX"//暫定
             vcMain.slider.backgroundColor = .green
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
-        self.show(vcMain, sender: nil);
+            self.show(vcMain, sender: nil);
         }
     }
     @objc func handleTapSwitch(gestureRecognizer: UIGestureRecognizer) {
@@ -171,7 +172,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.productType1 = "SWITCH"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .red
-        self.show(vcMain, sender: nil);
+            self.show(vcMain, sender: nil);
         }
     }
     @objc func handleTapBoardgame(gestureRecognizer: UIGestureRecognizer) {
@@ -182,11 +183,19 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.productType1 = "桌遊"//暫定
             vcMain.buttonText = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .orange
-        self.show(vcMain, sender: nil);
+            self.show(vcMain, sender: nil);
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400
     }
 }
-
+extension MainPageViewController:PageTableViewCellDelegate{
+    func cellClick(indexPath: IndexPath, products: [ProductModel]) {
+        let productModel = products[indexPath.row]
+        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+            productInfoView.product = productModel
+            self.show(productInfoView, sender: self)
+        }
+    }
+}

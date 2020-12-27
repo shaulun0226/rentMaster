@@ -16,14 +16,13 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var tfAccount: UnderLineTextField!{
         didSet {
             tfAccount.tag = 1
-            print("&7777777777")
-//            tfAccount.delegate = self
+            tfAccount.underLineTextFieldDelegate = self
         }
     }
     @IBOutlet weak var tfPassword: UnderLineTextField!{
         didSet {
             tfPassword.tag = 2
-//            tfPassword.delegate = self
+            tfPassword.underLineTextFieldDelegate = self
         }
     }
     

@@ -229,8 +229,10 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vcMain = self.storyboard?.instantiateViewController(identifier: "ProductInfoView");
-        self.show(vcMain!, sender: nil);
+        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+            productInfoView.product = products[indexPath.row]
+            self.show(productInfoView, sender: nil);
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         250

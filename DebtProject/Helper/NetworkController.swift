@@ -40,6 +40,7 @@ class NetworkController{
         let msg = json["msg"]
         print("error mag: \(msg)")
     }
+    // MARK: - memberCenter
     func login(email:String,password:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Users/login";
         let parameter: [String: String] = ["Email":email,"Password":password]
@@ -108,7 +109,42 @@ class NetworkController{
     func forgotPassword(email:String,verityCode:String,newPassword:String,completionHandler:@escaping (_ :String,Bool) -> ()){
         let url = "\(serverUrl)/Users/security/vp";
         let parameters: Parameters = ["Email":email,"VerityCode":verityCode,"NewPassword":newPassword]
-        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: nil)
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    print("連線成功")
+                    //當響應成功時，使用臨時變數value接收伺服器返回的資訊並判斷是否為[String: AnyObject]型別，如果是那麼將其傳給定義方法中的success
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            print("success")
+                            print(value)
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler(error.localizedDescription,false)
+                    break
+                    
+                }
+            }
+    }
+    func changePasswordByTokenAnd(oldPassword:String,newPassword:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Users/security/op";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let parameters: Parameters = ["OldPassword":oldPassword,"NewPassword":newPassword]
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
             .responseString{ response in
                 switch response.result {
                 //先看連線有沒有成功
@@ -297,10 +333,39 @@ class NetworkController{
                 }
             }
     }
+    
     func getOwnitem(completionHandler:@escaping (_ :Any,Bool) -> ()){
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let url = "\(serverUrl)/Products/ownItem";
         AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
+    func getProductById(productId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/ById/\(productId)";
+        AF.request(url,method: .get,encoding:JSONEncoding.default)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功

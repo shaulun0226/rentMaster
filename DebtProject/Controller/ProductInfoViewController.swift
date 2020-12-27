@@ -9,20 +9,24 @@ import UIKit
 
 class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbProductTtile: UILabel!
-    
-    @IBOutlet weak var lbPrice: UILabel!
-    @IBOutlet weak var lbProductInfo: UILabel!
-    @IBOutlet weak var lbProductConsole: UILabel!
+    @IBOutlet weak var lbAmount: UILabel!
+    @IBOutlet weak var lbSalePrice: UILabel!
+    @IBOutlet weak var lbProductDescription: UILabel!
+    @IBOutlet weak var lbProductType1: UILabel!
+    @IBOutlet weak var lbDeposit: UILabel!
+    @IBOutlet weak var lbRentPrice: UILabel!
     @IBOutlet weak var lbLocation: UILabel!
     @IBOutlet weak var lbRentType: UILabel!
     @IBOutlet weak var lbOther: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
-    
     @IBOutlet weak var productInfoTableView: UITableView!
     @IBOutlet weak var productInfoCollectionView: UICollectionView!
     @IBOutlet weak var productInfoPC: UIPageControl!
     var products = [ProductModel]()
+    var product:ProductModel!
     var productsImage = [String]()
+    var productTitle:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.productInfoTableView.delegate = self
@@ -31,11 +35,32 @@ class ProductInfoViewController: BaseViewController {
         self.productInfoCollectionView.delegate = self
         self.productInfoCollectionView.dataSource = self
         self.productInfoCollectionView.isPagingEnabled = true
-        productsImage.append("monsterhunter")
-        productsImage.append("ps4")
-        productsImage.append("ps5Controller")
-        self.productInfoCollectionView.reloadData()
-        lbOther.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
+        if(Global.isOnline){
+            lbProductTtile.text = "\(product.title)"
+            lbAmount.text = "商品數量:\(product.amount)"
+            lbProductDescription.text = "\(product.description)"
+            if(product.isSale){
+                lbSalePrice.text = "販售價格\(product.salePrice) 元"
+            }else{
+                lbSalePrice.isHidden = true
+            }
+            if(product.isRent){
+                lbDeposit.text = "商品押金:\(product.deposit) 元"
+                lbRentPrice.text = "租借金額:\(product.rent) 元/天"
+            }else{
+                lbDeposit.isHidden = true
+                lbRentPrice.isHidden = true
+            }
+            lbRentType.text = "寄送方式:\(product.rentMethod)"
+            productsImage = product.pics
+        }else{
+            productsImage.append("monsterhunter")
+            productsImage.append("ps4")
+            productsImage.append("ps5Controller")
+            self.productInfoCollectionView.reloadData()
+            lbOther.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
+        }
+        
         
         //設定換頁控制器有幾頁
         productInfoPC.numberOfPages = productsImage.count
@@ -76,6 +101,7 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
             }
             cell.lbMainPageHint.isHidden = true
             //設定cell內容
+            cell.tableViewCellDelegate = self
             cell.products = ProductModel.defaultGameLists
             return cell;
         }
@@ -85,12 +111,17 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400
     }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        //設定tableview cell裡的collectview的datasource跟delegate
-//        guard let tableViewCell = cell as? MainPageTableViewCell else { return }
-//        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
-//    }
 }
+extension ProductInfoViewController:PageTableViewCellDelegate{
+    func cellClick(indexPath: IndexPath, products: [ProductModel]) {
+        let productModel = products[indexPath.row]
+        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+            productInfoView.product = productModel
+            self.show(productInfoView, sender: self)
+        }
+    }
+}
+
 extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         productsImage.count

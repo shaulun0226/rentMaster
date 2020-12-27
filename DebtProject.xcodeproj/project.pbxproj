@@ -14,6 +14,7 @@
 		9F12BD132586177500813616 /* SideMenuListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD122586177500813616 /* SideMenuListModel.swift */; };
 		9F12BD5625885F2400813616 /* ProductModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD5525885F2400813616 /* ProductModelCell.swift */; };
 		9F12BD602588634100813616 /* TabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD5F2588634100813616 /* TabBarCell.swift */; };
+		9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */; };
 		9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C778E2577BF3B0063E641 /* AppDelegate.swift */; };
 		9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77902577BF3B0063E641 /* SceneDelegate.swift */; };
 		9F3C77932577BF3B0063E641 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77922577BF3B0063E641 /* LoginViewController.swift */; };
@@ -86,6 +87,7 @@
 		9F12BD122586177500813616 /* SideMenuListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListModel.swift; sourceTree = "<group>"; };
 		9F12BD5525885F2400813616 /* ProductModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModelCell.swift; sourceTree = "<group>"; };
 		9F12BD5F2588634100813616 /* TabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCell.swift; sourceTree = "<group>"; };
+		9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9F3C778B2577BF3B0063E641 /* DebtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3C778E2577BF3B0063E641 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F3C77902577BF3B0063E641 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				9F85281A25919687004454E6 /* NotifyViewController.swift */,
 				9F85284225936D47004454E6 /* CartViewController.swift */,
 				9F85284C25937C46004454E6 /* CartCellMenuViewController.swift */,
+				9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */,
 				9F3F2D5A258B103F00E156A8 /* CardView.swift in Sources */,
 				9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */,
+				9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */,
 				9F3C77932577BF3B0063E641 /* LoginViewController.swift in Sources */,
 				9F12BCF92585EBC900813616 /* ProductModel.swift in Sources */,
 				9F8528532597279F004454E6 /* User.swift in Sources */,
