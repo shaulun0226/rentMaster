@@ -117,7 +117,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapBoardgame(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "桌遊"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListByType(type: "BoardGame"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){

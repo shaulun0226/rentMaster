@@ -10,6 +10,7 @@ pod 'Alamofire', '~>5.2'
 pod 'SideMenu', '~> 6.5'
 pod "TLPhotoPicker"
 pod 'SwiftyJSON', '~> 4.0'
+pod 'Kingfisher'
 
 
 end

@@ -16,6 +16,27 @@ class NotifyViewController: BaseViewController ,UITableViewDelegate,UITableViewD
         notifyList.append(NotifyModel.init(title: "test1"))
         notifyList.append(NotifyModel.init(title: "test2"))
         notifyList.append(NotifyModel.init(title: "test3"))
+        
+        notifyList.append(NotifyModel.init(title: "test1"))
+        notifyList.append(NotifyModel.init(title: "test2"))
+        notifyList.append(NotifyModel.init(title: "test3"))
+        
+        notifyList.append(NotifyModel.init(title: "test1"))
+        notifyList.append(NotifyModel.init(title: "test2"))
+        notifyList.append(NotifyModel.init(title: "test3"))
+        
+        notifyList.append(NotifyModel.init(title: "test1"))
+        notifyList.append(NotifyModel.init(title: "test2"))
+        notifyList.append(NotifyModel.init(title: "test3"))
+        
+        notifyList.append(NotifyModel.init(title: "test1"))
+        notifyList.append(NotifyModel.init(title: "test2"))
+        notifyList.append(NotifyModel.init(title: "test3"))
+        
+        notifyList.append(NotifyModel.init(title: "test1"))
+        notifyList.append(NotifyModel.init(title: "test2"))
+        notifyList.append(NotifyModel.init(title: "test3"))
+        
         // Do any additional setup after loading the view.
         notifyTableView.delegate = self
         notifyTableView.dataSource = self

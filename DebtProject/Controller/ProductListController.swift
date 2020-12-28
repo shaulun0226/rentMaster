@@ -52,7 +52,6 @@ class ProductListController: BaseSideMenuViewController{
                     if(isSuccess){
                         let jsonArr = JSON(value)
                         print("解析\(jsonArr)")
-                        print(jsonArr.type)
                         weakSelf.parseProduct(jsonArr: jsonArr)
                         weakSelf.tableview.reloadData()
                     }else{
@@ -154,15 +153,14 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 
                 print(productType2)
             }
-            productType1 = "xbox"
-            productType2 = "other"
+            
+            productType2 = "game"
             if(Global.isOnline){
-                NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: 1, pageEnd: 5) {
+                NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
                     [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
                         let jsonArr = JSON(value)
-                        print(jsonArr.type)
                         weakSelf.parseProduct(jsonArr: jsonArr)
                         weakSelf.tableview.reloadData()
                     }else{

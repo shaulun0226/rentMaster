@@ -183,13 +183,19 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             }
         case .logout:
             if (User.token.isEmpty){
-                let controller = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
+                //設定UIAlertController的title,message
+                let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
+                //設定ok的action按鈕
                 let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                self.present(controller, animated: true, completion: nil)
+                //將action加入UIAlertController
+                alertController.addAction(okAction)
+                //彈出UIAlertController
+                self.present(alertController, animated: true, completion: nil)
                 return
             }else{
+                //設定UIAlertController的title,message
                 let controller = UIAlertController(title: "是否登出", message: "", preferredStyle: .alert)
+                //設定ok的action按鈕，並加入按下後的動作
                 let okAction = UIAlertAction(title: "確定", style: .default){(_) in
                     User.token = ""
                     let logoutController = UIAlertController(title: "帳號已登出", message: "", preferredStyle: .alert)
@@ -197,9 +203,13 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     logoutController.addAction(logoutOkAction)
                     self.present(logoutController, animated: true, completion: nil)
                 }
+                //將action加入UIAlertController
                 controller.addAction(okAction)
+                //設定cancel的action按鈕
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                //將action加入UIAlertController
                 controller.addAction(cancelAction)
+                //彈出UIAlertController
                 self.present(controller, animated: true, completion: nil)
                 return
             }
