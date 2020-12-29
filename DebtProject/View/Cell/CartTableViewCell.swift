@@ -6,7 +6,7 @@
 //
 
 import UIKit
-protocol CartTableViewCellDelegate {
+protocol CartTableViewCellDelegate : AnyObject{
     func menuOnClick(index:Int)
 }
 
@@ -17,7 +17,7 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var lbCartPrice:UILabel!
     @IBOutlet weak var btnMenu:UIButton!
     var index:Int!
-    var  cartTableViewCellDelegate:CartTableViewCellDelegate?
+    weak var  cartTableViewCellDelegate:CartTableViewCellDelegate?
 
     var cornerRadius: CGFloat = 20
     

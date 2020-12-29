@@ -6,7 +6,7 @@
 //
 
 import UIKit
-protocol PageTableViewCellDelegate {
+protocol PageTableViewCellDelegate : AnyObject{
     func cellClick(indexPath: IndexPath,products:[ProductModel])
 }
 class PageTableViewCell: UITableViewCell {
@@ -14,7 +14,7 @@ class PageTableViewCell: UITableViewCell {
     @IBOutlet weak var pageCollectionView:UICollectionView!
     @IBOutlet weak var lbMainPageTitle: UILabel!
     @IBOutlet weak var lbMainPageHint: UILabel!
-    var tableViewCellDelegate:PageTableViewCellDelegate?
+    weak var tableViewCellDelegate:PageTableViewCellDelegate?
     var products = [ProductModel]()
     override func awakeFromNib() {
         super.awakeFromNib()

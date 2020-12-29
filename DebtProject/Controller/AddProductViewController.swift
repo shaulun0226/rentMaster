@@ -38,6 +38,7 @@ class AddProductViewController: BaseViewController {
     var productDescription:String!
     var productIsSale:Bool!
     var productIsRent:Bool!
+    var productIsChange:Bool!
     var productDeposit:Int!
     var productRent:Int!
     var productSalePrice:Int!
@@ -50,7 +51,8 @@ class AddProductViewController: BaseViewController {
     var list = [String]()
     //wantchangeTableView
     @IBOutlet weak var wantChangeTableView: UITableView!
-    var cellCount = 5
+    var wantChangeList = [String]()
+    var cellCount = 1
     //popoverview榜定
     @IBOutlet var selectView: UIView!
     //popover裡的picker榜定
@@ -62,13 +64,21 @@ class AddProductViewController: BaseViewController {
     var type:String?
     @IBOutlet weak var addProductCV: UICollectionView!
     
+    @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        wantChangeTableView.layer.removeAllAnimations()
+        wantChangeTableViewHeight.constant = wantChangeTableView.contentSize.height
+        UIView.animate(withDuration: 0.5) {
+            self.updateViewConstraints()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.wantChangeTableView.delegate = self
         self.wantChangeTableView.dataSource = self
         self.wantChangeTableView.backgroundColor = .clear
-//                self.wantChangeTableView.register(CustomFooter.self,
-//                    forHeaderFooterViewReuseIdentifier: "CustomFooter")
+        wantChangeTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         self.wantChangeTableView.reloadData()
         addProductCV.delegate = self
         addProductCV.dataSource = self
@@ -80,11 +90,13 @@ class AddProductViewController: BaseViewController {
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
     @IBAction func removeCell(_ sender: Any) {
-        
-            self.cellCount -= 1
-            print("刪掉一格")
-            print(self.cellCount)
-            wantChangeTableView.reloadData()
+        if(self.cellCount==1){
+            return
+        }
+        self.cellCount -= 1
+        print("刪掉一格")
+        print(self.cellCount)
+        wantChangeTableView.reloadData()
         
     }
     @IBAction func addCell(_ sender: Any) {
@@ -126,6 +138,17 @@ class AddProductViewController: BaseViewController {
             productType1 = title
         case btnProductType2:
             productType2 = title
+        case btnChangeProduct:
+            switch title {
+            case "開放交換商品":
+                wantChangeTableView.isHidden = false
+                productIsChange = true
+            case "不開放交換商品":
+                wantChangeTableView.isHidden = true
+                productIsChange = false
+            default:
+                wantChangeTableView.isHidden = false
+            }
         default:
             print("沒篩到")
         }
@@ -307,28 +330,43 @@ class AddProductViewController: BaseViewController {
         }else{
             productSalePrice = 0
         }
-        
-        NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, type: productType, type1: productType1, type2: productType2, pics:productImages) {  [weak self] (responseValue,isSuccess) in
-            guard let weakSelf = self else {return}
-            if(isSuccess){
-                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
-                    let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
-                    if let myStoreView = productStoryboard.instantiateViewController(identifier:ProductStoryboardController.productListController.rawValue ) as? ProductListController{
-                        myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
-                        myStoreView.isMyStore = true
-                        myStoreView.slider.backgroundColor = .white
-                        myStoreView.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
-                        weakSelf.show(myStoreView, sender: nil);
+        if(productIsChange){
+            for index in 0..<cellCount{
+                let indexPath = IndexPath(item: index, section: 0)
+                if let cell = wantChangeTableView.cellForRow(at: indexPath) as? WantChangeTableViewCell{
+                    if(cell.tfChangeProduct.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+                        continue
                     }
+                    wantChangeList.append(cell.tfChangeProduct.text!)
                 }
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
-            }else{
-                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+            }
+        }
+        for index in 0..<wantChangeList.count{
+            print("wantChangeList          \(wantChangeList[index])")
+        }
+        if(Global.isOnline){
+            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, type: productType, type1: productType1, type2: productType2, pics:productImages) {  [weak self] (responseValue,isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+                        let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
+                        if let myStoreView = productStoryboard.instantiateViewController(identifier:ProductStoryboardController.productListController.rawValue ) as? ProductListController{
+                            myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
+                            myStoreView.isMyStore = true
+                            myStoreView.slider.backgroundColor = .white
+                            myStoreView.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
+                            weakSelf.show(myStoreView, sender: nil);
+                        }
+                    }
+                    controller.addAction(okAction)
+                    weakSelf.present(controller, animated: true, completion: nil)
+                }else{
+                    let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .default)
+                    controller.addAction(okAction)
+                    weakSelf.present(controller, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -473,38 +511,8 @@ extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
         if let cell = wantChangeTableView.dequeueReusableCell(withIdentifier: "WantChangeTableViewCell") as? WantChangeTableViewCell {
             cell.lbChangeTitle.text = "想交換商品\(indexPath.row+1):"
             cell.backgroundColor = .clear
-            print("888888888")
             return cell
         }
-        print("99999999999")
         return UITableViewCell()
     }
-    
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        print("創造footer")
-//        //下面if沒進去
-//        if let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier:"CustomFooter") as? CustomFooter{
-////            footer.customFooterDelegate = self
-//            footer.backgroundColor = .clear
-//            print("!!!!!!!!")
-//            return footer
-//        }
-//        print("???????")
-//        return UIView()
-//    }
 }
-//extension AddProductViewController:CustomFooterDelegate{
-//    func removeClick() {
-//        self.cellCount -= 1
-//        print("刪掉一格")
-//        print(self.cellCount)
-//        wantChangeTableView.reloadData()
-//    }
-//
-//    func addClick() {
-//        self.cellCount += 1
-//        print("新增一格")
-//        print(self.cellCount)
-//        wantChangeTableView.reloadData()
-//    }
-//}

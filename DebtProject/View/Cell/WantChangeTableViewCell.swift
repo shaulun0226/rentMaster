@@ -10,6 +10,7 @@ import UIKit
 class WantChangeTableViewCell: UITableViewCell {
     @IBOutlet weak var lbChangeTitle:UILabel!
     @IBOutlet weak var tfChangeProduct:UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,8 +18,6 @@ class WantChangeTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-
 }
