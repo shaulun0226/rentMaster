@@ -14,6 +14,7 @@
 		9F12BD132586177500813616 /* SideMenuListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD122586177500813616 /* SideMenuListModel.swift */; };
 		9F12BD5625885F2400813616 /* ProductModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD5525885F2400813616 /* ProductModelCell.swift */; };
 		9F12BD602588634100813616 /* TabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12BD5F2588634100813616 /* TabBarCell.swift */; };
+		9F1637BF259AFFF2008E9996 /* CityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637BE259AFFF2008E9996 /* CityList.swift */; };
 		9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */; };
 		9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C778E2577BF3B0063E641 /* AppDelegate.swift */; };
 		9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77902577BF3B0063E641 /* SceneDelegate.swift */; };
@@ -89,6 +90,7 @@
 		9F12BD122586177500813616 /* SideMenuListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListModel.swift; sourceTree = "<group>"; };
 		9F12BD5525885F2400813616 /* ProductModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModelCell.swift; sourceTree = "<group>"; };
 		9F12BD5F2588634100813616 /* TabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCell.swift; sourceTree = "<group>"; };
+		9F1637BE259AFFF2008E9996 /* CityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityList.swift; sourceTree = "<group>"; };
 		9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9F3C778B2577BF3B0063E641 /* DebtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3C778E2577BF3B0063E641 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 			children = (
 				9F6C4D832577F6110091BEA5 /* Global.swift */,
 				9F852815259195F0004454E6 /* Box.swift */,
+				9F1637BE259AFFF2008E9996 /* CityList.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */,
 				9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */,
 				9F3C77932577BF3B0063E641 /* LoginViewController.swift in Sources */,
+				9F1637BF259AFFF2008E9996 /* CityList.swift in Sources */,
 				9F12BCF92585EBC900813616 /* ProductModel.swift in Sources */,
 				9F8528532597279F004454E6 /* User.swift in Sources */,
 				9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */,

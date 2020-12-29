@@ -18,7 +18,8 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var lbProductLocation: UILabel!
     @IBOutlet weak var lbProductHost: UILabel!
     @IBOutlet weak var lbProductType: UILabel!
-    @IBOutlet weak var btnProductLocation: UIButton!
+    @IBOutlet weak var btnProductCity: UIButton!
+    @IBOutlet weak var btnProductRegion: UIButton!
     @IBOutlet weak var btnProductType: UIButton!
     @IBOutlet weak var btnProductType2: UIButton!
     @IBOutlet weak var btnSellType: UIButton!
@@ -43,6 +44,8 @@ class AddProductViewController: BaseViewController {
     var productRent:Int!
     var productSalePrice:Int!
     var productRentMethod:String!
+    var productCity:String!
+    var productRegion:String!
     var productAmount:Int!
     var productType:String!
     var productType1:String!
@@ -123,6 +126,12 @@ class AddProductViewController: BaseViewController {
                 salePriceView.isHidden = false
                 productIsSale = true
                 productIsRent = false
+            case "租借+販售":
+                depositView.isHidden = false
+                rentDayView.isHidden = false
+                salePriceView.isHidden = false
+                productIsSale = true
+                productIsRent = true
             default:
                 depositView.isHidden = false
                 rentDayView.isHidden = false
@@ -149,6 +158,10 @@ class AddProductViewController: BaseViewController {
             default:
                 wantChangeTableView.isHidden = false
             }
+        case btnProductCity:
+            productCity = title
+        case btnProductRegion:
+            productRegion = title
         default:
             print("沒篩到")
         }
@@ -160,7 +173,6 @@ class AddProductViewController: BaseViewController {
     
     //popover裡按下取消按鍵的action
     @IBAction func cancelClick(_ sender: Any) {
-        
         //關閉popoverview
         displayPicker(false)
     }
@@ -168,7 +180,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func sellTypeClick(_ sender: Any) {
         currentButton = btnSellType
         list.removeAll()
-        list = ["租借","販售","全部"]
+        list = ["租借","販售","租借+販售"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -195,10 +207,19 @@ class AddProductViewController: BaseViewController {
         displayPicker(true)
     }
     //按下位置按鈕後的action
-    @IBAction func locationClick(_ sender: Any) {
-        currentButton = btnProductLocation
+    @IBAction func cityClick(_ sender: Any) {
+        currentButton = btnProductCity
         list.removeAll()
-        list = ["台北市","新北市","基隆市","桃園市","臺中市","臺南市","高雄市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣","澎湖縣","金門縣","連江縣","新竹市","嘉義市"]
+        list = CityList.city
+        //刷新pick內容
+        pickerView.reloadAllComponents()
+        //跳出popoverview
+        displayPicker(true)
+    }
+    @IBAction func regionClick(_ sender: Any) {
+        currentButton = btnProductRegion
+        list.removeAll()
+        list = CityList.region[(btnProductCity.titleLabel?.text)!] ?? []
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -509,7 +530,7 @@ extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("創造cell")
         if let cell = wantChangeTableView.dequeueReusableCell(withIdentifier: "WantChangeTableViewCell") as? WantChangeTableViewCell {
-            cell.lbChangeTitle.text = "想交換商品\(indexPath.row+1):"
+            cell.lbChangeTitle.text = "\(indexPath.row+1):"
             cell.backgroundColor = .clear
             return cell
         }
