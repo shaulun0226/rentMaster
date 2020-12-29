@@ -63,6 +63,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             print(jsonArr.type)
+                            cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             cell.pageCollectionView.reloadData()
                         }else{
@@ -83,6 +84,8 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             print(jsonArr.type)
+                            
+                            cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             cell.pageCollectionView.reloadData()
                         }else{
@@ -103,6 +106,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             print(jsonArr.type)
+                            cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             cell.pageCollectionView.reloadData()
                         }else{
@@ -123,6 +127,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             print(jsonArr.type)
+                            cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             cell.pageCollectionView.reloadData()
                         }else{

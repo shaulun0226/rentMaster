@@ -91,18 +91,20 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         var view = UIViewController()
         switch itemNamed {
         case .store:
-            if (User.token.isEmpty){
-                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                        self.show(loginView, sender: nil);
+            if(Global.isOnline){
+                if (User.token.isEmpty){
+                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                            self.show(loginView, sender: nil);
+                        }
                     }
+                    controller.addAction(okAction)
+                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                    controller.addAction(cancelAction)
+                    self.present(controller, animated: true, completion: nil)
+                    return
                 }
-                controller.addAction(okAction)
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                controller.addAction(cancelAction)
-                self.present(controller, animated: true, completion: nil)
-                return
             }
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true

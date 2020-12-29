@@ -91,8 +91,8 @@ class LoginViewController: BaseViewController {
             }
         }else{
             //切換畫面
-            let productStoryboard = UIStoryboard(name: "Product", bundle: nil)
-            if let vcMain = productStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
+            
+            if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
                 self.show(vcMain, sender: LoginViewController.self);
             }
         }

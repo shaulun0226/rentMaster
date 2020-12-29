@@ -24,12 +24,14 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnSellType: UIButton!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnProductType1: UIButton!
+    @IBOutlet weak var btnChangeProduct: UIButton!
     @IBOutlet weak var depositView: DesignableView!
     @IBOutlet weak var rentDayView: DesignableView!
     @IBOutlet weak var salePriceView: DesignableView!
     @IBOutlet weak var tfProductDeposit: UnderLineTextField!
     @IBOutlet weak var tfProductRentDay: UnderLineTextField!
     @IBOutlet weak var tfProductPrice: UnderLineTextField!
+    @IBOutlet weak var customFooter: CustomFooter!
     var selectedAssets = [TLPHAsset]()
     var currentButton:UIButton!
     var productTitle:String!
@@ -46,6 +48,9 @@ class AddProductViewController: BaseViewController {
     var productType2:String!
     var productImages = [UIImage]()
     var list = [String]()
+    //wantchangeTableView
+    @IBOutlet weak var wantChangeTableView: UITableView!
+    var cellCount = 5
     //popoverview榜定
     @IBOutlet var selectView: UIView!
     //popover裡的picker榜定
@@ -55,6 +60,39 @@ class AddProductViewController: BaseViewController {
     var location:String?
     var host:String?
     var type:String?
+    @IBOutlet weak var addProductCV: UICollectionView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.wantChangeTableView.delegate = self
+        self.wantChangeTableView.dataSource = self
+        self.wantChangeTableView.backgroundColor = .clear
+//                self.wantChangeTableView.register(CustomFooter.self,
+//                    forHeaderFooterViewReuseIdentifier: "CustomFooter")
+        self.wantChangeTableView.reloadData()
+        addProductCV.delegate = self
+        addProductCV.dataSource = self
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.setValue(UIColor.white, forKeyPath: "textColor")
+        // Do any additional setup after loading the view.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
+    }
+    @IBAction func removeCell(_ sender: Any) {
+        
+            self.cellCount -= 1
+            print("刪掉一格")
+            print(self.cellCount)
+            wantChangeTableView.reloadData()
+        
+    }
+    @IBAction func addCell(_ sender: Any) {
+        self.cellCount += 1
+        print("新增一格")
+        print(self.cellCount)
+        wantChangeTableView.reloadData()
+    }
     //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
         let title  = list[pickerView.selectedRow(inComponent: 0)]
@@ -96,16 +134,8 @@ class AddProductViewController: BaseViewController {
         displayPicker(false)
     }
     
+    
     //popover裡按下取消按鍵的action
-    @IBAction func sendClick(_ sender: Any) {
-        currentButton = btnSend
-        list.removeAll()
-        list = ["7-11店到店","全家店到店","OK店到店","萊爾富店到店","宅急便","郵寄","面交"]
-        //刷新pick內容
-        pickerView.reloadAllComponents()
-        //跳出popoverview
-        displayPicker(true)
-    }
     @IBAction func cancelClick(_ sender: Any) {
         
         //關閉popoverview
@@ -116,6 +146,26 @@ class AddProductViewController: BaseViewController {
         currentButton = btnSellType
         list.removeAll()
         list = ["租借","販售","全部"]
+        //刷新pick內容
+        pickerView.reloadAllComponents()
+        //跳出popoverview
+        displayPicker(true)
+    }
+    //選擇是否願意交換商品
+    @IBAction func changeProductClick(_ sender: Any) {
+        currentButton = btnChangeProduct
+        list.removeAll()
+        list = ["開放交換商品","不開放交換商品"]
+        //刷新pick內容
+        pickerView.reloadAllComponents()
+        //跳出popoverview
+        displayPicker(true)
+    }
+    //寄送方式
+    @IBAction func sendClick(_ sender: Any) {
+        currentButton = btnSend
+        list.removeAll()
+        list = ["7-11店到店","全家店到店","OK店到店","萊爾富店到店","宅急便","郵寄","面交"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -204,18 +254,7 @@ class AddProductViewController: BaseViewController {
         selectView.layer.cornerRadius = 10
         super.viewWillAppear(animated)
     }
-    @IBOutlet weak var addProductCV: UICollectionView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addProductCV.delegate = self
-        addProductCV.dataSource = self
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        pickerView.setValue(UIColor.white, forKeyPath: "textColor")
-        // Do any additional setup after loading the view.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
-        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-    }
+    
     //點擊空白收回鍵盤
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
@@ -239,12 +278,12 @@ class AddProductViewController: BaseViewController {
         }
         return true;
     }
-//    func selectCheck()->Bool{
-//        if{
-//            return false;
-//        }
-//        return true;
-//    }
+    //    func selectCheck()->Bool{
+    //        if{
+    //            return false;
+    //        }
+    //        return true;
+    //    }
     @IBAction func addProductClick(_ sender: Any) {
         if(!emptyCheck()){
             let controller = UIAlertController(title: "請確認資料是否完整", message: "請確認資料是否完整", preferredStyle: .alert)
@@ -420,4 +459,52 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
         //選取超過最大上限數量的照片
     }
 }
-//圖片轉bmp再轉64bit
+extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("count\(self.cellCount)")
+        return self.cellCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("創造cell")
+        if let cell = wantChangeTableView.dequeueReusableCell(withIdentifier: "WantChangeTableViewCell") as? WantChangeTableViewCell {
+            cell.lbChangeTitle.text = "想交換商品\(indexPath.row+1):"
+            cell.backgroundColor = .clear
+            print("888888888")
+            return cell
+        }
+        print("99999999999")
+        return UITableViewCell()
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        print("創造footer")
+//        //下面if沒進去
+//        if let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier:"CustomFooter") as? CustomFooter{
+////            footer.customFooterDelegate = self
+//            footer.backgroundColor = .clear
+//            print("!!!!!!!!")
+//            return footer
+//        }
+//        print("???????")
+//        return UIView()
+//    }
+}
+//extension AddProductViewController:CustomFooterDelegate{
+//    func removeClick() {
+//        self.cellCount -= 1
+//        print("刪掉一格")
+//        print(self.cellCount)
+//        wantChangeTableView.reloadData()
+//    }
+//
+//    func addClick() {
+//        self.cellCount += 1
+//        print("新增一格")
+//        print(self.cellCount)
+//        wantChangeTableView.reloadData()
+//    }
+//}

@@ -61,8 +61,8 @@ extension CartViewController:CartTableViewCellDelegate{
             popoverController.index = index
             popoverController.cartCellMenuViewDelegate = self
             //設定popoverview backgroundColor
-            let layer = Global.setBackgroundColor(view);
-            popoverController.view.layer.insertSublayer(layer, at: 0)
+//            let layer = Global.setBackgroundColor(view);
+//            popoverController.view.layer.insertSublayer(layer, at: 0)
             //設定以 popover 的效果跳轉
             popoverController.modalPresentationStyle = .popover
             //設定indexpath
@@ -79,7 +79,7 @@ extension CartViewController:CartTableViewCellDelegate{
             //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
             popoverController.popoverPresentationController?.permittedArrowDirections = .right
             //設定popover視窗大小
-            popoverController.preferredContentSize = CGSize(width: 250, height: 150)
+            popoverController.preferredContentSize = CGSize(width: 250, height: 50)
             //跳轉頁面
             present(popoverController, animated: true, completion: nil)
         }

@@ -33,7 +33,7 @@ enum CollectionViewCell:String,CaseIterable{
 }
 class Global{
     
-    static var isOnline = true
+    static var isOnline = false
     static let pageBegin = 1
     static let pageEnd = 10
     

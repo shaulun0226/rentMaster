@@ -47,6 +47,8 @@
 		9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D57258F059E0030A175 /* AddProductViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
+		9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */; };
+		9FAAA330259A267C00707976 /* CustomFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA32F259A267C00707976 /* CustomFooter.swift */; };
 		9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025B42588AB3500D6715E /* ProductInfoViewController.swift */; };
 		9FB025C3258911A400D6715E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025C2258911A400D6715E /* BaseViewController.swift */; };
 		9FB025D42589F7F100D6715E /* MainProductModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025D32589F7F100D6715E /* MainProductModelCell.swift */; };
@@ -126,6 +128,8 @@
 		9F877D57258F059E0030A175 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantChangeTableViewCell.swift; sourceTree = "<group>"; };
+		9FAAA32F259A267C00707976 /* CustomFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFooter.swift; sourceTree = "<group>"; };
 		9FB025B42588AB3500D6715E /* ProductInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoViewController.swift; sourceTree = "<group>"; };
 		9FB025C2258911A400D6715E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9FB025D32589F7F100D6715E /* MainProductModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProductModelCell.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				9FB0FF86258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift */,
 				9F8528082591915B004454E6 /* NotifyModelCell.swift */,
 				9F85284725936EB0004454E6 /* CartTableViewCell.swift */,
+				9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 				9F6E6C532582831D0082A94E /* UnderLineTextField.swift */,
 				9F12BCCD2584B19700813616 /* TabBar.swift */,
 				9F3F2D59258B103F00E156A8 /* CardView.swift */,
+				9FAAA32F259A267C00707976 /* CustomFooter.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -557,10 +563,12 @@
 				9F12BD602588634100813616 /* TabBarCell.swift in Sources */,
 				9F972593257FA02B00EF310D /* DesignableView.swift in Sources */,
 				9FB025DE2589F93500D6715E /* BaseSideMenuViewController.swift in Sources */,
+				9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */,
 				9F85280E25919173004454E6 /* NotifyModel.swift in Sources */,
 				9F85284D25937C46004454E6 /* CartCellMenuViewController.swift in Sources */,
 				9F85284325936D47004454E6 /* CartViewController.swift in Sources */,
 				9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */,
+				9FAAA330259A267C00707976 /* CustomFooter.swift in Sources */,
 				9FB025D42589F7F100D6715E /* MainProductModelCell.swift in Sources */,
 				9FB025E3258A0D3F00D6715E /* MainPageProductCell.swift in Sources */,
 				9FB025C3258911A400D6715E /* BaseViewController.swift in Sources */,
