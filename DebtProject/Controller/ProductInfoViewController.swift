@@ -140,14 +140,29 @@ extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductInfoImageCollectionViewCell", for: indexPath) as? ProductInfoImageCollectionViewCell {
             cell.configure(with: productsImage[indexPath.row])
-            productInfoPC.currentPage = indexPath.row
             
             return cell;
         }
         return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
+       let index = scrollView.contentOffset.x / witdh
+       let roundedIndex = round(index)
+       self.productInfoPC.currentPage = Int(roundedIndex)
+   }
+   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+    productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+   }
+
+   func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+    productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+   }
 }
 extension ProductInfoViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

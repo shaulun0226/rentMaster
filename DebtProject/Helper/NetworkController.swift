@@ -292,23 +292,25 @@ class NetworkController{
                 }
             }
     }
-    func addProduct(title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,pics:[UIImage],TrideItems:[String],completionHandler:@escaping (_ status :String,Bool) -> ()){
+    func addProduct(title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,pics:[UIImage],trideItems:[String],completionHandler:@escaping (_ status :String,Bool) -> ()){
         var picsJsonArr = [Parameters]()
         for index in 0..<pics.count{
             //先拿到imageDate (設定圖片質量為原圖的0.9)
             let imageData = pics[index].jpegData(compressionQuality: 0.9)
             //將imageData轉為base64
             let imageBase64String = imageData?.base64EncodedString()
-            print(imageBase64String ?? "Could not encode image to Base64")
 //            let pic:Parameters = ["Desc":title+"_"+String(index+1),"Path":imageBase64String ?? ""]
             let pic:Parameters = ["Desc":"\(title)_\(index+1)","Path":imageBase64String ?? ""]
             picsJsonArr.append(pic)
         }
         var trideItemsJsonArr = [Parameters]()
-        for index in 0..<TrideItems.count{
-            let trideItems:Parameters = ["ExchangeItem":"\(TrideItems[index])"]
+        print(trideItems.count)
+        print(trideItems[0])
+        for index in 0..<trideItems.count{
+            let trideItems:Parameters = ["ExchangeItem":"\(trideItems[index])"]
             trideItemsJsonArr.append(trideItems)
         }
+        print(trideItemsJsonArr)
         let parameters :Parameters = ["Title":title,"Description":description,"isSale":isSale,"isRent":isRent,"isExchange":isExchange,"Deposit":deposit,"Rent":rent,"salePrice":salePrice,"RentMethod":rentMethod,"amount":amount,"Address":address,"Type":type,"Type1":type1,"Type2":type2,"pics":picsJsonArr,"TrideItems":trideItemsJsonArr]
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let url = "\(serverUrl)/Products/add";

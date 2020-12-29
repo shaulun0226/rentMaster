@@ -153,7 +153,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 
                 print(productType2)
             }
-            
+            productType1 = "PS5"
             productType2 = "game"
             if(Global.isOnline){
                 NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
@@ -193,7 +193,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             let isSale = jsonArr[index]["isSale"].bool!
             let isRent = jsonArr[index]["isRent"].bool!
             let isExchange = jsonArr[index]["isExchange"].bool!
-            let address = jsonArr[index]["address"].string!
+            let address = jsonArr[index]["address"].string ?? ""
             let deposit = jsonArr[index]["deposit"].int!
             let rent = jsonArr[index]["rent"].int!
             let salePrice = jsonArr[index]["salePrice"].int!
@@ -211,7 +211,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             }
             var items = [String]()
             for index in 0..<items.count{
-                items.append(tradeItemsArr[index]["ExchangeItem"].string ?? "")
+                items.append(tradeItemsArr[index]["exchangeItem"].string ?? "")
             }
             self.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items))
         }

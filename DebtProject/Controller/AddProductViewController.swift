@@ -240,11 +240,11 @@ class AddProductViewController: BaseViewController {
         case "PlayStation":
             list = ["PS5","PS4"]
         case "Xbox":
-            list = ["Xbox One","Xbox Series"]
+            list = ["One","Series"]
         case "任天堂":
             list = ["Switch"]
         case "桌遊":
-            list = ["桌遊"]
+            list = ["4人以下","4-8人","8人以上"]
         default:
             list = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
         }
@@ -366,7 +366,7 @@ class AddProductViewController: BaseViewController {
             print("wantChangeList          \(tradeItems[index])")
         }
         if(Global.isOnline){
-            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, TrideItems:tradeItems){  [weak self] (responseValue,isSuccess) in
+            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, trideItems:tradeItems){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
                 if(isSuccess){
                     let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)

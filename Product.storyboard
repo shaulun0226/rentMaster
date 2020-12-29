@@ -65,7 +65,7 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hru-sy-U3X">
+                                    <pageControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="hru-sy-U3X">
                                         <rect key="frame" x="62" y="278" width="290" height="27.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27.333333333333314" id="w7D-yG-lsb"/>

@@ -26,7 +26,7 @@ class MainPageViewController: BaseSideMenuViewController {
             let isSale = jsonArr[index]["isSale"].bool!
             let isRent = jsonArr[index]["isRent"].bool!
             let isExchange = jsonArr[index]["isExchange"].bool!
-            let address = jsonArr[index]["address"].string!
+            let address = jsonArr[index]["address"].string ?? ""
             let deposit = jsonArr[index]["deposit"].int!
             let rent = jsonArr[index]["rent"].int!
             let salePrice = jsonArr[index]["salePrice"].int!
@@ -42,10 +42,12 @@ class MainPageViewController: BaseSideMenuViewController {
             for index in 0..<picsArr.count{
                 pics.append(picsArr[index]["path"].string ?? "")
             }
+            print(tradeItemsArr.count)
             var items = [String]()
-            for index in 0..<items.count{
-                items.append(tradeItemsArr[index]["ExchangeItem"].string ?? "")
+            for index in 0..<tradeItemsArr.count{
+                items.append(tradeItemsArr[index]["exchangeItem"].string ?? "")
             }
+            
             cell.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items))
         }
     }
