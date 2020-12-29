@@ -12,15 +12,18 @@ class ProductListController: BaseSideMenuViewController{
     @IBOutlet weak var collectview: UICollectionView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var btnAdd:UIButton!
+    open var searchController: UISearchController?
+    open var hidesSearchBarWhenScrolling: Bool = true
     var isMyStore = true
     var platform:String!
     var layer:CAGradientLayer!
-    var buttonText = [String]()
+    var tabbarTitle = [String]()
     var products = [ProductModel]()
     //collectionview底線
     var slider = UIView()
     var productType1:String?
     var productType2:String?
+    //searchbar
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +65,13 @@ class ProductListController: BaseSideMenuViewController{
             }else{
                 self.products = ProductModel.defaultAllList
             }
+            //searchbar
+            navigationController?.navigationBar.prefersLargeTitles = true
+                    searchController = UISearchController(searchResultsController: nil)
+                    searchController?.searchResultsUpdater = self
+//                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
+                    navigationItem.searchController = searchController
+                    definesPresentationContext = true
         }
         setupSlider()
         //設定標題大小
@@ -94,7 +104,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        buttonText.count
+        tabbarTitle.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,7 +115,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             cell.isSelected = false
         }
         cell.backgroundColor = UIColor(named: "card")
-        cell.lbTitle.text = buttonText[indexPath.row]
+        cell.lbTitle.text = tabbarTitle[indexPath.row]
         cell.lbTitle.textColor = .white
         //        cell.layer.insertSublayer(layer, at: 0)
         return cell
@@ -133,7 +143,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
             products.removeAll()
-            let selectedProductType = buttonText[indexPath.row]
+            let selectedProductType = tabbarTitle[indexPath.row]
             switch selectedProductType {
             case "所有":
                 productType2 = "all"
@@ -168,7 +178,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     }
                 }
             }else{
-                let selectedProductType = buttonText[indexPath.row]
+                let selectedProductType = tabbarTitle[indexPath.row]
                 switch selectedProductType {
                 case "所有":
                     products = ProductModel.defaultAllList
@@ -241,5 +251,10 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         250
+    }
+}
+extension ProductListController : UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        <#code#>
     }
 }

@@ -376,7 +376,7 @@ class AddProductViewController: BaseViewController {
                             myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
                             myStoreView.isMyStore = true
                             myStoreView.slider.backgroundColor = .white
-                            myStoreView.buttonText = ["上架中","未上架","出租中","未出貨","不知道"]
+                            myStoreView.tabbarTitle = ["上架中","未上架","出租中","未出貨","不知道"]
                             weakSelf.show(myStoreView, sender: nil);
                         }
                     }

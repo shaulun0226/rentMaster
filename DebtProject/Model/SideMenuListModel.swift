@@ -18,6 +18,7 @@ enum SideMenuItem: String, CaseIterable {
     case boardgame = "桌遊"
     case changePassword = "修改密碼"
     case logout = "帳號登出"
+    case memberCenter = "會員中心"
 }
 enum SideMenuSelectTitle:String,CaseIterable{
     case store = "Store"
