@@ -208,16 +208,16 @@
                     <navigationItem key="navigationItem" id="E3M-UP-w7a"/>
                     <connections>
                         <outlet property="btnConfirm" destination="u8y-xW-qiN" id="yam-Ks-5fb"/>
+                        <outlet property="lbAddress" destination="XZ8-3r-TJA" id="ud1-Hf-26a"/>
                         <outlet property="lbAmount" destination="wPS-jI-itk" id="TEX-xk-Vwt"/>
                         <outlet property="lbDeposit" destination="yjK-10-3Bn" id="8Jn-5h-XUy"/>
-                        <outlet property="lbLocation" destination="XZ8-3r-TJA" id="ud1-Hf-26a"/>
-                        <outlet property="lbOther" destination="ljT-ev-MHe" id="Pqz-sm-kVK"/>
                         <outlet property="lbProductDescription" destination="ffO-wd-wfH" id="1Ro-vd-aNh"/>
                         <outlet property="lbProductTtile" destination="cCB-ez-Xjt" id="YsC-L4-3Tl"/>
                         <outlet property="lbProductType1" destination="Q0M-ae-sl3" id="ALU-2L-Ojn"/>
                         <outlet property="lbRentPrice" destination="KlK-zR-hev" id="pUY-Nl-95E"/>
                         <outlet property="lbRentType" destination="sCF-Wt-mbc" id="SBc-aT-OV9"/>
                         <outlet property="lbSalePrice" destination="Mpi-pv-3M3" id="2g6-Oa-SOP"/>
+                        <outlet property="lbTradeItem" destination="ljT-ev-MHe" id="Pqz-sm-kVK"/>
                         <outlet property="productInfoCollectionView" destination="I0e-3w-qwK" id="0I3-W8-Ayd"/>
                         <outlet property="productInfoPC" destination="hru-sy-U3X" id="YWB-HM-9eh"/>
                         <outlet property="productInfoTableView" destination="9FA-kF-JQm" id="WXD-iu-awY"/>

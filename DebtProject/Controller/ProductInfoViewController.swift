@@ -15,9 +15,9 @@ class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbProductType1: UILabel!
     @IBOutlet weak var lbDeposit: UILabel!
     @IBOutlet weak var lbRentPrice: UILabel!
-    @IBOutlet weak var lbLocation: UILabel!
+    @IBOutlet weak var lbAddress: UILabel!
     @IBOutlet weak var lbRentType: UILabel!
-    @IBOutlet weak var lbOther: UILabel!
+    @IBOutlet weak var lbTradeItem: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var productInfoTableView: UITableView!
     @IBOutlet weak var productInfoCollectionView: UICollectionView!
@@ -51,6 +51,16 @@ class ProductInfoViewController: BaseViewController {
                 lbDeposit.isHidden = true
                 lbRentPrice.isHidden = true
             }
+            if(product.isExchange){
+                var itemList = "欲交換商品:\n"
+                for index in 0..<product.tradeItems.count{
+                    itemList += "       \(index+1).\(product.tradeItems[index]) \n"
+                }
+                lbTradeItem.text = itemList
+            }else{
+                lbTradeItem.isHidden = true
+            }
+            lbAddress.text = "商品地區:\(product.address)"
             lbRentType.text = "寄送方式:\(product.rentMethod)"
             productsImage = product.pics
         }else{
@@ -58,7 +68,7 @@ class ProductInfoViewController: BaseViewController {
             productsImage.append("ps4")
             productsImage.append("ps5Controller")
             self.productInfoCollectionView.reloadData()
-            lbOther.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
+            lbTradeItem.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
         }
         
         

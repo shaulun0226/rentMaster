@@ -39,7 +39,7 @@ class AddProductViewController: BaseViewController {
     var productDescription:String!
     var productIsSale:Bool!
     var productIsRent:Bool!
-    var productIsChange:Bool!
+    var productIsExchange:Bool!
     var productDeposit:Int!
     var productRent:Int!
     var productSalePrice:Int!
@@ -54,7 +54,7 @@ class AddProductViewController: BaseViewController {
     var list = [String]()
     //wantchangeTableView
     @IBOutlet weak var wantChangeTableView: UITableView!
-    var wantChangeList = [String]()
+    var tradeItems = [String]()
     var cellCount = 1
     //popoverview榜定
     @IBOutlet var selectView: UIView!
@@ -151,10 +151,10 @@ class AddProductViewController: BaseViewController {
             switch title {
             case "開放交換商品":
                 wantChangeTableView.isHidden = false
-                productIsChange = true
+                productIsExchange = true
             case "不開放交換商品":
                 wantChangeTableView.isHidden = true
-                productIsChange = false
+                productIsExchange = false
             default:
                 wantChangeTableView.isHidden = false
             }
@@ -351,22 +351,22 @@ class AddProductViewController: BaseViewController {
         }else{
             productSalePrice = 0
         }
-        if(productIsChange){
+        if(productIsExchange){
             for index in 0..<cellCount{
                 let indexPath = IndexPath(item: index, section: 0)
                 if let cell = wantChangeTableView.cellForRow(at: indexPath) as? WantChangeTableViewCell{
                     if(cell.tfChangeProduct.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
                         continue
                     }
-                    wantChangeList.append(cell.tfChangeProduct.text!)
+                    tradeItems.append(cell.tfChangeProduct.text!)
                 }
             }
         }
-        for index in 0..<wantChangeList.count{
-            print("wantChangeList          \(wantChangeList[index])")
+        for index in 0..<tradeItems.count{
+            print("wantChangeList          \(tradeItems[index])")
         }
         if(Global.isOnline){
-            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, type: productType, type1: productType1, type2: productType2, pics:productImages) {  [weak self] (responseValue,isSuccess) in
+            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, TrideItems:tradeItems){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
                 if(isSuccess){
                     let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)

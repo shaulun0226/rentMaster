@@ -1182,14 +1182,6 @@
             </objects>
             <point key="canvasLocation" x="818.69158878504663" y="59.611231101511883"/>
         </scene>
-        <!--ProductInfoView-->
-        <scene sceneID="nX2-Ok-BDQ">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="ProductInfoView" storyboardName="Product" referencedIdentifier="ProductInfoView" id="sRi-I6-qGg" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fs1-bZ-Drj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1528" y="1671"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="PMu-BB-AWQ">
             <objects>
@@ -1510,7 +1502,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgz-KZ-2vd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2796" y="1274"/>
+            <point key="canvasLocation" x="2796" y="1120"/>
         </scene>
     </scenes>
     <resources>

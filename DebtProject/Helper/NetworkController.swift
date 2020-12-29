@@ -292,7 +292,7 @@ class NetworkController{
                 }
             }
     }
-    func addProduct(title:String,description:String,isSale:Bool,isRent:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,type:String,type1:String,type2:String,pics:[UIImage],completionHandler:@escaping (_ status :String,Bool) -> ()){
+    func addProduct(title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,pics:[UIImage],TrideItems:[String],completionHandler:@escaping (_ status :String,Bool) -> ()){
         var picsJsonArr = [Parameters]()
         for index in 0..<pics.count{
             //先拿到imageDate (設定圖片質量為原圖的0.9)
@@ -304,7 +304,12 @@ class NetworkController{
             let pic:Parameters = ["Desc":"\(title)_\(index+1)","Path":imageBase64String ?? ""]
             picsJsonArr.append(pic)
         }
-        let parameters :Parameters = ["Title":title,"Description":description,"isSale":isSale,"isRent":isRent,"Deposit":deposit,"Rent":rent,"salePrice":salePrice,"RentMethod":rentMethod,"amount":amount,"Type":type,"Type1":type1,"Type2":type2,"pics":picsJsonArr]
+        var trideItemsJsonArr = [Parameters]()
+        for index in 0..<TrideItems.count{
+            let trideItems:Parameters = ["ExchangeItem":"\(TrideItems[index])"]
+            trideItemsJsonArr.append(trideItems)
+        }
+        let parameters :Parameters = ["Title":title,"Description":description,"isSale":isSale,"isRent":isRent,"isExchange":isExchange,"Deposit":deposit,"Rent":rent,"salePrice":salePrice,"RentMethod":rentMethod,"amount":amount,"Address":address,"Type":type,"Type1":type1,"Type2":type2,"pics":picsJsonArr,"TrideItems":trideItemsJsonArr]
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let url = "\(serverUrl)/Products/add";
         AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default, headers: header)
