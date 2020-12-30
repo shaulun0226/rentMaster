@@ -18,6 +18,7 @@ enum MainStoryboardController:String, CaseIterable{
     case notifyViewController = "NotifyViewController"
     case changePasswordViewController = "ChangePasswordViewController"
     case memberCenterViewController = "MemberCenterViewController"
+    case changeUserInfoViewController = "ChangeUserInfoViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"
@@ -38,7 +39,7 @@ enum CollectionViewCell:String,CaseIterable{
 }
 class Global{
     
-    static var isOnline = true
+    static var isOnline = false
     static let pageBegin = 1
     static let pageEnd = 10
     
@@ -46,7 +47,7 @@ class Global{
     static let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
     static let mainStoryboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
     
-    static var token:String? = "";
+//    static var token:String? = "";
     
     static let URL:String = "http://35.184.167.119:3000/api";
     

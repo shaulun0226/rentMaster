@@ -9,11 +9,13 @@ import UIKit
 
 class MemberCenterViewController: BaseSideMenuViewController {
     @IBOutlet weak var memberCenterTableView: UITableView!
-    var titleList = ["我的訂單","修改密碼","帳號登出"]
+    var titleList = ["我的訂單","帳號資訊","修改密碼","帳號登出"]
     override func viewDidLoad() {
         super.viewDidLoad()
         memberCenterTableView.delegate = self
         memberCenterTableView.dataSource = self
+        memberCenterTableView.layer.cornerRadius = 20
+        memberCenterTableView.backgroundColor = UIColor(named: "card")
     }
     
 }
@@ -24,7 +26,8 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.memberCenterTableViewCell.rawValue) as? MemberCenterTableViewCell {
-            cell.backgroundColor = UIColor(named: "card")
+            
+            cell.contentView.layer.insertSublayer(Global.setBackgroundColor(cell.contentView), at: 0)
             cell.lbTilte.text = titleList[indexPath.row]
             return cell;
         }
@@ -37,10 +40,14 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
                 self.show(myOrderListViewController, sender: nil);
             }
         case 1:
+            if let changeUserInfoView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changeUserInfoViewController.rawValue) as? ChangeUserInfoViewController{
+                self.show(changeUserInfoView, sender: nil);
+            }
+        case 2:
             if let changePasswordView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changePasswordViewController.rawValue) as? ChangePasswordViewController{
                 self.show(changePasswordView, sender: nil);
             }
-        case 2:
+        case 3:
             if (User.token.isEmpty){
                 //設定UIAlertController的title,message
                 let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
@@ -75,6 +82,9 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
         default:
             return
         }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        150
     }
     
 }

@@ -8,17 +8,22 @@
 import UIKit
 import SwiftyJSON
 
+
 class ProductListController: BaseSideMenuViewController{
     @IBOutlet weak var collectview: UICollectionView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var btnAdd:UIButton!
-    open var searchController: UISearchController?
-    open var hidesSearchBarWhenScrolling: Bool = true
     var isMyStore = true
     var platform:String!
     var layer:CAGradientLayer!
     var tabbarTitle = [String]()
     var products = [ProductModel]()
+    //searchbar
+    var searchProducts = [ProductModel]()
+    open var searchController: UISearchController? //建立searchController
+    //    var searchResultController = UITableViewController()
+    //建立一個搜尋結果controller
+    open var hidesSearchBarWhenScrolling: Bool = true
     //collectionview底線
     var slider = UIView()
     var productType1:String?
@@ -28,6 +33,7 @@ class ProductListController: BaseSideMenuViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         if(isMyStore){
+            tabbarTitle = ["上架中","未上架","出租中","未出貨"]
             if(Global.isOnline){
                 NetworkController.instance().getOwnitem{ [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
@@ -44,6 +50,7 @@ class ProductListController: BaseSideMenuViewController{
                 self.products = ProductModel.defaultAllList
             }
         }else{//不是我的賣場就call list的API
+            tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             if(Global.isOnline){
                 guard productType1 != nil else {
                     print("productType is nil")
@@ -66,12 +73,19 @@ class ProductListController: BaseSideMenuViewController{
                 self.products = ProductModel.defaultAllList
             }
             //searchbar
-            navigationController?.navigationBar.prefersLargeTitles = true
-                    searchController = UISearchController(searchResultsController: nil)
-                    searchController?.searchResultsUpdater = self
-//                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
-                    navigationItem.searchController = searchController
-                    definesPresentationContext = true
+            
+            navigationController?.navigationBar.prefersLargeTitles = false
+            searchController = UISearchController(searchResultsController: nil)
+            searchController?.searchResultsUpdater = self
+            searchController?.searchBar.placeholder = "請輸入關鍵字"
+            searchController?.searchBar.delegate = self
+            
+            //在編輯時會跑出叉叉的位置顯示一個可以按的button，只要一開始編輯就會換成叉叉
+            //            searchController?.searchBar.showsSearchResultsButton = true
+            //                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
+            definesPresentationContext = true
+            tableview.tableHeaderView = searchController?.searchBar
+            
         }
         setupSlider()
         //設定標題大小
@@ -90,7 +104,7 @@ class ProductListController: BaseSideMenuViewController{
         self.slider.frame.size = CGSize(width: 90, height: 3)
         self.slider.center.y = collectview.bounds.maxY-8
         collectview.addSubview(slider)
-        collectionView(collectview, didSelectItemAt:[0,0])
+//        collectionView(collectview, didSelectItemAt:[0,0])
     }
     @IBAction func addProductClick(){
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
@@ -148,11 +162,13 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             case "所有":
                 productType2 = "all"
             case "主機":
-                productType2 = "host"
+                productType2 = "主機"
             case "周邊":
-                productType2 = "other"
+                productType2 = "周邊"
             case "遊戲":
-                productType2 = "game"
+                productType2 = "遊戲"
+            case "其他":
+                productType2 = "其他"
             default:
                 products = ProductModel.defaultGameLists
             }
@@ -187,6 +203,8 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 case "周邊":
                     products = ProductModel.defaultMerchLists
                 case "遊戲":
+                    products = ProductModel.defaultGameLists
+                case "其他":
                     products = ProductModel.defaultGameLists
                 default:
                     products = ProductModel.defaultGameLists
@@ -229,16 +247,17 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
 }
 extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        products.count
+        ((searchController?.isActive)!) ? searchProducts.count : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
             cell.backgroundColor = UIColor(named: "card")
-            //            cell.lbName.text = contractLists[indexPath.row].name
-            //            cell.lbHouse.text = contractLists[indexPath.row].house
-            cell.configure(with: products[indexPath.row])
-            //            cell.layer.insertSublayer(layer, at: 0)
+            ((searchController?.isActive)!)
+                ?cell.configure(with: searchProducts[indexPath.row])
+                :cell.configure(with: products[indexPath.row])
+            
+            
             return cell;
         }
         return UITableViewCell()
@@ -253,8 +272,58 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
         250
     }
 }
-extension ProductListController : UISearchResultsUpdating{
+extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
+    // 點擊searchBar的搜尋按鈕時
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        products.removeAll()
+        
+        if(isMyStore){
+            if(Global.isOnline){
+                NetworkController.instance().getOwnitem{ [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print("解析\(jsonArr)")
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                    }else{
+                        weakSelf.products = ProductModel.defaultGameLists
+                    }
+                }
+            }else{
+                self.products = ProductModel.defaultAllList
+            }
+        }else{//不是我的賣場就call list的API
+            if(Global.isOnline){
+                guard productType1 != nil else {
+                    print("productType is nil")
+                    return
+                }
+                print("進到getProductListByType1")
+                NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print("解析\(jsonArr)")
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                    }else{
+                        print("失敗")
+                        weakSelf.products = ProductModel.defaultGameLists
+                    }
+                }
+            }else{
+                self.products = ProductModel.defaultAllList
+            }
+        }
+    }
     func updateSearchResults(for searchController: UISearchController) {
-        <#code#>
+        
+        if self.searchController?.searchBar.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            return
+        }
+        let searchString = searchController.searchBar.text!
+        searchProducts = products.filter { $0.title.lowercased().contains(searchString.lowercased())}
+        products = searchProducts
+        self.tableview.reloadData()
     }
 }

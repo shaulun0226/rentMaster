@@ -111,7 +111,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.isMyStore = true
                 vcMain.slider.backgroundColor = .white
                 vcMain.productType1 = "PS5"//暫時先用這個代替
-                vcMain.tabbarTitle = ["上架中","未上架","出租中","未出貨","不知道"]
                 view = vcMain
             }
         case .home:
@@ -123,7 +122,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS4"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .ps5:
@@ -131,31 +129,27 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS5"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
-        case .xbox:
+        case .series:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.slider.backgroundColor = .green
-                vcMain.productType1 = "XBOX"
+                vcMain.productType1 = "Series"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .one:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.slider.backgroundColor = .green
-                vcMain.productType1 = "XBOX ONE"
+                vcMain.productType1 = "One"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .Switch:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.slider.backgroundColor = .red
-                vcMain.productType1 = "SWITCH"
+                vcMain.productType1 = "Switch"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .boardgame:
@@ -163,7 +157,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.slider.backgroundColor = .yellow
                 vcMain.productType1 = "桌遊"
                 vcMain.isMyStore = false
-                vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
                 view = vcMain
             }
         case .changePassword:
@@ -216,18 +209,20 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 return
             }
         case .memberCenter:
-            if (User.token.isEmpty){
-                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                        self.show(loginView, sender: nil);
+            if(Global.isOnline){
+                if (User.token.isEmpty){
+                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                            self.show(loginView, sender: nil);
+                        }
                     }
+                    controller.addAction(okAction)
+                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                    controller.addAction(cancelAction)
+                    self.present(controller, animated: true, completion: nil)
+                    return
                 }
-                controller.addAction(okAction)
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                controller.addAction(cancelAction)
-                self.present(controller, animated: true, completion: nil)
-                return
             }
             if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
@@ -248,7 +243,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         sideMenulist.append(SideMenuListModel.init(title: .store, item:[SideMenuItem.store]))
         sideMenulist.append(SideMenuListModel.init(title:.homePage, item: [SideMenuItem.home]))
         sideMenulist.append(SideMenuListModel.init(title:.ps, item: [SideMenuItem.ps5,SideMenuItem.ps4]))
-        sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.xbox,SideMenuItem.one]))
+        sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.series,SideMenuItem.one]))
         sideMenulist.append(SideMenuListModel.init(title:.Switch, item:[ SideMenuItem.Switch]))
         sideMenulist.append(SideMenuListModel.init(title:.boardgame, item:[ SideMenuItem.boardgame]))
         sideMenulist.append(SideMenuListModel.init(title: .memberCenter, item: [SideMenuItem.memberCenter,SideMenuItem.changePassword,SideMenuItem.logout]))

@@ -228,7 +228,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func typeClick(_ sender: Any) {
         currentButton = btnProductType
         list.removeAll()
-        list = ["PlayStation","Xbox","任天堂","桌遊"]
+        list = ["PlayStation","XBox","Switch","桌遊"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
@@ -241,7 +241,7 @@ class AddProductViewController: BaseViewController {
             list = ["PS5","PS4"]
         case "Xbox":
             list = ["One","Series"]
-        case "任天堂":
+        case "Switch":
             list = ["Switch"]
         case "桌遊":
             list = ["4人以下","4-8人","8人以上"]

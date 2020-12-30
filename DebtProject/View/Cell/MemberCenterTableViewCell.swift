@@ -18,7 +18,7 @@ class MemberCenterTableViewCell: UITableViewCell {
         set (newFrame) {
             var frame =  newFrame
             frame.origin.y += 5//調整y起點
-            frame.origin.x = 10//調整x起點
+            frame.origin.x = 20//調整x起點
             frame.size.height -= 15//調整高度
             frame.size.width -= 2 * frame.origin.x//調整寬度
             super.frame = frame

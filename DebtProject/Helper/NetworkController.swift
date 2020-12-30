@@ -175,6 +175,71 @@ class NetworkController{
                 }
             }
     }
+    func changeUserInfo(name:String,nickName:String,phone:String,address:String,completionHandler:@escaping (Bool) -> ()){
+        let url = "\(serverUrl)/Users/info";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let parameters: Parameters = ["name":name,"nickName":nickName,"phone":phone,"address":address]
+        print("傳出去\(parameters)")
+        AF.request(url,method: .patch,parameters: parameters,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    print("連線成功")
+                    //當響應成功時，使用臨時變數value接收伺服器返回的資訊並判斷是否為[String: AnyObject]型別，如果是那麼將其傳給定義方法中的success
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            print("success")
+                            print(value)
+                            completionHandler(true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler(false)
+                    break
+                    
+                }
+            }
+    }
+    func getUserInfo(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Users/info";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     // MARK: - productList
     //產品清單區
     func getProductListByType(type:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){

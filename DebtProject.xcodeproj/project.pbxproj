@@ -18,6 +18,9 @@
 		9F1637C4259B5587008E9996 /* MemberCenterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */; };
 		9F1637C9259B56DF008E9996 /* MemberCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */; };
 		9F1637CE259B816A008E9996 /* MyOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */; };
+		9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */; };
+		9F1637DB259C50DF008E9996 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DA259C50DF008E9996 /* UserModel.swift */; };
+		9F1637E0259C57B1008E9996 /* ChangeUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */; };
 		9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */; };
 		9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C778E2577BF3B0063E641 /* AppDelegate.swift */; };
 		9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77902577BF3B0063E641 /* SceneDelegate.swift */; };
@@ -97,6 +100,9 @@
 		9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCenterTableViewCell.swift; sourceTree = "<group>"; };
 		9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCenterViewController.swift; sourceTree = "<group>"; };
 		9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderListViewController.swift; sourceTree = "<group>"; };
+		9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOutsideFrameView.swift; sourceTree = "<group>"; };
+		9F1637DA259C50DF008E9996 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoViewController.swift; sourceTree = "<group>"; };
 		9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9F3C778B2577BF3B0063E641 /* DebtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3C778E2577BF3B0063E641 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 				9F12BCF82585EBC900813616 /* ProductModel.swift */,
 				9F12BD122586177500813616 /* SideMenuListModel.swift */,
 				9F85280D25919173004454E6 /* NotifyModel.swift */,
+				9F1637DA259C50DF008E9996 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,6 +246,7 @@
 				9F12BCCD2584B19700813616 /* TabBar.swift */,
 				9F3F2D59258B103F00E156A8 /* CardView.swift */,
 				9FAAA32F259A267C00707976 /* CustomFooter.swift */,
+				9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -322,6 +330,7 @@
 				9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */,
 				9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */,
 				9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */,
+				9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -571,6 +580,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F1637C4259B5587008E9996 /* MemberCenterTableViewCell.swift in Sources */,
+				9F1637E0259C57B1008E9996 /* ChangeUserInfoViewController.swift in Sources */,
+				9F1637DB259C50DF008E9996 /* UserModel.swift in Sources */,
 				9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */,
 				9FB025D92589F84C00D6715E /* MainPageViewController.swift in Sources */,
 				9F12BD602588634100813616 /* TabBarCell.swift in Sources */,
@@ -591,6 +602,7 @@
 				9F12BD5625885F2400813616 /* ProductModelCell.swift in Sources */,
 				9F85284825936EB0004454E6 /* CartTableViewCell.swift in Sources */,
 				9F3F2D7C258B563400E156A8 /* PageCollectionViewCell.swift in Sources */,
+				9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */,
 				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
 				9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */,

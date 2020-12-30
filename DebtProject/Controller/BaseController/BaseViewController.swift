@@ -27,10 +27,8 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         print(textField.tag)
         if(textField.superview is DesignableView){
             if let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) {
-                print("@@@@@@@@")
                 nextResponder.becomeFirstResponder()
             } else {
-                print("!!!!!!!")
                 textField.resignFirstResponder()
             }
         }else{
