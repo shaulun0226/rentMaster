@@ -72,22 +72,9 @@ class ProductListController: BaseSideMenuViewController{
             }else{
                 self.products = ProductModel.defaultAllList
             }
-            //searchbar
-            
-            navigationController?.navigationBar.prefersLargeTitles = false
-            searchController = UISearchController(searchResultsController: nil)
-            searchController?.searchResultsUpdater = self
-            searchController?.searchBar.placeholder = "請輸入關鍵字"
-            searchController?.searchBar.delegate = self
-            
-            //在編輯時會跑出叉叉的位置顯示一個可以按的button，只要一開始編輯就會換成叉叉
-            //            searchController?.searchBar.showsSearchResultsButton = true
-            //                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
-            definesPresentationContext = true
-            tableview.tableHeaderView = searchController?.searchBar
-            
         }
         setupSlider()
+        setupSearchBar()
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
@@ -105,6 +92,41 @@ class ProductListController: BaseSideMenuViewController{
         self.slider.center.y = collectview.bounds.maxY-8
         collectview.addSubview(slider)
 //        collectionView(collectview, didSelectItemAt:[0,0])
+    }
+    private func setupSearchBar(){
+        //searchbar
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.searchResultsUpdater = self
+        searchController?.searchBar.placeholder = "請輸入關鍵字"
+        searchController?.searchBar.delegate = self
+        //設定searchBar顏色
+//            searchController?.searchBar.barStyle = .black
+        searchController?.searchBar.barTintColor = UIColor(named: "card")
+//            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
+        //searchbar取消文字顏色
+        searchController?.searchBar.tintColor = UIColor(named: "Button")
+        //searvhbar輸入文字顏色
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        // 找到Text field in search bar.
+        let textField = searchController?.searchBar.value(forKey: "searchField") as! UITextField
+        // 找到放大鏡
+        let glassIconView = textField.leftView as! UIImageView
+        glassIconView.image = glassIconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        //設定放大鏡顏色
+        glassIconView.tintColor = UIColor(named: "Button")
+        //找到叉叉按鈕
+        let clearButton = textField.value(forKey: "clearButton") as! UIButton
+        clearButton.setImage(clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
+        //設定叉叉顏色
+        clearButton.tintColor = UIColor(named: "Button")
+        //在編輯時會跑出叉叉的位置顯示一個可以按的button，只要一開始編輯就會換成叉叉
+        //            searchController?.searchBar.showsSearchResultsButton = true
+        //                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
+        definesPresentationContext = true
+        tableview.tableHeaderView = searchController?.searchBar
+        tableview.tableHeaderView?.backgroundColor = .clear
     }
     @IBAction func addProductClick(){
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
@@ -247,7 +269,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
 }
 extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ((searchController?.isActive)!) ? searchProducts.count : products.count
+        return ((searchController?.isActive)!) ? searchProducts.count : products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -256,8 +278,6 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
             ((searchController?.isActive)!)
                 ?cell.configure(with: searchProducts[indexPath.row])
                 :cell.configure(with: products[indexPath.row])
-            
-            
             return cell;
         }
         return UITableViewCell()
@@ -275,9 +295,7 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
 extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
     // 點擊searchBar的搜尋按鈕時
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         products.removeAll()
-        
         if(isMyStore){
             if(Global.isOnline){
                 NetworkController.instance().getOwnitem{ [weak self](value, isSuccess) in

@@ -1273,10 +1273,11 @@
                         <outlet property="depositView" destination="kyJ-mf-90A" id="p5w-id-hJe"/>
                         <outlet property="lbProductAmount" destination="K68-ds-bMK" id="Wvm-Qk-dm8"/>
                         <outlet property="lbProductDescription" destination="IDr-dk-4Kb" id="oJk-bw-EbZ"/>
-                        <outlet property="lbProductHost" destination="k5l-QJ-haE" id="h2J-aF-6NZ"/>
                         <outlet property="lbProductLocation" destination="a9u-AW-nIU" id="XOd-n6-ggz"/>
                         <outlet property="lbProductName" destination="30U-0b-o57" id="E8d-Jw-94d"/>
-                        <outlet property="lbProductType" destination="PTv-4j-Wx2" id="Wm2-XS-VX9"/>
+                        <outlet property="lbProductType" destination="k5l-QJ-haE" id="h2J-aF-6NZ"/>
+                        <outlet property="lbProductType1" destination="NqL-tA-Ngv" id="gMF-Fi-Kgd"/>
+                        <outlet property="lbProductType2" destination="PTv-4j-Wx2" id="9fr-7S-w2T"/>
                         <outlet property="pickerView" destination="WVZ-hs-hTB" id="y6Z-Uy-K0h"/>
                         <outlet property="rentDayView" destination="rm8-Zd-cZU" id="XzD-au-wYY"/>
                         <outlet property="salePriceView" destination="upM-GL-KOd" id="VFI-jg-V4a"/>

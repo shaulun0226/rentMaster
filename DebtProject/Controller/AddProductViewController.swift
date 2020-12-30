@@ -16,8 +16,9 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var lbProductAmount: UILabel!
     @IBOutlet weak var tfProductAmount: UnderLineTextField!
     @IBOutlet weak var lbProductLocation: UILabel!
-    @IBOutlet weak var lbProductHost: UILabel!
     @IBOutlet weak var lbProductType: UILabel!
+    @IBOutlet weak var lbProductType1: UILabel!
+    @IBOutlet weak var lbProductType2: UILabel!
     @IBOutlet weak var btnProductCity: UIButton!
     @IBOutlet weak var btnProductRegion: UIButton!
     @IBOutlet weak var btnProductType: UIButton!
@@ -238,12 +239,16 @@ class AddProductViewController: BaseViewController {
         list.removeAll()
         switch productType {
         case "PlayStation":
+            lbProductType1.text = "主機型號"
             list = ["PS5","PS4"]
         case "Xbox":
+            lbProductType1.text = "主機型號"
             list = ["One","Series"]
         case "Switch":
+            lbProductType1.text = "主機型號"
             list = ["Switch"]
         case "桌遊":
+            lbProductType1.text = "遊玩人數"
             list = ["4人以下","4-8人","8人以上"]
         default:
             list = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]

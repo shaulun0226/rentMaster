@@ -16,6 +16,7 @@ class ChangeUserInfoViewController:BaseViewController {
     @IBOutlet weak var tfPhone: UnderLineTextField!
     @IBOutlet weak var tfAddress: UnderLineTextField!
     @IBOutlet weak var btnModify: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
     var user:UserModel?
     @IBOutlet weak var lbErrorHint: UILabel!
     override func viewDidLoad() {
@@ -44,23 +45,6 @@ class ChangeUserInfoViewController:BaseViewController {
         }
         // Do any additional setup after loading the view.
     }
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath=="btnClick" {
-            if(tfName.isEnabled){
-                self.changeTextFieldEnable(bool:false)
-                self.setTextFieldUnderLine(size: CGFloat(1))
-                self.btnModify.setTitle("編輯", for: .normal)
-                
-            }else{
-                self.changeTextFieldEnable(bool:true)
-                self.setTextFieldUnderLine(size: CGFloat(0))
-                self.btnModify.setTitle("完成", for: .normal)
-                self.btnModify.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            }
-        }else{
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
     private func parseUser(jsonArr:JSON){
             let id = jsonArr["id"].string ?? ""
             let email = jsonArr["email"].string ?? ""
@@ -83,6 +67,38 @@ class ChangeUserInfoViewController:BaseViewController {
         tfPhone.isEnabled = bool
         tfAddress.isEnabled = bool
     }
+    private func setBtnModify(){
+        lbErrorHint.textColor = .clear
+        changeTextFieldEnable(bool:false)
+        self.setTextFieldUnderLine(size: CGFloat(0))
+        btnModify.setTitle("編輯", for:.normal)
+        btnCancel.isHidden = true
+        self.btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+    }
+    @IBAction func btnCancelClick(_ sender: Any) {
+        setBtnModify()
+        NetworkController.instance().getUserInfo{
+            [weak self](responseValue, isSuccess) in
+            guard let weakSelf = self else {return}
+            if(isSuccess){
+                let jsonArr = JSON(responseValue)
+                print("使用者資訊   \(jsonArr)")
+                weakSelf.parseUser(jsonArr: jsonArr)
+                weakSelf.tfEmail.text = weakSelf.user?.email
+                weakSelf.tfName.text = weakSelf.user?.name
+                weakSelf.tfNickName.text = weakSelf.user?.nickName
+                weakSelf.tfPhone.text = weakSelf.user?.phone
+                weakSelf.tfAddress.text = weakSelf.user?.address
+                weakSelf.changeTextFieldEnable(bool:false)
+            }else{
+                weakSelf.tfEmail.text = "123445"
+                weakSelf.tfName.text = "213"
+                weakSelf.tfNickName.text = "213"
+                weakSelf.tfPhone.text = "555"
+                weakSelf.tfAddress.text = "111"
+            }
+        }
+    }
     @IBAction func btnModifyClick(_ sender: Any) {
         switch btnModify.titleLabel?.text{
         case "編輯":
@@ -90,6 +106,7 @@ class ChangeUserInfoViewController:BaseViewController {
             self.setTextFieldUnderLine(size: CGFloat(1))
             btnModify.setTitle("完成", for:.normal)
             self.btnModify.backgroundColor = UIColor(named: "Button")
+            btnCancel.isHidden = false
         case "完成":
             if(tfName.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
                 tfPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" /*||
@@ -99,11 +116,7 @@ class ChangeUserInfoViewController:BaseViewController {
                 lbErrorHint.text = "姓名或電話為必填"
                 return
             }
-            lbErrorHint.textColor = .clear
-            changeTextFieldEnable(bool:false)
-            self.setTextFieldUnderLine(size: CGFloat(0))
-            btnModify.setTitle("編輯", for:.normal)
-            self.btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+            setBtnModify()
             let name = tfName.text!
             let phone = tfPhone.text!
             let address = tfAddress.text ?? ""
