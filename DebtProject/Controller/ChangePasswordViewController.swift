@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftAlertView
 
 class ChangePasswordViewController: BaseViewController {
 
@@ -58,21 +59,24 @@ class ChangePasswordViewController: BaseViewController {
         NetworkController.instance().changePasswordByTokenAnd(oldPassword: oldPassword, newPassword: newPassword) {
             [weak self](responseValue, isSuccess) in
             guard let weakSelf = self else {return}
+            let alertView = SwiftAlertView(title: "", message: responseValue, delegate: nil, cancelButtonTitle: "確定")
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
             if(isSuccess){
-                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+                alertView.clickedButtonAction = { index in
                     if let mainPageView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.mainPageViewController.rawValue ) as? MainPageViewController{
                         weakSelf.show(mainPageView, sender: nil);
                     }
                 }
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
             }else{
-                let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+                alertView.clickedButtonAction = { index in
+                    alertView.dismiss()
+                }
             }
+            alertView.show()
         }
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SwiftAlertView
 class ForgotPasswordViewController: BaseViewController {
     @IBOutlet weak var tfEmail: UnderLineTextField!
     @IBOutlet weak var tfVerityCode: UnderLineTextField!
@@ -35,18 +35,21 @@ class ForgotPasswordViewController: BaseViewController {
             return;
         }
         let email = tfEmail.text!
-        NetworkController.instance().emailConfirm(email: email) { [weak self](isSuccess) in
-            guard let weakSelf = self else {return}
+        NetworkController.instance().emailConfirm(email: email) {(isSuccess) in
+            let alertView = SwiftAlertView(title: "", message: " 傳送成功！\n", delegate: nil, cancelButtonTitle: "確定")
+            alertView.clickedButtonAction = { index in
+                alertView.dismiss()
+            }
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
             if(isSuccess){
-                let controller = UIAlertController(title: "傳送成功！", message: "傳送成功！", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+                alertView.show()
             }else{
-                let controller = UIAlertController(title: "網路錯誤！", message: "網路錯誤！", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+                alertView.messageLabel.text = " 傳送失敗!\n"
+                alertView.show()
             }
         }
     }
@@ -70,18 +73,24 @@ class ForgotPasswordViewController: BaseViewController {
             [weak self] (responseValue,isSuccess) in
             // 如果此 weakSelf 賦值失敗，就 return
             guard let weakSelf = self else {return}
+            let alertView = SwiftAlertView(title: "", message: " 傳送成功！\n", delegate: nil, cancelButtonTitle: "確定")
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
             if(isSuccess){
-                let controller = UIAlertController(title: responseValue , message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
-                        weakSelf.dismiss(animated: true, completion: nil)
+                alertView.clickedButtonAction = { index in
+                    weakSelf.dismiss(animated: true, completion: nil)
                 }
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+                alertView.show()
             }else{
-                let controller = UIAlertController(title: "未進行信件確認 或 確認失敗!" , message: responseValue, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                controller.addAction(okAction)
-                weakSelf.present(controller, animated: true, completion: nil)
+                alertView.clickedButtonAction = { index in
+                    alertView.dismiss()
+                }
+                alertView.messageLabel.text = responseValue
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 28)
+                alertView.show()
             }
         }
     }

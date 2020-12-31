@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftAlertView
 
 class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbProductTtile: UILabel!
@@ -29,22 +30,22 @@ class ProductInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("最後一個\(self.navigationController?.viewControllers.last)")
-//        print("第一個\(self.navigationController?.viewControllers.first)")
-//        if((self.navigationController?.viewControllers.count)! > 2){
-//            print("畫面數量\(self.navigationController?.viewControllers.count)")
-//            for index in 0..<(self.navigationController?.viewControllers.count)!{
-//                print(self.navigationController?.viewControllers[index])
-//            }
-//            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
-//            print("刪掉最後一個")
-//                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
-//                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
-//                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
-//        }else{
-//            print("根本沒進去")
-//        }
-//        }
+        //        print("最後一個\(self.navigationController?.viewControllers.last)")
+        //        print("第一個\(self.navigationController?.viewControllers.first)")
+        //        if((self.navigationController?.viewControllers.count)! > 2){
+        //            print("畫面數量\(self.navigationController?.viewControllers.count)")
+        //            for index in 0..<(self.navigationController?.viewControllers.count)!{
+        //                print(self.navigationController?.viewControllers[index])
+        //            }
+        //            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
+        //            print("刪掉最後一個")
+        //                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
+        //                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
+        //                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
+        //        }else{
+        //            print("根本沒進去")
+        //        }
+        //        }
         self.productInfoTableView.delegate = self
         self.productInfoTableView.dataSource = self
         self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
@@ -96,18 +97,35 @@ class ProductInfoViewController: BaseViewController {
     }
     func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
         return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
-        }
+    }
     //按下立即下單按鈕
     @IBAction func confirmOnClicked(_ sender: Any) {
         //連網下單
         //跳出alert顯示成功失敗
-        let controller = UIAlertController(title: "確定下單", message: "是否確定下單 ?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .default)
-    
-        controller.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
+        let alertView = SwiftAlertView(title: "", message: "是否確定下單 ?\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
+        alertView.messageLabel.textColor = .white
+        alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+        alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+        alertView.backgroundColor = UIColor(named: "Alert")
+        alertView.buttonTitleColor = .white
+        alertView.clickedButtonAction = { index in
+            if(index==0){
+                alertView.dismiss()
+                return
+            }
+            if(index==1){
+                //還沒寫
+                return
+            }
+        }
+        alertView.show()
+        //        let controller = UIAlertController(title: "確定下單", message: "是否確定下單 ?", preferredStyle: .alert)
+        //        let okAction = UIAlertAction(title: "確定", style: .default)
+        //
+        //        controller.addAction(okAction)
+        //        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        //        controller.addAction(cancelAction)
+        //        present(controller, animated: true, completion: nil)
     }
     @IBAction func addCartClick(_ sender: Any) {
         if(Global.isOnline){
@@ -129,19 +147,31 @@ class ProductInfoViewController: BaseViewController {
                 return
             }
             NetworkController.instance().addCart(productId: product.id){
-                [weak self](responseValue, isSuccess) in
-                guard let weakSelf = self else {return}
-                if(isSuccess){
-                    let controller = UIAlertController(title: responseValue, message: "", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
-                }else{
-                    let controller = UIAlertController(title: responseValue, message: "", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                (responseValue, isSuccess) in
+                //                guard let weakSelf = self else {return}
+                let alertView = SwiftAlertView(title: "", message: "\(responseValue)\n", delegate: nil, cancelButtonTitle: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                alertView.clickedButtonAction = { index in
+                    alertView.dismiss()
                 }
+                alertView.show()
+                //                if(isSuccess){
+                //                    alertView.clickedButtonAction = { index in
+                //                        alertView.dismiss()
+                //                    }
+                //                    alertView.messageLabel.text = "\(responseValue)\n"
+                //                    alertView.show()
+                //                }else{
+                //                    alertView.clickedButtonAction = { index in
+                //                        alertView.dismiss()
+                //                    }
+                //                    alertView.messageLabel.text = "\(responseValue)\n"
+                //                    alertView.show()
+                //                }
             }
         }
     }
@@ -188,7 +218,7 @@ extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         productsImage.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductInfoImageCollectionViewCell", for: indexPath) as? ProductInfoImageCollectionViewCell {
             cell.configure(with: productsImage[indexPath.row])
@@ -201,20 +231,20 @@ extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDat
         
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-       let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
-       let index = scrollView.contentOffset.x / witdh
-       let roundedIndex = round(index)
-       self.productInfoPC.currentPage = Int(roundedIndex)
-   }
-   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
-    productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-   }
-
-   func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-
-    productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-   }
+        let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
+        let index = scrollView.contentOffset.x / witdh
+        let roundedIndex = round(index)
+        self.productInfoPC.currentPage = Int(roundedIndex)
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+        productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
 }
 extension ProductInfoViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -7,6 +7,7 @@
 
 import UIKit
 import SideMenu
+import SwiftAlertView
 
 class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate {
     
@@ -93,19 +94,37 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         case .store:
             if(Global.isOnline){
                 if (User.token.isEmpty){
-                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-//                            if let productListView = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-//                                Global.lastView = self
-//                            }
-                            self.present(loginView, animated: true, completion: nil)
+                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+                    alertView.clickedCancelButtonAction = { 
+                        alertView.dismiss()
+                    }
+                    alertView.clickedButtonAction = {[self] index in
+                        if(index==1){
+                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                                //                            }
+                                self.present(loginView, animated: true, completion: nil)
+                            }
                         }
                     }
-                    controller.addAction(okAction)
-                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                    controller.addAction(cancelAction)
-                    self.present(controller, animated: true, completion: nil)
+                    alertView.messageLabel.textColor = .white
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Alert")
+                    alertView.buttonTitleColor = .white
+                    alertView.show()
+                    //                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+                    //                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+                    //                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                    ////                            if let productListView = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
+                    ////                                Global.lastView = self
+                    ////                            }
+                    //                            self.present(loginView, animated: true, completion: nil)
+                    //                        }
+                    //                    }
+                    //                    controller.addAction(okAction)
+                    //                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                    //                    controller.addAction(cancelAction)
+                    //                    self.present(controller, animated: true, completion: nil)
                     return
                 }
             }
@@ -213,19 +232,25 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             }
         case .memberCenter:
             if(Global.isOnline){
-                if (User.token.isEmpty){
-                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-//                            if let memberCenterView = mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
-//                            }
-                            self.present(loginView, animated: true, completion: nil)
+                if(User.token.isEmpty){
+                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+                    alertView.clickedCancelButtonAction = {
+                        alertView.dismiss()
+                    }
+                    alertView.clickedButtonAction = {[self] index in
+                        if(index==1){
+                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                                //                            }
+                                self.present(loginView, animated: true, completion: nil)
+                            }
                         }
                     }
-                    controller.addAction(okAction)
-                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                    controller.addAction(cancelAction)
-                    self.present(controller, animated: true, completion: nil)
+                    alertView.messageLabel.textColor = .white
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Alert")
+                    alertView.buttonTitleColor = .white
+                    alertView.show()
                     return
                 }
             }
@@ -284,4 +309,7 @@ extension BaseSideMenuViewController : UIPopoverPresentationControllerDelegate{
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
+}
+extension BaseSideMenuViewController:SwiftAlertViewDelegate{
+    
 }

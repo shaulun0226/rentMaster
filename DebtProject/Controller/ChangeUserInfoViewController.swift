@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftAlertView
 
 class ChangeUserInfoViewController:BaseViewController {
 
@@ -125,16 +126,30 @@ class ChangeUserInfoViewController:BaseViewController {
                 [weak self] (isSuccess) in
                 // 如果此 weakSelf 賦值失敗，就 return
                 guard let weakSelf = self else {return}
+                let alertView = SwiftAlertView(title: "", message: "變更成功！", delegate: nil, cancelButtonTitle: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                    alertView.clickedButtonAction = { index in
+                        if let view = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
+                            weakSelf.show(view, sender: nil)
+                        }
+                    }
                 if(isSuccess){
-                    let controller = UIAlertController(title: "變更成功", message: "", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                    alertView.clickedButtonAction = { index in
+                        if let view = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
+                            weakSelf.show(view, sender: nil)
+                        }
+                    }
+                    alertView.show()
                 }else{
-                    let controller = UIAlertController(title: "變更失敗", message: "請再試一次", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                    alertView.messageLabel.text = "變更失敗！"
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
+                    alertView.show()
                 }
             }
         case .none:

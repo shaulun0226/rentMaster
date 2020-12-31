@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftAlertView
 
 class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
     

@@ -7,6 +7,7 @@
 
 import UIKit
 import TLPhotoPicker
+import SwiftAlertView
 
 class AddProductViewController: BaseViewController {
     @IBOutlet weak var lbProductName: UILabel!
@@ -38,9 +39,9 @@ class AddProductViewController: BaseViewController {
     var currentButton:UIButton!
     var productTitle:String!
     var productDescription:String!
-    var productIsSale:Bool!
-    var productIsRent:Bool!
-    var productIsExchange:Bool!
+    var productIsSale = false
+    var productIsRent = false
+    var productIsExchange = false 
     var productDeposit:Int!
     var productRent:Int!
     var productSalePrice:Int!
@@ -334,10 +335,16 @@ class AddProductViewController: BaseViewController {
     //    }
     @IBAction func addProductClick(_ sender: Any) {
         if(!emptyCheck()){
-            let controller = UIAlertController(title: "請確認資料是否完整", message: "請確認資料是否完整", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "確定", style: .default)
-            controller.addAction(okAction)
-            self.present(controller, animated: true, completion: nil)
+            let alertView = SwiftAlertView(title: "", message: "請確認資料是否完整", delegate: nil, cancelButtonTitle: "確定")
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
+            alertView.clickedButtonAction = { index in
+                alertView.dismiss()
+            }
+            alertView.show()
             return
         }
         productTitle = tfProductTitle.text!
@@ -372,9 +379,14 @@ class AddProductViewController: BaseViewController {
         if(Global.isOnline){
             NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, trideItems:tradeItems){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
+                let alertView = SwiftAlertView(title: "", message: " 傳送成功！\n", delegate: nil, cancelButtonTitle: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
                 if(isSuccess){
-                    let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+                    alertView.clickedButtonAction = { index in
                         let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
                         if let myStoreView = productStoryboard.instantiateViewController(identifier:ProductStoryboardController.productListController.rawValue ) as? ProductListController{
                             myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
@@ -384,13 +396,12 @@ class AddProductViewController: BaseViewController {
                             weakSelf.show(myStoreView, sender: nil);
                         }
                     }
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                    alertView.show()
                 }else{
-                    let controller = UIAlertController(title: responseValue, message: responseValue, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
+                    alertView.show()
                 }
             }
         }

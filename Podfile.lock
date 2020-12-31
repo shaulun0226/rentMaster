@@ -4,6 +4,7 @@ PODS:
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
   - SideMenu (6.5.0)
+  - SwiftAlertView (1.3.0)
   - SwiftyJSON (4.3.0)
   - TLPhotoPicker (2.1.3)
 
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.2)
   - Kingfisher
   - SideMenu (~> 6.5)
+  - SwiftAlertView (~> 1.3.0)
   - SwiftyJSON (~> 4.0)
   - TLPhotoPicker
 
@@ -19,6 +21,7 @@ SPEC REPOS:
     - Alamofire
     - Kingfisher
     - SideMenu
+    - SwiftAlertView
     - SwiftyJSON
     - TLPhotoPicker
 
@@ -26,9 +29,10 @@ SPEC CHECKSUMS:
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  SwiftAlertView: f938949cb56373c10bea1e1e35147a99f2e1c4a7
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TLPhotoPicker: 2c4a20d62952bd368edbf44d18476f663a718ada
 
-PODFILE CHECKSUM: f507b2e6958e420c73473cf51de6f7222e66bcbe
+PODFILE CHECKSUM: df920d029dfc9b4e809630451292cbbfe544e45f
 
 COCOAPODS: 1.10.0

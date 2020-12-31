@@ -256,7 +256,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             let type2 = jsonArr[index]["type2"].string!
             let userId = jsonArr[index]["userId"].string!
             let picsArr = jsonArr[index]["pics"].array!
-            let tradeItemsArr = jsonArr[index]["trideItems"].array!
+            let tradeItemsArr = jsonArr[index]["trideItems"].array ?? []
             var pics = [String]()
             for index in 0..<picsArr.count{
                 pics.append(picsArr[index]["path"].string ?? "")

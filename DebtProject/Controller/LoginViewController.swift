@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftAlertView
 
 class LoginViewController: BaseViewController {
     
@@ -85,10 +86,20 @@ class LoginViewController: BaseViewController {
 //                        weakSelf.show(vcMain, sender: LoginViewController.self);
 //                    }
                 }else{
-                    let controller = UIAlertController(title: "登入失敗！", message: "登入失敗！", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .default)
-                    controller.addAction(okAction)
-                    weakSelf.present(controller, animated: true, completion: nil)
+                    let alertView = SwiftAlertView(title: "", message: " 登入失敗！\n", delegate: nil, cancelButtonTitle: "確定")
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
+                    alertView.messageLabel.textColor = .white
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Alert")
+                    alertView.buttonTitleColor = .white
+                    alertView.show()
+//                    let controller = UIAlertController(title: "登入失敗！", message: "登入失敗！", preferredStyle: .alert)
+//                    let okAction = UIAlertAction(title: "確定", style: .default)
+//                    controller.addAction(okAction)
+//                    weakSelf.present(controller, animated: true, completion: nil)
                 }
             }
         }else{

@@ -11,6 +11,6 @@ pod 'SideMenu', '~> 6.5'
 pod "TLPhotoPicker"
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher'
-
+pod 'SwiftAlertView', '~> 1.3.0'
 
 end

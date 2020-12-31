@@ -18,15 +18,15 @@ class CustomAlertViewController: PresentMiddleVC {
 
         // Do any additional setup after loading the view.
     }
-    init(title:String,hasConfirm:Bool,hasCancel:Bool){
-        lbAlertTitle.text = title
-        (hasCancel) ? (btnCancel.isHidden = false) : (btnConfirm.isHidden = true)
-        (hasConfirm) ? (btnConfirm.isHidden = false) : (btnConfirm.isHidden = true)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(title:String,hasConfirm:Bool,hasCancel:Bool){
+//        lbAlertTitle.text = title
+//        (hasCancel) ? (btnCancel.isHidden = false) : (btnConfirm.isHidden = true)
+//        (hasConfirm) ? (btnConfirm.isHidden = false) : (btnConfirm.isHidden = true)
+//
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 }
