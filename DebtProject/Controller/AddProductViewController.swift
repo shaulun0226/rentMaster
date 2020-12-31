@@ -70,7 +70,6 @@ class AddProductViewController: BaseViewController {
     
     @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
         wantChangeTableView.layer.removeAllAnimations()
         wantChangeTableViewHeight.constant = wantChangeTableView.contentSize.height
         UIView.animate(withDuration: 0.5) {
@@ -229,7 +228,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func typeClick(_ sender: Any) {
         currentButton = btnProductType
         list.removeAll()
-        list = ["PlayStation","XBox","Switch","桌遊"]
+        list = ["PlayStation","Xbox","Switch","桌遊"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)

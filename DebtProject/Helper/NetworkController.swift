@@ -463,175 +463,34 @@ class NetworkController{
                 }
             }
     }
-    //     這裡傳入的匿名內部類 handler:@escaping (Bool) -> () 要是逃逸閉包，因為 AF.request 後面的閉包是逃逸閉包，只有逃逸閉包能在逃逸閉包裡使用
-    //        func getNewestEpisodeList(userID:Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
-    //            AF.request("\(serverUrl)PodcastRSS/GetNewestList?userId=\(userID)").responseJSON { (data) in
-    //                switch data.result {
-    //                case .success: // 連線成功時
-    //                    let json = try! JSON(data: data.data!)
-    //                    if(self.wrappingJSON(json: json)){
-    //                        let jsonArr = json["msg"]
-    //                        let showingPlaylist = ShowingPlaylist.instance()
-    //                        showingPlaylist.clear()
-    //                        for index in 0...jsonArr.count - 1 {
-    //                            showingPlaylist.add(episode: Episode(id: jsonArr[index]["podcastRSSId"].int!, title: jsonArr[index]["title"].string!, author: jsonArr[index]["author"].string!, img: jsonArr[index]["imgLink"].string!, duration: jsonArr[index]["duration"].int!, pubDate: jsonArr[index]["pubdate"].string!, mp3: jsonArr[index]["mp3Link"].string!, desc: jsonArr[index]["description"].string!, timestamp: jsonArr[index]["timestamp"].int!, isCollect: jsonArr[index]["isCollect"].bool!, isToListen: jsonArr[index]["isToListen"].bool!))
-    //                        }
-    //                        PlayingPlaylist.instance().add(showingPlaylist: ShowingPlaylist.instance().getPlaylist())
-    //                    }
-    //                    handler(true)
-    //                    break;
-    //                case .failure: // 連線失敗時
-    //                    handler(false)
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //
-    //        func getHashTagList( handler:@escaping (Bool) -> ()){
-    //            AF.request("\(serverUrl)PodcastRSS/GetAllTag").responseJSON { (data) in
-    //                switch data.result {
-    //                case .success: // 連線成功時
-    //                    let json = try! JSON(data: data.data!)
-    //                    if(self.wrappingJSON(json: json)){
-    //                        let jsonArr = json["msg"]
-    //                        let hashtagList = HashtagList.instance()
-    //
-    //                        for index in 0...jsonArr.count - 1 {
-    //                            hashtagList.add(hashtag: Hashtag(name: jsonArr[index]["hashTag"].string!, hashtagID: jsonArr[index]["hashTagId"].int!))
-    //                        }
-    //                    }
-    //                    handler(true)
-    //                    break;
-    //                case .failure: // 連線失敗時
-    //                    handler(false)
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //
-    //    func getHashTagEpisodeList(userID:Int, hashID: Int, handler:@escaping (Bool) -> ()) { // 帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
-    //        AF.request("\(serverUrl)PodcastRSS/GetTagList?userId=\(userID)&hashtagId=\(hashID)").responseJSON { (data) in
-    //
-    //            switch data.result {
-    //            case .success: // 連線成功時
-    //                let json = try! JSON(data: data.data!)
-    //                if(self.wrappingJSON(json: json)){
-    //                    let jsonArr = json["msg"]
-    //                    let showingPlaylist = ShowingPlaylist.instance()
-    //                    showingPlaylist.clear()
-    //                    for index in 0...jsonArr.count - 1 {
-    //                        showingPlaylist.add(episode: Episode(id: jsonArr[index]["podcastRSSId"].int!, title: jsonArr[index]["title"].string!, author: jsonArr[index]["author"].string!, img: jsonArr[index]["imgLink"].string!, duration: jsonArr[index]["duration"].int!, pubDate: jsonArr[index]["pubdate"].string!, mp3: jsonArr[index]["mp3Link"].string!, desc: jsonArr[index]["description"].string!, timestamp: jsonArr[index]["timestamp"].int!, isCollect: jsonArr[index]["isCollect"].bool!, isToListen: jsonArr[index]["isToListen"].bool!))
-    //                    }
-    //                    PlayingPlaylist.instance().add(showingPlaylist: ShowingPlaylist.instance().getPlaylist())
-    //                }
-    //                handler(true)
-    //                break;
-    //            case .failure: // 連線失敗時
-    //                handler(false)
-    //                break;
-    //            }
-    //        }
-    //    }
-    //
-    
-    //
-    //    func addCollect(userId: Int,RSSId: Int,completionHandler: @escaping(_ result: Bool) -> ()){
-    //        let afUrl = "\(serverUrl)user/collect"
-    //        let parameter: Parameters = ["usersId":(userId),"podcastRSSId":(RSSId)]
-    //        AF.request(afUrl,method: .post,parameters: parameter)
-    //            .responseJSON{ response in
-    //                switch response.result {
-    //                case.success(let value):
-    //                    if let status = response.response?.statusCode {
-    //                        switch(status){
-    //                        case 200:
-    //                            //to get JSON return value
-    //                            self.textCode200(value: value)
-    //                            completionHandler(true)
-    //                            break
-    //                        default:
-    //                            self.textNotCode200(status: status, value: value)
-    //                            completionHandler(false)
-    //                            break
-    //                        }
-    //                    }
-    //                case .failure(let error):
-    //                    print("error:\(error)")
-    //                    completionHandler(false)
-    //                    break
-    //                }
-    //            }
-    //    }
-    //
-    //
-    //    func removeCollect(userId: Int,RSSId: Int,completionHandler: @escaping(_ result: Bool) -> ()){
-    //        let afUrl = "\(serverUrl)user/collect?usersId=\(userId)&podcastRSSId=\(RSSId)"
-    //        let parameter: Parameters = ["usersId":"\(userId)","podcastRSSId":"\(RSSId)"]
-    //        AF.request(afUrl,method: .delete, parameters: parameter, encoding: URLEncoding.httpBody)
-    //            .responseJSON{ response in
-    //                switch response.result {
-    //                case.success(let value):
-    //                    if let status = response.response?.statusCode {
-    //                        switch(status){
-    //                        case 200:
-    //                            //to get JSON return value
-    //                            self.textCode200(value: value)
-    //                            completionHandler(true)
-    //                            break
-    //                        default:
-    //                            self.textNotCode200(status: status, value: value)
-    //                            completionHandler(false)
-    //                            break
-    //                        }
-    //                    }
-    //                case .failure(let error):
-    //                    print("error:\(error)")
-    //                    completionHandler(false)
-    //                    break
-    //                }
-    //            }
-    //    }
-    //
-    //    func addComment(podcastRSSId: Int,content: String,completionHandler: @escaping(_ result: Bool) -> ()){
-    //        let afUrl = "\(serverUrl)user/comment"
-    //        let parameter: Parameters = ["podcastRSSId":podcastRSSId,"content":content]
-    //        AF.request(afUrl,method: .post,parameters: parameter)
-    //            .responseJSON{ response in
-    //                switch response.result {
-    //                case.success(let value):
-    //                    if let status = response.response?.statusCode {
-    //                        switch(status){
-    //                        case 200:
-    //                            //to get JSON return value
-    //                            self.textCode200(value: value)
-    //                            completionHandler(true)
-    //                            break
-    //                        default:
-    //                            self.textNotCode200(status: status, value: value)
-    //                            completionHandler(false)
-    //                            break
-    //                        }
-    //                    }
-    //                case .failure(let error):
-    //                    print("error:\(error)")
-    //                    completionHandler(false)
-    //                    break
-    //                }
-    //            }
-    //    }
-    //
-    //    private func analysisJSONToComments(value: Any) -> Array<Comment>{
-    //        let json = JSON(value)
-    //        var commentsArray = Array<Comment>()
-    //        if let msg = json["msg"].array{
-    //            for comment in msg{
-    //                let commentsId: Int = comment["commentsId"].int!
-    //                let content: String = comment["content"].string!
-    //                let likeCount: Int = comment["likeCount"].int!
-    //                let newComment: Comment = Comment(commentsId: commentsId, content: content, likeCount: likeCount)
-    //                commentsArray.append(newComment)
-    //            }
-    //        }
-    //        return commentsArray
-    //    }
+    func addCart(productId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/CartItems/add";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let parameters: Parameters = ["ProductId":productId]
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
 }

@@ -96,7 +96,10 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "登入", style: .default){(_) in
                         if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                            self.show(loginView, sender: nil);
+//                            if let productListView = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
+//                                Global.lastView = self
+//                            }
+                            self.present(loginView, animated: true, completion: nil)
                         }
                     }
                     controller.addAction(okAction)
@@ -214,7 +217,9 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "登入", style: .default){(_) in
                         if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                            self.show(loginView, sender: nil);
+//                            if let memberCenterView = mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
+//                            }
+                            self.present(loginView, animated: true, completion: nil)
                         }
                     }
                     controller.addAction(okAction)

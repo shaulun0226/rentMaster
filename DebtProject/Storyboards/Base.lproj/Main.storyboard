@@ -179,7 +179,9 @@
                                                     </attributedString>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="p9q-SA-VHT" kind="show" id="GjA-84-iBb"/>
+                                                    <segue destination="p9q-SA-VHT" kind="popoverPresentation" popoverAnchorView="yvk-rd-w4s" id="GjA-84-iBb">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-VO-gKz">
@@ -224,7 +226,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="1Eg-KH-YXT" kind="show" id="iAz-cG-JmL"/>
+                                                    <segue destination="1Eg-KH-YXT" kind="popoverPresentation" popoverAnchorView="j1V-VO-wes" id="iAz-cG-JmL">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -269,11 +273,11 @@
             <objects>
                 <viewController storyboardIdentifier="ForgotPasswordViewController" id="p9q-SA-VHT" customClass="ForgotPasswordViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dEu-Py-hwJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="uKQ-v4-zMx">
-                                <rect key="frame" x="27" y="87" width="360" height="606.33333333333337"/>
+                                <rect key="frame" x="27" y="55" width="360" height="606.33333333333337"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="GTg-JP-Qm0">
                                         <rect key="frame" x="0.0" y="8" width="360" height="129"/>
@@ -333,7 +337,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zdq-Yi-mEF">
-                                                        <rect key="frame" x="0.0" y="-6.3333333333333535" width="58" height="55.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="-6.333333333333325" width="58" height="55.333333333333343"/>
                                                         <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                 </subviews>
@@ -612,11 +616,11 @@
             <objects>
                 <viewController storyboardIdentifier="registerView" id="1Eg-KH-YXT" customClass="RegisterViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bqh-Qw-hRz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
-                                <rect key="frame" x="33" y="106" width="348" height="594"/>
+                                <rect key="frame" x="33" y="62" width="348" height="594"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="kuA-eK-HD6">
                                         <rect key="frame" x="0.0" y="0.0" width="348" height="129"/>
@@ -951,7 +955,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="phone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pis-Db-1BZ">
-                                                <rect key="frame" x="0.0" y="-7.3333333333332966" width="58" height="47.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.3333333333333535" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -1956,7 +1960,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="envelope" catalog="system" width="32" height="32"/>
+        <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="key.fill" catalog="system" width="83" height="128"/>
         <image name="lock" catalog="system" width="128" height="128"/>

@@ -78,10 +78,12 @@ class LoginViewController: BaseViewController {
                 if(isSuccess){
                     User.token = value as? String ?? ""
                     print(User.token)
-                    let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
-                    if let vcMain = storyboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
-                        weakSelf.show(vcMain, sender: LoginViewController.self);
-                    }
+                    weakSelf.dismiss(animated: true, completion: nil)
+//                    weakSelf.show(Global.presentView, sender: LoginViewController.self);
+//                    let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
+//                    if let vcMain = storyboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+//                        weakSelf.show(vcMain, sender: LoginViewController.self);
+//                    }
                 }else{
                     let controller = UIAlertController(title: "登入失敗！", message: "登入失敗！", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "確定", style: .default)
@@ -91,10 +93,7 @@ class LoginViewController: BaseViewController {
             }
         }else{
             //切換畫面
-            
-            if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: "MainPageViewController") as? MainPageViewController{
-                self.show(vcMain, sender: LoginViewController.self);
-            }
+                dismiss(animated: true, completion: nil)
         }
     }
     

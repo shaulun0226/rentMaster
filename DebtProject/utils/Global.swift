@@ -38,8 +38,13 @@ enum CollectionViewCell:String,CaseIterable{
     case tabBarCell = "TabBarCell"
 }
 class Global{
-    
+    //預計跳轉的頁面
+    static var presentView = UIViewController()
+    //前個頁面
+    static var lastView = UIViewController()
+    //網路參數
     static var isOnline = true
+    //搜尋的起始頁跟結束頁
     static let pageBegin = 1
     static let pageEnd = 10
     

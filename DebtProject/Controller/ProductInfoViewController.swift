@@ -29,6 +29,22 @@ class ProductInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("最後一個\(self.navigationController?.viewControllers.last)")
+        print("第一個\(self.navigationController?.viewControllers.first)")
+        if((self.navigationController?.viewControllers.count)! > 2){
+            print("畫面數量\(self.navigationController?.viewControllers.count)")
+            for index in 0..<(self.navigationController?.viewControllers.count)!{
+                print(self.navigationController?.viewControllers[index])
+            }
+            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
+            print("刪掉最後一個")
+                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
+                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
+                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
+        }else{
+            print("根本沒進去")
+        }
+        }
         self.productInfoTableView.delegate = self
         self.productInfoTableView.dataSource = self
         self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
@@ -92,6 +108,27 @@ class ProductInfoViewController: BaseViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
+    }
+    @IBAction func addCartClick(_ sender: Any) {
+        if(Global.isOnline){
+            if (User.token.isEmpty){
+                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+                            productInfoView.product = self.product
+                            Global.presentView = productInfoView
+                        }
+                        self.present(loginView, animated: true, completion: nil)
+                    }
+                }
+                controller.addAction(okAction)
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                controller.addAction(cancelAction)
+                self.present(controller, animated: true, completion: nil)
+                return
+            }
+        }
     }
 }
 extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{

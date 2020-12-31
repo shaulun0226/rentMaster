@@ -24,7 +24,7 @@ enum SideMenuSelectTitle:String,CaseIterable{
     case store = "Store"
     case homePage = "Home"
     case ps = "PlayStation"
-    case xbox = "XBox"
+    case xbox = "Xbox"
     case Switch = "Switch"
     case boardgame = "桌遊"
     case memberCenter = "會員中心"

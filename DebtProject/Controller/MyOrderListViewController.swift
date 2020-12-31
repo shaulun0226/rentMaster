@@ -20,8 +20,10 @@ class MyOrderListViewController: BaseViewController {
         setupSlider()
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
-        collectionView.register(TabBarCell.self, forCellWithReuseIdentifier: CollectionViewCell.tabBarCell.rawValue)
-        tableview.register(ProductModelCell.self, forCellReuseIdentifier: TableViewCell.productModelCell.rawValue)
+//        collectionView.register(TabBarCell.self, forCellWithReuseIdentifier: CollectionViewCell.tabBarCell.rawValue)
+//        tableview.register(ProductModelCell.self, forCellReuseIdentifier: TableViewCell.productModelCell.rawValue)
+//        self.tableview.register(UINib(nibName: TableViewCell.productModelCell.rawValue, bundle: nil), forCellReuseIdentifier: TableViewCell.productModelCell.rawValue)
+//        self.collectionView.register(UINib(nibName: CollectionViewCell.tabBarCell.rawValue, bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.tabBarCell.rawValue)
         tableview.delegate = self
         tableview.dataSource = self
         collectionView.delegate = self
@@ -45,7 +47,7 @@ extension MyOrderListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.productModelCell.rawValue) as? ProductModelCell{
+        if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.productModelCell.rawValue,for: indexPath) as? ProductModelCell{
             cell.backgroundColor = UIColor(named: "card")
             cell.configure(with: orders[indexPath.row])
             return cell

@@ -35,16 +35,6 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
         }
         return UITableViewCell()
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 extension CartViewController:UIPopoverPresentationControllerDelegate{
     //IOS會自動偵測是iphone還是ipad，如果是iphone的話預設popover會是全螢幕，加上這個func以後會把預設的關閉，照我們寫的視窗大小彈出
