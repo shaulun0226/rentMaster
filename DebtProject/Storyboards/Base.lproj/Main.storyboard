@@ -1508,6 +1508,89 @@
             </objects>
             <point key="canvasLocation" x="2761" y="1144"/>
         </scene>
+        <!--Custom Alert View Controller-->
+        <scene sceneID="KAb-RU-rPA">
+            <objects>
+                <viewController storyboardIdentifier="CustomAlertViewController" id="4cb-4Z-rKh" customClass="CustomAlertViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uu5-7E-eZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="coH-oW-rTh">
+                                <rect key="frame" x="112.66666666666667" y="266.66666666666669" width="188.66666666666663" height="202.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="標題" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGx-Xv-t7O">
+                                        <rect key="frame" x="19.999999999999986" y="19.999999999999996" width="149" height="40.666666666666657"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="20x-v2-m2a">
+                                        <rect key="frame" x="19.999999999999986" y="155.66666666666663" width="149" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjq-41-8ei">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="42"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJ0-hq-2pz">
+                                                <rect key="frame" x="77" y="0.0" width="72" height="42"/>
+                                                <color key="backgroundColor" name="Button"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="card"/>
+                                <constraints>
+                                    <constraint firstItem="OGx-Xv-t7O" firstAttribute="centerX" secondItem="coH-oW-rTh" secondAttribute="centerX" id="CQa-ef-3B2"/>
+                                    <constraint firstItem="20x-v2-m2a" firstAttribute="width" secondItem="coH-oW-rTh" secondAttribute="width" multiplier="0.789753" id="H4F-yB-NXN"/>
+                                    <constraint firstItem="OGx-Xv-t7O" firstAttribute="width" secondItem="coH-oW-rTh" secondAttribute="width" multiplier="0.789753" id="JGj-tI-930"/>
+                                    <constraint firstAttribute="bottom" secondItem="20x-v2-m2a" secondAttribute="bottom" constant="5" id="qez-lV-KUo"/>
+                                    <constraint firstItem="20x-v2-m2a" firstAttribute="centerX" secondItem="coH-oW-rTh" secondAttribute="centerX" id="uHL-WI-XiG"/>
+                                    <constraint firstItem="OGx-Xv-t7O" firstAttribute="top" secondItem="coH-oW-rTh" secondAttribute="top" constant="19.999999999999996" id="vvi-eX-7zX"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="t8K-E9-lv7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="coH-oW-rTh" firstAttribute="top" secondItem="t8K-E9-lv7" secondAttribute="top" constant="266.66666666666669" id="IOa-Iy-ib9"/>
+                            <constraint firstItem="coH-oW-rTh" firstAttribute="centerX" secondItem="Uu5-7E-eZ6" secondAttribute="centerX" id="WYt-eM-J8y"/>
+                            <constraint firstItem="coH-oW-rTh" firstAttribute="leading" secondItem="t8K-E9-lv7" secondAttribute="leading" constant="112.66666666666669" id="lHI-59-edd"/>
+                            <constraint firstItem="coH-oW-rTh" firstAttribute="centerY" secondItem="Uu5-7E-eZ6" secondAttribute="centerY" id="rDj-xe-MN4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnCancel" destination="Tjq-41-8ei" id="15Y-p7-bqn"/>
+                        <outlet property="btnConfirm" destination="sJ0-hq-2pz" id="GOd-c7-C6s"/>
+                        <outlet property="lbAlertTitle" destination="OGx-Xv-t7O" id="5Lh-aK-O14"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l2S-zP-Huj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4690" y="1295"/>
+        </scene>
         <!--Member Center View Controller-->
         <scene sceneID="tlk-sd-6hM">
             <objects>

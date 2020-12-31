@@ -123,7 +123,7 @@ class ProductListController: BaseSideMenuViewController{
         clearButton.tintColor = UIColor(named: "Button")
         //在編輯時會跑出叉叉的位置顯示一個可以按的button，只要一開始編輯就會換成叉叉
         //            searchController?.searchBar.showsSearchResultsButton = true
-        //                    searchController.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
+//        searchController?.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
         definesPresentationContext = true
         tableview.tableHeaderView = searchController?.searchBar
         tableview.tableHeaderView?.backgroundColor = .clear
@@ -144,17 +144,19 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabBarCell", for: indexPath) as! TabBarCell
-        if(indexPath.row == 0){
-            cell.isSelected = true
-        }else{
-            cell.isSelected = false
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabBarCell", for: indexPath) as? TabBarCell{
+            if(indexPath.row == 0){
+                cell.isSelected = true
+            }else{
+                cell.isSelected = false
+            }
+            cell.backgroundColor = UIColor(named: "card")
+            cell.lbTitle.text = tabbarTitle[indexPath.row]
+            cell.lbTitle.textColor = .white
+            //        cell.layer.insertSublayer(layer, at: 0)
+            return cell
         }
-        cell.backgroundColor = UIColor(named: "card")
-        cell.lbTitle.text = tabbarTitle[indexPath.row]
-        cell.lbTitle.textColor = .white
-        //        cell.layer.insertSublayer(layer, at: 0)
-        return cell
+        return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //        self.title = buttonText[indexPath.row]

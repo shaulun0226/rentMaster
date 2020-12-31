@@ -19,6 +19,7 @@ enum MainStoryboardController:String, CaseIterable{
     case changePasswordViewController = "ChangePasswordViewController"
     case memberCenterViewController = "MemberCenterViewController"
     case changeUserInfoViewController = "ChangeUserInfoViewController"
+    case customAlertViewController = "CustomAlertViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"
@@ -32,10 +33,12 @@ enum TableViewCell:String,CaseIterable{
     case pageTableViewCell = "PageTableViewCell"
     case memberCenterTableViewCell = "MemberCenterTableViewCell"
     case productModelCell = "ProductModelCell"
+    case myOrderListTableViewCell = "MyOrderListTableViewCell"
 }
 enum CollectionViewCell:String,CaseIterable{
     case pageCollectionViewCell = "PageCollectionViewCell"
     case tabBarCell = "TabBarCell"
+    case myOrderListTabBarCell = "MyOrderListTabBarCell"
 }
 class Global{
     //預計跳轉的頁面

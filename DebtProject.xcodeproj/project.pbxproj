@@ -52,6 +52,11 @@
 		9F8528532597279F004454E6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8528522597279F004454E6 /* User.swift */; };
 		9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */; };
 		9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F877D57258F059E0030A175 /* AddProductViewController.swift */; };
+		9F92513B259D9570007699C4 /* MyOrderListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F92513A259D9570007699C4 /* MyOrderListTableViewCell.swift */; };
+		9F925140259D95AD007699C4 /* MyOrderListTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F92513F259D95AD007699C4 /* MyOrderListTabBarCell.swift */; };
+		9F925149259DA179007699C4 /* PresentBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925148259DA179007699C4 /* PresentBottomVC.swift */; };
+		9F925151259DA1C2007699C4 /* PresentMiddleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */; };
+		9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925155259DA994007699C4 /* CustomAlertViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
 		9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */; };
@@ -140,6 +145,11 @@
 		9F8528522597279F004454E6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9F877D52258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F877D57258F059E0030A175 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
+		9F92513A259D9570007699C4 /* MyOrderListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderListTableViewCell.swift; sourceTree = "<group>"; };
+		9F92513F259D95AD007699C4 /* MyOrderListTabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderListTabBarCell.swift; sourceTree = "<group>"; };
+		9F925148259DA179007699C4 /* PresentBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentBottomVC.swift; sourceTree = "<group>"; };
+		9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMiddleVC.swift; sourceTree = "<group>"; };
+		9F925155259DA994007699C4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantChangeTableViewCell.swift; sourceTree = "<group>"; };
@@ -223,6 +233,8 @@
 				9F85284725936EB0004454E6 /* CartTableViewCell.swift */,
 				9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */,
 				9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */,
+				9F92513F259D95AD007699C4 /* MyOrderListTabBarCell.swift */,
+				9F92513A259D9570007699C4 /* MyOrderListTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -314,6 +326,7 @@
 		9F3C77D82577E2F90063E641 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9F925147259DA148007699C4 /* PresentVC */,
 				9F80A0ED258A74D000EDE3D2 /* BaseController */,
 				9F3C77922577BF3B0063E641 /* LoginViewController.swift */,
 				9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */,
@@ -386,6 +399,16 @@
 				9F8528522597279F004454E6 /* User.swift */,
 			);
 			path = Singleton;
+			sourceTree = "<group>";
+		};
+		9F925147259DA148007699C4 /* PresentVC */ = {
+			isa = PBXGroup;
+			children = (
+				9F925148259DA179007699C4 /* PresentBottomVC.swift */,
+				9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */,
+				9F925155259DA994007699C4 /* CustomAlertViewController.swift */,
+			);
+			path = PresentVC;
 			sourceTree = "<group>";
 		};
 		9FC9F0DF25822C5D004D20F7 /* Storyboards */ = {
@@ -586,6 +609,7 @@
 				9FB025D92589F84C00D6715E /* MainPageViewController.swift in Sources */,
 				9F12BD602588634100813616 /* TabBarCell.swift in Sources */,
 				9F972593257FA02B00EF310D /* DesignableView.swift in Sources */,
+				9F925149259DA179007699C4 /* PresentBottomVC.swift in Sources */,
 				9FB025DE2589F93500D6715E /* BaseSideMenuViewController.swift in Sources */,
 				9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */,
 				9F85280E25919173004454E6 /* NotifyModel.swift in Sources */,
@@ -607,6 +631,7 @@
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
 				9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */,
 				9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */,
+				9F925140259D95AD007699C4 /* MyOrderListTabBarCell.swift in Sources */,
 				9F85282025920AFF004454E6 /* BaseTableViewCell.swift in Sources */,
 				9FB0FFBE2590838E00A02A44 /* PickerViewController.swift in Sources */,
 				9F85282F25921D63004454E6 /* NetworkController.swift in Sources */,
@@ -618,6 +643,8 @@
 				9F1637BF259AFFF2008E9996 /* CityList.swift in Sources */,
 				9F12BCF92585EBC900813616 /* ProductModel.swift in Sources */,
 				9F8528532597279F004454E6 /* User.swift in Sources */,
+				9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */,
+				9F925151259DA1C2007699C4 /* PresentMiddleVC.swift in Sources */,
 				9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */,
 				9F3F2D75258B560900E156A8 /* PageTableViewCell.swift in Sources */,
 				9F6C4D842577F6110091BEA5 /* Global.swift in Sources */,
@@ -629,6 +656,7 @@
 				9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */,
 				9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */,
 				9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */,
+				9F92513B259D9570007699C4 /* MyOrderListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

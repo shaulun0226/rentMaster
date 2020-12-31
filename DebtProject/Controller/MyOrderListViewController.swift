@@ -47,7 +47,7 @@ extension MyOrderListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.productModelCell.rawValue,for: indexPath) as? ProductModelCell{
+        if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.myOrderListTableViewCell.rawValue,for: indexPath) as? MyOrderListTableViewCell{
             cell.backgroundColor = UIColor(named: "card")
             cell.configure(with: orders[indexPath.row])
             return cell
@@ -68,17 +68,19 @@ extension MyOrderListViewController:UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.tabBarCell.rawValue, for: indexPath) as! TabBarCell
-        if(indexPath.row == 0){
-            cell.isSelected = true
-        }else{
-            cell.isSelected = false
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.myOrderListTabBarCell.rawValue, for: indexPath) as? MyOrderListTabBarCell{
+            if(indexPath.row == 0){
+                cell.isSelected = true
+            }else{
+                cell.isSelected = false
+            }
+            cell.backgroundColor = UIColor(named: "card")
+            cell.lbTitle.text = tabbarTitle[indexPath.row]
+            cell.lbTitle.textColor = .white
+            //        cell.layer.insertSublayer(layer, at: 0)
+            return cell
         }
-        cell.backgroundColor = UIColor(named: "card")
-        cell.lbTitle.text = tabbarTitle[indexPath.row]
-        cell.lbTitle.textColor = .white
-        //        cell.layer.insertSublayer(layer, at: 0)
-        return cell
+        return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //        self.title = buttonText[indexPath.row]

@@ -29,22 +29,22 @@ class ProductInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("最後一個\(self.navigationController?.viewControllers.last)")
-        print("第一個\(self.navigationController?.viewControllers.first)")
-        if((self.navigationController?.viewControllers.count)! > 2){
-            print("畫面數量\(self.navigationController?.viewControllers.count)")
-            for index in 0..<(self.navigationController?.viewControllers.count)!{
-                print(self.navigationController?.viewControllers[index])
-            }
-            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
-            print("刪掉最後一個")
-                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
-                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
-                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
-        }else{
-            print("根本沒進去")
-        }
-        }
+//        print("最後一個\(self.navigationController?.viewControllers.last)")
+//        print("第一個\(self.navigationController?.viewControllers.first)")
+//        if((self.navigationController?.viewControllers.count)! > 2){
+//            print("畫面數量\(self.navigationController?.viewControllers.count)")
+//            for index in 0..<(self.navigationController?.viewControllers.count)!{
+//                print(self.navigationController?.viewControllers[index])
+//            }
+//            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
+//            print("刪掉最後一個")
+//                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
+//                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
+//                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
+//        }else{
+//            print("根本沒進去")
+//        }
+//        }
         self.productInfoTableView.delegate = self
         self.productInfoTableView.dataSource = self
         self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
@@ -127,6 +127,21 @@ class ProductInfoViewController: BaseViewController {
                 controller.addAction(cancelAction)
                 self.present(controller, animated: true, completion: nil)
                 return
+            }
+            NetworkController.instance().addCart(productId: product.id){
+                [weak self](responseValue, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let controller = UIAlertController(title: responseValue, message: "", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .default)
+                    controller.addAction(okAction)
+                    weakSelf.present(controller, animated: true, completion: nil)
+                }else{
+                    let controller = UIAlertController(title: responseValue, message: "", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .default)
+                    controller.addAction(okAction)
+                    weakSelf.present(controller, animated: true, completion: nil)
+                }
             }
         }
     }

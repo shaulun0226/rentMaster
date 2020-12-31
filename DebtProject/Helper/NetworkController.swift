@@ -463,12 +463,12 @@ class NetworkController{
                 }
             }
     }
-    func addCart(productId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+    func addCart(productId:String,completionHandler:@escaping (_ :String,Bool) -> ()){
         let url = "\(serverUrl)/CartItems/add";
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let parameters: Parameters = ["ProductId":productId]
         AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
-            .responseJSON{ response in
+            .responseString{ response in
                 switch response.result {
                 //先看連線有沒有成功
                 case.success(let value):
@@ -488,7 +488,7 @@ class NetworkController{
                     }
                 case .failure(let error):
                     print("error:\(error)")
-                    completionHandler( error, false)
+                    completionHandler( error.localizedDescription, false)
                     break
                 }
             }
