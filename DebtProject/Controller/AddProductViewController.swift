@@ -24,13 +24,13 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnProductRegion: UIButton!
     @IBOutlet weak var btnProductType: UIButton!
     @IBOutlet weak var btnProductType2: UIButton!
-    @IBOutlet weak var btnSellType: UIButton!
     @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnExchangeAmount: UIButton!
     @IBOutlet weak var btnProductType1: UIButton!
-    @IBOutlet weak var btnChangeProduct: UIButton!
     @IBOutlet weak var depositView: DesignableView!
     @IBOutlet weak var rentDayView: DesignableView!
     @IBOutlet weak var salePriceView: DesignableView!
+    @IBOutlet weak var exchangeAmountView: DesignableView!
     @IBOutlet weak var tfProductDeposit: UnderLineTextField!
     @IBOutlet weak var tfProductRentDay: UnderLineTextField!
     @IBOutlet weak var tfProductPrice: UnderLineTextField!
@@ -41,7 +41,8 @@ class AddProductViewController: BaseViewController {
     var productDescription:String!
     var productIsSale = false
     var productIsRent = false
-    var productIsExchange = false 
+    var productIsExchange = false
+    var productExangeAmount:Int!
     var productDeposit:Int!
     var productRent:Int!
     var productSalePrice:Int!
@@ -53,6 +54,9 @@ class AddProductViewController: BaseViewController {
     var productType1:String!
     var productType2:String!
     var productImages = [UIImage]()
+    @IBOutlet weak var btnSale: UIButton!
+    @IBOutlet weak var btnRent: UIButton!
+    @IBOutlet weak var btnExchange: UIButton!
     var list = [String]()
     //wantchangeTableView
     @IBOutlet weak var wantChangeTableView: UITableView!
@@ -92,6 +96,46 @@ class AddProductViewController: BaseViewController {
         // Do any additional setup after loading the view.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
+        
+ 
+    }
+    @IBAction func btnSaleClick(_ sender: Any) {
+        btnSale.isSelected = !btnSale.isSelected
+        if(btnSale.isSelected){
+        btnSale.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+        btnSale.tintColor = UIColor(named: "Button")
+        }else{
+            btnSale.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnSale.tintColor = .darkGray
+        }
+        salePriceView.isHidden = !salePriceView.isHidden
+        productIsSale = !productIsSale
+    }
+    @IBAction func btnRentClick(_ sender: Any) {
+        btnRent.isSelected = !btnRent.isSelected
+        if(btnRent.isSelected){
+            btnRent.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+            btnRent.tintColor = UIColor(named: "Button")
+        }else{
+            btnRent.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnRent.tintColor = .darkGray
+        }
+        depositView.isHidden = !depositView.isHidden
+        rentDayView.isHidden = !rentDayView.isHidden
+        productIsRent = !productIsRent
+    }
+    @IBAction func btnExchangeClick(_ sender: Any) {
+        btnExchange.isSelected = !btnExchange.isSelected
+        if(btnExchange.isSelected){
+            btnExchange.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+            btnExchange.tintColor = UIColor(named: "Button")
+        }else{
+            btnExchange.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnExchange.tintColor = .darkGray
+        }
+        wantChangeTableView.isHidden = !wantChangeTableView.isHidden
+        exchangeAmountView.isHidden = !exchangeAmountView.isHidden
+                   productIsExchange = !productIsExchange
     }
     @IBAction func removeCell(_ sender: Any) {
         if(self.cellCount==1){
@@ -113,33 +157,6 @@ class AddProductViewController: BaseViewController {
     @IBAction func doneClick(_ sender: Any) {
         let title  = list[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
-        case btnSellType:
-            switch title {
-            case "租借":
-                depositView.isHidden = false
-                rentDayView.isHidden = false
-                salePriceView.isHidden = true
-                productIsSale = false
-                productIsRent = true
-            case "販售":
-                depositView.isHidden = true
-                rentDayView.isHidden = true
-                salePriceView.isHidden = false
-                productIsSale = true
-                productIsRent = false
-            case "租借+販售":
-                depositView.isHidden = false
-                rentDayView.isHidden = false
-                salePriceView.isHidden = false
-                productIsSale = true
-                productIsRent = true
-            default:
-                depositView.isHidden = false
-                rentDayView.isHidden = false
-                salePriceView.isHidden = false
-                productIsSale = true
-                productIsRent = true
-            }
         case btnSend:
             productRentMethod = title
         case btnProductType:
@@ -148,21 +165,12 @@ class AddProductViewController: BaseViewController {
             productType1 = title
         case btnProductType2:
             productType2 = title
-        case btnChangeProduct:
-            switch title {
-            case "開放交換商品":
-                wantChangeTableView.isHidden = false
-                productIsExchange = true
-            case "不開放交換商品":
-                wantChangeTableView.isHidden = true
-                productIsExchange = false
-            default:
-                wantChangeTableView.isHidden = false
-            }
         case btnProductCity:
             productCity = title
         case btnProductRegion:
             productRegion = title
+        case btnExchangeAmount:
+            productExangeAmount = Int(title)
         default:
             print("沒篩到")
         }
@@ -177,21 +185,12 @@ class AddProductViewController: BaseViewController {
         //關閉popoverview
         displayPicker(false)
     }
-    //按下選擇販售方式
-    @IBAction func sellTypeClick(_ sender: Any) {
-        currentButton = btnSellType
+    @IBAction func exchangeAmountClick(_ sender: Any) {
+        currentButton = btnExchangeAmount
         list.removeAll()
-        list = ["租借","販售","租借+販售"]
-        //刷新pick內容
-        pickerView.reloadAllComponents()
-        //跳出popoverview
-        displayPicker(true)
-    }
-    //選擇是否願意交換商品
-    @IBAction func changeProductClick(_ sender: Any) {
-        currentButton = btnChangeProduct
-        list.removeAll()
-        list = ["開放交換商品","不開放交換商品"]
+        for index in 1...cellCount{
+            list.append("\(index)")
+        }
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -327,12 +326,6 @@ class AddProductViewController: BaseViewController {
         }
         return true;
     }
-    //    func selectCheck()->Bool{
-    //        if{
-    //            return false;
-    //        }
-    //        return true;
-    //    }
     @IBAction func addProductClick(_ sender: Any) {
         if(!emptyCheck()){
             let alertView = SwiftAlertView(title: "", message: "請確認資料是否完整", delegate: nil, cancelButtonTitle: "確定")
@@ -372,9 +365,32 @@ class AddProductViewController: BaseViewController {
                     tradeItems.append(cell.tfChangeProduct.text!)
                 }
             }
-        }
-        for index in 0..<tradeItems.count{
-            print("wantChangeList          \(tradeItems[index])")
+            if(cellCount<productExangeAmount){
+                let alertView = SwiftAlertView(title: "", message: "交換數量不可大於願望清單總數\n", delegate: nil, cancelButtonTitle: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                alertView.clickedButtonAction = { index in
+                    alertView.dismiss()
+                }
+                alertView.show()
+                return
+            }
+            if(tradeItems.count != cellCount){
+                let alertView = SwiftAlertView(title: "", message: "請確認願望清單資料是否完整\n", delegate: nil, cancelButtonTitle: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                alertView.clickedButtonAction = { index in
+                    alertView.dismiss()
+                }
+                alertView.show()
+                return
+            }
         }
         if(Global.isOnline){
             NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, tradeItems:tradeItems){  [weak self] (responseValue,isSuccess) in
