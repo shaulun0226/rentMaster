@@ -377,9 +377,9 @@ class AddProductViewController: BaseViewController {
             print("wantChangeList          \(tradeItems[index])")
         }
         if(Global.isOnline){
-            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, trideItems:tradeItems){  [weak self] (responseValue,isSuccess) in
+            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, tradeItems:tradeItems){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
-                let alertView = SwiftAlertView(title: "", message: " 傳送成功！\n", delegate: nil, cancelButtonTitle: "確定")
+                let alertView = SwiftAlertView(title: "", message: " 上架成功！\n", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = .white
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
@@ -398,6 +398,7 @@ class AddProductViewController: BaseViewController {
                     }
                     alertView.show()
                 }else{
+                    alertView.messageLabel.text = responseValue
                     alertView.clickedButtonAction = { index in
                         alertView.dismiss()
                     }

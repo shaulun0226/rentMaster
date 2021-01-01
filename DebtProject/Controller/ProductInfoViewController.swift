@@ -71,7 +71,7 @@ class ProductInfoViewController: BaseViewController {
             if(product.isExchange){
                 var itemList = "欲交換商品:\n"
                 for index in 0..<product.tradeItems.count{
-                    itemList += "       \(index+1).\(product.tradeItems[index]) \n"
+                    itemList += "       \(index+1).\(product.tradeItems[index].exchangeItem) \n"
                 }
                 lbTradeItem.text = itemList
             }else{
@@ -79,7 +79,10 @@ class ProductInfoViewController: BaseViewController {
             }
             lbAddress.text = "商品地區:\(product.address)"
             lbRentType.text = "寄送方式:\(product.rentMethod)"
-            productsImage = product.pics
+            
+            for index in 0..<product.pics.count{
+                productsImage.append(product.pics[index].path)
+            }
         }else{
             productsImage.append("monsterhunter")
             productsImage.append("ps4")
@@ -130,20 +133,30 @@ class ProductInfoViewController: BaseViewController {
     @IBAction func addCartClick(_ sender: Any) {
         if(Global.isOnline){
             if (User.token.isEmpty){
-                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
-                            productInfoView.product = self.product
-                            Global.presentView = productInfoView
+                let alertView = SwiftAlertView(title: "", message: "請先登入\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+                alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                alertView.clickedButtonAction = { index in
+                    if(index==0){
+                        alertView.dismiss()
+                        return
+                    }
+                    if(index==1){
+                        if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                            if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+                                productInfoView.product = self.product
+                                Global.presentView = productInfoView
+                            }
+                            self.present(loginView, animated: true, completion: nil)
                         }
-                        self.present(loginView, animated: true, completion: nil)
+                        return
                     }
                 }
-                controller.addAction(okAction)
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                controller.addAction(cancelAction)
-                self.present(controller, animated: true, completion: nil)
+                alertView.show()
+
                 return
             }
             NetworkController.instance().addCart(productId: product.id){

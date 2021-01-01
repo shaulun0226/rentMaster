@@ -37,15 +37,20 @@ class MainPageViewController: BaseSideMenuViewController {
             let type2 = jsonArr[index]["type2"].string!
             let userId = jsonArr[index]["userId"].string!
             let picsArr = jsonArr[index]["pics"].array!
-            let tradeItemsArr = jsonArr[index]["trideItems"].array ?? []
-            var pics = [String]()
+            let tradeItemsArr = jsonArr[index]["tradeItems"].array ?? []
+            var pics = [Pic]()
             for index in 0..<picsArr.count{
-                pics.append(picsArr[index]["path"].string ?? "")
+                let id  = picsArr[index]["id"].string ?? ""
+                let path  = picsArr[index]["path"].string ?? ""
+                let productId  = picsArr[index]["productId"].string ?? ""
+                pics.append(Pic.init(id: id, path: path, productId: productId))
             }
             print(tradeItemsArr.count)
-            var items = [String]()
+            var items = [TradeItem]()
             for index in 0..<tradeItemsArr.count{
-                items.append(tradeItemsArr[index]["exchangeItem"].string ?? "")
+                let id = tradeItemsArr[index]["id"].string ?? ""
+                let exchangeItem = tradeItemsArr[index]["exchangeItem"].string ?? ""
+                items.append(TradeItem.init(id:id,exchangeItem: exchangeItem))
             }
             
             cell.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items))

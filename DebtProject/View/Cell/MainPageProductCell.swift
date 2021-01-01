@@ -16,7 +16,7 @@ class MainPageProductCell: UICollectionViewCell {
     func configure(with model: ProductModel) {
         self.lbTitle.text = model.title
         self.lbPrice.text = String(model.salePrice)
-        self.imgGame.image = UIImage(named: model.pics[0])
+        self.imgGame.image = UIImage(named: model.pics[0].path)
         self.lbstate.text = model.description
     }
 }

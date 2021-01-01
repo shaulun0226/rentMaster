@@ -22,7 +22,7 @@ class PageCollectionViewCell: UICollectionViewCell {
             return
         }
         //        self.img.image = UIImage(named: model.pics[0])
-        let imgUrl = model.pics[0]
+        let imgUrl = model.pics[0].path
         if (!imgUrl.contains("http")){
             self.imgGame.image = UIImage(named: "monsterhunter")
             return

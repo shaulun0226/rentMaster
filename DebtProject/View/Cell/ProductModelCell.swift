@@ -68,7 +68,7 @@ class ProductModelCell: UITableViewCell {
             return
         }
         //        self.img.image = UIImage(named: model.pics[0])
-        let imgUrl = model.pics[0]
+        let imgUrl = model.pics[0].path
         if (!imgUrl.contains("http")){
             self.img.image = UIImage(named: "monsterhunter")
             return

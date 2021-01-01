@@ -62,7 +62,7 @@ class CartTableViewCell: UITableViewCell {
             return
         }
 //        self.cartImg.image = UIImage(named: model.pics[0])
-        let imgUrl = model.pics[0]
+        let imgUrl = model.pics[0].path
         //防止url內有中文 先進行編碼
         let newUrl = imgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let articleUrl = URL(string: newUrl)

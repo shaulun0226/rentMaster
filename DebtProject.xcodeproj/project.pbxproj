@@ -57,6 +57,7 @@
 		9F925149259DA179007699C4 /* PresentBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925148259DA179007699C4 /* PresentBottomVC.swift */; };
 		9F925151259DA1C2007699C4 /* PresentMiddleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */; };
 		9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925155259DA994007699C4 /* CustomAlertViewController.swift */; };
+		9F925166259F3441007699C4 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925165259F3441007699C4 /* CheckBox.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
 		9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */; };
@@ -150,6 +151,7 @@
 		9F925148259DA179007699C4 /* PresentBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentBottomVC.swift; sourceTree = "<group>"; };
 		9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMiddleVC.swift; sourceTree = "<group>"; };
 		9F925155259DA994007699C4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		9F925165259F3441007699C4 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantChangeTableViewCell.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				9F3F2D59258B103F00E156A8 /* CardView.swift */,
 				9FAAA32F259A267C00707976 /* CustomFooter.swift */,
 				9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */,
+				9F925165259F3441007699C4 /* CheckBox.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				9F12BD5625885F2400813616 /* ProductModelCell.swift in Sources */,
 				9F85284825936EB0004454E6 /* CartTableViewCell.swift in Sources */,
 				9F3F2D7C258B563400E156A8 /* PageCollectionViewCell.swift in Sources */,
+				9F925166259F3441007699C4 /* CheckBox.swift in Sources */,
 				9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */,
 				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
