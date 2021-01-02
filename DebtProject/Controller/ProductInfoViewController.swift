@@ -104,29 +104,34 @@ class ProductInfoViewController: BaseViewController {
     //按下立即下單按鈕
     @IBAction func confirmOnClicked(_ sender: Any) {
         //連網下單
+        if(Global.isOnline){
+            if (User.token.isEmpty){
+                let notLoginAlertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "確定")
+                notLoginAlertView.clickedCancelButtonAction = {
+                    notLoginAlertView.dismiss()
+                }
+                notLoginAlertView.clickedButtonAction = {[self] index in
+                    if(index==1){
+                        if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                            //                            }
+                            self.present(loginView, animated: true, completion: nil)
+                        }
+                    }
+                }
+                notLoginAlertView.messageLabel.textColor = .white
+                notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+                notLoginAlertView.buttonTitleColor = .white
+                notLoginAlertView.show()
+                return
+            }
+        }
         if let makeOrderView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.makeOrderViewController.rawValue) as? MakeOrderViewController{
             makeOrderView.product  = self.product
             self.present(makeOrderView, animated: true, completion: nil)
 //            self.presentBottom(makeOrderView)
         }
-//        //跳出alert顯示成功失敗
-//        let alertView = SwiftAlertView(title: "", message: "是否確定下單 ?\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
-//        alertView.messageLabel.textColor = .white
-//        alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
-//        alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-//        alertView.backgroundColor = UIColor(named: "Alert")
-//        alertView.buttonTitleColor = .white
-//        alertView.clickedButtonAction = { index in
-//            if(index==0){
-//                alertView.dismiss()
-//                return
-//            }
-//            if(index==1){
-//                //還沒寫
-//                return
-//            }
-//        }
-//        alertView.show()
     }
     @IBAction func addCartClick(_ sender: Any) {
         if(Global.isOnline){

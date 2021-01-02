@@ -7,12 +7,14 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftAlertView
 
 
 
 class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
+    @IBOutlet weak var exchangeAmountView: DesignableView!
     //tavleView
     @IBOutlet weak var exchangeListTableView: UITableView!
     var cellCount = 1
@@ -30,7 +32,7 @@ class MakeOrderViewController: BaseViewController {
     var pickerList = [String]()
     //要傳出去的參數
     var tradeMethod:Int?
-    var tradeItem:String?
+    var tradeItem = [String]()
     var tradeQuantity:Int?//交易數量
     //賣家資訊
     var user:UserModel!
@@ -158,12 +160,16 @@ class MakeOrderViewController: BaseViewController {
             switch title{
             case "購買":
                 tradeMethod = 1
+                self.exchangeListTableView.isHidden = true
             case "租借":
                 tradeMethod = 0
+                self.exchangeListTableView.isHidden = true
             case "交換":
                 tradeMethod = 2
+                self.exchangeListTableView.isHidden = false
             default:
                 tradeMethod = 3
+                self.exchangeListTableView.isHidden = true
             }
         default:
             print("沒篩到")
@@ -210,6 +216,73 @@ class MakeOrderViewController: BaseViewController {
         //跳出popoverview
         displayPicker(true)
     }
+    @IBAction func cancelClick(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func confirmClick(_ sender: Any) {
+        let alertView = SwiftAlertView(title: "", message: "", delegate: nil, cancelButtonTitle: "確定")
+        alertView.messageLabel.textColor = .white
+        alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+        alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+        alertView.backgroundColor = UIColor(named: "Alert")
+        alertView.buttonTitleColor = .white
+        alertView.clickedButtonAction = { index in
+            alertView.dismiss()
+        }
+        guard let tradeQuantity = tradeQuantity else {
+            alertView.messageLabel.text = "請選擇交易數量"
+            alertView.show()
+            return
+        }
+        guard let tradeMethod = tradeMethod else {
+            alertView.messageLabel.text = "請選擇交易方式"
+            alertView.show()
+            return
+        }
+        
+        if(tradeMethod==2){
+            for index in 0..<cellCount{
+                if let cell = exchangeListTableView.cellForRow(at: IndexPath(item: index, section: 0)) as? MakeOrderTableViewCell{
+                    let tradeItemName = cell.btnChangeItem.titleLabel?.text ?? ""
+                    if(tradeItemName.elementsEqual("請選擇交換物")){
+                        alertView.messageLabel.text = "交換物還沒有選唷"
+                        alertView.show()
+                        return
+                    }
+                    tradeItem.append(cell.btnChangeItem.titleLabel?.text ?? "")
+                }
+            }
+            if(tradeItem.count==0){
+                alertView.messageLabel.text = "請選擇交換物"
+                alertView.show()
+                return
+            }
+        }else{
+            
+        }
+        print("下訂單id:\(product.id),交易方式:\(tradeMethod),交易數量:\(tradeQuantity)")
+        NetworkController.instance().addOrder(productId: product.id, tradeMethod: tradeMethod, tradeItem: "", tradeQuantity: tradeQuantity){
+            [weak self] (responseValue,isSuccess) in
+            guard let weakSelf = self else{return}
+            alertView.messageLabel.text = responseValue
+            if(isSuccess){
+                alertView.clickedButtonAction = {index in
+                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+                        weakSelf.dismiss(animated: true, completion: nil)
+                        mainView.modalPresentationStyle = .automatic
+//                        weakSelf.present(mainView, animated: true, completion: nil)
+//                        weakSelf.showDetailViewController(mainView, sender: nil)
+                    }
+                }
+            }else{
+                alertView.clickedButtonAction = {index in
+                    alertView.dismiss()
+                }
+            }
+            alertView.show()
+        }
+    }
 }
 extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -235,18 +308,9 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = exchangeListTableView.dequeueReusableCell(withIdentifier: TableViewCell.makeOrderTableViewCell.rawValue) as? MakeOrderTableViewCell{
             cell.makeOrderTableViewCellDelegate = self
-            print("創到正常的")
             return cell
         }
-        print("創到空的")
         return UITableViewCell()
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if (tableView.cellForRow(at: indexPath) as? MakeOrderTableViewCell) != nil{
-            
-            
-        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         70

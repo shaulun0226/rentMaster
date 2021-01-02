@@ -112,20 +112,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     alertView.backgroundColor = UIColor(named: "Alert")
                     alertView.buttonTitleColor = .white
                     alertView.show()
-                    //                    let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                    //                    let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                    //                        if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                    ////                            if let productListView = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                    ////                                Global.lastView = self
-                    ////                            }
-                    //                            self.present(loginView, animated: true, completion: nil)
-                    //                        }
-                    //                    }
-                    //                    controller.addAction(okAction)
-                    //                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                    //                    controller.addAction(cancelAction)
-                    //                    self.present(controller, animated: true, completion: nil)
-                    return
                 }
             }
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{

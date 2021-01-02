@@ -1923,7 +1923,8 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQ2-HP-aDQ">
-                                                        <rect key="frame" x="5" y="50" width="404" height="50"/>
+                                                        <rect key="frame" x="30" y="50" width="354" height="50"/>
+                                                        <color key="backgroundColor" name="card"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="C8Y-WN-zgq"/>
                                                         </constraints>
@@ -1931,14 +1932,19 @@
                                                         <state key="normal" title="請選擇商品交易方式">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="tradeTypeClick:" destination="YXw-kz-Njm" eventType="touchUpInside" id="c0b-Vh-F1N"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="OQ2-HP-aDQ" secondAttribute="trailing" constant="5" id="0sA-1g-CyW"/>
-                                                    <constraint firstItem="OQ2-HP-aDQ" firstAttribute="leading" secondItem="chg-EF-i6J" secondAttribute="leading" constant="5" id="2QN-8O-T0M"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OQ2-HP-aDQ" secondAttribute="trailing" constant="30" id="0sA-1g-CyW"/>
+                                                    <constraint firstItem="OQ2-HP-aDQ" firstAttribute="leading" secondItem="chg-EF-i6J" secondAttribute="leading" constant="30" id="2QN-8O-T0M"/>
                                                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="yb4-hB-qO7" secondAttribute="trailing" id="P7j-Ju-QOc"/>
                                                     <constraint firstItem="OQ2-HP-aDQ" firstAttribute="top" secondItem="yb4-hB-qO7" secondAttribute="bottom" id="cl1-dB-D4A"/>
                                                     <constraint firstItem="yb4-hB-qO7" firstAttribute="top" secondItem="chg-EF-i6J" secondAttribute="top" id="mg3-kr-Kei"/>
@@ -2007,7 +2013,8 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWU-Hq-85W">
-                                                        <rect key="frame" x="5" y="50" width="404" height="50"/>
+                                                        <rect key="frame" x="30" y="50" width="354" height="50"/>
+                                                        <color key="backgroundColor" name="card"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="6MT-h5-ixs"/>
                                                         </constraints>
@@ -2015,18 +2022,21 @@
                                                         <state key="normal" title="請選擇交易商品數量">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="tradeAmountClick:" destination="YXw-kz-Njm" eventType="touchUpInside" id="sUC-xV-idE"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="CWU-Hq-85W" firstAttribute="leading" secondItem="TTm-CT-uS4" secondAttribute="leading" constant="5" id="0lz-by-DH8"/>
                                                     <constraint firstItem="vyj-dJ-b1w" firstAttribute="leading" secondItem="TTm-CT-uS4" secondAttribute="leading" id="VXL-eB-Cfs"/>
                                                     <constraint firstItem="CWU-Hq-85W" firstAttribute="top" secondItem="vyj-dJ-b1w" secondAttribute="bottom" id="b3a-r6-JAz"/>
                                                     <constraint firstItem="vyj-dJ-b1w" firstAttribute="top" secondItem="TTm-CT-uS4" secondAttribute="top" id="cjd-LS-j9O"/>
                                                     <constraint firstAttribute="bottom" secondItem="CWU-Hq-85W" secondAttribute="bottom" id="fYP-gG-SAS"/>
-                                                    <constraint firstAttribute="trailing" secondItem="CWU-Hq-85W" secondAttribute="trailing" constant="5" id="gTV-r4-63f"/>
                                                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="vyj-dJ-b1w" secondAttribute="trailing" id="oZw-it-149"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -2046,10 +2056,12 @@
                                             </view>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="CWU-Hq-85W" firstAttribute="leading" secondItem="OQ2-HP-aDQ" secondAttribute="leading" id="73i-AV-7L1"/>
+                                            <constraint firstItem="CWU-Hq-85W" firstAttribute="trailing" secondItem="OQ2-HP-aDQ" secondAttribute="trailing" id="Hgs-xq-bTN"/>
                                             <constraint firstItem="TTm-CT-uS4" firstAttribute="top" secondItem="WSV-Cj-UYF" secondAttribute="bottom" constant="10" id="Zyl-7D-5fN"/>
                                         </constraints>
                                     </stackView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="grh-zl-K07">
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="grh-zl-K07">
                                         <rect key="frame" x="0.0" y="466" width="414" height="1000"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2066,7 +2078,8 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlh-IW-6VF">
-                                                            <rect key="frame" x="5" y="12.5" width="404" height="50"/>
+                                                            <rect key="frame" x="30" y="12.5" width="354" height="50"/>
+                                                            <color key="backgroundColor" name="card"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Kvu-ak-2Pn"/>
                                                             </constraints>
@@ -2074,6 +2087,11 @@
                                                             <state key="normal" title="請選擇交換物">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="changeItemClick:" destination="qLQ-dT-v0r" eventType="touchUpInside" id="8yl-MP-bdt"/>
                                                             </connections>
@@ -2083,9 +2101,9 @@
                                                     <constraints>
                                                         <constraint firstItem="Dlh-IW-6VF" firstAttribute="top" secondItem="7cq-Sj-LHP" secondAttribute="top" constant="12.5" id="A9C-06-CYr"/>
                                                         <constraint firstItem="Dlh-IW-6VF" firstAttribute="centerY" secondItem="7cq-Sj-LHP" secondAttribute="centerY" id="ZBR-2e-DOi"/>
-                                                        <constraint firstItem="Dlh-IW-6VF" firstAttribute="leading" secondItem="7cq-Sj-LHP" secondAttribute="leading" constant="5" id="cIg-Cn-ZMA"/>
+                                                        <constraint firstItem="Dlh-IW-6VF" firstAttribute="leading" secondItem="7cq-Sj-LHP" secondAttribute="leading" constant="30" id="cIg-Cn-ZMA"/>
                                                         <constraint firstAttribute="bottom" secondItem="Dlh-IW-6VF" secondAttribute="bottom" constant="12.5" id="fqK-xL-Fa4"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Dlh-IW-6VF" secondAttribute="trailing" constant="5" id="gyR-WP-TQL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Dlh-IW-6VF" secondAttribute="trailing" constant="30" id="gyR-WP-TQL"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2121,6 +2139,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="取消"/>
+                                        <connections>
+                                            <action selector="cancelClick:" destination="YXw-kz-Njm" eventType="touchUpInside" id="40X-AP-Pau"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Glc-x8-DHL">
                                         <rect key="frame" x="207" y="0.0" width="207" height="62"/>
@@ -2128,6 +2149,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="確認"/>
+                                        <connections>
+                                            <action selector="confirmClick:" destination="YXw-kz-Njm" eventType="touchUpInside" id="yfz-Bi-cTe"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -2155,6 +2179,7 @@
                     <connections>
                         <outlet property="btnTradeAmount" destination="CWU-Hq-85W" id="A7Z-51-OQ6"/>
                         <outlet property="btnTradeType" destination="OQ2-HP-aDQ" id="gZq-DR-rFE"/>
+                        <outlet property="exchangeAmountView" destination="TTm-CT-uS4" id="UVm-ER-L9W"/>
                         <outlet property="exchangeListTableView" destination="grh-zl-K07" id="UAG-bI-nb0"/>
                         <outlet property="exchangeListTableViewHeight" destination="EWO-1q-GVH" id="yDv-kf-Qwr"/>
                         <outlet property="lbProductAmount" destination="KPh-Hz-ikg" id="o9c-Wd-WP2"/>
