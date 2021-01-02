@@ -96,16 +96,14 @@ class AddProductViewController: BaseViewController {
         // Do any additional setup after loading the view.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-        
- 
     }
     @IBAction func btnSaleClick(_ sender: Any) {
         btnSale.isSelected = !btnSale.isSelected
         if(btnSale.isSelected){
-        btnSale.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+            btnSale.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
         btnSale.tintColor = UIColor(named: "Button")
         }else{
-            btnSale.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnSale.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnSale.tintColor = .darkGray
         }
         salePriceView.isHidden = !salePriceView.isHidden
@@ -113,11 +111,12 @@ class AddProductViewController: BaseViewController {
     }
     @IBAction func btnRentClick(_ sender: Any) {
         btnRent.isSelected = !btnRent.isSelected
+        
         if(btnRent.isSelected){
-            btnRent.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+            btnRent.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
             btnRent.tintColor = UIColor(named: "Button")
         }else{
-            btnRent.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnRent.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnRent.tintColor = .darkGray
         }
         depositView.isHidden = !depositView.isHidden
@@ -127,10 +126,10 @@ class AddProductViewController: BaseViewController {
     @IBAction func btnExchangeClick(_ sender: Any) {
         btnExchange.isSelected = !btnExchange.isSelected
         if(btnExchange.isSelected){
-            btnExchange.setBackgroundImage(UIImage(systemName: "square.fill"), for:.normal)
+            btnExchange.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
             btnExchange.tintColor = UIColor(named: "Button")
         }else{
-            btnExchange.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
         wantChangeTableView.isHidden = !wantChangeTableView.isHidden
