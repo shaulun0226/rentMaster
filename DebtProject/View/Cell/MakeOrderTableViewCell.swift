@@ -6,10 +6,12 @@
 //
 
 import UIKit
-
+protocol MakeOrderTableViewCellDelegate {
+    func changeItemClick(btnChangeItem :UIButton)
+}
 class MakeOrderTableViewCell: UITableViewCell {
-    @IBOutlet weak var btnSeleted :UIButton!
-    @IBOutlet weak var lbExchangeProductName :UILabel!
+    @IBOutlet weak var btnChangeItem :UIButton!
+    var makeOrderTableViewCellDelegate:MakeOrderTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +22,7 @@ class MakeOrderTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-}
+    @IBAction func changeItemClick(_ sender: Any) {
+        makeOrderTableViewCellDelegate?.changeItemClick(btnChangeItem: btnChangeItem)
+    }
+ }

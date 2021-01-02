@@ -240,6 +240,34 @@ class NetworkController{
                 }
             }
     }
+    func getUserBasicInfo(userId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Users/baseinfo/\(userId)";
+        AF.request(url,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     // MARK: - productList
     //產品清單區
     func getProductListByType(type:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){

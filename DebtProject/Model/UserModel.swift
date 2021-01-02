@@ -8,11 +8,12 @@
 import Foundation
 
 
-struct UserModel :Codable{
+struct UserModel{
     var id:String
     var email:String
     var name:String
     var nickName:String
     var phone:String
     var address:String
+    var products:[ProductModel]
 }

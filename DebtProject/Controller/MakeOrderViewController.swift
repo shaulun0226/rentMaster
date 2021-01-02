@@ -6,18 +6,16 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 
 
-class MakeOrderViewController: PresentBottomVC {
-    
-    override var controllerHeight: CGFloat{
-        return UIScreen.main.bounds.size.height * 5/7
-    }
+class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
     //tavleView
     @IBOutlet weak var exchangeListTableView: UITableView!
+    var cellCount = 1
     var exchangeList = [String]()
     //picker按鈕
     var currentButton:UIButton!
@@ -34,7 +32,16 @@ class MakeOrderViewController: PresentBottomVC {
     var tradeMethod:Int?
     var tradeItem:String?
     var tradeQuantity:Int?//交易數量
+    //賣家資訊
+    var user:UserModel!
+    @IBOutlet weak var lbSellerName: UILabel!
+    @IBOutlet weak var lbSellerEmail: UILabel!
+    @IBOutlet weak var lbSellerPhone: UILabel!
+    @IBOutlet weak var lbSellerLocation: UILabel!
+    //tableView
     @IBOutlet weak var exchangeListTableViewHeight: NSLayoutConstraint!
+    //商品區
+    @IBOutlet weak var lbProductAmount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         exchangeListTableView.delegate = self
@@ -46,24 +53,50 @@ class MakeOrderViewController: PresentBottomVC {
         for index in 0..<product.tradeItems.count{
             print("交換商品加入清單\(index)")
             exchangeList.append("\(product.tradeItems[index].exchangeItem)")
-            exchangeList.append("99999999999")
         }
+        self.exchangeListTableView.allowsSelection = true
         exchangeListTableView.reloadData()
         //設定pickview
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.setValue(UIColor.white, forKeyPath: "textColor")
-        //設定按外面會把鍵盤收起
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
-        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-        //設定背景顏色
-        //設定navigation bar
-        self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3411764706, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-        //設定barItem 的顏色
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        let layer = Global.setBackgroundColor(view);
-        view.layer.insertSublayer(layer, at: 0)
+        //        //設定navigation bar
+        //        self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3411764706, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+        //        //設定barItem 的顏色
+        //        self.navigationController?.navigationBar.tintColor = .white
+        //        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //        let layer = Global.setBackgroundColor(view);
+        //        view.layer.insertSublayer(layer, at: 0)
+        //連api拿到賣家資訊
+        if(Global.isOnline){
+            NetworkController.instance().getUserBasicInfo(userId: product.userId){
+                [weak self] (responseValue,isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(responseValue)
+                    weakSelf.parseUser(jsonArr: jsonArr)
+                    weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.nickName)"
+                    weakSelf.lbSellerEmail.text = "Email:\(weakSelf.user.email)"
+                    weakSelf.lbSellerPhone.text = "聯絡電話:\(weakSelf.user.phone)"
+                    weakSelf.lbSellerLocation.text = "地區:\(weakSelf.product.address)"
+                }else{
+                    weakSelf.lbSellerName.text = "稱呼:測試"
+                    weakSelf.lbSellerEmail.text = "Email:test"
+                    weakSelf.lbSellerPhone.text = "聯絡電話:0000000000"
+                    weakSelf.lbSellerLocation.text = "地區:dng"
+                }
+            }
+        }
+        lbProductAmount.text = "剩餘數量:\(product.amount)"
+    }
+    private func parseUser(jsonArr:JSON){
+        let id = jsonArr["id"].string ?? ""
+        let email = jsonArr["email"].string ?? ""
+        let name = jsonArr["name"].string ?? ""
+        let nickName = jsonArr["nickName"].string ?? ""
+        let phone = jsonArr["phone"].string ?? ""
+        let address = jsonArr["address"].string ?? ""
+        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [])
     }
     override func viewWillAppear(_ animated: Bool) {
         //加入子視圖(在這裡是要彈出的popoverview)
@@ -119,6 +152,8 @@ class MakeOrderViewController: PresentBottomVC {
         switch currentButton {
         case btnTradeAmount:
             tradeQuantity = Int(title)
+            cellCount = Int(title) ?? 1
+            exchangeListTableView.reloadData()
         case btnTradeType:
             switch title{
             case "購買":
@@ -180,15 +215,26 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         1
     }
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
+        view.backgroundColor = .clear;
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
+        view.addSubview(label);
+        label.text = "交換物:"
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .white
+        return view;
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        50
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        exchangeList.count
+        cellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = exchangeListTableView.dequeueReusableCell(withIdentifier: TableViewCell.makeOrderTableViewCell.rawValue) as? MakeOrderTableViewCell{
-            cell.lbExchangeProductName.text = exchangeList[indexPath.row]
-            
+            cell.makeOrderTableViewCellDelegate = self
             print("創到正常的")
             return cell
         }
@@ -196,22 +242,28 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("點擊cell")
-        if let cell = tableView.cellForRow(at: indexPath) as? MakeOrderTableViewCell{
-            print("有找到cell")
-//            cell.btnSeleted.isSelected = !cell.btnSeleted.isSelected
-//            if(cell.btnSeleted.isSelected){
-//                cell.btnSeleted.setImage(UIImage(systemName: "largecircle.fill.circle"), for: .normal)
-//                cell.btnSeleted.tintColor = UIColor(named: "Button")
-//            }else{
-//                cell.btnSeleted.setImage(UIImage(systemName:"circle"), for: .normal)
-//                cell.btnSeleted.tintColor = .darkGray
-//            }
+        
+        if (tableView.cellForRow(at: indexPath) as? MakeOrderTableViewCell) != nil{
+            
+            
         }
-        print("沒找到cell")
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         70
+    }
+}
+extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
+    func changeItemClick(btnChangeItem: UIButton) {
+        currentButton = btnChangeItem
+        pickerList.removeAll()
+        //設定購買方法
+        for index in 0..<product.tradeItems.count{
+            pickerList.append("\(product.tradeItems[index].exchangeItem)")
+        }
+        //刷新pick內容
+        pickerView.reloadAllComponents()
+        //跳出popoverview
+        displayPicker(true)
     }
 }
 extension MakeOrderViewController:UIPickerViewDelegate,UIPickerViewDataSource{
