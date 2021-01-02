@@ -104,31 +104,29 @@ class ProductInfoViewController: BaseViewController {
     //按下立即下單按鈕
     @IBAction func confirmOnClicked(_ sender: Any) {
         //連網下單
-        //跳出alert顯示成功失敗
-        let alertView = SwiftAlertView(title: "", message: "是否確定下單 ?\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
-        alertView.messageLabel.textColor = .white
-        alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
-        alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-        alertView.backgroundColor = UIColor(named: "Alert")
-        alertView.buttonTitleColor = .white
-        alertView.clickedButtonAction = { index in
-            if(index==0){
-                alertView.dismiss()
-                return
-            }
-            if(index==1){
-                //還沒寫
-                return
-            }
+        if let makeOrderView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.makeOrderViewController.rawValue) as? MakeOrderViewController{
+            makeOrderView.product  = self.product
+            self.present(makeOrderView, animated: true, completion: nil)
+//            self.presentBottom(makeOrderView)
         }
-        alertView.show()
-        //        let controller = UIAlertController(title: "確定下單", message: "是否確定下單 ?", preferredStyle: .alert)
-        //        let okAction = UIAlertAction(title: "確定", style: .default)
-        //
-        //        controller.addAction(okAction)
-        //        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        //        controller.addAction(cancelAction)
-        //        present(controller, animated: true, completion: nil)
+//        //跳出alert顯示成功失敗
+//        let alertView = SwiftAlertView(title: "", message: "是否確定下單 ?\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
+//        alertView.messageLabel.textColor = .white
+//        alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+//        alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+//        alertView.backgroundColor = UIColor(named: "Alert")
+//        alertView.buttonTitleColor = .white
+//        alertView.clickedButtonAction = { index in
+//            if(index==0){
+//                alertView.dismiss()
+//                return
+//            }
+//            if(index==1){
+//                //還沒寫
+//                return
+//            }
+//        }
+//        alertView.show()
     }
     @IBAction func addCartClick(_ sender: Any) {
         if(Global.isOnline){

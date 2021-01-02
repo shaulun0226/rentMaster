@@ -28,12 +28,14 @@ enum ProductStoryboardController:String,CaseIterable{
     case addProductViewController = "AddProductViewController"
     case cartCellMenuViewController = "CartCellMenuViewController"
     case myOrderListViewController = "MyOrderListViewController"
+    case makeOrderViewController = "MakeOrderViewController"
 }
 enum TableViewCell:String,CaseIterable{
     case pageTableViewCell = "PageTableViewCell"
     case memberCenterTableViewCell = "MemberCenterTableViewCell"
     case productModelCell = "ProductModelCell"
     case myOrderListTableViewCell = "MyOrderListTableViewCell"
+    case makeOrderTableViewCell = "MakeOrderTableViewCell"
 }
 enum CollectionViewCell:String,CaseIterable{
     case pageCollectionViewCell = "PageCollectionViewCell"
@@ -46,7 +48,7 @@ class Global{
     //前個頁面
     static var lastView = UIViewController()
     //網路參數
-    static var isOnline = false
+    static var isOnline = true
     //搜尋的起始頁跟結束頁
     static let pageBegin = 1
     static let pageEnd = 10

@@ -21,6 +21,8 @@
 		9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */; };
 		9F1637DB259C50DF008E9996 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DA259C50DF008E9996 /* UserModel.swift */; };
 		9F1637E0259C57B1008E9996 /* ChangeUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */; };
+		9F17076F25A059F900A126BB /* MakeOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F17076E25A059F900A126BB /* MakeOrderViewController.swift */; };
+		9F17077425A0602B00A126BB /* MakeOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F17077325A0602B00A126BB /* MakeOrderTableViewCell.swift */; };
 		9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */; };
 		9F3C778F2577BF3B0063E641 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C778E2577BF3B0063E641 /* AppDelegate.swift */; };
 		9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C77902577BF3B0063E641 /* SceneDelegate.swift */; };
@@ -108,6 +110,8 @@
 		9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOutsideFrameView.swift; sourceTree = "<group>"; };
 		9F1637DA259C50DF008E9996 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoViewController.swift; sourceTree = "<group>"; };
+		9F17076E25A059F900A126BB /* MakeOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOrderViewController.swift; sourceTree = "<group>"; };
+		9F17077325A0602B00A126BB /* MakeOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOrderTableViewCell.swift; sourceTree = "<group>"; };
 		9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9F3C778B2577BF3B0063E641 /* DebtProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3C778E2577BF3B0063E641 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 				9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */,
 				9F92513F259D95AD007699C4 /* MyOrderListTabBarCell.swift */,
 				9F92513A259D9570007699C4 /* MyOrderListTableViewCell.swift */,
+				9F17077325A0602B00A126BB /* MakeOrderTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */,
 				9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */,
 				9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */,
+				9F17076E25A059F900A126BB /* MakeOrderViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F1637C4259B5587008E9996 /* MemberCenterTableViewCell.swift in Sources */,
+				9F17076F25A059F900A126BB /* MakeOrderViewController.swift in Sources */,
 				9F1637E0259C57B1008E9996 /* ChangeUserInfoViewController.swift in Sources */,
 				9F1637DB259C50DF008E9996 /* UserModel.swift in Sources */,
 				9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */,
@@ -615,6 +622,7 @@
 				9F85280E25919173004454E6 /* NotifyModel.swift in Sources */,
 				9F85284D25937C46004454E6 /* CartCellMenuViewController.swift in Sources */,
 				9F85284325936D47004454E6 /* CartViewController.swift in Sources */,
+				9F17077425A0602B00A126BB /* MakeOrderTableViewCell.swift in Sources */,
 				9F1637CE259B816A008E9996 /* MyOrderListViewController.swift in Sources */,
 				9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */,
 				9FAAA330259A267C00707976 /* CustomFooter.swift in Sources */,

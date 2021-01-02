@@ -57,7 +57,7 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnSale: UIButton!
     @IBOutlet weak var btnRent: UIButton!
     @IBOutlet weak var btnExchange: UIButton!
-    var list = [String]()
+    var pickerList = [String]()
     //wantchangeTableView
     @IBOutlet weak var wantChangeTableView: UITableView!
     var tradeItems = [String]()
@@ -72,7 +72,7 @@ class AddProductViewController: BaseViewController {
     var host:String?
     var type:String?
     @IBOutlet weak var addProductCV: UICollectionView!
-    
+    //利用kvo設定TableView高度隨他內容增長
     @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         wantChangeTableView.layer.removeAllAnimations()
@@ -86,6 +86,7 @@ class AddProductViewController: BaseViewController {
         self.wantChangeTableView.delegate = self
         self.wantChangeTableView.dataSource = self
         self.wantChangeTableView.backgroundColor = .clear
+        //設定KVO
         wantChangeTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         self.wantChangeTableView.reloadData()
         addProductCV.delegate = self
@@ -93,7 +94,7 @@ class AddProductViewController: BaseViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.setValue(UIColor.white, forKeyPath: "textColor")
-        // Do any additional setup after loading the view.
+        //設定按外面會把鍵盤收起
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
@@ -136,25 +137,11 @@ class AddProductViewController: BaseViewController {
         exchangeAmountView.isHidden = !exchangeAmountView.isHidden
                    productIsExchange = !productIsExchange
     }
-    @IBAction func removeCell(_ sender: Any) {
-        if(self.cellCount==1){
-            return
-        }
-        self.cellCount -= 1
-        print("刪掉一格")
-        print(self.cellCount)
-        wantChangeTableView.reloadData()
-        
-    }
-    @IBAction func addCell(_ sender: Any) {
-        self.cellCount += 1
-        print("新增一格")
-        print(self.cellCount)
-        wantChangeTableView.reloadData()
-    }
+    
+    
     //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
-        let title  = list[pickerView.selectedRow(inComponent: 0)]
+        let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnSend:
             productRentMethod = title
@@ -186,9 +173,9 @@ class AddProductViewController: BaseViewController {
     }
     @IBAction func exchangeAmountClick(_ sender: Any) {
         currentButton = btnExchangeAmount
-        list.removeAll()
+        pickerList.removeAll()
         for index in 1...cellCount{
-            list.append("\(index)")
+            pickerList.append("\(index)")
         }
         //刷新pick內容
         pickerView.reloadAllComponents()
@@ -198,8 +185,8 @@ class AddProductViewController: BaseViewController {
     //寄送方式
     @IBAction func sendClick(_ sender: Any) {
         currentButton = btnSend
-        list.removeAll()
-        list = ["7-11店到店","全家店到店","OK店到店","萊爾富店到店","宅急便","郵寄","面交"]
+        pickerList.removeAll()
+        pickerList = ["7-11店到店","全家店到店","OK店到店","萊爾富店到店","宅急便","郵寄","面交"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -208,8 +195,8 @@ class AddProductViewController: BaseViewController {
     //按下位置按鈕後的action
     @IBAction func cityClick(_ sender: Any) {
         currentButton = btnProductCity
-        list.removeAll()
-        list = CityList.city
+        pickerList.removeAll()
+        pickerList = CityList.city
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -217,8 +204,8 @@ class AddProductViewController: BaseViewController {
     }
     @IBAction func regionClick(_ sender: Any) {
         currentButton = btnProductRegion
-        list.removeAll()
-        list = CityList.region[(btnProductCity.titleLabel?.text)!] ?? []
+        pickerList.removeAll()
+        pickerList = CityList.region[(btnProductCity.titleLabel?.text)!] ?? []
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -226,30 +213,30 @@ class AddProductViewController: BaseViewController {
     }
     @IBAction func typeClick(_ sender: Any) {
         currentButton = btnProductType
-        list.removeAll()
-        list = ["PlayStation","Xbox","Switch","桌遊"]
+        pickerList.removeAll()
+        pickerList = ["PlayStation","Xbox","Switch","桌遊"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
     }
     @IBAction func type1Click(_ sender: Any) {
         currentButton = btnProductType1
-        list.removeAll()
+        pickerList.removeAll()
         switch productType {
         case "PlayStation":
             lbProductType1.text = "主機型號"
-            list = ["PS5","PS4"]
+            pickerList = ["PS5","PS4"]
         case "Xbox":
             lbProductType1.text = "主機型號"
-            list = ["One","Series"]
+            pickerList = ["One","Series"]
         case "Switch":
             lbProductType1.text = "主機型號"
-            list = ["Switch"]
+            pickerList = ["Switch"]
         case "桌遊":
             lbProductType1.text = "遊玩人數"
-            list = ["4人以下","4-8人","8人以上"]
+            pickerList = ["4人以下","4-8人","8人以上"]
         default:
-            list = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
+            pickerList = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
         }
         //刷新pick內容
         pickerView.reloadAllComponents()
@@ -257,14 +244,13 @@ class AddProductViewController: BaseViewController {
     }
     @IBAction func type2Click(_ sender: Any) {
         currentButton = btnProductType2
-        list.removeAll()
-        list = ["遊戲","主機","周邊","其他"]
+        pickerList.removeAll()
+        pickerList = ["遊戲","主機","周邊","其他"]
         //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
     }
     //設定彈出的方法 ture就顯示false就藏在下面
-    
     func displayPicker(_ show:Bool){
         for c in view.constraints{
             //判斷constraints id
@@ -301,7 +287,23 @@ class AddProductViewController: BaseViewController {
         selectView.layer.cornerRadius = 10
         super.viewWillAppear(animated)
     }
-    
+    //動態增加願望清單cell
+    @IBAction func removeCell(_ sender: Any) {
+        if(self.cellCount==1){
+            return
+        }
+        self.cellCount -= 1
+        print("刪掉一格")
+        print(self.cellCount)
+        wantChangeTableView.reloadData()
+        
+    }
+    @IBAction func addCell(_ sender: Any) {
+        self.cellCount += 1
+        print("新增一格")
+        print(self.cellCount)
+        wantChangeTableView.reloadData()
+    }
     //點擊空白收回鍵盤
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
@@ -431,18 +433,18 @@ extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     }
     //設定bar的內容有幾項
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return list.count
+        return pickerList.count
     }
     //設定bar的內容
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return list[row]
+        return pickerList[row]
     }
     //調整pickerview文字
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var label = UILabel()
         if let v = view as? UILabel { label = v }
         label.font = UIFont (name: "Helvetica Neue", size: 25)
-        label.text =  list[row]
+        label.text =  pickerList[row]
         label.textAlignment = .center
         label.textColor = UIColor.white
         return label

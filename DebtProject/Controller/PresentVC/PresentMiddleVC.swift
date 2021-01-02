@@ -41,7 +41,7 @@ public class PresentMiddle:UIPresentationController {
         if let frame = self.containerView?.bounds {
             view.frame = frame
         }
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sendHideNotification))
         view.addGestureRecognizer(gesture)
         return view
@@ -90,7 +90,7 @@ public class PresentMiddle:UIPresentationController {
     ///   决定了弹出框的frame
     public override var frameOfPresentedViewInContainerView: CGRect {
         let halfX = UIScreen.main.bounds.width/2
-        return CGRect(x:  halfX - controllerWidth/2, y: (UIScreen.main.bounds.height-controllerHeight)/2, width: controllerWidth, height: controllerHeight)
+        return CGRect(x:  (UIScreen.main.bounds.width-controllerWidth)/2, y: (UIScreen.main.bounds.height-controllerHeight)/2, width: controllerWidth, height: controllerHeight)
     }
 
     
