@@ -10,11 +10,22 @@ protocol AddProductImageCollectionViewCellDelegate {
     func deleteClick(indexPath:IndexPath)
 }
 class AddProductImageCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var image:UIImageView!
+    @IBOutlet weak var imageView:UIImageView!
     var indexPath:IndexPath!
     var addProductImageCollectionViewCellDelegate:AddProductImageCollectionViewCellDelegate?
     func configureWithImg(with image:UIImage) {
-        self.image.image = image
+        self.imageView.image = image
+    }
+    func configureWithUrl(with imgUrl:String){
+        if (!imgUrl.contains("http")){
+            self.imageView.image = UIImage(named: "monsterhunter")
+            return
+        }
+        //防止url內有中文 先進行編碼
+        let newUrl = imgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let articleUrl = URL(string: newUrl)
+        self.imageView.kf.indicatorType = .activity
+        self.imageView.kf.setImage(with: articleUrl,placeholder: UIImage(named: "camera.png"))
     }
     @IBAction func deleteClick (_sender:Any){
         addProductImageCollectionViewCellDelegate?.deleteClick(indexPath: indexPath)

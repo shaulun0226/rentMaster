@@ -8,18 +8,19 @@
 import UIKit
 import TLPhotoPicker
 import SwiftAlertView
+import SwiftyJSON
 
 class AddProductViewController: BaseViewController {
     @IBOutlet weak var lbProductName: UILabel!
-    @IBOutlet weak var tfProductTitle: UnderLineTextField!
     @IBOutlet weak var lbProductDescription: UILabel!
-    @IBOutlet weak var tfProductDescription: UnderLineTextField!
     @IBOutlet weak var lbProductAmount: UILabel!
-    @IBOutlet weak var tfProductAmount: UnderLineTextField!
     @IBOutlet weak var lbProductLocation: UILabel!
     @IBOutlet weak var lbProductType: UILabel!
     @IBOutlet weak var lbProductType1: UILabel!
     @IBOutlet weak var lbProductType2: UILabel!
+    @IBOutlet weak var tfProductTitle: UnderLineTextField!//產品名
+    @IBOutlet weak var tfProductDescription: UnderLineTextField!//產品描述
+    @IBOutlet weak var tfProductAmount: UnderLineTextField!//產品數量
     @IBOutlet weak var btnProductCity: UIButton!
     @IBOutlet weak var btnProductRegion: UIButton!
     @IBOutlet weak var btnProductType: UIButton!
@@ -27,14 +28,24 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnExchangeAmount: UIButton!
     @IBOutlet weak var btnProductType1: UIButton!
+    //選擇交易方式
+    var btnSaleSelected:Bool = false
+    var btnRentSelected:Bool = false
+    var btnExchangeSelected:Bool = false
+    @IBOutlet weak var btnSale: UIButton!
+    @IBOutlet weak var btnRent: UIButton!
+    @IBOutlet weak var btnExchange: UIButton!
+    //
     @IBOutlet weak var depositView: DesignableView!
     @IBOutlet weak var rentDayView: DesignableView!
     @IBOutlet weak var salePriceView: DesignableView!
     @IBOutlet weak var exchangeAmountView: DesignableView!
-    @IBOutlet weak var tfProductDeposit: UnderLineTextField!
-    @IBOutlet weak var tfProductRentDay: UnderLineTextField!
-    @IBOutlet weak var tfProductPrice: UnderLineTextField!
+    @IBOutlet weak var tfProductDeposit: UnderLineTextField!//產品押金
+    @IBOutlet weak var tfProductRent: UnderLineTextField!//產品租金
+    @IBOutlet weak var tfProductPrice: UnderLineTextField!//產品售價
     @IBOutlet weak var customFooter: CustomFooter!
+    @IBOutlet weak var addProductButtonStackView: UIStackView!
+    @IBOutlet weak var modifyButtonStackView: UIStackView!
     var selectedAssets = [TLPHAsset]()
     var currentButton:UIButton!
     var productTitle:String!
@@ -54,12 +65,9 @@ class AddProductViewController: BaseViewController {
     var productType1:String!
     var productType2:String!
     var productImages = [UIImage]()
-    @IBOutlet weak var btnSale: UIButton!
-    @IBOutlet weak var btnRent: UIButton!
-    @IBOutlet weak var btnExchange: UIButton!
     var pickerList = [String]()
-    //wantchangeTableView
-    @IBOutlet weak var wantChangeTableView: UITableView!
+    //上傳照片的collectionview
+    @IBOutlet weak var addProductImageCV: UICollectionView!
     var tradeItems = [String]()
     var cellCount = 1
     //popoverview榜定
@@ -71,7 +79,14 @@ class AddProductViewController: BaseViewController {
     var location:String?
     var host:String?
     var type:String?
-    @IBOutlet weak var addProductImageCV: UICollectionView!
+    //編輯模式區
+    var isModifyType = false
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var btnModify: UIButton!
+    var product:ProductModel!
+    var oldPics = [String]()
+    //wantchangeTableView
+    @IBOutlet weak var wantChangeTableView: UITableView!
     //利用kvo設定TableView高度隨他內容增長
     @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -83,6 +98,17 @@ class AddProductViewController: BaseViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(isModifyType){
+            addProductButtonStackView.isHidden = true
+            modifyButtonStackView.isHidden = false
+            setModify(isModify: false)
+            setTextFieldUnderLine(size: CGFloat(0))
+            putInProductInfo()
+        }else{
+            addProductButtonStackView.isHidden = false
+            modifyButtonStackView.isHidden = true
+            setModify(isModify: true)
+        }
         self.wantChangeTableView.delegate = self
         self.wantChangeTableView.dataSource = self
         self.wantChangeTableView.backgroundColor = .clear
@@ -97,45 +123,101 @@ class AddProductViewController: BaseViewController {
         //設定按外面會把鍵盤收起
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
+        
+    }
+    private func putInProductInfo(){
+        tfProductTitle.text = product.title
+        tfProductRent.text = String(product.rent)
+        tfProductAmount.text = String(product.amount)
+        tfProductDeposit.text = String(product.deposit)
+        tfProductPrice.text = String(product.salePrice)
+        tfProductDescription.text = String(product.description)
+        btnSend.setTitle(product.rentMethod, for: .normal)
+        if(product.isSale){
+            btnSaleSelected = true
+            btnSale.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
+            btnSale.tintColor = UIColor(named: "Button")
+        }else{
+            btnSaleSelected = false
+            btnSale.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
+            btnSale.tintColor = .darkGray
+        }
+        salePriceView.isHidden = !btnSaleSelected
+        if(product.isRent){
+            btnRentSelected = true
+            btnRent.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
+            btnRent.tintColor = UIColor(named: "Button")
+        }else{
+            btnRentSelected = false
+            btnRent.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
+            btnRent.tintColor = .darkGray
+        }
+        depositView.isHidden = !btnRentSelected
+        rentDayView.isHidden = !btnRentSelected
+        if(product.isExchange){
+            btnExchangeSelected = true
+            btnExchange.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
+            btnExchange.tintColor = UIColor(named: "Button")
+        }else{
+            btnExchangeSelected = false
+            btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
+            btnExchange.tintColor = .darkGray
+        }
+        wantChangeTableView.isHidden = !btnExchangeSelected
+        exchangeAmountView.isHidden = !btnExchangeSelected
+        if(product.address.contains("市")){
+            let address = product.address.split(separator: "市")
+            btnProductCity.setTitle(address[0]+"市", for: .normal)
+            btnProductRegion.setTitle(address[1]+"", for: .normal)
+        }else if(product.address.contains("縣")){
+            let address = product.address.split(separator: "縣")
+            btnProductRegion.setTitle(address[1]+"", for: .normal)
+        }
+        btnProductType.setTitle(product.type, for: .normal)
+        btnProductType1.setTitle(product.type1, for: .normal)
+        btnProductType2.setTitle(product.type2, for: .normal)
+        oldPics.removeAll()
+        for index in 0..<product.pics.count{
+            oldPics.append(product.pics[index].path)
+        }
     }
     @IBAction func btnSaleClick(_ sender: Any) {
-        btnSale.isSelected = !btnSale.isSelected
-        if(btnSale.isSelected){
+        btnSaleSelected = !btnSaleSelected
+        if(btnSaleSelected){
             btnSale.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
-        btnSale.tintColor = UIColor(named: "Button")
+            btnSale.tintColor = UIColor(named: "Button")
         }else{
             btnSale.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnSale.tintColor = .darkGray
         }
-        salePriceView.isHidden = !salePriceView.isHidden
+        salePriceView.isHidden = !btnSaleSelected
         productIsSale = !productIsSale
     }
     @IBAction func btnRentClick(_ sender: Any) {
-        btnRent.isSelected = !btnRent.isSelected
-        
-        if(btnRent.isSelected){
+        btnRentSelected = !btnRentSelected
+        if(btnRentSelected){
             btnRent.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
             btnRent.tintColor = UIColor(named: "Button")
         }else{
             btnRent.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnRent.tintColor = .darkGray
         }
-        depositView.isHidden = !depositView.isHidden
-        rentDayView.isHidden = !rentDayView.isHidden
+        depositView.isHidden = !btnRentSelected
+        rentDayView.isHidden = !btnRentSelected
         productIsRent = !productIsRent
     }
     @IBAction func btnExchangeClick(_ sender: Any) {
-        btnExchange.isSelected = !btnExchange.isSelected
-        if(btnExchange.isSelected){
+        btnExchangeSelected = !btnExchangeSelected
+        if(btnExchangeSelected){
             btnExchange.setBackgroundImage(UIImage(systemName: "largecircle.fill.circle"), for:.normal)
             btnExchange.tintColor = UIColor(named: "Button")
         }else{
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
-        wantChangeTableView.isHidden = !wantChangeTableView.isHidden
-        exchangeAmountView.isHidden = !exchangeAmountView.isHidden
-                   productIsExchange = !productIsExchange
+        wantChangeTableView.isHidden = !btnExchangeSelected
+        exchangeAmountView.isHidden = !btnExchangeSelected
+        productIsExchange = !productIsExchange
     }
     
     
@@ -308,6 +390,8 @@ class AddProductViewController: BaseViewController {
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
     }
+    
+    //Mark 上架專區
     func emptyCheck()-> Bool{
         if(productIsSale){
             if(tfProductPrice.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
@@ -315,7 +399,7 @@ class AddProductViewController: BaseViewController {
             }
         }
         if(productIsRent){
-            if(tfProductRentDay.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            if(tfProductRent.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
                 tfProductDeposit.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
                 return false;
             }
@@ -327,7 +411,7 @@ class AddProductViewController: BaseViewController {
         }
         return true;
     }
-    @IBAction func addProductClick(_ sender: Any) {
+    private func productInfoCheck()->Bool{
         if(!emptyCheck()){
             let alertView = SwiftAlertView(title: "", message: "請確認資料是否完整", delegate: nil, cancelButtonTitle: "確定")
             alertView.messageLabel.textColor = .white
@@ -339,14 +423,14 @@ class AddProductViewController: BaseViewController {
                 alertView.dismiss()
             }
             alertView.show()
-            return
+            return false
         }
         productTitle = tfProductTitle.text!
         productDescription = tfProductDescription.text!
         productAmount = Int(tfProductAmount.text!)
         if(productIsRent){
             productDeposit = Int(tfProductDeposit.text!)
-            productRent = Int(tfProductRentDay.text!)
+            productRent = Int(tfProductRent.text!)
         }else{
             productDeposit = 0
             productRent = 0
@@ -377,7 +461,7 @@ class AddProductViewController: BaseViewController {
                     alertView.dismiss()
                 }
                 alertView.show()
-                return
+                return false
             }
             if(tradeItems.count != cellCount){
                 let alertView = SwiftAlertView(title: "", message: "請確認願望清單資料是否完整\n", delegate: nil, cancelButtonTitle: "確定")
@@ -390,8 +474,14 @@ class AddProductViewController: BaseViewController {
                     alertView.dismiss()
                 }
                 alertView.show()
-                return
+                return false
             }
+        }
+        return true
+    }
+    @IBAction func addProductClick(_ sender: Any) {
+        if(!productInfoCheck()){
+            return
         }
         if(Global.isOnline){
             NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, tradeItems:tradeItems){  [weak self] (responseValue,isSuccess) in
@@ -424,8 +514,115 @@ class AddProductViewController: BaseViewController {
             }
         }
     }
+    //Mark 編輯模式
+    private func setTextFieldUnderLine(size:CGFloat){
+        tfProductTitle.lineHeight = size
+        tfProductDescription.lineHeight = size
+        tfProductAmount.lineHeight = size
+        tfProductDeposit.lineHeight = size
+        tfProductRent.lineHeight = size
+        tfProductPrice.lineHeight = size
+    }
+    private func setModify(isModify:Bool){
+        tfProductTitle.isEnabled = isModify//產品名
+        tfProductDescription.isEnabled = isModify//產品描述
+        tfProductAmount.isEnabled = isModify//產品數量
+        btnProductCity.isEnabled = isModify
+        btnProductRegion.isEnabled = isModify
+        btnProductType.isEnabled = isModify
+        btnProductType2.isEnabled = isModify
+        btnSend.isEnabled = isModify
+        btnExchangeAmount.isEnabled = isModify
+        btnProductType1.isEnabled = isModify
+        tfProductDeposit.isEnabled = isModify//產品押金
+        tfProductRent.isEnabled = isModify//產品租金
+        tfProductPrice.isEnabled = isModify//產品售價
+        btnSale.isEnabled = isModify//交易方式
+        btnRent.isEnabled = isModify//交易方式
+        btnExchange.isEnabled = isModify//交易方式
+        addProductImageCV.isUserInteractionEnabled = isModify
+        depositView.isUserInteractionEnabled = isModify
+        rentDayView.isUserInteractionEnabled = isModify
+        salePriceView.isUserInteractionEnabled = isModify
+        exchangeAmountView.isUserInteractionEnabled = isModify
+    }
+    @IBAction func modifyCancelClick(_ sender: Any) {
+        setModify(isModify: false)
+        setTextFieldUnderLine(size: CGFloat(0))
+        btnCancel.isHidden = true
+        btnModify.setTitle("編輯", for:.normal)
+        NetworkController.instance().getProductById(productId: product.id){
+            [weak self] (responseValue,isSuccess) in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(responseValue)
+                weakSelf.parseProduct(json: json)
+                weakSelf.putInProductInfo()
+            }else{
+                print("AddProductViewController網路錯誤")
+            }
+        }
+        addProductImageCV.reloadData()
+        wantChangeTableView.reloadData()
+    }
+    @IBAction func modifyClick(_ sender: Any) {
+        switch btnModify.titleLabel?.text{
+        case "編輯":
+            setModify(isModify:true)
+            setTextFieldUnderLine(size: CGFloat(1))
+            btnModify.setTitle("完成", for:.normal)
+            self.btnModify.backgroundColor = UIColor(named: "Button")
+            btnCancel.isHidden = false
+        case "完成":
+            if(!productInfoCheck()){
+                return
+            }
+            btnCancel.isHidden = true
+            btnModify.setTitle("編輯", for:.normal)
+            if(Global.isOnline){
+                
+            }
+        case .none:
+            return
+        case .some(_):
+            return
+        }
+    }
+    private func parseProduct(json:JSON){
+            let id = json["id"].string!
+            let title = json["title"].string!
+            let description = json["description"].string!
+            let isSale = json["isSale"].bool!
+            let isRent = json["isRent"].bool!
+            let isExchange = json["isExchange"].bool!
+            let address = json["address"].string ?? ""
+            let deposit = json["deposit"].int!
+            let rent = json["rent"].int!
+            let salePrice = json["salePrice"].int!
+            let rentMethod = json["rentMethod"].string!
+            let amount = json["amount"].int!
+            let type = json["type"].string!
+            let type1 = json["type1"].string!
+            let type2 = json["type2"].string!
+            let userId = json["userId"].string!
+            let picsArr = json["pics"].array!
+            let tradeItemsArr = json["tradeItems"].array ?? []
+            var pics = [Pic]()
+            for index in 0..<picsArr.count{
+                let id  = picsArr[index]["id"].string ?? ""
+                let path  = picsArr[index]["path"].string ?? ""
+                let productId  = picsArr[index]["productId"].string ?? ""
+                pics.append(Pic.init(id: id, path: path, productId: productId))
+            }
+            var items = [TradeItem]()
+            for index in 0..<tradeItemsArr.count{
+                let id = tradeItemsArr[index]["id"].string ?? ""
+                let exchangeItem = tradeItemsArr[index]["exchangeItem"].string ?? ""
+                items.append(TradeItem.init(id:id,exchangeItem: exchangeItem))
+            }
+            self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items)
+    }
 }
-
 extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     //設定有幾個bar可以滾動
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -456,11 +653,23 @@ extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
 }
 extension AddProductViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        productImages.count
+        if(isModifyType){
+            return oldPics.count+productImages.count
+        }else{
+            return productImages.count
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddProductImageCollectionViewCell", for: indexPath) as? AddProductImageCollectionViewCell {
-            cell.configureWithImg(with: productImages[indexPath.row])
+            if(isModifyType){
+                if(indexPath.row<oldPics.count){
+                    cell.configureWithUrl(with: oldPics[indexPath.row])
+                }else{
+                    cell.configureWithImg(with: productImages[(indexPath.row-oldPics.count)])
+                }
+            }else{
+                cell.configureWithImg(with: productImages[indexPath.row])
+            }
             cell.indexPath = indexPath
             cell.addProductImageCollectionViewCellDelegate = self
             return cell
@@ -508,8 +717,17 @@ extension AddProductViewController:UICollectionViewDelegate,UICollectionViewData
 }
 extension AddProductViewController:AddProductImageCollectionViewCellDelegate{
     func deleteClick(indexPath: IndexPath) {
-        productImages.remove(at: indexPath.row)
-        addProductImageCV.reloadData()
+        if(isModifyType){
+            if(indexPath.row<oldPics.count){
+                oldPics.remove(at: indexPath.row)
+            }else{
+                productImages.remove(at: (indexPath.row-oldPics.count))
+            }
+            addProductImageCV.reloadData()
+        }else{
+            productImages.remove(at: indexPath.row)
+            addProductImageCV.reloadData()
+        }
     }
 }
 extension AddProductViewController:UICollectionViewDelegateFlowLayout{
@@ -537,8 +755,6 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
         //使用者選好照片時
         self.selectedAssets = withTLPHAssets
-        
-        
     }
     func photoPickerDidCancel() {
         //取消選取照片
@@ -578,3 +794,4 @@ extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
 }
+

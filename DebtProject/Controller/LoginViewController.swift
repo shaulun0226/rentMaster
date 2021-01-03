@@ -11,19 +11,21 @@ import SwiftAlertView
 
 class LoginViewController: BaseViewController {
     
-    
+    let userDefault = UserDefaults()
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var errorHint: UILabel!
     @IBOutlet weak var tfAccount: UnderLineTextField!{
         didSet {
             tfAccount.tag = 1
             tfAccount.underLineTextFieldDelegate = self
+            tfAccount.text = userDefault.value(forKey: "Account") as? String
         }
     }
     @IBOutlet weak var tfPassword: UnderLineTextField!{
         didSet {
             tfPassword.tag = 2
             tfPassword.underLineTextFieldDelegate = self
+            tfPassword.text = userDefault.value(forKey: "Password") as? String
         }
     }
     
@@ -79,6 +81,8 @@ class LoginViewController: BaseViewController {
                 if(isSuccess){
                     User.token = value as? String ?? ""
                     print(User.token)
+                    weakSelf.userDefault.setValue(weakSelf.tfAccount.text, forKey: "Account")
+                    weakSelf.userDefault.setValue(weakSelf.tfPassword.text, forKey: "Password")
                     weakSelf.dismiss(animated: true, completion: nil)
 //                    weakSelf.show(Global.presentView, sender: LoginViewController.self);
 //                    let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftAlertView
 
 class MemberCenterViewController: BaseSideMenuViewController {
     @IBOutlet weak var memberCenterTableView: UITableView!
@@ -34,6 +35,26 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (User.token.isEmpty){
+            let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+            alertView.clickedCancelButtonAction = {
+                alertView.dismiss()
+            }
+            alertView.clickedButtonAction = {[self] index in
+                if(index==1){
+                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        self.present(loginView, animated: true, completion: nil)
+                    }
+                }
+            }
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
+            alertView.show()
+            return
+        }
         switch indexPath.row {
         case 0:
             if let myOrderListViewController = Global.productStoryboard.instantiateViewController(identifier:ProductStoryboardController.myOrderListViewController.rawValue) as? MyOrderListViewController{
@@ -48,37 +69,23 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
                 self.show(changePasswordView, sender: nil);
             }
         case 3:
-            if (User.token.isEmpty){
-                //設定UIAlertController的title,message
-                let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
-                //設定ok的action按鈕
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                //將action加入UIAlertController
-                alertController.addAction(okAction)
-                //彈出UIAlertController
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }else{
-                //設定UIAlertController的title,message
-                let controller = UIAlertController(title: "是否登出", message: "", preferredStyle: .alert)
-                //設定ok的action按鈕，並加入按下後的動作
-                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
-                    User.token = ""
-                    let logoutController = UIAlertController(title: "帳號已登出", message: "", preferredStyle: .alert)
-                    let logoutOkAction = UIAlertAction(title: "確定", style: .default)
-                    logoutController.addAction(logoutOkAction)
-                    self.present(logoutController, animated: true, completion: nil)
+            let alertView = SwiftAlertView(title: "", message: " 是否登出？\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
+            alertView.clickedButtonAction = { index in
+                if(index==0){//設定取消鍵
+                    alertView.dismiss()
                 }
-                //將action加入UIAlertController
-                controller.addAction(okAction)
-                //設定cancel的action按鈕
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                //將action加入UIAlertController
-                controller.addAction(cancelAction)
-                //彈出UIAlertController
-                self.present(controller, animated: true, completion: nil)
-                return
+                if(index==1){
+                    User.token = ""
+                    alertView.dismiss()
+                }
             }
+            alertView.show()
+            
         default:
             return
         }

@@ -91,7 +91,7 @@ class ProductListController: BaseSideMenuViewController{
         self.slider.frame.size = CGSize(width: 90, height: 3)
         self.slider.center.y = collectview.bounds.maxY-8
         collectview.addSubview(slider)
-//        collectionView(collectview, didSelectItemAt:[0,0])
+        //        collectionView(collectview, didSelectItemAt:[0,0])
     }
     private func setupSearchBar(){
         //searchbar
@@ -102,9 +102,9 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
         //設定searchBar顏色
-//            searchController?.searchBar.barStyle = .black
+        //            searchController?.searchBar.barStyle = .black
         searchController?.searchBar.barTintColor = UIColor(named: "card")
-//            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
+        //            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
         //searchbar取消文字顏色
         searchController?.searchBar.tintColor = UIColor(named: "Button")
         //searvhbar輸入文字顏色
@@ -123,13 +123,14 @@ class ProductListController: BaseSideMenuViewController{
         clearButton.tintColor = UIColor(named: "Button")
         //在編輯時會跑出叉叉的位置顯示一個可以按的button，只要一開始編輯就會換成叉叉
         //            searchController?.searchBar.showsSearchResultsButton = true
-//        searchController?.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
+        //        searchController?.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
         definesPresentationContext = true
         tableview.tableHeaderView = searchController?.searchBar
         tableview.tableHeaderView?.backgroundColor = .clear
     }
     @IBAction func addProductClick(){
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
+            vcMain.isModifyType = false
             self.show(vcMain, sender: nil);
         }
     }
@@ -290,9 +291,19 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
-            productInfoView.product = products[indexPath.row]
-            self.show(productInfoView, sender: nil);
+        if(isMyStore){
+            //跳到編輯頁面
+            if let productModifyView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.addProductViewController.rawValue) as? AddProductViewController{
+                productModifyView.isModifyType = true
+                productModifyView.product = products[indexPath.row]
+                self.show(productModifyView,sender: nil)
+            }
+        }else{
+            //跳到商品資訊
+            if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+                productInfoView.product = products[indexPath.row]
+                self.show(productInfoView, sender: nil);
+            }
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

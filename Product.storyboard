@@ -303,7 +303,7 @@
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="152" height="176.33333333333334"/>
                                                 <connections>
-                                                    <outlet property="image" destination="Jdz-W1-U6x" id="wJm-oT-ceg"/>
+                                                    <outlet property="imageView" destination="Jdz-W1-U6x" id="wJm-oT-ceg"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -1091,7 +1091,7 @@
                                                                     <constraint firstAttribute="height" constant="50" id="gQU-mt-H8A"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                <state key="normal" title="請選擇商品所在地">
+                                                                <state key="normal" title="請選擇商品所在地區">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
@@ -1294,19 +1294,61 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="C9e-4S-pIm"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Tg4-fb-ONC"/>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8Dc-O2-IUd">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8Dc-O2-IUd">
                                 <rect key="frame" x="0.0" y="800" width="414" height="62"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4M1-4N-4cN">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="62"/>
-                                        <color key="backgroundColor" name="Button"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="上架"/>
-                                        <connections>
-                                            <action selector="addProductClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="v80-N1-nYa"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eBZ-mO-oc1">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4M1-4N-4cN">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                                <color key="backgroundColor" name="Button"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="上架"/>
+                                                <connections>
+                                                    <action selector="addProductClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="v80-N1-nYa"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HOp-Sr-hvu">
+                                        <rect key="frame" x="0.0" y="31" width="414" height="31"/>
+                                        <subviews>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAR-jD-o8D">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="31"/>
+                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" title="取消">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="modifyCancelClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="A6T-DD-Squ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpT-b7-0yp">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" title="編輯">
+                                                    <color key="titleColor" red="0.9999235272" green="1" blue="0.99988299609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="modifyClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="eDk-3r-qdi"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -1331,9 +1373,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="X9a-Ds-DcW"/>
                     <connections>
+                        <outlet property="addProductButtonStackView" destination="eBZ-mO-oc1" id="ALb-Qg-xaS"/>
                         <outlet property="addProductImageCV" destination="27f-Sz-itX" id="4sZ-ca-Ygy"/>
+                        <outlet property="btnCancel" destination="ZAR-jD-o8D" id="oew-NQ-dG8"/>
                         <outlet property="btnExchange" destination="1wZ-X7-qaU" id="uwA-At-ISa"/>
                         <outlet property="btnExchangeAmount" destination="0EG-0g-o0x" id="9sU-HW-Uw6"/>
+                        <outlet property="btnModify" destination="LpT-b7-0yp" id="UEr-jb-Mv7"/>
                         <outlet property="btnProductCity" destination="7xe-rn-hQ7" id="WOm-Ax-eHa"/>
                         <outlet property="btnProductRegion" destination="Uws-o7-GG3" id="SG9-Wx-S17"/>
                         <outlet property="btnProductType" destination="WAv-eh-vbA" id="irw-9u-tNF"/>
@@ -1352,6 +1397,7 @@
                         <outlet property="lbProductType" destination="k5l-QJ-haE" id="h2J-aF-6NZ"/>
                         <outlet property="lbProductType1" destination="NqL-tA-Ngv" id="gMF-Fi-Kgd"/>
                         <outlet property="lbProductType2" destination="PTv-4j-Wx2" id="9fr-7S-w2T"/>
+                        <outlet property="modifyButtonStackView" destination="HOp-Sr-hvu" id="A34-6P-Kcn"/>
                         <outlet property="pickerView" destination="WVZ-hs-hTB" id="y6Z-Uy-K0h"/>
                         <outlet property="rentDayView" destination="rm8-Zd-cZU" id="XzD-au-wYY"/>
                         <outlet property="salePriceView" destination="upM-GL-KOd" id="VFI-jg-V4a"/>
@@ -1360,7 +1406,7 @@
                         <outlet property="tfProductDeposit" destination="5EV-VQ-Oy1" id="tv1-bk-eYp"/>
                         <outlet property="tfProductDescription" destination="r1u-kq-H0Q" id="09M-Cz-07P"/>
                         <outlet property="tfProductPrice" destination="xld-4e-1vm" id="PJM-SM-4jC"/>
-                        <outlet property="tfProductRentDay" destination="13t-Gj-QrA" id="zZz-Un-bHF"/>
+                        <outlet property="tfProductRent" destination="13t-Gj-QrA" id="zZz-Un-bHF"/>
                         <outlet property="tfProductTitle" destination="nd1-10-9yb" id="3zz-aT-FWq"/>
                         <outlet property="wantChangeTableView" destination="2bc-6j-bys" id="KHj-vq-74D"/>
                         <outlet property="wantChangeTableViewHeight" destination="k2X-Cv-kYb" id="MX7-VK-kGO"/>

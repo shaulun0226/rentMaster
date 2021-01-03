@@ -29,7 +29,7 @@ class ChangeUserInfoViewController:BaseViewController {
             if(isSuccess){
                 let jsonArr = JSON(responseValue)
                 print("使用者資訊   \(jsonArr)")
-                weakSelf.parseUser(jsonArr: jsonArr)
+                weakSelf.parseUser(json: jsonArr)
                 weakSelf.tfEmail.text = weakSelf.user?.email
                 weakSelf.tfName.text = weakSelf.user?.name
                 weakSelf.tfNickName.text = weakSelf.user?.nickName
@@ -46,13 +46,13 @@ class ChangeUserInfoViewController:BaseViewController {
         }
         // Do any additional setup after loading the view.
     }
-    private func parseUser(jsonArr:JSON){
-            let id = jsonArr["id"].string ?? ""
-            let email = jsonArr["email"].string ?? ""
-            let name = jsonArr["name"].string ?? ""
-            let nickName = jsonArr["nickName"].string ?? ""
-            let phone = jsonArr["phone"].string ?? ""
-            let address = jsonArr["address"].string ?? ""
+    private func parseUser(json:JSON){
+            let id = json["id"].string ?? ""
+            let email = json["email"].string ?? ""
+            let name = json["name"].string ?? ""
+            let nickName = json["nickName"].string ?? ""
+            let phone = json["phone"].string ?? ""
+            let address = json["address"].string ?? ""
             
         self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [])
     }
@@ -71,7 +71,7 @@ class ChangeUserInfoViewController:BaseViewController {
     private func setBtnModify(){
         lbErrorHint.textColor = .clear
         changeTextFieldEnable(bool:false)
-        self.setTextFieldUnderLine(size: CGFloat(0))
+        setTextFieldUnderLine(size: CGFloat(0))
         btnModify.setTitle("編輯", for:.normal)
         btnCancel.isHidden = true
         self.btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
@@ -84,7 +84,7 @@ class ChangeUserInfoViewController:BaseViewController {
             if(isSuccess){
                 let jsonArr = JSON(responseValue)
                 print("使用者資訊   \(jsonArr)")
-                weakSelf.parseUser(jsonArr: jsonArr)
+                weakSelf.parseUser(json: jsonArr)
                 weakSelf.tfEmail.text = weakSelf.user?.email
                 weakSelf.tfName.text = weakSelf.user?.name
                 weakSelf.tfNickName.text = weakSelf.user?.nickName
@@ -118,6 +118,8 @@ class ChangeUserInfoViewController:BaseViewController {
                 return
             }
             setBtnModify()
+            btnCancel.isHidden = true
+            btnModify.setTitle("編輯", for:.normal)
             let name = tfName.text!
             let phone = tfPhone.text!
             let address = tfAddress.text ?? ""
