@@ -154,7 +154,16 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             cell.backgroundColor = UIColor(named: "card")
             cell.lbTitle.text = tabbarTitle[indexPath.row]
             cell.lbTitle.textColor = .white
-            //        cell.layer.insertSublayer(layer, at: 0)
+            
+            //第一次產生cell時 設定tabbar slider
+            if(indexPath.row==0){
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    if let self = self{
+                        self.slider.center.x = cell.center.x
+                    }
+                }
+            }
             return cell
         }
         return UICollectionViewCell()

@@ -35,7 +35,7 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (User.token.isEmpty){
+        if (User.token.isEmpty && Global.isOnline){
             let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
             alertView.clickedCancelButtonAction = {
                 alertView.dismiss()

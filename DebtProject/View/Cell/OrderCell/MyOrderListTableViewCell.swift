@@ -7,8 +7,10 @@
 
 import UIKit
 
-class MyOrderListTableViewCell: ProductModelCell {
-
+class MyOrderListTableViewCell: BaseTableViewCell {
+    @IBOutlet weak var ivProduct:UIImageView!
+    @IBOutlet weak var lbProductTitle:UILabel!
+    @IBOutlet weak var lbProductDescription:UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,5 +21,6 @@ class MyOrderListTableViewCell: ProductModelCell {
 
         // Configure the view for the selected state
     }
+    
 
 }

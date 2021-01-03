@@ -48,7 +48,7 @@ class Global{
     //前個頁面
     static var lastView = UIViewController()
     //網路參數
-    static var isOnline = true
+    static var isOnline = false
     //搜尋的起始頁跟結束頁
     static let pageBegin = 1
     static let pageEnd = 10

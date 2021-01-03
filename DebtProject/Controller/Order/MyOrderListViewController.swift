@@ -20,24 +20,25 @@ class MyOrderListViewController: BaseViewController {
         setupSlider()
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
-//        collectionView.register(TabBarCell.self, forCellWithReuseIdentifier: CollectionViewCell.tabBarCell.rawValue)
-//        tableview.register(ProductModelCell.self, forCellReuseIdentifier: TableViewCell.productModelCell.rawValue)
-//        self.tableview.register(UINib(nibName: TableViewCell.productModelCell.rawValue, bundle: nil), forCellReuseIdentifier: TableViewCell.productModelCell.rawValue)
-//        self.collectionView.register(UINib(nibName: CollectionViewCell.tabBarCell.rawValue, bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.tabBarCell.rawValue)
         tableview.delegate = self
         tableview.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
         tabbarTitle = ["未出貨","租借中","歷史紀錄"]
         orders = ProductModel.defaultAllList
+        //設定CollectionView Cell大小
+        let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3, height:50)
+        flowLayout?.estimatedItemSize = .zero
+        flowLayout?.minimumInteritemSpacing = 1
         collectionView.reloadData()
         tableview.reloadData()
-        // Do any additional setup after loading the view.
     }
     
     private func setupSlider(){
         self.slider.frame.size = CGSize(width: 90, height: 3)
         self.slider.center.y = collectionView.bounds.maxY-8
+        self.slider.backgroundColor = .purple
         collectionView.addSubview(slider)
     }
 }
@@ -49,7 +50,7 @@ extension MyOrderListViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.myOrderListTableViewCell.rawValue,for: indexPath) as? MyOrderListTableViewCell{
             cell.backgroundColor = UIColor(named: "card")
-            cell.configure(with: orders[indexPath.row])
+//            cell.configure(with: orders[indexPath.row])
             return cell
         }
         return UITableViewCell()
@@ -78,6 +79,14 @@ extension MyOrderListViewController:UICollectionViewDelegate,UICollectionViewDat
             cell.lbTitle.text = tabbarTitle[indexPath.row]
             cell.lbTitle.textColor = .white
             //        cell.layer.insertSublayer(layer, at: 0)
+            if(indexPath.row==0){
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    if let self = self{
+                        self.slider.center.x = cell.center.x
+                    }
+                }
+            }
             return cell
         }
         return UICollectionViewCell()
