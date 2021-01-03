@@ -269,7 +269,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AddProductImageCollectionViewCell" id="b5k-go-kwN" customClass="AddProductImageCollectionViewCell" customModule="DebtProject" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AddProductImageCollectionViewCell" id="b5k-go-kwN" customClass="AddProductImageCollectionViewCell" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="-10.5" width="152" height="176.33333333333334"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7Vz-Js-mTi">
@@ -277,14 +277,28 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jdz-W1-U6x">
-                                                            <rect key="frame" x="0.0" y="0.0" width="152" height="176.5"/>
+                                                            <rect key="frame" x="10" y="10" width="132" height="156.5"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLx-GA-lnK">
+                                                            <rect key="frame" x="118.5" y="3.5" width="30.5" height="29.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="BLx-GA-lnK" secondAttribute="height" multiplier="1:1" id="vKj-w7-KIJ"/>
+                                                            </constraints>
+                                                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <state key="normal" backgroundImage="multiply.circle.fill" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="deleteClickWith_sender:" destination="b5k-go-kwN" eventType="touchUpInside" id="jra-3O-fqG"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Jdz-W1-U6x" firstAttribute="top" secondItem="7Vz-Js-mTi" secondAttribute="top" id="09A-r3-kOg"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Jdz-W1-U6x" secondAttribute="bottom" id="SyW-nx-Q7E"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Jdz-W1-U6x" secondAttribute="trailing" id="jdB-mZ-VqH"/>
-                                                        <constraint firstItem="Jdz-W1-U6x" firstAttribute="leading" secondItem="7Vz-Js-mTi" secondAttribute="leading" id="zYS-nZ-uDN"/>
+                                                        <constraint firstItem="Jdz-W1-U6x" firstAttribute="top" secondItem="7Vz-Js-mTi" secondAttribute="top" constant="10" id="09A-r3-kOg"/>
+                                                        <constraint firstItem="BLx-GA-lnK" firstAttribute="top" secondItem="7Vz-Js-mTi" secondAttribute="top" constant="3" id="AkD-Zn-TOm"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Jdz-W1-U6x" secondAttribute="bottom" constant="10" id="SyW-nx-Q7E"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Jdz-W1-U6x" secondAttribute="trailing" constant="10" id="jdB-mZ-VqH"/>
+                                                        <constraint firstAttribute="trailing" secondItem="BLx-GA-lnK" secondAttribute="trailing" constant="3" id="nS2-C2-7Xd"/>
+                                                        <constraint firstItem="BLx-GA-lnK" firstAttribute="width" secondItem="7Vz-Js-mTi" secondAttribute="width" multiplier="0.2" id="wGr-Ck-BNu"/>
+                                                        <constraint firstItem="Jdz-W1-U6x" firstAttribute="leading" secondItem="7Vz-Js-mTi" secondAttribute="leading" constant="10" id="zYS-nZ-uDN"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="152" height="176.33333333333334"/>
@@ -1317,7 +1331,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="X9a-Ds-DcW"/>
                     <connections>
-                        <outlet property="addProductCV" destination="27f-Sz-itX" id="4sZ-ca-Ygy"/>
+                        <outlet property="addProductImageCV" destination="27f-Sz-itX" id="4sZ-ca-Ygy"/>
                         <outlet property="btnExchange" destination="1wZ-X7-qaU" id="uwA-At-ISa"/>
                         <outlet property="btnExchangeAmount" destination="0EG-0g-o0x" id="9sU-HW-Uw6"/>
                         <outlet property="btnProductCity" destination="7xe-rn-hQ7" id="WOm-Ax-eHa"/>
@@ -2263,6 +2277,7 @@
     <resources>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="minus.circle" catalog="system" width="128" height="121"/>
+        <image name="multiply.circle.fill" catalog="system" width="128" height="121"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>

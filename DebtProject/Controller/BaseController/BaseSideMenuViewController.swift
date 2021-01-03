@@ -112,6 +112,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     alertView.backgroundColor = UIColor(named: "Alert")
                     alertView.buttonTitleColor = .white
                     alertView.show()
+                    return
                 }
             }
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{

@@ -71,7 +71,7 @@ class AddProductViewController: BaseViewController {
     var location:String?
     var host:String?
     var type:String?
-    @IBOutlet weak var addProductCV: UICollectionView!
+    @IBOutlet weak var addProductImageCV: UICollectionView!
     //利用kvo設定TableView高度隨他內容增長
     @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -89,8 +89,8 @@ class AddProductViewController: BaseViewController {
         //設定KVO
         wantChangeTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         self.wantChangeTableView.reloadData()
-        addProductCV.delegate = self
-        addProductCV.dataSource = self
+        addProductImageCV.delegate = self
+        addProductImageCV.dataSource = self
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.setValue(UIColor.white, forKeyPath: "textColor")
@@ -461,6 +461,8 @@ extension AddProductViewController:UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddProductImageCollectionViewCell", for: indexPath) as? AddProductImageCollectionViewCell {
             cell.configureWithImg(with: productImages[indexPath.row])
+            cell.indexPath = indexPath
+            cell.addProductImageCollectionViewCellDelegate = self
             return cell
         }
         return UICollectionViewCell()
@@ -504,12 +506,18 @@ extension AddProductViewController:UICollectionViewDelegate,UICollectionViewData
         self.present(photoViewController, animated: true, completion: nil)
     }
 }
+extension AddProductViewController:AddProductImageCollectionViewCellDelegate{
+    func deleteClick(indexPath: IndexPath) {
+        productImages.remove(at: indexPath.row)
+        addProductImageCV.reloadData()
+    }
+}
 extension AddProductViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = addProductCV.frame.size
+        let size = addProductImageCV.frame.size
         return CGSize(width: size.width/3, height: size.height)
     }
 }
@@ -517,7 +525,7 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
         productImages.append(image)
-        addProductCV.reloadData()
+        addProductImageCV.reloadData()
         dismiss(animated: true, completion: nil)
     }
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
@@ -544,8 +552,8 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
         }
         //自動滑到新增照片的最尾端
         let index = IndexPath.init(item: productImages.count-1, section: 0)
-        self.addProductCV.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-        addProductCV.reloadData()
+        self.addProductImageCV.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+        addProductImageCV.reloadData()
     }
     func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) {
         //選取超過最大上限數量的照片
