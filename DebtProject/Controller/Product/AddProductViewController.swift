@@ -40,10 +40,11 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var rentDayView: DesignableView!
     @IBOutlet weak var salePriceView: DesignableView!
     @IBOutlet weak var exchangeAmountView: DesignableView!
+    @IBOutlet weak var exchangeAmountView2: DesignableView!
+    @IBOutlet weak var exchangeWorthView: DesignableView!
     @IBOutlet weak var tfProductDeposit: UnderLineTextField!//產品押金
     @IBOutlet weak var tfProductRent: UnderLineTextField!//產品租金
     @IBOutlet weak var tfProductPrice: UnderLineTextField!//產品售價
-    @IBOutlet weak var customFooter: CustomFooter!
     //新增商品模式按鈕的stackView
     @IBOutlet weak var addProductButtonStackView: UIStackView!
     
@@ -88,20 +89,6 @@ class AddProductViewController: BaseViewController {
     var oldPics = [String]()
     //編輯模式按鈕的stackView
     @IBOutlet weak var modifyButtonStackView: UIStackView!
-
-    //wantchangeTableView
-    @IBOutlet weak var wantChangeTableView: UITableView!
-    //wantchangeTableViewCell數量
-    var cellCount = 1
-    //利用kvo設定TableView高度隨他內容增長
-    @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        wantChangeTableView.layer.removeAllAnimations()
-        wantChangeTableViewHeight.constant = wantChangeTableView.contentSize.height
-        UIView.animate(withDuration: 0.5) {
-            self.updateViewConstraints()
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if(isModifyType){
@@ -115,12 +102,6 @@ class AddProductViewController: BaseViewController {
             modifyButtonStackView.isHidden = true
             setModify(isModify: true)
         }
-        self.wantChangeTableView.delegate = self
-        self.wantChangeTableView.dataSource = self
-        self.wantChangeTableView.backgroundColor = .clear
-        //設定KVO
-        wantChangeTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        self.wantChangeTableView.reloadData()
         addProductImageCV.delegate = self
         addProductImageCV.dataSource = self
         pickerView.delegate = self
@@ -169,7 +150,6 @@ class AddProductViewController: BaseViewController {
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
-        wantChangeTableView.isHidden = !btnExchangeSelected
         exchangeAmountView.isHidden = !btnExchangeSelected
         if(product.address.contains("市")){
             let address = product.address.split(separator: "市")
@@ -221,8 +201,9 @@ class AddProductViewController: BaseViewController {
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
-        wantChangeTableView.isHidden = !btnExchangeSelected
         exchangeAmountView.isHidden = !btnExchangeSelected
+        exchangeAmountView2.isHidden = !btnExchangeSelected
+        exchangeWorthView.isHidden = !btnExchangeSelected
         productIsExchange = !productIsExchange
     }
     
@@ -262,9 +243,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func exchangeAmountClick(_ sender: Any) {
         currentButton = btnExchangeAmount
         pickerList.removeAll()
-        for index in 1...cellCount{
-            pickerList.append("\(index)")
-        }
+        
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview
@@ -375,23 +354,6 @@ class AddProductViewController: BaseViewController {
         selectView.layer.cornerRadius = 10
         super.viewWillAppear(animated)
     }
-    //動態增加願望清單cell
-    @IBAction func removeCell(_ sender: Any) {
-        if(self.cellCount==1){
-            return
-        }
-        self.cellCount -= 1
-        print("刪掉一格")
-        print(self.cellCount)
-        wantChangeTableView.reloadData()
-        
-    }
-    @IBAction func addCell(_ sender: Any) {
-        self.cellCount += 1
-        print("新增一格")
-        print(self.cellCount)
-        wantChangeTableView.reloadData()
-    }
     //點擊空白收回鍵盤
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
@@ -447,41 +409,7 @@ class AddProductViewController: BaseViewController {
             productSalePrice = 0
         }
         if(productIsExchange){
-            for index in 0..<cellCount{
-                let indexPath = IndexPath(item: index, section: 0)
-                if let cell = wantChangeTableView.cellForRow(at: indexPath) as? WantChangeTableViewCell{
-                    if(cell.tfExchangeProduct.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
-                        continue
-                    }
-                    tradeItems.append(cell.tfExchangeProduct.text!)
-                }
-            }
-            if(cellCount<productExangeAmount){
-                let alertView = SwiftAlertView(title: "", message: "交換數量不可大於願望清單總數\n", delegate: nil, cancelButtonTitle: "確定")
-                alertView.messageLabel.textColor = .white
-                alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
-                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
-                alertView.buttonTitleColor = .white
-                alertView.clickedButtonAction = { index in
-                    alertView.dismiss()
-                }
-                alertView.show()
-                return false
-            }
-            if(tradeItems.count != cellCount){
-                let alertView = SwiftAlertView(title: "", message: "請確認願望清單資料是否完整\n", delegate: nil, cancelButtonTitle: "確定")
-                alertView.messageLabel.textColor = .white
-                alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
-                alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
-                alertView.buttonTitleColor = .white
-                alertView.clickedButtonAction = { index in
-                    alertView.dismiss()
-                }
-                alertView.show()
-                return false
-            }
+            
         }
         return true
     }
@@ -569,7 +497,6 @@ class AddProductViewController: BaseViewController {
             }
         }
         addProductImageCV.reloadData()
-        wantChangeTableView.reloadData()
     }
     @IBAction func modifyClick(_ sender: Any) {
         switch btnModify.titleLabel?.text{
@@ -781,23 +708,5 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
         //選取超過最大上限數量的照片
     }
 }
-extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("count\(self.cellCount)")
-        return self.cellCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("創造cell")
-        if let cell = wantChangeTableView.dequeueReusableCell(withIdentifier: "WantChangeTableViewCell") as? WantChangeTableViewCell {
-            cell.lbNumber.text = "\(indexPath.row+1):"
-            cell.backgroundColor = .clear
-            return cell
-        }
-        return UITableViewCell()
-    }
-}
+
 

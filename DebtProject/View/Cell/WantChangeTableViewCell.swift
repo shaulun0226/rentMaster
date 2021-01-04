@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WantChangeTableViewCell: UITableViewCell {
+class WantChangeTableViewCell: BaseTableViewCell {
     @IBOutlet weak var lbNumber:UILabel!
     @IBOutlet weak var tfExchangeProduct:UnderLineTextField!
     @IBOutlet weak var tfExchangeAmount:UnderLineTextField!

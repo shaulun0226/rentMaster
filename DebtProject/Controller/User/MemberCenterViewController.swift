@@ -10,7 +10,7 @@ import SwiftAlertView
 
 class MemberCenterViewController: BaseSideMenuViewController {
     @IBOutlet weak var memberCenterTableView: UITableView!
-    var titleList = ["我的訂單","帳號資訊","修改密碼","帳號登出"]
+    var titleList = ["我的訂單","願望清單","帳號資訊","修改密碼","帳號登出"]
     override func viewDidLoad() {
         super.viewDidLoad()
         memberCenterTableView.delegate = self
@@ -61,14 +61,18 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
                 self.show(myOrderListViewController, sender: nil);
             }
         case 1:
+            if let wantListView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.wantListViewController.rawValue) as? WantListViewController{
+                self.show(wantListView, sender: nil);
+            }
+        case 2:
             if let changeUserInfoView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changeUserInfoViewController.rawValue) as? ChangeUserInfoViewController{
                 self.show(changeUserInfoView, sender: nil);
             }
-        case 2:
+        case 3:
             if let changePasswordView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changePasswordViewController.rawValue) as? ChangePasswordViewController{
                 self.show(changePasswordView, sender: nil);
             }
-        case 3:
+        case 4:
             let alertView = SwiftAlertView(title: "", message: " 是否登出？\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
             alertView.messageLabel.textColor = .white
             alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)

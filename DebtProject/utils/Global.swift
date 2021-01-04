@@ -20,6 +20,7 @@ enum MainStoryboardController:String, CaseIterable{
     case memberCenterViewController = "MemberCenterViewController"
     case changeUserInfoViewController = "ChangeUserInfoViewController"
     case customAlertViewController = "CustomAlertViewController"
+    case wantListViewController = "WantListViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"
@@ -48,7 +49,7 @@ class Global{
     //前個頁面
     static var lastView = UIViewController()
     //網路參數
-    static var isOnline = false
+    static var isOnline = true
     //搜尋的起始頁跟結束頁
     static let pageBegin = 1
     static let pageEnd = 10
