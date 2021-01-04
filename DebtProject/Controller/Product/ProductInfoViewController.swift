@@ -70,9 +70,9 @@ class ProductInfoViewController: BaseViewController {
             }
             if(product.isExchange){
                 var itemList = "欲交換商品:\n"
-                for index in 0..<product.tradeItems.count{
-                    itemList += "       \(index+1).\(product.tradeItems[index].exchangeItem) \n"
-                }
+//                for index in 0..<product.tradeItems.count{
+//                    itemList += "       \(index+1).\(product.tradeItems[index].exchangeItem) \n"
+//                }
                 lbTradeItem.text = itemList
             }else{
                 lbTradeItem.isHidden = true

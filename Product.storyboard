@@ -779,114 +779,6 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6fy-Fk-tK3">
                                                 <rect key="frame" x="0.0" y="400" width="414" height="650"/>
                                                 <subviews>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3A-FG-xVo" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-100" width="414" height="100"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品交換數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZ4-7c-ZHh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="Clh-kq-aeP"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0EG-0g-o0x">
-                                                                <rect key="frame" x="5" y="50" width="404" height="50"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="NmT-a0-rjZ"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                                <state key="normal" title="請選擇願望清單商品交換數量">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="exchangeAmountClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="LlH-Jj-hl3"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="kZ4-7c-ZHh" firstAttribute="top" secondItem="k3A-FG-xVo" secondAttribute="top" id="5UE-GR-sJo"/>
-                                                            <constraint firstItem="0EG-0g-o0x" firstAttribute="leading" secondItem="k3A-FG-xVo" secondAttribute="leading" constant="5" id="Pkd-hE-s5m"/>
-                                                            <constraint firstItem="0EG-0g-o0x" firstAttribute="top" secondItem="kZ4-7c-ZHh" secondAttribute="bottom" id="d3C-og-GFH"/>
-                                                            <constraint firstAttribute="bottom" secondItem="0EG-0g-o0x" secondAttribute="bottom" id="dCK-Cc-RMf"/>
-                                                            <constraint firstItem="kZ4-7c-ZHh" firstAttribute="leading" secondItem="k3A-FG-xVo" secondAttribute="leading" id="iEc-id-GDG"/>
-                                                            <constraint firstAttribute="trailing" secondItem="0EG-0g-o0x" secondAttribute="trailing" constant="5" id="vfU-Dr-2d6"/>
-                                                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="kZ4-7c-ZHh" secondAttribute="trailing" id="wsm-Oq-EfZ"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                <real key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                <real key="value" value="0.10000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
-                                                                <real key="value" value="-3"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ib-hZ-N2M" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-100" width="414" height="100"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換商品數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mhc-Bg-Cfw">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="fIt-pI-iMn"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入交換商品數量" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RmQ-np-gky" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="404" height="50"/>
-                                                                <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="0Pj-45-f6v"/>
-                                                                </constraints>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                                        <color key="value" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                        <real key="value" value="1"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </textField>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="Mhc-Bg-Cfw" secondAttribute="trailing" id="06s-fH-yNC"/>
-                                                            <constraint firstAttribute="bottom" secondItem="RmQ-np-gky" secondAttribute="bottom" id="0cb-P4-pmv"/>
-                                                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="RmQ-np-gky" secondAttribute="trailing" constant="5" id="3JJ-rL-05h"/>
-                                                            <constraint firstItem="RmQ-np-gky" firstAttribute="top" secondItem="Mhc-Bg-Cfw" secondAttribute="bottom" id="AiZ-Yt-cll"/>
-                                                            <constraint firstItem="Mhc-Bg-Cfw" firstAttribute="top" secondItem="8Ib-hZ-N2M" secondAttribute="top" id="VmB-r5-Wcn"/>
-                                                            <constraint firstItem="RmQ-np-gky" firstAttribute="leading" secondItem="8Ib-hZ-N2M" secondAttribute="leading" constant="5" id="fCa-Xs-lK7"/>
-                                                            <constraint firstItem="Mhc-Bg-Cfw" firstAttribute="leading" secondItem="8Ib-hZ-N2M" secondAttribute="leading" id="ooI-WK-b6C"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                <real key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                <real key="value" value="0.10000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
-                                                                <real key="value" value="-3"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOi-3p-MbH" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="-100" width="414" height="100"/>
                                                         <subviews>
@@ -1246,9 +1138,6 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="8Hn-mS-V2q" firstAttribute="width" secondItem="k3A-FG-xVo" secondAttribute="width" id="WHC-Yz-HpY"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -1349,7 +1238,6 @@
                         <outlet property="addProductImageCV" destination="27f-Sz-itX" id="4sZ-ca-Ygy"/>
                         <outlet property="btnCancel" destination="ZAR-jD-o8D" id="oew-NQ-dG8"/>
                         <outlet property="btnExchange" destination="1wZ-X7-qaU" id="uwA-At-ISa"/>
-                        <outlet property="btnExchangeAmount" destination="0EG-0g-o0x" id="9sU-HW-Uw6"/>
                         <outlet property="btnModify" destination="LpT-b7-0yp" id="UEr-jb-Mv7"/>
                         <outlet property="btnProductCity" destination="7xe-rn-hQ7" id="WOm-Ax-eHa"/>
                         <outlet property="btnProductRegion" destination="Uws-o7-GG3" id="SG9-Wx-S17"/>
@@ -1360,8 +1248,6 @@
                         <outlet property="btnSale" destination="1US-fe-zCp" id="yFY-Uf-eP4"/>
                         <outlet property="btnSend" destination="ttF-QD-H1F" id="A5Y-PT-7lR"/>
                         <outlet property="depositView" destination="kyJ-mf-90A" id="p5w-id-hJe"/>
-                        <outlet property="exchangeAmountView" destination="k3A-FG-xVo" id="2Vm-bV-V5U"/>
-                        <outlet property="exchangeAmountView2" destination="8Ib-hZ-N2M" id="vFj-Zs-c65"/>
                         <outlet property="exchangeWorthView" destination="iOi-3p-MbH" id="ArW-xq-iUD"/>
                         <outlet property="lbProductAmount" destination="K68-ds-bMK" id="Wvm-Qk-dm8"/>
                         <outlet property="lbProductDescription" destination="IDr-dk-4Kb" id="oJk-bw-EbZ"/>
@@ -1381,6 +1267,7 @@
                         <outlet property="tfProductPrice" destination="xld-4e-1vm" id="PJM-SM-4jC"/>
                         <outlet property="tfProductRent" destination="13t-Gj-QrA" id="zZz-Un-bHF"/>
                         <outlet property="tfProductTitle" destination="nd1-10-9yb" id="3zz-aT-FWq"/>
+                        <outlet property="tfProductWeightPrice" destination="ZnW-ar-brE" id="6PV-qG-8an"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKc-Ni-G3q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1499,7 +1386,7 @@
                                 <rect key="frame" x="0.0" y="134.5" width="414" height="727.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProductModelCell" rowHeight="250" id="fT6-CE-C3E" customClass="ProductModelCell" customModule="DebtProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProductModelCell" rowHeight="250" id="fT6-CE-C3E" customClass="ProductModelCell" customModule="DebtProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fT6-CE-C3E" id="u9J-OF-eYN">

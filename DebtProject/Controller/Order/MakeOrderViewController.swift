@@ -51,11 +51,8 @@ class MakeOrderViewController: BaseViewController {
         exchangeListTableView.backgroundColor = .clear
         //設定KVO
         exchangeListTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        //設定exchangeList資料
-        for index in 0..<product.tradeItems.count{
-            print("交換商品加入清單\(index)")
-            exchangeList.append("\(product.tradeItems[index].exchangeItem)")
-        }
+        //設定exchangeList資料--從userAPi拿
+        
         self.exchangeListTableView.allowsSelection = true
         exchangeListTableView.reloadData()
         //設定pickview
@@ -320,10 +317,8 @@ extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
     func changeItemClick(btnChangeItem: UIButton) {
         currentButton = btnChangeItem
         pickerList.removeAll()
-        //設定購買方法
-        for index in 0..<product.tradeItems.count{
-            pickerList.append("\(product.tradeItems[index].exchangeItem)")
-        }
+        //設定購買方法從user拿
+        
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview

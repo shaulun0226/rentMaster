@@ -37,7 +37,7 @@ class MainPageViewController: BaseSideMenuViewController {
             let type2 = jsonArr[index]["type2"].string!
             let userId = jsonArr[index]["userId"].string!
             let picsArr = jsonArr[index]["pics"].array!
-            let tradeItemsArr = jsonArr[index]["tradeItems"].array ?? []
+            let weightPrice = jsonArr[index]["weightPrice"].float ?? 2.0
             var pics = [Pic]()
             for index in 0..<picsArr.count{
                 let id  = picsArr[index]["id"].string ?? ""
@@ -45,15 +45,8 @@ class MainPageViewController: BaseSideMenuViewController {
                 let productId  = picsArr[index]["productId"].string ?? ""
                 pics.append(Pic.init(id: id, path: path, productId: productId))
             }
-            print(tradeItemsArr.count)
-            var items = [TradeItem]()
-            for index in 0..<tradeItemsArr.count{
-                let id = tradeItemsArr[index]["id"].string ?? ""
-                let exchangeItem = tradeItemsArr[index]["exchangeItem"].string ?? ""
-                items.append(TradeItem.init(id:id,exchangeItem: exchangeItem))
-            }
             
-            cell.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items))
+            cell.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics,weightPrice: weightPrice))
         }
     }
 }

@@ -26,7 +26,6 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnProductType: UIButton!
     @IBOutlet weak var btnProductType2: UIButton!
     @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var btnExchangeAmount: UIButton!
     @IBOutlet weak var btnProductType1: UIButton!
     //選擇交易方式
     var btnSaleSelected:Bool = false
@@ -39,12 +38,11 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var depositView: DesignableView!
     @IBOutlet weak var rentDayView: DesignableView!
     @IBOutlet weak var salePriceView: DesignableView!
-    @IBOutlet weak var exchangeAmountView: DesignableView!
-    @IBOutlet weak var exchangeAmountView2: DesignableView!
     @IBOutlet weak var exchangeWorthView: DesignableView!
     @IBOutlet weak var tfProductDeposit: UnderLineTextField!//產品押金
     @IBOutlet weak var tfProductRent: UnderLineTextField!//產品租金
     @IBOutlet weak var tfProductPrice: UnderLineTextField!//產品售價
+    @IBOutlet weak var tfProductWeightPrice: UnderLineTextField!//權重
     //新增商品模式按鈕的stackView
     @IBOutlet weak var addProductButtonStackView: UIStackView!
     
@@ -68,6 +66,7 @@ class AddProductViewController: BaseViewController {
     var productType2:String!
     var productImages = [UIImage]()
     var pickerList = [String]()
+    var productWeightPrice : Float!
     //上傳照片的collectionview
     @IBOutlet weak var addProductImageCV: UICollectionView!
     var tradeItems = [String]()
@@ -119,6 +118,7 @@ class AddProductViewController: BaseViewController {
         tfProductDeposit.text = String(product.deposit)
         tfProductPrice.text = String(product.salePrice)
         tfProductDescription.text = String(product.description)
+        tfProductWeightPrice.text = String(product.weightPrice)
         btnSend.setTitle(product.rentMethod, for: .normal)
         if(product.isSale){
             btnSaleSelected = true
@@ -150,7 +150,7 @@ class AddProductViewController: BaseViewController {
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
-        exchangeAmountView.isHidden = !btnExchangeSelected
+        //補上權重
         if(product.address.contains("市")){
             let address = product.address.split(separator: "市")
             btnProductCity.setTitle(address[0]+"市", for: .normal)
@@ -201,8 +201,6 @@ class AddProductViewController: BaseViewController {
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
-        exchangeAmountView.isHidden = !btnExchangeSelected
-        exchangeAmountView2.isHidden = !btnExchangeSelected
         exchangeWorthView.isHidden = !btnExchangeSelected
         productIsExchange = !productIsExchange
     }
@@ -224,8 +222,6 @@ class AddProductViewController: BaseViewController {
             productCity = title
         case btnProductRegion:
             productRegion = title
-        case btnExchangeAmount:
-            productExangeAmount = Int(title)
         default:
             print("沒篩到")
         }
@@ -239,15 +235,6 @@ class AddProductViewController: BaseViewController {
     @IBAction func cancelClick(_ sender: Any) {
         //關閉popoverview
         displayPicker(false)
-    }
-    @IBAction func exchangeAmountClick(_ sender: Any) {
-        currentButton = btnExchangeAmount
-        pickerList.removeAll()
-        
-        //刷新pick內容
-        pickerView.reloadAllComponents()
-        //跳出popoverview
-        displayPicker(true)
     }
     //寄送方式
     @IBAction func sendClick(_ sender: Any) {
@@ -372,6 +359,11 @@ class AddProductViewController: BaseViewController {
                 return false;
             }
         }
+        if(productIsExchange){
+            if(tfProductWeightPrice.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+                return false;
+            }
+        }
         if(tfProductTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfProductAmount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfProductDescription.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ){
@@ -409,7 +401,9 @@ class AddProductViewController: BaseViewController {
             productSalePrice = 0
         }
         if(productIsExchange){
-            
+            productWeightPrice = Float(tfProductWeightPrice.text!)
+        }else{
+            productWeightPrice = 0
         }
         return true
     }
@@ -418,7 +412,7 @@ class AddProductViewController: BaseViewController {
             return
         }
         if(Global.isOnline){
-            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, tradeItems:tradeItems){  [weak self] (responseValue,isSuccess) in
+            NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, weightPrice:productWeightPrice){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
                 let alertView = SwiftAlertView(title: "", message: " 上架成功！\n", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = .white
@@ -466,7 +460,7 @@ class AddProductViewController: BaseViewController {
         btnProductType.isEnabled = isModify
         btnProductType2.isEnabled = isModify
         btnSend.isEnabled = isModify
-        btnExchangeAmount.isEnabled = isModify
+        tfProductWeightPrice.isEnabled = isModify//產品權重
         btnProductType1.isEnabled = isModify
         tfProductDeposit.isEnabled = isModify//產品押金
         tfProductRent.isEnabled = isModify//產品租金
@@ -478,7 +472,6 @@ class AddProductViewController: BaseViewController {
         depositView.isUserInteractionEnabled = isModify
         rentDayView.isUserInteractionEnabled = isModify
         salePriceView.isUserInteractionEnabled = isModify
-        exchangeAmountView.isUserInteractionEnabled = isModify
     }
     @IBAction func modifyCancelClick(_ sender: Any) {
         setModify(isModify: false)
@@ -539,21 +532,16 @@ class AddProductViewController: BaseViewController {
             let type2 = json["type2"].string!
             let userId = json["userId"].string!
             let picsArr = json["pics"].array!
-            let tradeItemsArr = json["tradeItems"].array ?? []
-            var pics = [Pic]()
-            for index in 0..<picsArr.count{
-                let id  = picsArr[index]["id"].string ?? ""
-                let path  = picsArr[index]["path"].string ?? ""
-                let productId  = picsArr[index]["productId"].string ?? ""
-                pics.append(Pic.init(id: id, path: path, productId: productId))
-            }
-            var items = [TradeItem]()
-            for index in 0..<tradeItemsArr.count{
-                let id = tradeItemsArr[index]["id"].string ?? ""
-                let exchangeItem = tradeItemsArr[index]["exchangeItem"].string ?? ""
-                items.append(TradeItem.init(id:id,exchangeItem: exchangeItem))
-            }
-            self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, tradeItems: items)
+            let weightPrice = json["weightPrice"].float!
+       
+        var pics = [Pic]()
+        for index in 0..<picsArr.count{
+            let id  = picsArr[index]["id"].string ?? ""
+            let path  = picsArr[index]["path"].string ?? ""
+            let productId  = picsArr[index]["productId"].string ?? ""
+            pics.append(Pic.init(id: id, path: path, productId: productId))
+        }
+        self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
     }
 }
 extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{
