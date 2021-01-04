@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct WishListModel{
+struct WishItemModel{
     var id:String
     var userId:String
     var productName:String

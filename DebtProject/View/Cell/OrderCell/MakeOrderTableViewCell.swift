@@ -7,10 +7,12 @@
 
 import UIKit
 protocol MakeOrderTableViewCellDelegate  : AnyObject {
-    func changeItemClick(btnChangeItem :UIButton)
+    func wishItemClick(btnWishItem :UIButton)
+    func wishItemAmountClick(btnWishItem :UIButton,btnWishItemAmount :UIButton)
 }
 class MakeOrderTableViewCell: UITableViewCell {
-    @IBOutlet weak var btnChangeItem :UIButton!
+    @IBOutlet weak var btnWishItem :UIButton!
+    @IBOutlet weak var btnWishItemAmount: UIButton!
     weak var makeOrderTableViewCellDelegate:MakeOrderTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +26,10 @@ class MakeOrderTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func changeItemClick(_ sender: Any) {
-        makeOrderTableViewCellDelegate?.changeItemClick(btnChangeItem: btnChangeItem)
+        makeOrderTableViewCellDelegate?.wishItemClick(btnWishItem: btnWishItem)
     }
- }
+    
+    @IBAction func changeItemAmountClick(_ sender: Any) {
+        makeOrderTableViewCellDelegate?.wishItemAmountClick(btnWishItem: btnWishItem, btnWishItemAmount: btnWishItemAmount)
+    }
+}

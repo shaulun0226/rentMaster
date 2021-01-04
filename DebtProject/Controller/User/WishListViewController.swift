@@ -23,7 +23,7 @@ class WishListViewController: BaseViewController {
         }
     }
     //    var newCellCount = 0
-    var wishList = [WishListModel]()
+    var wishList = [WishItemModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定KVO
@@ -52,7 +52,7 @@ class WishListViewController: BaseViewController {
             let wishProductAmount = jsonArr[index]["requestQuantity"].int ?? 0
             let wishProductWeightPrice = jsonArr[index]["weightPoint"].float ?? 99.0
             print("\(id)\(userId)\(wishProductName)\(wishProductAmount)\(wishProductWeightPrice)")
-            wishList.append(WishListModel.init(id: id, userId: userId, productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
+            wishList.append(WishItemModel.init(id: id, userId: userId, productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
         }
     }
     private func emptyCheck()->Bool{
@@ -74,7 +74,7 @@ class WishListViewController: BaseViewController {
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                weakSelf.wishList.append(WishListModel.init(id: reponseValue, userId: "", productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
+                weakSelf.wishList.append(WishItemModel.init(id: reponseValue, userId: "", productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
                 weakSelf.wishListTV.reloadData()
                 weakSelf.tfWishProductName.text = ""
                 weakSelf.tfWishProductAmount.text = ""

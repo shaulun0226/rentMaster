@@ -54,7 +54,7 @@ class ChangeUserInfoViewController:BaseViewController {
         let nickName = json["nickName"].string ?? ""
         let phone = json["phone"].string ?? ""
         let address = json["address"].string ?? ""
-        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [])
+        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
     }
     private func setTextFieldUnderLine(size:CGFloat){
         tfName.lineHeight = size

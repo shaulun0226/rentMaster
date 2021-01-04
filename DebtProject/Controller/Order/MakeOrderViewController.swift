@@ -16,9 +16,16 @@ class MakeOrderViewController: BaseViewController {
     var product:ProductModel!
     @IBOutlet weak var exchangeAmountView: DesignableView!
     //tavleView
-    @IBOutlet weak var exchangeListTableView: UITableView!
+    @IBOutlet weak var wishListTableView: UITableView!
     var cellCount = 1
     var exchangeList = [String]()
+    var wishList = [WishItemModel]()
+    var wishNameList = [String]()
+    var wishAmountList = [String:Int]()
+    //選擇區
+    @IBOutlet weak var choosedWeightPrice: UILabel!
+    var choosedItems = [String]()
+    var choosedItemAmounts = [Int]()
     //picker按鈕
     var currentButton:UIButton!
     @IBOutlet weak var btnTradeAmount: UIButton!
@@ -46,15 +53,15 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var lbProductAmount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        exchangeListTableView.delegate = self
-        exchangeListTableView.dataSource = self
-        exchangeListTableView.backgroundColor = .clear
+        wishListTableView.delegate = self
+        wishListTableView.dataSource = self
+        wishListTableView.backgroundColor = .clear
         //設定KVO
-        exchangeListTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        wishListTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         //設定exchangeList資料--從userAPi拿
         
-        self.exchangeListTableView.allowsSelection = true
-        exchangeListTableView.reloadData()
+        self.wishListTableView.allowsSelection = true
+        wishListTableView.reloadData()
         //設定pickview
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -85,8 +92,25 @@ class MakeOrderViewController: BaseViewController {
                     weakSelf.lbSellerLocation.text = "地區:dng"
                 }
             }
+            
         }
         lbProductAmount.text = "剩餘數量:\(product.amount)"
+    }
+    private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
+        var wishListTmp = [WishItemModel]()
+        print("下訂單頁面解析願望清單,共\(jsonArr.count)項")
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string!
+            let userId = jsonArr[index]["userId"].string ?? ""
+            let wishProductName = jsonArr[index]["exchangeItem"].string ?? ""
+            let wishProductAmount = jsonArr[index]["requestQuantity"].int ?? 0
+            let wishProductWeightPrice = jsonArr[index]["weightPoint"].float ?? 99.0
+            print("\(id)\(userId)\(wishProductName)\(wishProductAmount)\(wishProductWeightPrice)")
+            self.wishNameList.append(wishProductName)
+            self.wishAmountList.updateValue(wishProductAmount, forKey: wishProductName)
+            wishListTmp.append(WishItemModel.init(id: id, userId: userId, productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
+        }
+        return wishListTmp
     }
     private func parseUser(jsonArr:JSON){
         let id = jsonArr["id"].string ?? ""
@@ -95,7 +119,10 @@ class MakeOrderViewController: BaseViewController {
         let nickName = jsonArr["nickName"].string ?? ""
         let phone = jsonArr["phone"].string ?? ""
         let address = jsonArr["address"].string ?? ""
-        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [])
+        let wishItemsArr = jsonArr["wishItems"].array ?? []
+        let wishItemsJSONArr = JSON(wishItemsArr)
+        self.wishList = parseWishItem(jsonArr: wishItemsJSONArr)
+        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [],wishItems:self.wishList)
     }
     override func viewWillAppear(_ animated: Bool) {
         //加入子視圖(在這裡是要彈出的popoverview)
@@ -124,8 +151,8 @@ class MakeOrderViewController: BaseViewController {
     }
     //利用kvo設定tableview高度隨內容改變
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        exchangeListTableView.layer.removeAllAnimations()
-        exchangeListTableViewHeight.constant = exchangeListTableView.contentSize.height
+        wishListTableView.layer.removeAllAnimations()
+        exchangeListTableViewHeight.constant = wishListTableView.contentSize.height
         UIView.animate(withDuration: 0.5) {
             self.updateViewConstraints()
         }
@@ -146,27 +173,45 @@ class MakeOrderViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }
     }
+    //自動計算目前權重
+    private func calculateWieghtPrice(){
+        for index in 0..<cellCount{
+            if let cell = wishListTableView.cellForRow(at: IndexPath(row: index, section: 0))as? MakeOrderTableViewCell {
+                
+            }
+        }
+    }
+    @IBAction func btnRemoveCellClick(_ sender: Any) {
+        if(cellCount == 0){
+            return
+        }
+        cellCount -= 1
+        self.wishListTableView.reloadData()
+    }
+    @IBAction func btnAddCellClick(_ sender: Any) {
+        cellCount += 1
+        self.wishListTableView.reloadData()
+    }
     @IBAction func pickerDoneClick(_ sender: Any) {
         let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnTradeAmount:
             tradeQuantity = Int(title)
-            cellCount = Int(title) ?? 1
-            exchangeListTableView.reloadData()
+            wishListTableView.reloadData()
         case btnTradeType:
             switch title{
             case "購買":
                 tradeMethod = 1
-                self.exchangeListTableView.isHidden = true
+                self.wishListTableView.isHidden = true
             case "租借":
                 tradeMethod = 0
-                self.exchangeListTableView.isHidden = true
+                self.wishListTableView.isHidden = true
             case "交換":
                 tradeMethod = 2
-                self.exchangeListTableView.isHidden = false
+                self.wishListTableView.isHidden = false
             default:
                 tradeMethod = 3
-                self.exchangeListTableView.isHidden = true
+                self.wishListTableView.isHidden = true
             }
         default:
             print("沒篩到")
@@ -240,14 +285,14 @@ class MakeOrderViewController: BaseViewController {
         
         if(tradeMethod==2){
             for index in 0..<cellCount{
-                if let cell = exchangeListTableView.cellForRow(at: IndexPath(item: index, section: 0)) as? MakeOrderTableViewCell{
-                    let tradeItemName = cell.btnChangeItem.titleLabel?.text ?? ""
+                if let cell = wishListTableView.cellForRow(at: IndexPath(item: index, section: 0)) as? MakeOrderTableViewCell{
+                    let tradeItemName = cell.btnWishItem.titleLabel?.text ?? ""
                     if(tradeItemName.elementsEqual("請選擇交換物")){
                         alertView.messageLabel.text = "交換物還沒有選唷"
                         alertView.show()
                         return
                     }
-                    tradeItem.append(cell.btnChangeItem.titleLabel?.text ?? "")
+                    tradeItem.append(cell.btnWishItem.titleLabel?.text ?? "")
                 }
             }
             if(tradeItem.count==0){
@@ -303,7 +348,7 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = exchangeListTableView.dequeueReusableCell(withIdentifier: TableViewCell.makeOrderTableViewCell.rawValue) as? MakeOrderTableViewCell{
+        if let cell = wishListTableView.dequeueReusableCell(withIdentifier: TableViewCell.makeOrderTableViewCell.rawValue) as? MakeOrderTableViewCell{
             cell.makeOrderTableViewCellDelegate = self
             return cell
         }
@@ -314,11 +359,32 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     }
 }
 extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
-    func changeItemClick(btnChangeItem: UIButton) {
-        currentButton = btnChangeItem
+    //選交換物
+    func wishItemClick(btnWishItem: UIButton) {
+        currentButton = btnWishItem
         pickerList.removeAll()
         //設定購買方法從user拿
-        
+        pickerList = self.wishNameList
+        if(pickerList.count==0){
+            return
+        }
+        //刷新pick內容
+        pickerView.reloadAllComponents()
+        //跳出popoverview
+        displayPicker(true)
+    }
+    //選交換物數量
+    func wishItemAmountClick(btnWishItem: UIButton,btnWishItemAmount: UIButton) {
+        currentButton = btnWishItemAmount
+        pickerList.removeAll()
+        //設定購買方法從user拿
+        let count = self.wishAmountList[btnWishItem.titleLabel?.text ?? "", default:0]
+        for index in 0..<count{
+            pickerList.append("\(index+1)")
+        }
+        if(pickerList.count==0){
+            return
+        }
         //刷新pick內容
         pickerView.reloadAllComponents()
         //跳出popoverview

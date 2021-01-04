@@ -21,7 +21,7 @@ class WishListTableViewCell: BaseTableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    func configure(wishListModel:WishListModel){
+    func configure(wishListModel:WishItemModel){
         lbWishProductName.text = "願意交換商品: \(wishListModel.productName)"
         lbWishProductAmount.text =
             "數量: \(wishListModel.amount)"

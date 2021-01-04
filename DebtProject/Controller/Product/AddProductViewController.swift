@@ -155,17 +155,42 @@ class AddProductViewController: BaseViewController {
             let address = product.address.split(separator: "市")
             btnProductCity.setTitle(address[0]+"市", for: .normal)
             btnProductRegion.setTitle(address[1]+"", for: .normal)
+            productCity = address[0]+"市"
+            productRegion = address[1]+""
         }else if(product.address.contains("縣")){
             let address = product.address.split(separator: "縣")
+            btnProductCity.setTitle(address[0]+"縣", for: .normal)
             btnProductRegion.setTitle(address[1]+"", for: .normal)
+            productCity = address[0]+"縣"
+            productRegion = address[1]+""
         }
-        btnProductType.setTitle(product.type, for: .normal)
+        if(product.type.elementsEqual("BoardGame")){
+            btnProductType.setTitle("桌遊", for: .normal)
+        }else{
+            btnProductType.setTitle(product.type, for: .normal)
+        }
+        
         btnProductType1.setTitle(product.type1, for: .normal)
         btnProductType2.setTitle(product.type2, for: .normal)
         oldPics.removeAll()
         for index in 0..<product.pics.count{
-            oldPics.append(product.pics[index].path)
+            oldPics.append(product.pics[index].id)
         }
+        //設定舊參數
+        productTitle = product.title
+        productDescription = product.description
+        productIsSale = product.isSale
+        productIsRent = product.isRent
+        productIsExchange = product.isExchange
+        productDeposit = product.deposit
+        productRent = product.rent
+        productSalePrice = product.salePrice
+        productRentMethod = product.rentMethod
+        productAmount = product.amount
+        productType = product.type
+        productType1 = product.type1
+        productType2 = product.type2
+        productWeightPrice = product.weightPrice
     }
     @IBAction func btnSaleClick(_ sender: Any) {
         btnSaleSelected = !btnSaleSelected
@@ -215,7 +240,11 @@ class AddProductViewController: BaseViewController {
         case btnProductType:
             productType = title
         case btnProductType1:
+            if(title.elementsEqual("桌遊")){
+                productType1 = "BoardGame"
+            }else{
             productType1 = title
+            }
         case btnProductType2:
             productType2 = title
         case btnProductCity:
@@ -505,8 +534,15 @@ class AddProductViewController: BaseViewController {
             }
             btnCancel.isHidden = true
             btnModify.setTitle("編輯", for:.normal)
+            btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
             if(Global.isOnline){
-                
+                NetworkController.instance().productModify(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type: productType, type1: productType1, type2: productType2, oldPics: oldPics, pics: productImages, weightPrice: productWeightPrice){
+                    [weak self] (reponseValue,isSuccess) in
+                    guard let weakSelf = self else{return}
+                    if(isSuccess){
+                        print("編輯成功")
+                    }
+                }
             }
         case .none:
             return

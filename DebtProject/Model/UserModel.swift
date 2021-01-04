@@ -16,4 +16,5 @@ struct UserModel{
     var phone:String
     var address:String
     var products:[ProductModel]
+    var wishItems:[WishItemModel]
 }
