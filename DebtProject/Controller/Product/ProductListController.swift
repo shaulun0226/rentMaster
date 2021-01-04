@@ -101,6 +101,8 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
+        //設定searchController 背景顏色
+//        searchController?.searchBar.backgroundColor = UIColor(named: "card")//沒用
         //設定searchBar顏色
         //            searchController?.searchBar.barStyle = .black
         searchController?.searchBar.barTintColor = UIColor(named: "card")
@@ -126,7 +128,7 @@ class ProductListController: BaseSideMenuViewController{
         //        searchController?.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
         definesPresentationContext = true
         tableview.tableHeaderView = searchController?.searchBar
-        tableview.tableHeaderView?.backgroundColor = .clear
+        tableview.tableHeaderView?.backgroundColor = UIColor(named: "card")
     }
     @IBAction func addProductClick(){
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{

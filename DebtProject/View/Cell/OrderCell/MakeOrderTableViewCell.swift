@@ -6,12 +6,12 @@
 //
 
 import UIKit
-protocol MakeOrderTableViewCellDelegate {
+protocol MakeOrderTableViewCellDelegate  : AnyObject {
     func changeItemClick(btnChangeItem :UIButton)
 }
 class MakeOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var btnChangeItem :UIButton!
-    var makeOrderTableViewCellDelegate:MakeOrderTableViewCellDelegate?
+    weak var makeOrderTableViewCellDelegate:MakeOrderTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
