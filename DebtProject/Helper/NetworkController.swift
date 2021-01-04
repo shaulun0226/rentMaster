@@ -565,6 +565,96 @@ class NetworkController{
                 }
             }
     }
+    
+    // MARK: - WishList
+    func getWishItemAll(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Users/wishlist/All";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func addWishItem(wishProductName:String,wishProductAmount:Int,wishProductWeightPrice:Float,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Users/wishlist/new";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let parameters: Parameters = ["ExchangeItem":wishProductName,"RequestQuantity":wishProductAmount,"WeightPoint":wishProductWeightPrice]
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func deleteWishItem(id:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Users/wishlist/\(id)";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .delete,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
     // MARK: - OrderList
     //訂單清單區
     func addOrder(productId:String,tradeMethod:Int,tradeItem:String,tradeQuantity:Int,completionHandler:@escaping (_ :String,Bool) -> ()){

@@ -20,7 +20,7 @@ enum MainStoryboardController:String, CaseIterable{
     case memberCenterViewController = "MemberCenterViewController"
     case changeUserInfoViewController = "ChangeUserInfoViewController"
     case customAlertViewController = "CustomAlertViewController"
-    case wantListViewController = "WantListViewController"
+    case wishListViewController = "WishListViewController"
 }
 enum ProductStoryboardController:String,CaseIterable{
     case cartViewController = "CartViewController"

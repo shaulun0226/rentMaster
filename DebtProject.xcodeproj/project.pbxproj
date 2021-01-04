@@ -44,7 +44,7 @@
 		9F847C3825A2A0C300CACE2F /* ImgSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C3725A2A0C300CACE2F /* ImgSideMenuController.swift */; };
 		9F847C3F25A2A11B00CACE2F /* ImgSideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C3D25A2A11B00CACE2F /* ImgSideMenuCell.swift */; };
 		9F847C4025A2A11B00CACE2F /* ImgSideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F847C3E25A2A11B00CACE2F /* ImgSideMenuCell.xib */; };
-		9F847C4525A2FD1D00CACE2F /* WantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C4425A2FD1D00CACE2F /* WantListViewController.swift */; };
+		9F847C4525A2FD1D00CACE2F /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C4425A2FD1D00CACE2F /* WishListViewController.swift */; };
 		9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8528082591915B004454E6 /* NotifyModelCell.swift */; };
 		9F85280E25919173004454E6 /* NotifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F85280D25919173004454E6 /* NotifyModel.swift */; };
 		9F852816259195F0004454E6 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F852815259195F0004454E6 /* Box.swift */; };
@@ -65,8 +65,9 @@
 		9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925155259DA994007699C4 /* CustomAlertViewController.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
-		9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */; };
+		9FAAA328259A10D400707976 /* WishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WishListTableViewCell.swift */; };
 		9FAAA330259A267C00707976 /* CustomFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA32F259A267C00707976 /* CustomFooter.swift */; };
+		9FAF05DA25A343A5004848AA /* WishListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAF05D925A343A5004848AA /* WishListModel.swift */; };
 		9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025B42588AB3500D6715E /* ProductInfoViewController.swift */; };
 		9FB025C3258911A400D6715E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025C2258911A400D6715E /* BaseViewController.swift */; };
 		9FB025D42589F7F100D6715E /* MainProductModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB025D32589F7F100D6715E /* MainProductModelCell.swift */; };
@@ -143,7 +144,7 @@
 		9F847C3725A2A0C300CACE2F /* ImgSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgSideMenuController.swift; sourceTree = "<group>"; };
 		9F847C3D25A2A11B00CACE2F /* ImgSideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgSideMenuCell.swift; sourceTree = "<group>"; };
 		9F847C3E25A2A11B00CACE2F /* ImgSideMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImgSideMenuCell.xib; sourceTree = "<group>"; };
-		9F847C4425A2FD1D00CACE2F /* WantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListViewController.swift; sourceTree = "<group>"; };
+		9F847C4425A2FD1D00CACE2F /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		9F8528082591915B004454E6 /* NotifyModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModelCell.swift; sourceTree = "<group>"; };
 		9F85280D25919173004454E6 /* NotifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyModel.swift; sourceTree = "<group>"; };
 		9F852815259195F0004454E6 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
@@ -164,8 +165,9 @@
 		9F925155259DA994007699C4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantChangeTableViewCell.swift; sourceTree = "<group>"; };
+		9FAAA327259A10D400707976 /* WishListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListTableViewCell.swift; sourceTree = "<group>"; };
 		9FAAA32F259A267C00707976 /* CustomFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFooter.swift; sourceTree = "<group>"; };
+		9FAF05D925A343A5004848AA /* WishListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListModel.swift; sourceTree = "<group>"; };
 		9FB025B42588AB3500D6715E /* ProductInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfoViewController.swift; sourceTree = "<group>"; };
 		9FB025C2258911A400D6715E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9FB025D32589F7F100D6715E /* MainProductModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProductModelCell.swift; sourceTree = "<group>"; };
@@ -235,7 +237,7 @@
 				9F12BD5F2588634100813616 /* TabBarCell.swift */,
 				9F8528082591915B004454E6 /* NotifyModelCell.swift */,
 				9F85284725936EB0004454E6 /* CartTableViewCell.swift */,
-				9FAAA327259A10D400707976 /* WantChangeTableViewCell.swift */,
+				9FAAA327259A10D400707976 /* WishListTableViewCell.swift */,
 				9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */,
 				9F847C3D25A2A11B00CACE2F /* ImgSideMenuCell.swift */,
 				9F847C3E25A2A11B00CACE2F /* ImgSideMenuCell.xib */,
@@ -250,6 +252,7 @@
 				9F12BD122586177500813616 /* SideMenuListModel.swift */,
 				9F85280D25919173004454E6 /* NotifyModel.swift */,
 				9F1637DA259C50DF008E9996 /* UserModel.swift */,
+				9FAF05D925A343A5004848AA /* WishListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,7 +381,7 @@
 				9F215D652598D07C0010B000 /* ChangePasswordViewController.swift */,
 				9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */,
 				9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */,
-				9F847C4425A2FD1D00CACE2F /* WantListViewController.swift */,
+				9F847C4425A2FD1D00CACE2F /* WishListViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -688,7 +691,7 @@
 				9F972593257FA02B00EF310D /* DesignableView.swift in Sources */,
 				9F925149259DA179007699C4 /* PresentBottomVC.swift in Sources */,
 				9FB025DE2589F93500D6715E /* BaseSideMenuViewController.swift in Sources */,
-				9FAAA328259A10D400707976 /* WantChangeTableViewCell.swift in Sources */,
+				9FAAA328259A10D400707976 /* WishListTableViewCell.swift in Sources */,
 				9F85280E25919173004454E6 /* NotifyModel.swift in Sources */,
 				9F85284D25937C46004454E6 /* CartCellMenuViewController.swift in Sources */,
 				9F85284325936D47004454E6 /* CartViewController.swift in Sources */,
@@ -724,6 +727,7 @@
 				9F8528532597279F004454E6 /* User.swift in Sources */,
 				9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */,
 				9F925151259DA1C2007699C4 /* PresentMiddleVC.swift in Sources */,
+				9FAF05DA25A343A5004848AA /* WishListModel.swift in Sources */,
 				9FB025B52588AB3500D6715E /* ProductInfoViewController.swift in Sources */,
 				9F3F2D75258B560900E156A8 /* PageTableViewCell.swift in Sources */,
 				9F6C4D842577F6110091BEA5 /* Global.swift in Sources */,
@@ -733,7 +737,7 @@
 				9F12BD132586177500813616 /* SideMenuListModel.swift in Sources */,
 				9F12BCCE2584B19700813616 /* TabBar.swift in Sources */,
 				9F3C77912577BF3B0063E641 /* SceneDelegate.swift in Sources */,
-				9F847C4525A2FD1D00CACE2F /* WantListViewController.swift in Sources */,
+				9F847C4525A2FD1D00CACE2F /* WishListViewController.swift in Sources */,
 				9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */,
 				9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */,
 				9F92513B259D9570007699C4 /* MyOrderListTableViewCell.swift in Sources */,

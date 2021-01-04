@@ -61,7 +61,7 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
                 self.show(myOrderListViewController, sender: nil);
             }
         case 1:
-            if let wantListView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.wantListViewController.rawValue) as? WantListViewController{
+            if let wantListView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.wishListViewController.rawValue) as? WishListViewController{
                 self.show(wantListView, sender: nil);
             }
         case 2:
