@@ -153,6 +153,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             default:
                 cell.lbMainPageTitle.text = ""
             }
+            cell.selectionStyle = .none//被選取時不會反白
             cell.lbMainPageHint.text = "查看更多 >"
             cell.tableViewCellDelegate = self
             //設定cell內容

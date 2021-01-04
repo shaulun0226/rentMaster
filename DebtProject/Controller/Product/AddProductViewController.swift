@@ -44,8 +44,9 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var tfProductRent: UnderLineTextField!//產品租金
     @IBOutlet weak var tfProductPrice: UnderLineTextField!//產品售價
     @IBOutlet weak var customFooter: CustomFooter!
+    //新增商品模式按鈕的stackView
     @IBOutlet weak var addProductButtonStackView: UIStackView!
-    @IBOutlet weak var modifyButtonStackView: UIStackView!
+    
     var selectedAssets = [TLPHAsset]()
     var currentButton:UIButton!
     var productTitle:String!
@@ -69,7 +70,7 @@ class AddProductViewController: BaseViewController {
     //上傳照片的collectionview
     @IBOutlet weak var addProductImageCV: UICollectionView!
     var tradeItems = [String]()
-    var cellCount = 1
+
     //popoverview榜定
     @IBOutlet var selectView: UIView!
     //popover裡的picker榜定
@@ -85,8 +86,13 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnModify: UIButton!
     var product:ProductModel!
     var oldPics = [String]()
+    //編輯模式按鈕的stackView
+    @IBOutlet weak var modifyButtonStackView: UIStackView!
+
     //wantchangeTableView
     @IBOutlet weak var wantChangeTableView: UITableView!
+    //wantchangeTableViewCell數量
+    var cellCount = 1
     //利用kvo設定TableView高度隨他內容增長
     @IBOutlet weak var wantChangeTableViewHeight: NSLayoutConstraint!
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -444,10 +450,10 @@ class AddProductViewController: BaseViewController {
             for index in 0..<cellCount{
                 let indexPath = IndexPath(item: index, section: 0)
                 if let cell = wantChangeTableView.cellForRow(at: indexPath) as? WantChangeTableViewCell{
-                    if(cell.tfChangeProduct.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+                    if(cell.tfExchangeProduct.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
                         continue
                     }
-                    tradeItems.append(cell.tfChangeProduct.text!)
+                    tradeItems.append(cell.tfExchangeProduct.text!)
                 }
             }
             if(cellCount<productExangeAmount){
@@ -787,7 +793,7 @@ extension AddProductViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("創造cell")
         if let cell = wantChangeTableView.dequeueReusableCell(withIdentifier: "WantChangeTableViewCell") as? WantChangeTableViewCell {
-            cell.lbChangeTitle.text = "\(indexPath.row+1):"
+            cell.lbNumber.text = "\(indexPath.row+1):"
             cell.backgroundColor = .clear
             return cell
         }

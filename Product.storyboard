@@ -844,7 +844,7 @@
                                                     </constraints>
                                                 </view>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WantChangeTableViewCell" id="tkP-ZV-n0q" customClass="WantChangeTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tkP-ZV-n0q">
                                                         <rect key="frame" x="0.0" y="72" width="414" height="56.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tkP-ZV-n0q" id="LzK-Sw-M9G">
@@ -891,10 +891,6 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                                        <connections>
-                                                            <outlet property="lbChangeTitle" destination="G6V-mN-u6W" id="yg5-58-MXN"/>
-                                                            <outlet property="tfChangeProduct" destination="0fz-ku-0j1" id="L83-Ef-0KE"/>
-                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>
@@ -1440,7 +1436,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1112" y="3582"/>
+            <point key="canvasLocation" x="1112" y="3400"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lk9-WS-O2P">
@@ -1458,7 +1454,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yqg-yQ-qxQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="309" y="3582"/>
+            <point key="canvasLocation" x="333" y="3400"/>
         </scene>
         <!--Product List Controller-->
         <scene sceneID="jOH-0x-nza">

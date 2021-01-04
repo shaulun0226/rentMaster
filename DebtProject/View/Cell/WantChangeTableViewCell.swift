@@ -8,9 +8,10 @@
 import UIKit
 
 class WantChangeTableViewCell: UITableViewCell {
-    @IBOutlet weak var lbChangeTitle:UILabel!
-    @IBOutlet weak var tfChangeProduct:UITextField!
-    
+    @IBOutlet weak var lbNumber:UILabel!
+    @IBOutlet weak var tfExchangeProduct:UnderLineTextField!
+    @IBOutlet weak var tfExchangeAmount:UnderLineTextField!
+    @IBOutlet weak var tfEXchangeWorth:UnderLineTextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
