@@ -32,6 +32,20 @@ class ProductListController: BaseSideMenuViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupSlider()
+        setupSearchBar()
+        //設定標題大小
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
+        tableview.delegate = self
+        tableview.dataSource = self
+        collectview.delegate = self
+        collectview.dataSource = self
+        //設定按鈕
+        (isMyStore) ?(btnAdd.isHidden = false):(btnAdd.isHidden = true)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.products.removeAll()
         if(isMyStore){
             tabbarTitle = ["上架中","未上架","出租中","未出貨"]
             if(Global.isOnline){
@@ -73,19 +87,6 @@ class ProductListController: BaseSideMenuViewController{
                 self.products = ProductModel.defaultAllList
             }
         }
-        setupSlider()
-        setupSearchBar()
-        //設定標題大小
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
-        tableview.delegate = self
-        tableview.dataSource = self
-        collectview.delegate = self
-        collectview.dataSource = self
-        //設定按鈕
-        (isMyStore) ?(btnAdd.isHidden = false):(btnAdd.isHidden = true)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        setupSlider()
     }
     private func setupSlider(){
         self.slider.frame.size = CGSize(width: 90, height: 3)
@@ -102,7 +103,7 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
         //設定searchController 背景顏色
-//        searchController?.searchBar.backgroundColor = UIColor(named: "card")//沒用
+        //        searchController?.searchBar.backgroundColor = UIColor(named: "card")//沒用
         //設定searchBar顏色
         //            searchController?.searchBar.barStyle = .black
         searchController?.searchBar.barTintColor = UIColor(named: "card")
@@ -134,6 +135,23 @@ class ProductListController: BaseSideMenuViewController{
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
             vcMain.isModifyType = false
             self.show(vcMain, sender: nil);
+        }
+    }
+    private func resetViewByAPI(){
+        if(Global.isOnline){
+            NetworkController.instance().getOwnitem{ [weak self](value, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(value)
+                    print("解析\(jsonArr)")
+                    weakSelf.parseProduct(jsonArr: jsonArr)
+                    weakSelf.tableview.reloadData()
+                }else{
+                    weakSelf.products = ProductModel.defaultGameLists
+                }
+            }
+        }else{
+            self.products = ProductModel.defaultAllList
         }
     }
 }
@@ -269,13 +287,13 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             let userId = jsonArr[index]["userId"].string!
             let picsArr = jsonArr[index]["pics"].array!
             let weightPrice = jsonArr[index]["weightPrice"].float!
-           
-            var pics = [Pic]()
+            
+            var pics = [PicModel]()
             for index in 0..<picsArr.count{
                 let id  = picsArr[index]["id"].string ?? ""
                 let path  = picsArr[index]["path"].string ?? ""
                 let productId  = picsArr[index]["productId"].string ?? ""
-                pics.append(Pic.init(id: id, path: path, productId: productId))
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
             }
             self.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
         }

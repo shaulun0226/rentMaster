@@ -36,9 +36,9 @@ class NetworkController{
     
     private func textNotCode200(status: Int,value: Any){
         print("error with response status: \(status)")
-        let json = JSON(value)
-        let msg = json["msg"]
-        print("error mag: \(msg)")
+//        let json = JSON(value)
+//        let msg = value
+        print("error msg: \(value)")
     }
     // MARK: - memberCenter
     func login(email:String,password:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
@@ -427,10 +427,10 @@ class NetworkController{
                 }
             }
     }
-    func productModify(title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,oldPics:[String],pics:[UIImage],weightPrice:Float,completionHandler:@escaping (_ status :String,Bool) -> ()){
+    func productModify(id:String,title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,oldPics:[PicModel],pics:[UIImage],weightPrice:Float,completionHandler:@escaping (_ status :String,Bool) -> ()){
         var picsJsonArr = [Parameters]()
         for index in 0..<oldPics.count{
-            let pic:Parameters = ["Id":oldPics[index]]
+            let pic:Parameters = ["Id":oldPics[index].id]
             picsJsonArr.append(pic)
         }
         for index in 0..<pics.count{
@@ -441,11 +441,11 @@ class NetworkController{
             let pic:Parameters = ["Desc":"\(title)_\(index+1)","Path":imageBase64String ?? ""]
             picsJsonArr.append(pic)
         }
-        let parameters :Parameters = ["Title":title,"Description":description,"isSale":isSale,"isRent":isRent,"isExchange":isExchange,"Deposit":deposit,"Rent":rent,"salePrice":salePrice,"RentMethod":rentMethod,"amount":amount,"Address":address,"Type":type,"Type1":type1,"Type2":type2,"pics":picsJsonArr,"weightPrice":weightPrice]
+        let parameters :Parameters = ["Id":id,"Title":title,"Description":description,"isSale":isSale,"isRent":isRent,"isExchange":isExchange,"Deposit":deposit,"Rent":rent,"salePrice":salePrice,"RentMethod":rentMethod,"amount":amount,"Address":address,"Type":type,"Type1":type1,"Type2":type2,"pics":picsJsonArr,"weightPrice":weightPrice]
         print(parameters)
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let url = "\(serverUrl)/Products/modify";
-        AF.request(url,method: .patch,parameters: parameters,encoding:JSONEncoding.default, headers: header)
+        AF.request(url,method: .patch ,parameters: parameters,encoding:JSONEncoding.default, headers: header)
             .responseString{ response in
                 switch response.result {
                 //先看連線有沒有成功

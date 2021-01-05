@@ -85,7 +85,7 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnModify: UIButton!
     var product:ProductModel!
-    var oldPics = [String]()
+    var oldPics = [PicModel]()
     //編輯模式按鈕的stackView
     @IBOutlet weak var modifyButtonStackView: UIStackView!
     override func viewDidLoad() {
@@ -174,7 +174,10 @@ class AddProductViewController: BaseViewController {
         btnProductType2.setTitle(product.type2, for: .normal)
         oldPics.removeAll()
         for index in 0..<product.pics.count{
-            oldPics.append(product.pics[index].id)
+            let id = product.pics[index].id
+            let path = product.pics[index].path
+            let productId = product.pics[index].productId
+            oldPics.append(PicModel.init(id: id, path: path, productId: productId))
         }
         //設定舊參數
         productTitle = product.title
@@ -507,6 +510,7 @@ class AddProductViewController: BaseViewController {
         setTextFieldUnderLine(size: CGFloat(0))
         btnCancel.isHidden = true
         btnModify.setTitle("編輯", for:.normal)
+        productImages.removeAll()
         NetworkController.instance().getProductById(productId: product.id){
             [weak self] (responseValue,isSuccess) in
             guard let weakSelf = self else{return}
@@ -514,6 +518,7 @@ class AddProductViewController: BaseViewController {
                 let json = JSON(responseValue)
                 weakSelf.parseProduct(json: json)
                 weakSelf.putInProductInfo()
+                weakSelf.addProductImageCV.reloadData()
             }else{
                 print("AddProductViewController網路錯誤")
             }
@@ -536,11 +541,13 @@ class AddProductViewController: BaseViewController {
             btnModify.setTitle("編輯", for:.normal)
             btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
             if(Global.isOnline){
-                NetworkController.instance().productModify(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type: productType, type1: productType1, type2: productType2, oldPics: oldPics, pics: productImages, weightPrice: productWeightPrice){
-                    [weak self] (reponseValue,isSuccess) in
-                    guard let weakSelf = self else{return}
+                NetworkController.instance().productModify(id:product.id,title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type: productType, type1: productType1, type2: productType2, oldPics: oldPics, pics: productImages, weightPrice: productWeightPrice){
+                     (reponseValue,isSuccess) in
+//                    guard let weakSelf = self else{return}
                     if(isSuccess){
                         print("編輯成功")
+                    }else{
+                        print("編輯失敗")
                     }
                 }
             }
@@ -570,12 +577,12 @@ class AddProductViewController: BaseViewController {
             let picsArr = json["pics"].array!
             let weightPrice = json["weightPrice"].float!
        
-        var pics = [Pic]()
+        var pics = [PicModel]()
         for index in 0..<picsArr.count{
             let id  = picsArr[index]["id"].string ?? ""
             let path  = picsArr[index]["path"].string ?? ""
             let productId  = picsArr[index]["productId"].string ?? ""
-            pics.append(Pic.init(id: id, path: path, productId: productId))
+            pics.append(PicModel.init(id: id, path: path, productId: productId))
         }
         self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
     }
@@ -620,7 +627,7 @@ extension AddProductViewController:UICollectionViewDelegate,UICollectionViewData
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddProductImageCollectionViewCell", for: indexPath) as? AddProductImageCollectionViewCell {
             if(isModifyType){
                 if(indexPath.row<oldPics.count){
-                    cell.configureWithUrl(with: oldPics[indexPath.row])
+                    cell.configureWithUrl(with: oldPics[indexPath.row].path)
                 }else{
                     cell.configureWithImg(with: productImages[(indexPath.row-oldPics.count)])
                 }

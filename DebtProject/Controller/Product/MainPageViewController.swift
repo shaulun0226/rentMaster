@@ -38,12 +38,12 @@ class MainPageViewController: BaseSideMenuViewController {
             let userId = jsonArr[index]["userId"].string!
             let picsArr = jsonArr[index]["pics"].array!
             let weightPrice = jsonArr[index]["weightPrice"].float ?? 2.0
-            var pics = [Pic]()
+            var pics = [PicModel]()
             for index in 0..<picsArr.count{
                 let id  = picsArr[index]["id"].string ?? ""
                 let path  = picsArr[index]["path"].string ?? ""
                 let productId  = picsArr[index]["productId"].string ?? ""
-                pics.append(Pic.init(id: id, path: path, productId: productId))
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
             }
             
             cell.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics,weightPrice: weightPrice))
