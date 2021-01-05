@@ -474,7 +474,7 @@ class AddProductViewController: BaseViewController {
             }
         }
     }
-    //Mark 編輯模式
+    //MARK: - 編輯模式
     private func setTextFieldUnderLine(size:CGFloat){
         tfProductTitle.lineHeight = size
         tfProductDescription.lineHeight = size

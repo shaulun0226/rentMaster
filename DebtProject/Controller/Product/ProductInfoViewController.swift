@@ -69,7 +69,7 @@ class ProductInfoViewController: BaseViewController {
                 lbRentPrice.isHidden = true
             }
             if(product.isExchange){
-                var itemList = "欲交換商品:\n"
+                let itemList = "欲交換商品:\n"
 //                for index in 0..<product.tradeItems.count{
 //                    itemList += "       \(index+1).\(product.tradeItems[index].exchangeItem) \n"
 //                }

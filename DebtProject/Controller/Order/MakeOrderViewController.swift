@@ -12,17 +12,13 @@ import SwiftAlertView
 class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
-    @IBOutlet weak var exchangeAmountView: DesignableView!
     //tavleView
     @IBOutlet weak var wishListTableView: UITableView!
-    var cellCount = 1
+    var buyAmount:Float! = 0.0
     var exchangeList = [String]()
     var wishList = [WishItemModel]()
     var wishNameList = [String]()
     var wishAmountList = [String:Int]()
-    @IBOutlet weak var lbWeightPrice: UILabel!
-    @IBOutlet weak var lbNeedWeightPrice: UILabel!
-    @IBOutlet weak var lbCurrentWeightPrice: UILabel!
     //選擇區
     var choosedItems = [String]()
     var choosedItemAmounts = [Int]()
@@ -51,6 +47,18 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var exchangeListTableViewHeight: NSLayoutConstraint!
     //商品區
     @IBOutlet weak var lbProductAmount: UILabel!
+    
+    //交換畫面區
+    @IBOutlet weak var wishItemTitleView: DesignableView!
+    @IBOutlet weak var selfItemWeightPriceView: DesignableView!
+    @IBOutlet weak var needItemWeightPriceView: DesignableView!
+    @IBOutlet weak var currentWeightPriceView: DesignableView!
+    @IBOutlet weak var exchangeAmountView: DesignableView!
+    //商品權重區
+    @IBOutlet weak var lbWeightPrice: UILabel!
+    @IBOutlet weak var lbNeedWeightPrice: UILabel!
+    @IBOutlet weak var lbCurrentWeightPrice: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         wishListTableView.delegate = self
@@ -97,7 +105,6 @@ class MakeOrderViewController: BaseViewController {
         }
         lbProductAmount.text = "剩餘數量:\(product.amount)"
         lbWeightPrice.text = "\(product.weightPrice)"
-        calculateWieghtPrice()
     }
     private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
         var wishListTmp = [WishItemModel]()
@@ -176,6 +183,15 @@ class MakeOrderViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }
     }
+    //隱藏畫面
+    private func setViewHidden(bool:Bool){
+        self.wishListTableView.isHidden = bool
+        self.currentWeightPriceView.isHidden = bool
+        self.needItemWeightPriceView.isHidden = bool
+        self.wishItemTitleView.isHidden = bool
+        self.selfItemWeightPriceView.isHidden = bool
+        self.exchangeAmountView.isHidden = bool
+    }
     //自動計算目前權重
     private func calculateWieghtPrice() {
         var currentWeightPrice:Float = 0
@@ -191,44 +207,44 @@ class MakeOrderViewController: BaseViewController {
                 }
             }
         }
+        
+        lbNeedWeightPrice.text = String(buyAmount*product.weightPrice)
         guard let amount = Float((btnTradeAmount.titleLabel?.text)!) else { return  }
-        lbNeedWeightPrice.text = String(amount*product.weightPrice)
     }
     @IBAction func pickerDoneClick(_ sender: Any) {
         let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnTradeAmount:
             tradeQuantity = Int(title)
-            currentButton.titleLabel?.text = title
-            wishListTableView.reloadData()
+            buyAmount = Float(title)
         case btnTradeType:
             switch title{
             case "購買":
                 tradeMethod = 1
-                self.wishListTableView.isHidden = true
+                setViewHidden(bool: true)
             case "租借":
                 tradeMethod = 0
-                self.wishListTableView.isHidden = true
+                setViewHidden(bool: true)
             case "交換":
                 tradeMethod = 2
-                self.wishListTableView.isHidden = false
+                setViewHidden(bool: false)
             default:
                 tradeMethod = 3
-                self.wishListTableView.isHidden = true
+                setViewHidden(bool: true)
             }
         default:
             print("沒篩到")
         }
-        calculateWieghtPrice()
         currentButton.setTitle(title, for: .normal)
         //關閉pickerview
         displayPicker(false)
+        calculateWieghtPrice()
     }
     @IBAction func pickerCancelClick(_ sender: Any) {
         //關閉popoverview
         displayPicker(false)
     }
-    
+    //購買數量
     @IBAction func tradeAmountClick(_ sender: Any) {
         guard let product = product else{return}
         currentButton = btnTradeAmount
@@ -288,31 +304,42 @@ class MakeOrderViewController: BaseViewController {
         }
         
         if(tradeMethod==2){
-            for index in 0..<cellCount{
-                if let cell = wishListTableView.cellForRow(at: IndexPath(item: index, section: 0)) as? MakeOrderTableViewCell{
-                    let tradeItemName = cell.btnWishItemSelect.titleLabel?.text ?? ""
-                    if(tradeItemName.elementsEqual("請選擇交換物")){
-                        alertView.messageLabel.text = "交換物還沒有選唷"
-                        alertView.show()
-                        return
-                    }
-                    tradeItem.append(cell.btnWishItemSelect.titleLabel?.text ?? "")
-                }
-            }
-            if(tradeItem.count==0){
-                alertView.messageLabel.text = "請選擇交換物"
+            guard let needWeightPriceText = lbNeedWeightPrice.text else {
+                alertView.messageLabel.text = "權重錯誤"
                 alertView.show()
                 return
             }
-        }else{
-            
+            guard let currentWeightPriceText = lbCurrentWeightPrice.text else {  alertView.messageLabel.text = "請勾選交換物及選擇交換物數量"
+                alertView.show()
+                return
+            }
+            let needWeightPrice = Float(needWeightPriceText) ?? 0.0
+            let currentWeightPrice = Float(currentWeightPriceText) ?? 0.0
+            if(currentWeightPrice < needWeightPrice){
+                alertView.messageLabel.text = "目前選擇權重小於需要權重\n"
+                alertView.show()
+                return
+            }
+        }
+        var wishItems = [WishItemModel]()
+        for index in 0..<wishList.count{
+            if let cell = wishListTableView.cellForRow(at: IndexPath(row: index, section: 0)) as? MakeOrderTableViewCell{
+                if(cell.btnIsSelected){
+                    print("數量\(String(describing: cell.btnWishItemAmount.titleLabel?.text))品名\(String(describing: cell.wishItemName))")
+                    guard let amountText = cell.btnWishItemAmount.titleLabel?.text else { return  }
+                    let wishItemAmount = Int(amountText) ?? 0
+                    let wishItem = WishItemModel.init(id: cell.wishItem.id, userId: cell.wishItem.userId, productName: cell.wishItemName, amount: wishItemAmount, weightPrice: cell.wishItem.weightPrice)
+                    wishItems.append(wishItem)
+                }
+            }
         }
         print("下訂單id:\(product.id),交易方式:\(tradeMethod),交易數量:\(tradeQuantity)")
-        NetworkController.instance().addOrder(productId: product.id, tradeMethod: tradeMethod, tradeItem: "", tradeQuantity: tradeQuantity){
+        NetworkController.instance().addOrder(productId: product.id, tradeMethod: tradeMethod, tradeItems:wishItems, tradeQuantity: tradeQuantity){
             [weak self] (responseValue,isSuccess) in
             guard let weakSelf = self else{return}
             alertView.messageLabel.text = responseValue
             if(isSuccess){
+                alertView.messageLabel.text = "下單成功！"
                 alertView.clickedButtonAction = {index in
                     if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
                         weakSelf.dismiss(animated: true, completion: nil)

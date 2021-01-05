@@ -19,6 +19,7 @@ class MainPageViewController: BaseSideMenuViewController {
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
     }
     private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
+        print(jsonArr)
         for index in 0..<jsonArr.count{
             let id = jsonArr[index]["id"].string!
             let title = jsonArr[index]["title"].string!
@@ -107,7 +108,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapSwitch(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "任天堂",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListByType(type: "Switch",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){

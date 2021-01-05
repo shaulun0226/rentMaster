@@ -650,10 +650,18 @@ class NetworkController{
     }
     // MARK: - OrderList
     //訂單清單區
-    func addOrder(productId:String,tradeMethod:Int,tradeItem:String,tradeQuantity:Int,completionHandler:@escaping (_ :String,Bool) -> ()){
+    func addOrder(productId:String,tradeMethod:Int,tradeItems:[WishItemModel],tradeQuantity:Int,completionHandler:@escaping (_ :String,Bool) -> ()){
         let url = "\(serverUrl)/Orders/add";
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
-        let parameters: Parameters = ["ProductId":productId,"TradeMethod":tradeMethod,"TradeItem":tradeItem,"TradeQuantity":tradeQuantity]
+        var orderExchangeItems = [Parameters]()
+        for index in 0..<tradeItems.count{
+            let tradeItemId = tradeItems[index].id
+            let tradeItemAmount = tradeItems[index].amount
+            let orderExchangeItem:Parameters = ["WishItemId":tradeItemId,"packageQuantity":tradeItemAmount]
+            orderExchangeItems.append(orderExchangeItem)
+        }
+        let parameters: Parameters = ["ProductId":productId,"TradeMethod":tradeMethod,"OrderExchangeItems":orderExchangeItems,"TradeQuantity":tradeQuantity]
+        print(parameters)
         AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
             .responseString{ response in
                 switch response.result {

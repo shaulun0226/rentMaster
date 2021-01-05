@@ -21,6 +21,7 @@ class MakeOrderTableViewCell: UITableViewCell {
     var wishItemName:String!
     var btnIsSelected = false
     var itemAmount = 0
+    var wishItem:WishItemModel!
     var wishItemWeightPrice:Float = 0.0
     //陰影
     var shadowOffsetWidth: Int = 2//偏移量
@@ -75,6 +76,7 @@ class MakeOrderTableViewCell: UITableViewCell {
         lbWeightPrice.text = String(wishItem.weightPrice)
         itemAmount = wishItem.amount
         wishItemWeightPrice = wishItem.weightPrice
+        self.wishItem = wishItem
     }
     @IBAction func checkMarkClick(_ sender: Any) {
         
