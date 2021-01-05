@@ -9,8 +9,6 @@ import UIKit
 import SwiftyJSON
 import SwiftAlertView
 
-
-
 class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
@@ -22,8 +20,10 @@ class MakeOrderViewController: BaseViewController {
     var wishList = [WishItemModel]()
     var wishNameList = [String]()
     var wishAmountList = [String:Int]()
+    @IBOutlet weak var lbWeightPrice: UILabel!
+    @IBOutlet weak var lbNeedWeightPrice: UILabel!
+    @IBOutlet weak var lbCurrentWeightPrice: UILabel!
     //選擇區
-    @IBOutlet weak var choosedWeightPrice: UILabel!
     var choosedItems = [String]()
     var choosedItemAmounts = [Int]()
     //picker按鈕
@@ -85,6 +85,7 @@ class MakeOrderViewController: BaseViewController {
                     weakSelf.lbSellerEmail.text = "Email:\(weakSelf.user.email)"
                     weakSelf.lbSellerPhone.text = "聯絡電話:\(weakSelf.user.phone)"
                     weakSelf.lbSellerLocation.text = "地區:\(weakSelf.product.address)"
+                    weakSelf.wishListTableView.reloadData()
                 }else{
                     weakSelf.lbSellerName.text = "稱呼:測試"
                     weakSelf.lbSellerEmail.text = "Email:test"
@@ -95,6 +96,8 @@ class MakeOrderViewController: BaseViewController {
             
         }
         lbProductAmount.text = "剩餘數量:\(product.amount)"
+        lbWeightPrice.text = "\(product.weightPrice)"
+        calculateWieghtPrice()
     }
     private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
         var wishListTmp = [WishItemModel]()
@@ -174,29 +177,29 @@ class MakeOrderViewController: BaseViewController {
         }
     }
     //自動計算目前權重
-    private func calculateWieghtPrice(){
-        for index in 0..<cellCount{
+    private func calculateWieghtPrice() {
+        var currentWeightPrice:Float = 0
+        print("進計算")
+        for index in 0..<wishList.count{
             if let cell = wishListTableView.cellForRow(at: IndexPath(row: index, section: 0))as? MakeOrderTableViewCell {
-                
+                print("進cell\(cell.btnIsSelected)")
+                if(cell.btnIsSelected){
+                    guard let tmpWeightPrice = Float((cell.btnWishItemAmount.titleLabel?.text)!) else { return  }
+                    print("進cell計算\(tmpWeightPrice)")
+                    currentWeightPrice += cell.wishItemWeightPrice*tmpWeightPrice
+                    lbCurrentWeightPrice.text = String(currentWeightPrice)
+                }
             }
         }
-    }
-    @IBAction func btnRemoveCellClick(_ sender: Any) {
-        if(cellCount == 0){
-            return
-        }
-        cellCount -= 1
-        self.wishListTableView.reloadData()
-    }
-    @IBAction func btnAddCellClick(_ sender: Any) {
-        cellCount += 1
-        self.wishListTableView.reloadData()
+        guard let amount = Float((btnTradeAmount.titleLabel?.text)!) else { return  }
+        lbNeedWeightPrice.text = String(amount*product.weightPrice)
     }
     @IBAction func pickerDoneClick(_ sender: Any) {
         let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnTradeAmount:
             tradeQuantity = Int(title)
+            currentButton.titleLabel?.text = title
             wishListTableView.reloadData()
         case btnTradeType:
             switch title{
@@ -216,6 +219,7 @@ class MakeOrderViewController: BaseViewController {
         default:
             print("沒篩到")
         }
+        calculateWieghtPrice()
         currentButton.setTitle(title, for: .normal)
         //關閉pickerview
         displayPicker(false)
@@ -286,13 +290,13 @@ class MakeOrderViewController: BaseViewController {
         if(tradeMethod==2){
             for index in 0..<cellCount{
                 if let cell = wishListTableView.cellForRow(at: IndexPath(item: index, section: 0)) as? MakeOrderTableViewCell{
-                    let tradeItemName = cell.btnWishItem.titleLabel?.text ?? ""
+                    let tradeItemName = cell.btnWishItemSelect.titleLabel?.text ?? ""
                     if(tradeItemName.elementsEqual("請選擇交換物")){
                         alertView.messageLabel.text = "交換物還沒有選唷"
                         alertView.show()
                         return
                     }
-                    tradeItem.append(cell.btnWishItem.titleLabel?.text ?? "")
+                    tradeItem.append(cell.btnWishItemSelect.titleLabel?.text ?? "")
                 }
             }
             if(tradeItem.count==0){
@@ -330,26 +334,28 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         1
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
-        view.backgroundColor = .clear;
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
-        view.addSubview(label);
-        label.text = "交換物:"
-        label.font = UIFont.systemFont(ofSize: 30)
-        label.textColor = .white
-        return view;
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        50
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
+//        view.backgroundColor = .clear;
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
+//        view.addSubview(label);
+//        label.text = "交換物:"
+//        label.font = UIFont.systemFont(ofSize: 30)
+//        label.textColor = .white
+//        return view;
+//    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        50
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cellCount
+        wishList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = wishListTableView.dequeueReusableCell(withIdentifier: TableViewCell.makeOrderTableViewCell.rawValue) as? MakeOrderTableViewCell{
             cell.makeOrderTableViewCellDelegate = self
+            cell.configure(wishItem: wishList[indexPath.row])
+            
             return cell
         }
         return UITableViewCell()
@@ -359,27 +365,30 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     }
 }
 extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
+    func wishItemSelectClick() {
+        self.calculateWieghtPrice()
+    }
+    
     //選交換物
-    func wishItemClick(btnWishItem: UIButton) {
-        currentButton = btnWishItem
-        pickerList.removeAll()
-        //設定購買方法從user拿
-        pickerList = self.wishNameList
-        if(pickerList.count==0){
-            return
+    func wishItemSelectClick(wishItemName: String, btnIsSelected: Bool, btnWishItem: UIButton) -> Bool {
+        if(!btnIsSelected){
+            print("勾選按鈕")
+            btnWishItem.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for:.normal)
+            btnWishItem.tintColor = UIColor(named: "Button")
+            return true
+        }else{
+            print("取消勾選")
+            btnWishItem.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+            btnWishItem.tintColor = .darkGray
+            return false
         }
-        //刷新pick內容
-        pickerView.reloadAllComponents()
-        //跳出popoverview
-        displayPicker(true)
     }
     //選交換物數量
-    func wishItemAmountClick(btnWishItem: UIButton,btnWishItemAmount: UIButton) {
+    func wishItemAmountClick(itemAmount:Int,btnWishItem: UIButton,btnWishItemAmount: UIButton) {
         currentButton = btnWishItemAmount
         pickerList.removeAll()
         //設定購買方法從user拿
-        let count = self.wishAmountList[btnWishItem.titleLabel?.text ?? "", default:0]
-        for index in 0..<count{
+        for index in 0..<itemAmount{
             pickerList.append("\(index+1)")
         }
         if(pickerList.count==0){
@@ -390,6 +399,7 @@ extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
         //跳出popoverview
         displayPicker(true)
     }
+    
 }
 extension MakeOrderViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     //設定有幾個bar可以滾動

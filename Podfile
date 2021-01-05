@@ -12,5 +12,6 @@ pod "TLPhotoPicker"
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher'
 pod 'SwiftAlertView', '~> 1.3.0'
+pod 'Firebase/Firestore'
 
 end
