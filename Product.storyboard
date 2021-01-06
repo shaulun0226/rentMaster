@@ -1500,7 +1500,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" id="QFB-dd-0qB" customClass="CartTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" id="QFB-dd-0qB" customClass="CartTableViewCell" customModule="DebtProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QFB-dd-0qB" id="n00-Yc-s16">
@@ -1513,7 +1513,7 @@
                                                         <constraint firstAttribute="width" constant="90.5" id="iaT-lX-2jQ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="6Mg-Hz-3e8">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="6Mg-Hz-3e8">
                                                     <rect key="frame" x="108.5" y="10" width="39.5" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lth-gd-BKC">
@@ -1523,14 +1523,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="賣家:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8p-c1-Lai">
-                                                            <rect key="frame" x="0.0" y="30" width="39.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="32.5" width="39.5" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價錢:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15d-ro-on0">
-                                                            <rect key="frame" x="0.0" y="59.5" width="39.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="62" width="39.5" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1575,19 +1575,30 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尚未登入" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dl2-33-vep">
+                                <rect key="frame" x="62" y="436.5" width="290" height="77"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ADL-h5-qfu"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Dl2-33-vep" firstAttribute="width" secondItem="ADL-h5-qfu" secondAttribute="width" multiplier="0.7" id="4vk-NO-PfN"/>
                             <constraint firstItem="ZUg-fS-gj4" firstAttribute="top" secondItem="ADL-h5-qfu" secondAttribute="top" id="AOF-pj-i1K"/>
+                            <constraint firstItem="Dl2-33-vep" firstAttribute="centerY" secondItem="ADL-h5-qfu" secondAttribute="centerY" id="LKy-eP-LsH"/>
                             <constraint firstItem="ZUg-fS-gj4" firstAttribute="leading" secondItem="ADL-h5-qfu" secondAttribute="leading" id="OrY-vc-DUP"/>
+                            <constraint firstItem="Dl2-33-vep" firstAttribute="centerX" secondItem="ADL-h5-qfu" secondAttribute="centerX" id="TiS-DL-GDf"/>
                             <constraint firstItem="ADL-h5-qfu" firstAttribute="bottom" secondItem="ZUg-fS-gj4" secondAttribute="bottom" id="XJH-Ug-g3C"/>
                             <constraint firstItem="ADL-h5-qfu" firstAttribute="trailing" secondItem="ZUg-fS-gj4" secondAttribute="trailing" id="rnW-9A-VUh"/>
+                            <constraint firstItem="Dl2-33-vep" firstAttribute="height" secondItem="ADL-h5-qfu" secondAttribute="height" multiplier="0.1" id="rqg-8w-k0r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="46v-VT-lkG"/>
                     <connections>
                         <outlet property="cartTableView" destination="ZUg-fS-gj4" id="l9v-vd-x3E"/>
+                        <outlet property="lbHint" destination="Dl2-33-vep" id="V01-hB-WDG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="70U-Sm-Az8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1868,7 +1879,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g7I-G1-a6n">
-                                        <rect key="frame" x="0.0" y="196" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="196" width="414" height="166"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chg-EF-i6J" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -1956,8 +1967,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TTm-CT-uS4" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108" width="414" height="0.0"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TTm-CT-uS4" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="116" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyj-dJ-b1w">
                                                         <rect key="frame" x="20" y="0.0" width="394" height="50"/>
@@ -2009,8 +2020,107 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9KH-Xf-V9x" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品售價:9999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeH-zF-hIF">
+                                                        <rect key="frame" x="20" y="0.0" width="394" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="4hn-Cl-cHi"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="QeH-zF-hIF" firstAttribute="top" secondItem="9KH-Xf-V9x" secondAttribute="top" id="6ls-xm-hDE"/>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QeH-zF-hIF" secondAttribute="trailing" id="ctn-NF-phM"/>
+                                                    <constraint firstAttribute="bottom" secondItem="QeH-zF-hIF" secondAttribute="bottom" id="rog-CR-8vu"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.10000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                        <real key="value" value="-3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CCc-Xl-Zxv" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租借押金:999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urn-rC-c6d">
+                                                        <rect key="frame" x="20" y="0.0" width="394" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="wEe-Ll-peB"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="urn-rC-c6d" secondAttribute="bottom" id="2ug-1v-nNg"/>
+                                                    <constraint firstItem="urn-rC-c6d" firstAttribute="top" secondItem="CCc-Xl-Zxv" secondAttribute="top" id="SpP-8h-5NW"/>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="urn-rC-c6d" secondAttribute="trailing" id="W0J-Sl-DtM"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.10000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                        <real key="value" value="-3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ink-py-dht" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品租金:99/日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEI-FC-MFQ">
+                                                        <rect key="frame" x="20" y="0.0" width="394" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="8kR-fC-atR"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="lEI-FC-MFQ" secondAttribute="trailing" id="0tF-TL-ViO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lEI-FC-MFQ" secondAttribute="bottom" id="32l-Zg-QEU"/>
+                                                    <constraint firstItem="lEI-FC-MFQ" firstAttribute="top" secondItem="Ink-py-dht" secondAttribute="top" id="pWK-kh-IyF"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.10000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                                        <real key="value" value="-3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahM-fw-oGm" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換物" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tE-Me-pI3">
                                                         <rect key="frame" x="20" y="0.0" width="394" height="50"/>
@@ -2043,7 +2153,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7h-pG-AAI" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9an-Hx-VIk">
                                                         <rect key="frame" x="20" y="0.0" width="68" height="50"/>
@@ -2086,7 +2196,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVd-VI-0Kj" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="需要權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaS-cj-SOk">
                                                         <rect key="frame" x="20" y="0.0" width="128.5" height="50"/>
@@ -2129,7 +2239,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tg4-HZ-Ttr" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="166" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6h-SR-NPZ">
                                                         <rect key="frame" x="20" y="0.0" width="128.5" height="50"/>
@@ -2179,11 +2289,14 @@
                                             <constraint firstItem="KPh-Hz-ikg" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="PFj-VU-gu7"/>
                                             <constraint firstItem="q6h-SR-NPZ" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="Uqc-JS-r11"/>
                                             <constraint firstItem="TaS-cj-SOk" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="kKI-L7-QPp"/>
+                                            <constraint firstItem="urn-rC-c6d" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="l3m-wb-ni8"/>
                                             <constraint firstItem="6tE-Me-pI3" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="oq1-SW-id0"/>
+                                            <constraint firstItem="lEI-FC-MFQ" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="udU-bY-aCp"/>
+                                            <constraint firstItem="QeH-zF-hIF" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="zYg-ia-UdZ"/>
                                         </constraints>
                                     </stackView>
                                     <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="grh-zl-K07">
-                                        <rect key="frame" x="40" y="304" width="374" height="1000"/>
+                                        <rect key="frame" x="40" y="362" width="374" height="1000"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2225,7 +2338,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="權重" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9a4-ta-fZY">
-                                                            <rect key="frame" x="249.5" y="28" width="37" height="19.5"/>
+                                                            <rect key="frame" x="253.5" y="28" width="33" height="19.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -2261,7 +2374,6 @@
                                                     <constraints>
                                                         <constraint firstItem="9a4-ta-fZY" firstAttribute="centerY" secondItem="Dlh-IW-6VF" secondAttribute="centerY" id="6Hu-JK-fAA"/>
                                                         <constraint firstItem="299-jH-W1C" firstAttribute="centerY" secondItem="Dlh-IW-6VF" secondAttribute="centerY" id="7TJ-CF-Oqq"/>
-                                                        <constraint firstItem="9a4-ta-fZY" firstAttribute="width" secondItem="7cq-Sj-LHP" secondAttribute="width" multiplier="0.0990338" id="9fV-p5-0U1"/>
                                                         <constraint firstItem="Dlh-IW-6VF" firstAttribute="top" secondItem="7cq-Sj-LHP" secondAttribute="top" constant="12.5" id="A9C-06-CYr"/>
                                                         <constraint firstItem="9a4-ta-fZY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FeO-2h-7Hx" secondAttribute="trailing" constant="10" id="AGP-Yg-pHO"/>
                                                         <constraint firstItem="299-jH-W1C" firstAttribute="leading" secondItem="9a4-ta-fZY" secondAttribute="trailing" constant="10" id="CEv-3Y-cLx"/>
@@ -2356,11 +2468,13 @@
                         <outlet property="btnTradeAmount" destination="CWU-Hq-85W" id="A7Z-51-OQ6"/>
                         <outlet property="btnTradeType" destination="OQ2-HP-aDQ" id="gZq-DR-rFE"/>
                         <outlet property="currentWeightPriceView" destination="tg4-HZ-Ttr" id="3kn-d8-2sE"/>
-                        <outlet property="exchangeAmountView" destination="TTm-CT-uS4" id="UVm-ER-L9W"/>
                         <outlet property="exchangeListTableViewHeight" destination="EWO-1q-GVH" id="yDv-kf-Qwr"/>
                         <outlet property="lbCurrentWeightPrice" destination="ngU-fG-oPa" id="pPY-gM-jqe"/>
                         <outlet property="lbNeedWeightPrice" destination="dn8-60-BDk" id="Oo3-3R-lE8"/>
                         <outlet property="lbProductAmount" destination="KPh-Hz-ikg" id="o9c-Wd-WP2"/>
+                        <outlet property="lbProductDeposit" destination="urn-rC-c6d" id="G1p-7j-wt8"/>
+                        <outlet property="lbProductPrice" destination="QeH-zF-hIF" id="rb3-xa-5bq"/>
+                        <outlet property="lbProductRentPrice" destination="lEI-FC-MFQ" id="0rd-4t-Odl"/>
                         <outlet property="lbSellerEmail" destination="MWM-xu-3XO" id="4Ie-HE-Lbm"/>
                         <outlet property="lbSellerLocation" destination="Uum-k9-Bfz" id="WO7-Vt-aeZ"/>
                         <outlet property="lbSellerName" destination="hCT-fL-mmQ" id="ACi-5K-rmn"/>
@@ -2368,8 +2482,12 @@
                         <outlet property="lbWeightPrice" destination="trj-zS-uQE" id="enc-P7-thI"/>
                         <outlet property="needItemWeightPriceView" destination="QVd-VI-0Kj" id="qDT-dZ-bkl"/>
                         <outlet property="pickerView" destination="al7-TL-B38" id="sN2-eC-g7x"/>
+                        <outlet property="productDepositView" destination="CCc-Xl-Zxv" id="MFo-rN-0j3"/>
+                        <outlet property="productPriceView" destination="9KH-Xf-V9x" id="J1q-Rm-QrK"/>
+                        <outlet property="productRentPriceView" destination="Ink-py-dht" id="PP1-bq-R34"/>
                         <outlet property="selectView" destination="FUq-wb-iAw" id="qXS-iy-9Ay"/>
                         <outlet property="selfItemWeightPriceView" destination="R7h-pG-AAI" id="6d1-Id-tQg"/>
+                        <outlet property="tradeAmountView" destination="TTm-CT-uS4" id="UVm-ER-L9W"/>
                         <outlet property="wishItemTitleView" destination="ahM-fw-oGm" id="vdX-w5-RQr"/>
                         <outlet property="wishListTableView" destination="grh-zl-K07" id="UAG-bI-nb0"/>
                     </connections>

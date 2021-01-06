@@ -45,6 +45,15 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var lbSellerLocation: UILabel!
     //tableView
     @IBOutlet weak var exchangeListTableViewHeight: NSLayoutConstraint!
+    //販售區
+    
+    @IBOutlet weak var lbProductPrice: UILabel!
+    @IBOutlet weak var productPriceView: DesignableView!
+    //租借區
+    @IBOutlet weak var productDepositView: DesignableView!
+    @IBOutlet weak var productRentPriceView: DesignableView!
+    @IBOutlet weak var lbProductDeposit: UILabel!
+    @IBOutlet weak var lbProductRentPrice: UILabel!
     //商品區
     @IBOutlet weak var lbProductAmount: UILabel!
     
@@ -53,7 +62,7 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var selfItemWeightPriceView: DesignableView!
     @IBOutlet weak var needItemWeightPriceView: DesignableView!
     @IBOutlet weak var currentWeightPriceView: DesignableView!
-    @IBOutlet weak var exchangeAmountView: DesignableView!
+    @IBOutlet weak var tradeAmountView: DesignableView!
     //商品權重區
     @IBOutlet weak var lbWeightPrice: UILabel!
     @IBOutlet weak var lbNeedWeightPrice: UILabel!
@@ -103,6 +112,9 @@ class MakeOrderViewController: BaseViewController {
             }
             
         }
+        lbProductPrice.text = "商品售價:\(product.salePrice)元"
+        lbProductDeposit.text = "租借押金:\(product.deposit)"
+        lbProductRentPrice.text = "商品租金:\(product.rent)元/日"
         lbProductAmount.text = "剩餘數量:\(product.amount)"
         lbWeightPrice.text = "\(product.weightPrice)"
     }
@@ -183,14 +195,22 @@ class MakeOrderViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }
     }
-    //隱藏畫面
-    private func setViewHidden(bool:Bool){
+    //隱藏購買畫面
+    private func setBuyViewHidden(bool:Bool){
+        self.productPriceView.isHidden = bool
+    }
+    //隱藏租借畫面
+    private func setRentViewHidden(bool:Bool){
+        self.productDepositView.isHidden = bool
+        self.productRentPriceView.isHidden = bool
+    }
+    //隱藏交換畫面
+    private func setExchangeViewHidden(bool:Bool){
         self.wishListTableView.isHidden = bool
         self.currentWeightPriceView.isHidden = bool
         self.needItemWeightPriceView.isHidden = bool
         self.wishItemTitleView.isHidden = bool
         self.selfItemWeightPriceView.isHidden = bool
-        self.exchangeAmountView.isHidden = bool
     }
     //自動計算目前權重
     private func calculateWieghtPrice() {
@@ -207,9 +227,10 @@ class MakeOrderViewController: BaseViewController {
                 }
             }
         }
-        
+        lbProductPrice.text =  "商品售價:\(String(Int(buyAmount)*product.salePrice))元"
+        lbProductRentPrice.text = "商品租金:\(String(Int(buyAmount)*product.rent))元/日"
+        lbProductDeposit.text = "租借押金:\(String(Int(buyAmount)*product.deposit))元"
         lbNeedWeightPrice.text = String(buyAmount*product.weightPrice)
-        guard let amount = Float((btnTradeAmount.titleLabel?.text)!) else { return  }
     }
     @IBAction func pickerDoneClick(_ sender: Any) {
         let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
@@ -221,16 +242,24 @@ class MakeOrderViewController: BaseViewController {
             switch title{
             case "購買":
                 tradeMethod = 1
-                setViewHidden(bool: true)
+                setExchangeViewHidden(bool: true)
+                setBuyViewHidden(bool: false)
+                setRentViewHidden(bool: true)
             case "租借":
                 tradeMethod = 0
-                setViewHidden(bool: true)
+                setExchangeViewHidden(bool: true)
+                setBuyViewHidden(bool: true)
+                setRentViewHidden(bool: false)
             case "交換":
                 tradeMethod = 2
-                setViewHidden(bool: false)
+                setExchangeViewHidden(bool: false)
+                setBuyViewHidden(bool: true)
+                setRentViewHidden(bool: true)
             default:
                 tradeMethod = 3
-                setViewHidden(bool: true)
+                setExchangeViewHidden(bool: true)
+                setBuyViewHidden(bool: true)
+                setRentViewHidden(bool: true)
             }
         default:
             print("沒篩到")

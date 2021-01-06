@@ -6,24 +6,69 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource{
     
-    
     var cartProducts = [ProductModel]()
-    
+//    var isGotItems = false
+    @IBOutlet weak var lbHint: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.isGotItems = false
         cartTableView.delegate = self
         cartTableView.dataSource = self
-        // Do any additional setup after loading the view.
+        lbHint.isHidden = !User.token.isEmpty
+        if(!User.token.isEmpty){
+            NetworkController.instance().getCartList{
+                [weak self] (reponseJSON,isSuccess) in
+                guard let weakSelf = self else{return}
+                if(isSuccess){
+                    let jsonItemArr = JSON(reponseJSON)
+                    print("購物車解析清單\(jsonItemArr)")
+                    weakSelf.parseProduct(jsonArr: jsonItemArr)
+                    weakSelf.cartTableView.reloadData()
+                }else{
+                    print("購物車清單取得失敗")
+                }
+            }
+        }
     }
-    
+    private func parseProduct(jsonArr:JSON){
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string!
+            let title = jsonArr[index]["title"].string!
+            let description = jsonArr[index]["description"].string!
+            let isSale = jsonArr[index]["isSale"].bool!
+            let isRent = jsonArr[index]["isRent"].bool!
+            let isExchange = jsonArr[index]["isExchange"].bool!
+            let address = jsonArr[index]["address"].string ?? ""
+            let deposit = jsonArr[index]["deposit"].int!
+            let rent = jsonArr[index]["rent"].int!
+            let salePrice = jsonArr[index]["salePrice"].int!
+            let rentMethod = jsonArr[index]["rentMethod"].string!
+            let amount = jsonArr[index]["amount"].int!
+            let type = jsonArr[index]["type"].string!
+            let type1 = jsonArr[index]["type1"].string!
+            let type2 = jsonArr[index]["type2"].string!
+            let userId = jsonArr[index]["userId"].string!
+            let picsArr = jsonArr[index]["pics"].array!
+            let weightPrice = jsonArr[index]["weightPrice"].float!
+            
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id  = picsArr[index]["id"].string ?? ""
+                let path  = picsArr[index]["path"].string ?? ""
+                let productId  = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
+            self.cartProducts.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cartProducts.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = cartTableView.dequeueReusableCell(withIdentifier: "CartTableViewCell") as? CartTableViewCell {
             cell.backgroundColor = UIColor(named: "card")
@@ -51,8 +96,8 @@ extension CartViewController:CartTableViewCellDelegate{
             popoverController.index = index
             popoverController.cartCellMenuViewDelegate = self
             //設定popoverview backgroundColor
-//            let layer = Global.setBackgroundColor(view);
-//            popoverController.view.layer.insertSublayer(layer, at: 0)
+            //            let layer = Global.setBackgroundColor(view);
+            //            popoverController.view.layer.insertSublayer(layer, at: 0)
             //設定以 popover 的效果跳轉
             popoverController.modalPresentationStyle = .popover
             //設定indexpath
@@ -78,8 +123,16 @@ extension CartViewController:CartTableViewCellDelegate{
 extension CartViewController:CartCellMenuViewDelegate{
     func deleteClick(index: Int,view:UIViewController) {
         view.dismiss(animated: true) {
-            self.cartProducts.remove(at: index)
-            self.cartTableView.reloadData()
+            NetworkController.instance().deleteCartItem(id: self.cartProducts[index].id){
+                [weak self] (reponseValue,isSuccess) in
+                guard let weakSelf  = self else{return}
+                weakSelf.cartProducts.remove(at: index)
+//                weakSelf.cartTableView.beginUpdates()
+//                weakSelf.cartTableView.deselectRow(at: IndexPath(row: index, section: 0), animated: true)
+//                
+//                weakSelf.cartTableView.endUpdates()
+                weakSelf.cartTableView.reloadData()
+            }
         }
     }
     

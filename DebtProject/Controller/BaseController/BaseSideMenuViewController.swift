@@ -51,7 +51,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //尚未設定跳至何頁
         let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
-            view.cartProducts = ProductModel.defaultGameLists
             view.title = "購物車"
             self.show(view, sender: nil);
         }

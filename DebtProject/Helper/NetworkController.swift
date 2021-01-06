@@ -389,7 +389,7 @@ class NetworkController{
         var picsJsonArr = [Parameters]()
         for index in 0..<pics.count{
             //先拿到imageDate (設定圖片質量為原圖的0.9)
-            let imageData = pics[index].jpegData(compressionQuality: 0.9)
+            let imageData = pics[index].jpegData(compressionQuality: 0.7)
             //將imageData轉為base64
             let imageBase64String = imageData?.base64EncodedString()
 //            let pic:Parameters = ["Desc":title+"_"+String(index+1),"Path":imageBase64String ?? ""]
@@ -528,36 +528,6 @@ class NetworkController{
                 }
             }
     }
-    func addCart(productId:String,completionHandler:@escaping (_ :String,Bool) -> ()){
-        let url = "\(serverUrl)/CartItems/add";
-        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
-        let parameters: Parameters = ["ProductId":productId]
-        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
-            .responseString{ response in
-                switch response.result {
-                //先看連線有沒有成功
-                case.success(let value):
-                    //再解析errorCode
-                    if let status = response.response?.statusCode {
-                        print(status)
-                        switch(status){
-                        case 200:
-                            //to get JSON return value
-                            completionHandler(value,true)
-                            break
-                        default:
-                            self.textNotCode200(status: status, value: value)
-                            completionHandler(value,false)
-                            break
-                        }
-                    }
-                case .failure(let error):
-                    print("error:\(error)")
-                    completionHandler( error.localizedDescription, false)
-                    break
-                }
-            }
-    }
     
     // MARK: - WishList
     func getWishItemAll(completionHandler:@escaping (_ :Any,Bool) -> ()){
@@ -604,6 +574,8 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
+                            
+                            print(value)
                             completionHandler(value,true)
                             break
                         default:
@@ -633,6 +605,8 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
+                            
+                            print(value)
                             completionHandler(value,true)
                             break
                         default:
@@ -673,6 +647,99 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    //MARK: - Cart
+    func addCart(productId:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/CartItems/add";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let parameters: Parameters = ["ProductId":productId]
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func getCartList(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/CartItems/productList";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func deleteCartItem(id:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/CartItems/\(id)";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .delete,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            
+                            print(value)
                             completionHandler(value,true)
                             break
                         default:

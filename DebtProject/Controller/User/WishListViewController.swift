@@ -22,7 +22,6 @@ class WishListViewController: BaseViewController {
             self.updateViewConstraints()
         }
     }
-    //    var newCellCount = 0
     var wishList = [WishItemModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +105,8 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
         wishListTV.deselectRow(at: indexPath, animated: false)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        print("id:\(self.wishList[indexPath.row].id)")
         let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
             NetworkController.instance().deleteWishItem(id: self.wishList[indexPath.row].id){
                 [weak self] (reponseValue,isSuccess) in
