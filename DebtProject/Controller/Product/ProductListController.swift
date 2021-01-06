@@ -39,6 +39,8 @@ class ProductListController: BaseSideMenuViewController{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.backgroundView?.backgroundColor = .clear
+//        tableview.bounces = false
         collectview.delegate = self
         collectview.dataSource = self
         //設定按鈕
@@ -89,8 +91,8 @@ class ProductListController: BaseSideMenuViewController{
         }
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: 90, height: 3)
-        self.slider.center.y = collectview.bounds.maxY-8
+        self.slider.frame.size = CGSize(width: 90, height: 5)
+        self.slider.center.y = collectview.bounds.maxY-10
         collectview.addSubview(slider)
         //        collectionView(collectview, didSelectItemAt:[0,0])
     }
@@ -109,6 +111,9 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchBar.barTintColor = UIColor(named: "card")
         //            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
         //searchbar取消文字顏色
+//        searchController?.searchBar.backgroundColor = UIColor(named: "card")
+//        searchController?.view.tintColor = UIColor(named: "card")
+//        searchController?.view.backgroundColor = UIColor(named: "card")   沒用的方法
         searchController?.searchBar.tintColor = UIColor(named: "Button")
         //searvhbar輸入文字顏色
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -305,13 +310,24 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
-            cell.backgroundColor = UIColor(named: "card")
-            ((searchController?.isActive)!)
-                ?cell.configure(with: searchProducts[indexPath.row])
-                :cell.configure(with: products[indexPath.row])
-            return cell;
+        if(isMyStore){
+            if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myStoreTableViewCell.rawValue ) as? MyStoreTableViewCell {
+                cell.backgroundColor = UIColor(named: "card")
+                ((searchController?.isActive)!)
+                    ?cell.configure(with: searchProducts[indexPath.row])
+                    :cell.configure(with: products[indexPath.row])
+                return cell;
+            }
+        }else{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
+                cell.backgroundColor = UIColor(named: "card")
+                ((searchController?.isActive)!)
+                    ?cell.configure(with: searchProducts[indexPath.row])
+                    :cell.configure(with: products[indexPath.row])
+                return cell;
+            }
         }
+        
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

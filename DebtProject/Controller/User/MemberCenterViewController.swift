@@ -9,6 +9,7 @@ import UIKit
 import SwiftAlertView
 
 class MemberCenterViewController: BaseSideMenuViewController {
+    let userDefault = UserDefaults()
     @IBOutlet weak var memberCenterTableView: UITableView!
     var titleList = ["我的訂單","願望清單","帳號資訊","修改密碼","帳號登出"]
     override func viewDidLoad() {
@@ -79,12 +80,14 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
             alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
             alertView.backgroundColor = UIColor(named: "Alert")
             alertView.buttonTitleColor = .white
-            alertView.clickedButtonAction = { index in
+            alertView.clickedButtonAction = { [self] index in
                 if(index==0){//設定取消鍵
                     alertView.dismiss()
                 }
                 if(index==1){
                     User.token = ""
+                    self.userDefault.removeObject(forKey: "Account")
+                    self.userDefault.removeObject(forKey: "Password")
                     alertView.dismiss()
                 }
             }

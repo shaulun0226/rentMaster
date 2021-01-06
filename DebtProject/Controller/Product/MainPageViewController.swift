@@ -9,7 +9,7 @@ import UIKit
 import SwiftyJSON
 
 class MainPageViewController: BaseSideMenuViewController {
-    
+    let userDefault = UserDefaults()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -17,6 +17,27 @@ class MainPageViewController: BaseSideMenuViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        let account = userDefault.value(forKey: "Account") as! String
+        let password = userDefault.value(forKey: "Password") as! String
+        if(account.isEmpty||password.isEmpty){
+            return
+        }
+        if(Global.isOnline){
+            NetworkController.instance().login(email: account, password: password) {
+                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
+                (value,isSuccess)  in
+                if(isSuccess){
+                    User.token = value as? String ?? ""
+                    if(!User.token.isEmpty){
+                        print("登入成功")
+                    }
+                }else{
+                    print("登入失敗")
+                }
+            }
+        }
     }
     private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
         print(jsonArr)

@@ -13,11 +13,10 @@ class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbAmount: UILabel!
     @IBOutlet weak var lbSalePrice: UILabel!
     @IBOutlet weak var lbProductDescription: UILabel!
-    @IBOutlet weak var lbProductType1: UILabel!
-    @IBOutlet weak var lbDeposit: UILabel!
-    @IBOutlet weak var lbRentPrice: UILabel!
+    @IBOutlet weak var lbProductType: UILabel!
+    @IBOutlet weak var lbTradeType: UILabel!
     @IBOutlet weak var lbAddress: UILabel!
-    @IBOutlet weak var lbRentType: UILabel!
+    @IBOutlet weak var lbTradeMethod: UILabel!
     @IBOutlet weak var lbTradeItem: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var productInfoTableView: UITableView!
@@ -30,56 +29,67 @@ class ProductInfoViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        print("最後一個\(self.navigationController?.viewControllers.last)")
-        //        print("第一個\(self.navigationController?.viewControllers.first)")
-        //        if((self.navigationController?.viewControllers.count)! > 2){
-        //            print("畫面數量\(self.navigationController?.viewControllers.count)")
-        //            for index in 0..<(self.navigationController?.viewControllers.count)!{
-        //                print(self.navigationController?.viewControllers[index])
-        //            }
-        //            if(self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] is LoginViewController){
-        //            print("刪掉最後一個")
-        //                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-2)
-        //                print("新的畫面數量\(String(describing: self.navigationController?.viewControllers.count))")
-        //                self.navigationController?.viewControllers.remove(at: (self.navigationController?.viewControllers.count)!-3)
-        //        }else{
-        //            print("根本沒進去")
-        //        }
-        //        }
         self.productInfoTableView.delegate = self
         self.productInfoTableView.dataSource = self
         self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
         self.productInfoCollectionView.delegate = self
         self.productInfoCollectionView.dataSource = self
         self.productInfoCollectionView.isPagingEnabled = true
+        
+        setText()
+        
+        //設定換頁控制器有幾頁
+        productInfoPC.numberOfPages = productsImage.count
+        //起始在第0頁
+        productInfoPC.currentPage = 0;
+        // Do any additional setup after loading the view.
+    }
+    func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
+        return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
+    }
+    
+    private func setText(){
         if(Global.isOnline){
             lbProductTtile.text = "\(product.title)"
-            lbAmount.text = "商品數量:\(product.amount)"
+            lbProductType.text = "分類 : \(product.type)/\(product.type1)/\(product.type2)"
+            lbTradeMethod.text = "交易方式 : \(product.rentMethod)"
+            lbAmount.text = "數量 : \(product.amount)"
             lbProductDescription.text = "\(product.description)"
+            var tradeType = [String]()
+            var price = [String]()
             if(product.isSale){
-                lbSalePrice.text = "販售價格\(product.salePrice) 元"
-            }else{
-                lbSalePrice.isHidden = true
+                tradeType.append("販售")
+                price.append("售價 : \(product.salePrice)元")
             }
             if(product.isRent){
-                lbDeposit.text = "商品押金:\(product.deposit) 元"
-                lbRentPrice.text = "租借金額:\(product.rent) 元/天"
-            }else{
-                lbDeposit.isHidden = true
-                lbRentPrice.isHidden = true
+                tradeType.append("租借")
+                price.append("押金 : \(product.deposit)元")
+                price.append("租金 : \(product.rent)元/日")
             }
             if(product.isExchange){
-                let itemList = "欲交換商品:\n"
-//                for index in 0..<product.tradeItems.count{
-//                    itemList += "       \(index+1).\(product.tradeItems[index].exchangeItem) \n"
-//                }
-                lbTradeItem.text = itemList
-            }else{
-                lbTradeItem.isHidden = true
+                tradeType.append("交換")
+                price.append("權重 : \(product.weightPrice)")
             }
-            lbAddress.text = "商品地區:\(product.address)"
-            lbRentType.text = "寄送方式:\(product.rentMethod)"
-            
+//            lbSalePrice.text = price
+            var tradeTypeText = "模式 : "
+            for index in 0..<tradeType.count{
+                if(index==tradeType.count-1){
+                    tradeTypeText += "\(tradeType[index])"
+                }else{
+                    tradeTypeText += "\(tradeType[index])/"
+                }
+            }
+            var priceText = ""
+            for index in 0..<price.count{
+                if(index==price.count-1){
+                    priceText += "\(price[index])"
+                }else{
+                    priceText += "\(price[index])\n"
+                }
+            }
+            lbSalePrice.text = priceText
+            lbTradeType.text = tradeTypeText
+            lbAddress.text = "商品地區 : \(product.address)"
             for index in 0..<product.pics.count{
                 productsImage.append(product.pics[index].path)
             }
@@ -90,16 +100,6 @@ class ProductInfoViewController: BaseViewController {
             self.productInfoCollectionView.reloadData()
             lbTradeItem.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容;"
         }
-        
-        
-        //設定換頁控制器有幾頁
-        productInfoPC.numberOfPages = productsImage.count
-        //起始在第0頁
-        productInfoPC.currentPage = 0;
-        // Do any additional setup after loading the view.
-    }
-    func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
-        return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
     //按下立即下單按鈕
     @IBAction func confirmOnClicked(_ sender: Any) {

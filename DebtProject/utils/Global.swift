@@ -37,6 +37,7 @@ enum TableViewCell:String,CaseIterable{
     case productModelCell = "ProductModelCell"
     case myOrderListTableViewCell = "MyOrderListTableViewCell"
     case makeOrderTableViewCell = "MakeOrderTableViewCell"
+    case myStoreTableViewCell = "MyStoreTableViewCell"
 }
 enum CollectionViewCell:String,CaseIterable{
     case pageCollectionViewCell = "PageCollectionViewCell"

@@ -11,11 +11,27 @@ class PageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgGame: UIImageView!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbState: UILabel!
-    @IBOutlet weak var lbPrice: UILabel!
     func configure(with model: ProductModel) {
         self.lbTitle.text = model.title
-        self.lbPrice.text = String(model.salePrice)
-        self.lbState.text = model.description
+        var saleType = [String]()
+        if(model.isSale){
+            saleType.append("販售")
+        }
+        if(model.isRent){
+            saleType.append("租借")
+        }
+        if(model.isExchange){
+            saleType.append("交換")
+        }
+        var saleTypeText = ""
+        for index in 0..<saleType.count {
+            if(index==saleType.count-1){
+                saleTypeText += "\(saleType[index])"
+            }else{
+                saleTypeText += "\(saleType[index])/"
+            }
+        }
+        self.lbState.text = saleTypeText
         //放照片
         if model.pics.count == 0 {
             self.imgGame.image = UIImage(named: "monsterhunter")

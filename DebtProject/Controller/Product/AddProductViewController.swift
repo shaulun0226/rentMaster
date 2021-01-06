@@ -236,6 +236,9 @@ class AddProductViewController: BaseViewController {
     
     //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
+        if(pickerList.count<=0){
+            return
+        }
         let title  = pickerList[pickerView.selectedRow(inComponent: 0)]
         switch currentButton {
         case btnSend:
