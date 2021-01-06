@@ -238,9 +238,8 @@ extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductInfoImageCollectionViewCell", for: indexPath) as? ProductInfoImageCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.productInfoImageCollectionViewCell.rawValue, for: indexPath) as? ProductInfoImageCollectionViewCell {
             cell.configure(with: productsImage[indexPath.row])
-            
             return cell;
         }
         return UICollectionViewCell()

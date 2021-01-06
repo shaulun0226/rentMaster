@@ -11,6 +11,7 @@ class MyOrderListViewController: BaseViewController {
     
     var orders = [ProductModel]()
     var tabbarTitle = [String]()
+    
     //collectionview底線
     var slider = UIView()
     @IBOutlet weak var collectionView: UICollectionView!

@@ -664,6 +664,36 @@ class NetworkController{
                 }
             }
     }
+    func getMyOrderListBuyer(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/CartItems/productList";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
     //MARK: - Cart
     func addCart(productId:String,completionHandler:@escaping (_ :String,Bool) -> ()){
         let url = "\(serverUrl)/CartItems/add";
