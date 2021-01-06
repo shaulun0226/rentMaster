@@ -302,7 +302,8 @@ class NetworkController{
     }
     func getProductListByType1(type1:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Products/listByType1/\(type1)/\(pageBegin)/\(pageEnd)";
-        AF.request(url,method: .get,encoding:JSONEncoding.default)
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功
@@ -330,7 +331,8 @@ class NetworkController{
     }
     func getProductListByType2(type1:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Products/listByType2/\(type1)/\(type2)/\(pageBegin)/\(pageEnd)";
-        AF.request(url,method: .get,encoding:JSONEncoding.default)
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功

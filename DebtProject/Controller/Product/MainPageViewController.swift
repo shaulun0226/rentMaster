@@ -19,8 +19,8 @@ class MainPageViewController: BaseSideMenuViewController {
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
     }
     override func viewWillAppear(_ animated: Bool) {
-        let account = userDefault.value(forKey: "Account") as! String
-        let password = userDefault.value(forKey: "Password") as! String
+        guard let account = userDefault.value(forKey: "Account") as? String else{return}
+        guard let password = userDefault.value(forKey: "Password") as? String else{return}
         if(account.isEmpty||password.isEmpty){
             return
         }

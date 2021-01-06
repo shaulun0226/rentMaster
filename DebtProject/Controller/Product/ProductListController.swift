@@ -107,7 +107,7 @@ class ProductListController: BaseSideMenuViewController{
         //設定searchController 背景顏色
         //        searchController?.searchBar.backgroundColor = UIColor(named: "card")//沒用
         //設定searchBar顏色
-        //            searchController?.searchBar.barStyle = .black
+//                    searchController?.searchBar.barStyle = .black
         searchController?.searchBar.barTintColor = UIColor(named: "card")
         //            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
         //searchbar取消文字顏色
@@ -134,7 +134,6 @@ class ProductListController: BaseSideMenuViewController{
         //        searchController?.dimsBackgroundDuringPresentation = false //ios12被丟掉的方法
         definesPresentationContext = true
         tableview.tableHeaderView = searchController?.searchBar
-        tableview.tableHeaderView?.backgroundColor = UIColor(named: "card")
     }
     @IBAction func addProductClick(){
         if let vcMain = self.storyboard?.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController{
@@ -239,7 +238,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 print(productType2)
             }
             productType1 = "PS5"
-            productType2 = "game"
+            productType2 = "遊戲"
             if(Global.isOnline){
                 NetworkController.instance().getProductListByType2(type1: productType1!,type2: productType2!  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
                     [weak self](value, isSuccess) in
@@ -348,6 +347,14 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         250
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.backgroundColor = UIColor(named: "card")
+        if (scrollView.contentOffset.y<0) {
+            self.tableview.backgroundColor = UIColor(named: "card")//和頂部區域同色
+        } else {
+            self.tableview.backgroundColor = UIColor(named: "card")
+        }
     }
 }
 extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{

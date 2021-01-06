@@ -12,7 +12,8 @@ class ProductModelCell: UITableViewCell {
     @IBOutlet weak var img:UIImageView!
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbPrice :UILabel!
-    @IBOutlet weak var lbDiscription:UILabel!
+    @IBOutlet weak var lbProductAmount:UILabel!
+    @IBOutlet weak var lbTradeType:UILabel!
     
     var cornerRadius: CGFloat = 20
     var shadowOffsetWidth: Int = 1
@@ -61,8 +62,40 @@ class ProductModelCell: UITableViewCell {
     }
     func configure(with model: ProductModel) {
         self.lbName.text = model.title
-        self.lbDiscription.text = model.description
-        self.lbPrice.text = String(model.salePrice)
+        self.lbProductAmount.text = "剩餘數量:\(model.amount)"
+        
+        var price = ""
+        if(model.isSale){
+            price += "售價:\(model.salePrice)元\n"
+        }
+        if(model.isRent){
+            price += "保證金:\(model.deposit)元\n"
+            price += "租金:\(model.rent)元/日\n"
+        }
+        if(model.isExchange){
+            price += "權重:\(model.weightPrice)"
+        }
+        self.lbPrice.text = price
+        
+        var saleType = [String]()
+        if(model.isSale){
+            saleType.append("販售")
+        }
+        if(model.isRent){
+            saleType.append("租借")
+        }
+        if(model.isExchange){
+            saleType.append("交換")
+        }
+        var saleTypeText = ""
+        for index in 0..<saleType.count {
+            if(index==saleType.count-1){
+                saleTypeText += "\(saleType[index])"
+            }else{
+                saleTypeText += "\(saleType[index])/"
+            }
+        }
+        lbTradeType.text = "交易模式:\(saleTypeText)"
         if model.pics.count == 0 {
             self.img.image = UIImage(named: "monsterhunter")
             return

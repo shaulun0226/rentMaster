@@ -80,6 +80,12 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
         }
         return UITableViewCell()
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let infoView = Global.productStoryboard.instantiateViewController(withIdentifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
+            infoView.product = cartProducts[indexPath.row]
+            self.show(infoView, sender: nil)
+        }
+    }
 }
 extension CartViewController:UIPopoverPresentationControllerDelegate{
     //IOS會自動偵測是iphone還是ipad，如果是iphone的話預設popover會是全螢幕，加上這個func以後會把預設的關閉，照我們寫的視窗大小彈出
@@ -127,10 +133,6 @@ extension CartViewController:CartCellMenuViewDelegate{
                 [weak self] (reponseValue,isSuccess) in
                 guard let weakSelf  = self else{return}
                 weakSelf.cartProducts.remove(at: index)
-//                weakSelf.cartTableView.beginUpdates()
-//                weakSelf.cartTableView.deselectRow(at: IndexPath(row: index, section: 0), animated: true)
-//                
-//                weakSelf.cartTableView.endUpdates()
                 weakSelf.cartTableView.reloadData()
             }
         }

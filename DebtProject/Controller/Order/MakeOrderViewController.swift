@@ -13,6 +13,7 @@ class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
     //tavleView
+    @IBOutlet weak var lbProductTitle: UILabel!
     @IBOutlet weak var wishListTableView: UITableView!
     var buyAmount:Float! = 0.0
     var exchangeList = [String]()
@@ -117,6 +118,7 @@ class MakeOrderViewController: BaseViewController {
         lbProductRentPrice.text = "商品租金:\(product.rent)元/日"
         lbProductAmount.text = "剩餘數量:\(product.amount)"
         lbWeightPrice.text = "\(product.weightPrice)"
+        lbProductTitle.text = product.title
     }
     private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
         var wishListTmp = [WishItemModel]()

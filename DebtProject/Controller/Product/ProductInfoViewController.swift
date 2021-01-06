@@ -165,7 +165,7 @@ class ProductInfoViewController: BaseViewController {
             NetworkController.instance().addCart(productId: product.id){
                 (responseValue, isSuccess) in
                 //                guard let weakSelf = self else {return}
-                let alertView = SwiftAlertView(title: "", message: "\(responseValue)\n", delegate: nil, cancelButtonTitle: "確定")
+                let alertView = SwiftAlertView(title: "", message: "加入購物車！\n", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = .white
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
@@ -207,6 +207,8 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
             default:
                 cell.lbMainPageTitle.text = ""
             }
+            //設定點擊不反白
+            cell.selectionStyle = .none
             cell.lbMainPageHint.isHidden = true
             //設定cell內容
             cell.tableViewCellDelegate = self
