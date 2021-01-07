@@ -15,6 +15,8 @@ class WishListTableViewCell: BaseTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = UIColor(named: "card")
+        self.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

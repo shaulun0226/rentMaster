@@ -95,7 +95,7 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
             print("創造cell位置\(indexPath.row)")
             cell.configure(wishListModel:wishList[indexPath.row])
             cell.lbNumber.text = "\(indexPath.row+1):"
-            cell.backgroundColor = .clear
+//            cell.backgroundColor = .clear
             return cell
         }
         return UITableViewCell()
@@ -104,6 +104,7 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
         //選到後馬上解除選取
         wishListTV.deselectRow(at: indexPath, animated: false)
     }
+    //側滑刪除
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         print("id:\(self.wishList[indexPath.row].id)")

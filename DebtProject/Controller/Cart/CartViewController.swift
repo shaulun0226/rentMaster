@@ -86,6 +86,32 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
             self.show(infoView, sender: nil)
         }
     }
+    //側滑刪除
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt
+                    indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            print("id:\(self.cartProducts[indexPath.row].id)")
+            let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
+                NetworkController.instance().deleteCartItem(id: self.cartProducts[indexPath.row].id){
+                    [weak self] (reponseValue,isSuccess) in
+                    guard let  weakSelf = self else{return}
+                    if(isSuccess){
+                        weakSelf.cartProducts.remove(at: indexPath.row)
+                        weakSelf.cartTableView.reloadData()
+                        print(reponseValue)
+                    }
+                }
+                // 需要返回true，不然會没有反應
+                completionHandler(true)
+            }
+            deleteAction.backgroundColor = .red
+            deleteAction.image = UIImage(systemName: "trash")
+            let config = UISwipeActionsConfiguration(actions: [deleteAction])
+            
+            // 取消拉長後自動執行
+            config.performsFirstActionWithFullSwipe = false
+            
+            return config
+    }
 }
 extension CartViewController:UIPopoverPresentationControllerDelegate{
     //IOS會自動偵測是iphone還是ipad，如果是iphone的話預設popover會是全螢幕，加上這個func以後會把預設的關閉，照我們寫的視窗大小彈出

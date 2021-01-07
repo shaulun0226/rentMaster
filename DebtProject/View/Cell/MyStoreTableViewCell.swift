@@ -17,7 +17,7 @@ class MyStoreTableViewCell: UITableViewCell {
     var shadowOffsetWidth: Int = 1
     var shadowOffsetHeight: Int = 1
     var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 1
+    var shadowOpacity: Float = 0.4
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -48,15 +48,15 @@ class MyStoreTableViewCell: UITableViewCell {
         //
         layer.cornerRadius = cornerRadius
         //設定陰影
-        //        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        //        layer.masksToBounds = false
-        //        layer.shadowColor = shadowColor?.cgColor
-        //        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        //        layer.shadowOpacity = shadowOpacity
-        //        layer.shadowPath = shadowPath.cgPath
-        //        設定框線
-        //        layer.borderWidth = 1.0
-        //        layer.borderColor = UIColor.black.cgColor
+                let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+                layer.masksToBounds = false
+                layer.shadowColor = shadowColor?.cgColor
+                layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+                layer.shadowOpacity = shadowOpacity
+                layer.shadowPath = shadowPath.cgPath
+//                //設定框線
+//                layer.borderWidth = 1.0
+//                layer.borderColor = UIColor.black.cgColor
     }
     func configure(with model: ProductModel) {
         self.lbName.text = model.title

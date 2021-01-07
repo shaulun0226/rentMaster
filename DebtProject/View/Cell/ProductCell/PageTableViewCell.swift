@@ -9,7 +9,7 @@ import UIKit
 protocol PageTableViewCellDelegate : AnyObject{
     func cellClick(indexPath: IndexPath,products:[ProductModel])
 }
-class PageTableViewCell: UITableViewCell {
+class PageTableViewCell: BaseTableViewCell {
     var myCollectionView:UICollectionView?
     @IBOutlet weak var pageCollectionView:UICollectionView!
     @IBOutlet weak var lbMainPageTitle: UILabel!
@@ -35,26 +35,26 @@ class PageTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    @IBInspectable var cornerRadius: CGFloat = 20
+//    @IBInspectable var cornerRadius: CGFloat = 20
+//    //
+//    var shadowOffsetWidth: Int = 5
+//    var shadowOffsetHeight: Int = 5
+//    var shadowColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//    var shadowOpacity: Float = 0.4
     //
-    var shadowOffsetWidth: Int = 5
-    var shadowOffsetHeight: Int = 5
-    var shadowColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    var shadowOpacity: Float = 5
-    //
-    override open var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame =  newFrame
-            frame.origin.y += 5//調整y起點
-            frame.origin.x += 5//調整x起點
-            frame.size.height -= 15//調整高度
-            frame.size.width -= 2 * 5
-            super.frame = frame
-        }
-    }
+//    override open var frame: CGRect {
+//        get {
+//            return super.frame
+//        }
+//        set (newFrame) {
+//            var frame =  newFrame
+//            frame.origin.y += 5//調整y起點
+//            frame.origin.x += 5//調整x起點
+//            frame.size.height -= 15//調整高度
+//            frame.size.width -= 2 * 5
+//            super.frame = frame
+//        }
+//    }
     override func layoutSubviews() {
         super.layoutSubviews()
         //設定cell下緣
@@ -63,13 +63,13 @@ class PageTableViewCell: UITableViewCell {
         
         
         layer.cornerRadius = cornerRadius
-//        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-//        //
-//        //            layer.masksToBounds = false//超過框線的地方會被裁掉
-//        layer.shadowColor = shadowColor?.cgColor
-//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-//        layer.shadowOpacity = shadowOpacity
-//        layer.shadowPath = shadowPath.cgPath
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        //
+                    layer.masksToBounds = false//超過框線的地方會被裁掉
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
 //        //            layer.borderWidth = 1.0
         //            layer.borderColor = UIColor.black.cgColor
     }

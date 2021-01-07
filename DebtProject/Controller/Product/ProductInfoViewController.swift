@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftAlertView
+import SwiftyJSON
 
 class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbProductTtile: UILabel!
@@ -23,6 +24,7 @@ class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var productInfoCollectionView: UICollectionView!
     @IBOutlet weak var productInfoPC: UIPageControl!
     var products = [ProductModel]()
+    var productsBySeller = [ProductModel]()
     var product:ProductModel!
     var productsImage = [String]()
     var productTitle:String!
@@ -44,10 +46,57 @@ class ProductInfoViewController: BaseViewController {
         productInfoPC.currentPage = 0;
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        productsBySeller.removeAll()
+        NetworkController.instance().getProductListBySellerId(sellerId: product.userId, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+            [weak self] (responseValue,isSuccess) in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let jsonArr = JSON(responseValue)
+                weakSelf.productsBySeller = weakSelf.parseProduct(jsonArr: jsonArr)
+                weakSelf.productInfoTableView.reloadData()
+            }else{
+                
+            }
+        }
+    }
+    private func parseProduct(jsonArr:JSON) -> [ProductModel]{
+        var products = [ProductModel]()
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string ?? ""
+            let title = jsonArr[index]["title"].string ?? ""
+            let description = jsonArr[index]["description"].string ?? ""
+            let isSale = jsonArr[index]["isSale"].bool ?? false
+            let isRent = jsonArr[index]["isRent"].bool ?? false
+            let isExchange = jsonArr[index]["isExchange"].bool ?? false
+            let address = jsonArr[index]["address"].string ?? ""
+            let deposit = jsonArr[index]["deposit"].int ?? 0
+            let rent = jsonArr[index]["rent"].int ?? 0
+            let salePrice = jsonArr[index]["salePrice"].int ?? 0
+            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
+            let amount = jsonArr[index]["amount"].int ?? 0
+            let type = jsonArr[index]["type"].string ?? ""
+            let type1 = jsonArr[index]["type1"].string ?? ""
+            let type2 = jsonArr[index]["type2"].string ?? ""
+            let userId = jsonArr[index]["userId"].string ?? ""
+            let picsArr = jsonArr[index]["pics"].array ?? []
+            let weightPrice = jsonArr[index]["weightPrice"].float ?? 0.0
+            
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id  = picsArr[index]["id"].string ?? ""
+                let path  = picsArr[index]["path"].string ?? ""
+                let productId  = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
+            products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
+        }
+        return products
+    }
     func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
         return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
-    
     private func setText(){
         if(Global.isOnline){
             lbProductTtile.text = "\(product.title)"
@@ -70,7 +119,7 @@ class ProductInfoViewController: BaseViewController {
                 tradeType.append("交換")
                 price.append("權重 : \(product.weightPrice)")
             }
-//            lbSalePrice.text = price
+            //            lbSalePrice.text = price
             var tradeTypeText = "模式 : "
             for index in 0..<tradeType.count{
                 if(index==tradeType.count-1){
@@ -130,7 +179,7 @@ class ProductInfoViewController: BaseViewController {
         if let makeOrderView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.makeOrderViewController.rawValue) as? MakeOrderViewController{
             makeOrderView.product  = self.product
             self.present(makeOrderView, animated: true, completion: nil)
-//            self.presentBottom(makeOrderView)
+            //            self.presentBottom(makeOrderView)
         }
     }
     @IBAction func addCartClick(_ sender: Any) {
@@ -159,7 +208,7 @@ class ProductInfoViewController: BaseViewController {
                     }
                 }
                 alertView.show()
-
+                
                 return
             }
             NetworkController.instance().addCart(productId: product.id){
@@ -202,8 +251,36 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
             switch indexPath.row {
             case 0:
                 cell.lbMainPageTitle.text = "賣場其他商品"
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListBySellerId(sellerId: product.userId, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+                        [weak self] (responseValue,isSuccess) in
+                        guard let weakSelf = self else{return}
+                        if(isSuccess){
+                            let jsonArr = JSON(responseValue)
+                            cell.products.removeAll()
+                            cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            print("取得賣家其他商品失敗")
+                        }
+                    }
+                }
             case 1:
                 cell.lbMainPageTitle.text = "您可能喜歡"
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType2(type1: product.type1, type2: product.type2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+                        [weak self] (responseValue,isSuccess) in
+                        guard let weakSelf = self else{return}
+                        if(isSuccess){
+                            let jsonArr = JSON(responseValue)
+                            cell.products.removeAll()
+                            cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
+                            cell.pageCollectionView.reloadData()
+                        }else{
+                            print("取得可能喜歡商品失敗")
+                        }
+                    }
+                }
             default:
                 cell.lbMainPageTitle.text = ""
             }

@@ -111,6 +111,28 @@ class AddProductViewController: BaseViewController {
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        //加入子視圖(在這裡是要彈出的popoverview)
+        view.addSubview(selectView)
+        /*在所有有繼承自 UIView 的 object 中都會有一個名為 “translatesAutoresizingMaskIntoConstraints”
+         的 property，這 property 的用途是告訴 iOS自動建立放置位置的約束條件，而第一步是須明確告訴它不要這樣做，因此需設為false。*/
+        selectView.translatesAutoresizingMaskIntoConstraints = false
+        //設定子試圖畫面高度，一定要加.isActive = true 不然排版會沒有用
+        selectView.heightAnchor.constraint(equalToConstant: popoverViewHeight).isActive = true
+        //設定左右邊界(左邊要是-10)
+        selectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        selectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        //先設定這個畫面在螢幕bottom下方height高度位置，等等調整這個數值就可以達到由下往上滑出的效果
+        //設為變數等等才方便調整
+        let constraint = selectView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: popoverViewHeight)
+        //設定constraint id
+        constraint.identifier = "bottom"
+        constraint.isActive = true
+        //設定圓角
+        selectView.layer.cornerRadius = 10
+        super.viewWillAppear(animated)
+    }
+    //設定起始字
     private func putInProductInfo(){
         tfProductTitle.text = product.title
         tfProductRent.text = String(product.rent)
@@ -195,6 +217,7 @@ class AddProductViewController: BaseViewController {
         productType2 = product.type2
         productWeightPrice = product.weightPrice
     }
+    //MARK:- checkBOX相關
     @IBAction func btnSaleClick(_ sender: Any) {
         btnSaleSelected = !btnSaleSelected
         if(btnSaleSelected){
@@ -234,6 +257,7 @@ class AddProductViewController: BaseViewController {
     }
     
     
+    //MARK:-popover相關
     //popover裡按下完成按鍵的action
     @IBAction func doneClick(_ sender: Any) {
         if(pickerList.count<=0){
@@ -262,7 +286,6 @@ class AddProductViewController: BaseViewController {
         //關閉pickerview
         displayPicker(false)
     }
-    
     
     //popover裡按下取消按鍵的action
     @IBAction func cancelClick(_ sender: Any) {
@@ -344,27 +367,7 @@ class AddProductViewController: BaseViewController {
             self.view.layoutIfNeeded()
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        //加入子視圖(在這裡是要彈出的popoverview)
-        view.addSubview(selectView)
-        /*在所有有繼承自 UIView 的 object 中都會有一個名為 “translatesAutoresizingMaskIntoConstraints”
-         的 property，這 property 的用途是告訴 iOS自動建立放置位置的約束條件，而第一步是須明確告訴它不要這樣做，因此需設為false。*/
-        selectView.translatesAutoresizingMaskIntoConstraints = false
-        //設定子試圖畫面高度，一定要加.isActive = true 不然排版會沒有用
-        selectView.heightAnchor.constraint(equalToConstant: popoverViewHeight).isActive = true
-        //設定左右邊界(左邊要是-10)
-        selectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        selectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        //先設定這個畫面在螢幕bottom下方height高度位置，等等調整這個數值就可以達到由下往上滑出的效果
-        //設為變數等等才方便調整
-        let constraint = selectView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: popoverViewHeight)
-        //設定constraint id
-        constraint.identifier = "bottom"
-        constraint.isActive = true
-        //設定圓角
-        selectView.layer.cornerRadius = 10
-        super.viewWillAppear(animated)
-    }
+    
     //點擊空白收回鍵盤
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
@@ -500,11 +503,13 @@ class AddProductViewController: BaseViewController {
         rentDayView.isUserInteractionEnabled = isModify
         salePriceView.isUserInteractionEnabled = isModify
     }
+    //MARK:-編輯模式按鈕
     @IBAction func modifyCancelClick(_ sender: Any) {
         setModify(isModify: false)
         setTextFieldUnderLine(size: CGFloat(0))
         btnCancel.isHidden = true
         btnModify.setTitle("編輯", for:.normal)
+        btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         productImages.removeAll()
         NetworkController.instance().getProductById(productId: product.id){
             [weak self] (responseValue,isSuccess) in
@@ -526,7 +531,7 @@ class AddProductViewController: BaseViewController {
             setModify(isModify:true)
             setTextFieldUnderLine(size: CGFloat(1))
             btnModify.setTitle("完成", for:.normal)
-            self.btnModify.backgroundColor = UIColor(named: "Button")
+            btnModify.backgroundColor = UIColor(named: "Button")
             btnCancel.isHidden = false
         case "完成":
             if(!productInfoCheck()){
@@ -552,6 +557,7 @@ class AddProductViewController: BaseViewController {
             return
         }
     }
+    //MARK:-解析JSON
     private func parseProduct(json:JSON){
         let id = json["id"].string!
         let title = json["title"].string!

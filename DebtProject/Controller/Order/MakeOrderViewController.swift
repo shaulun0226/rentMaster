@@ -71,6 +71,7 @@ class MakeOrderViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         wishListTableView.delegate = self
         wishListTableView.dataSource = self
         wishListTableView.backgroundColor = .clear

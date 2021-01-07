@@ -28,7 +28,7 @@ class OrderViewController: BaseViewController {
     var orderOwner : UserModel!
     //留言板
     @IBOutlet weak var sendNoteView: DesignableView!
-    @IBOutlet weak var tfInput: UnderLineTextField!
+    @IBOutlet weak var txSend: UITextView!
     @IBOutlet weak var btnSend: UIButton!
     var notes = [NoteModel]()
     @IBOutlet weak var NoteTableView: UITableView!
@@ -53,8 +53,8 @@ class OrderViewController: BaseViewController {
         // Do any additional setup after loading the view.
         NoteTableView.delegate = self
         NoteTableView.dataSource = self
-        NoteTableView.rowHeight = UITableView.automaticDimension;
-        NoteTableView.estimatedRowHeight = UITableView.automaticDimension;
+        NoteTableView.rowHeight = UITableView.automaticDimension
+        NoteTableView.estimatedRowHeight = UITableView.automaticDimension
         NetworkController.instance().getUserInfo{
             [weak self] (reponseValue,isSuccess)in
             guard let weakSelf = self else{return}
@@ -158,6 +158,10 @@ class OrderViewController: BaseViewController {
         sendNoteView.layer.insertSublayer(layer, at: 0)
         //設定KVO
         NoteTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        
+        txSend.text = "請輸入留言內容"
+        txSend.textColor = UIColor.lightGray
+        txSend.delegate = self
     }
     //利用kvo設定tableview高度隨內容改變
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -169,10 +173,10 @@ class OrderViewController: BaseViewController {
     }
     //傳送
     @IBAction func btnSendClick(_ sender: Any) {
-        if(tfInput.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+        if(txSend.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
             return
         }
-        let messgae = tfInput.text!
+        let messgae = txSend.text!
         NetworkController.instance().addNote(orderId: order.id, message: messgae){
             [weak self] (responseValue, isSuccess)in
             guard let weakSelf = self else{return}
@@ -180,7 +184,7 @@ class OrderViewController: BaseViewController {
                 let json = JSON(responseValue)
                 print(json)
                 weakSelf.notes.append(weakSelf.parseNote(json: json))
-                weakSelf.tfInput.text = ""
+                weakSelf.txSend.text = ""
                 weakSelf.NoteTableView.reloadData()
             }
         }
@@ -201,6 +205,20 @@ extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
             return cell
         }
         return UITableViewCell()
+    }
+}
+extension OrderViewController:UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.white
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "請輸入留言內容"
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
 //MARK:- 圖片collectionVIew

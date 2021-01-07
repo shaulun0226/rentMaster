@@ -387,6 +387,64 @@ class NetworkController{
                 }
             }
     }
+    func getProductListBySellerId(sellerId:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/listBySeller/\(sellerId)/\(pageBegin)/\(pageEnd)";
+        //因為網址含有中文，需要做編碼處理
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
+    func getProductById(productId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/ById/\(productId)";
+        AF.request(url,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     func addProduct(title:String,description:String,isSale:Bool,isRent:Bool,isExchange:Bool,deposit:Int,rent:Int,salePrice:Int,rentMethod:String,amount:Int,address:String,type:String,type1:String,type2:String,pics:[UIImage],weightPrice:Float,completionHandler:@escaping (_ status :String,Bool) -> ()){
         var picsJsonArr = [Parameters]()
         for index in 0..<pics.count{
@@ -473,7 +531,8 @@ class NetworkController{
                 }
             }
     }
-    func getOwnitem(completionHandler:@escaping (_ :Any,Bool) -> ()){
+    //MARK:- ownItem 我的賣場
+    func getMyOwnItem(completionHandler:@escaping (_ :Any,Bool) -> ()){
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
         let url = "\(serverUrl)/Products/ownItem";
         AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
@@ -502,9 +561,10 @@ class NetworkController{
                 }
             }
     }
-    func getProductById(productId:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
-        let url = "\(serverUrl)/Products/ById/\(productId)";
-        AF.request(url,method: .get,encoding:JSONEncoding.default)
+    func getMyOwnItemOnShelf(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let url = "\(serverUrl)/Products/ownItemOnShelf";
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功
@@ -526,6 +586,66 @@ class NetworkController{
                 case .failure(let error):
                     print("error:\(error)")
                     completionHandler( error, false)
+                    break
+                }
+            }
+    }
+    func getMyOwnItemNotOnShelf(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        let url = "\(serverUrl)/Products/ownItemNotOnShelf";
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
+    func deleteMyOwnItem(id:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Products/ownItem/\(id)";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .delete,encoding:JSONEncoding.default,headers: header)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            
+                            print(value)
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
                     break
                 }
             }

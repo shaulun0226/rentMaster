@@ -18,7 +18,6 @@ class MyBuyerOrderListViewController: BaseViewController {
     @IBOutlet weak var tableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        orders.removeAll()
         setupSlider()
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
@@ -33,6 +32,10 @@ class MyBuyerOrderListViewController: BaseViewController {
         flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3, height:50)
         flowLayout?.estimatedItemSize = .zero
         flowLayout?.minimumInteritemSpacing = 1
+       
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        orders.removeAll()
         NetworkController.instance().getMyOrderListBuyer{
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
@@ -41,10 +44,11 @@ class MyBuyerOrderListViewController: BaseViewController {
                 weakSelf.parseOrder(jsonArr: jsonArr)
                 weakSelf.collectionView.reloadData()
                 weakSelf.tableview.reloadData()
+            }else{
+                print("進到我的訂單")
             }
         }
     }
-    
     private func setupSlider(){
         self.slider.frame.size = CGSize(width: 90, height: 5)
         self.slider.center.y = collectionView.bounds.maxY-10

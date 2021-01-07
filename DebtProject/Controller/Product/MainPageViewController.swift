@@ -24,7 +24,7 @@ class MainPageViewController: BaseSideMenuViewController {
         if(account.isEmpty||password.isEmpty){
             return
         }
-        if(Global.isOnline){
+        if(Global.isOnline && User.token.isEmpty){
             NetworkController.instance().login(email: account, password: password) {
                 // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
                 (value,isSuccess)  in

@@ -19,7 +19,6 @@ class MemberCenterViewController: BaseSideMenuViewController {
         memberCenterTableView.layer.cornerRadius = 20
         memberCenterTableView.backgroundColor = UIColor(named: "card")
     }
-    
 }
 extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,7 +87,10 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
                     User.token = ""
                     self.userDefault.removeObject(forKey: "Account")
                     self.userDefault.removeObject(forKey: "Password")
-                    alertView.dismiss()
+                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+                        self.show(mainView, sender: nil)
+                    }
+//                    alertView.dismiss()
                 }
             }
             alertView.show()
