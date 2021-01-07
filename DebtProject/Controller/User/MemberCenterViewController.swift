@@ -58,7 +58,7 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
         }
         switch indexPath.row {
         case 0:
-            if let myOrderListViewController = Global.productStoryboard.instantiateViewController(identifier:ProductStoryboardController.myOrderListViewController.rawValue) as? MyOrderListViewController{
+            if let myOrderListViewController = Global.productStoryboard.instantiateViewController(identifier:ProductStoryboardController.myBuyerOrderListViewController.rawValue) as? MyBuyerOrderListViewController{
                 self.show(myOrderListViewController, sender: nil);
             }
         case 1:

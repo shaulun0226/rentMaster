@@ -28,7 +28,7 @@ enum ProductStoryboardController:String,CaseIterable{
     case productInfoViewController = "ProductInfoView"
     case addProductViewController = "AddProductViewController"
     case cartCellMenuViewController = "CartCellMenuViewController"
-    case myOrderListViewController = "MyOrderListViewController"
+    case myBuyerOrderListViewController = "MyBuyerOrderListViewController"
     case makeOrderViewController = "MakeOrderViewController"
     case orderViewController = "OrderViewController"
 }
@@ -39,6 +39,7 @@ enum TableViewCell:String,CaseIterable{
     case myOrderListTableViewCell = "MyOrderListTableViewCell"
     case makeOrderTableViewCell = "MakeOrderTableViewCell"
     case myStoreTableViewCell = "MyStoreTableViewCell"
+    case noteTableViewCell = "NoteTableViewCell"
 }
 enum CollectionViewCell:String,CaseIterable{
     case pageCollectionViewCell = "PageCollectionViewCell"

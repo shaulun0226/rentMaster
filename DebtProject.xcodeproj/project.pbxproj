@@ -17,7 +17,7 @@
 		9F1637BF259AFFF2008E9996 /* CityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637BE259AFFF2008E9996 /* CityList.swift */; };
 		9F1637C4259B5587008E9996 /* MemberCenterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */; };
 		9F1637C9259B56DF008E9996 /* MemberCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */; };
-		9F1637CE259B816A008E9996 /* MyOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */; };
+		9F1637CE259B816A008E9996 /* MyBuyerOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637CD259B816A008E9996 /* MyBuyerOrderListViewController.swift */; };
 		9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */; };
 		9F1637DB259C50DF008E9996 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DA259C50DF008E9996 /* UserModel.swift */; };
 		9F1637E0259C57B1008E9996 /* ChangeUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */; };
@@ -37,6 +37,8 @@
 		9F3F2D76258B560900E156A8 /* PageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3F2D74258B560900E156A8 /* PageTableViewCell.xib */; };
 		9F3F2D7C258B563400E156A8 /* PageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3F2D7A258B563400E156A8 /* PageCollectionViewCell.swift */; };
 		9F3F2D7D258B563400E156A8 /* PageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */; };
+		9F6C478D25A6A07E004C9EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C478C25A6A07E004C9EC5 /* OrderModel.swift */; };
+		9F6C479525A6DF4F004C9EC5 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C479425A6DF4F004C9EC5 /* NoteTableViewCell.swift */; };
 		9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */; };
 		9F6C4D842577F6110091BEA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D832577F6110091BEA5 /* Global.swift */; };
 		9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C532582831D0082A94E /* UnderLineTextField.swift */; };
@@ -114,7 +116,7 @@
 		9F1637BE259AFFF2008E9996 /* CityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityList.swift; sourceTree = "<group>"; };
 		9F1637C3259B5587008E9996 /* MemberCenterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCenterTableViewCell.swift; sourceTree = "<group>"; };
 		9F1637C8259B56DF008E9996 /* MemberCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCenterViewController.swift; sourceTree = "<group>"; };
-		9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderListViewController.swift; sourceTree = "<group>"; };
+		9F1637CD259B816A008E9996 /* MyBuyerOrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuyerOrderListViewController.swift; sourceTree = "<group>"; };
 		9F1637D5259C2BF4008E9996 /* CustomOutsideFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOutsideFrameView.swift; sourceTree = "<group>"; };
 		9F1637DA259C50DF008E9996 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		9F1637DF259C57B1008E9996 /* ChangeUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,8 @@
 		9F3F2D74258B560900E156A8 /* PageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageTableViewCell.xib; sourceTree = "<group>"; };
 		9F3F2D7A258B563400E156A8 /* PageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageCollectionViewCell.xib; sourceTree = "<group>"; };
+		9F6C478C25A6A07E004C9EC5 /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		9F6C479425A6DF4F004C9EC5 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListController.swift; sourceTree = "<group>"; };
 		9F6C4D832577F6110091BEA5 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9F6E6C532582831D0082A94E /* UnderLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 				9F1637DA259C50DF008E9996 /* UserModel.swift */,
 				9FAF05D925A343A5004848AA /* WishItemModel.swift */,
 				9F85C1F625A547EF002BB99A /* CartItemModel.swift */,
+				9F6C478C25A6A07E004C9EC5 /* OrderModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -417,7 +422,7 @@
 		9F847C2B25A208DA00CACE2F /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				9F1637CD259B816A008E9996 /* MyOrderListViewController.swift */,
+				9F1637CD259B816A008E9996 /* MyBuyerOrderListViewController.swift */,
 				9F17076E25A059F900A126BB /* MakeOrderViewController.swift */,
 				9F85C20025A5F103002BB99A /* OrderViewController.swift */,
 			);
@@ -441,6 +446,7 @@
 				9F92513F259D95AD007699C4 /* MyOrderListTabBarCell.swift */,
 				9F92513A259D9570007699C4 /* MyOrderListTableViewCell.swift */,
 				9F17077325A0602B00A126BB /* MakeOrderTableViewCell.swift */,
+				9F6C479425A6DF4F004C9EC5 /* NoteTableViewCell.swift */,
 			);
 			path = OrderCell;
 			sourceTree = "<group>";
@@ -706,7 +712,7 @@
 				9F85284325936D47004454E6 /* CartViewController.swift in Sources */,
 				9F17077425A0602B00A126BB /* MakeOrderTableViewCell.swift in Sources */,
 				9F85C1F725A547EF002BB99A /* CartItemModel.swift in Sources */,
-				9F1637CE259B816A008E9996 /* MyOrderListViewController.swift in Sources */,
+				9F1637CE259B816A008E9996 /* MyBuyerOrderListViewController.swift in Sources */,
 				9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */,
 				9FAAA330259A267C00707976 /* CustomFooter.swift in Sources */,
 				9FB025D42589F7F100D6715E /* MainProductModelCell.swift in Sources */,
@@ -731,6 +737,7 @@
 				9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */,
 				9F3F2D5A258B103F00E156A8 /* CardView.swift in Sources */,
 				9F877D58258F059E0030A175 /* AddProductViewController.swift in Sources */,
+				9F6C478D25A6A07E004C9EC5 /* OrderModel.swift in Sources */,
 				9F215D662598D07C0010B000 /* ChangePasswordViewController.swift in Sources */,
 				9F3C77932577BF3B0063E641 /* LoginViewController.swift in Sources */,
 				9F1637BF259AFFF2008E9996 /* CityList.swift in Sources */,
@@ -753,6 +760,7 @@
 				9F8528092591915B004454E6 /* NotifyModelCell.swift in Sources */,
 				9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */,
 				9F92513B259D9570007699C4 /* MyOrderListTableViewCell.swift in Sources */,
+				9F6C479525A6DF4F004C9EC5 /* NoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class OrderViewController: BaseViewController {
+    //商品資訊區
     @IBOutlet weak var productTitleStackView: UIStackView!
     @IBOutlet weak var productInfoStackView: UIStackView!
     @IBOutlet weak var lbProductTtile: UILabel!
@@ -21,7 +23,18 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var lbTradeItem: UILabel!
     @IBOutlet weak var orderViewCollectionView: UICollectionView!
     @IBOutlet weak var orderViewPC: UIPageControl!
-    var product : ProductModel!
+    //買/賣家資訊
+    var user : UserModel!
+    var orderOwner : UserModel!
+    //留言板
+    @IBOutlet weak var sendNoteView: DesignableView!
+    @IBOutlet weak var tfInput: UnderLineTextField!
+    @IBOutlet weak var btnSend: UIButton!
+    var notes = [NoteModel]()
+    @IBOutlet weak var NoteTableView: UITableView!
+    @IBOutlet weak var noteTableViewHeight: NSLayoutConstraint!
+    //變數
+    var order : OrderModel!
     var orderImages = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,37 +44,85 @@ class OrderViewController: BaseViewController {
         self.orderViewCollectionView.isPagingEnabled = true
         
         setText()
-        
+        //商品留言板
+        setSendView()
         //設定換頁控制器有幾頁
         orderViewPC.numberOfPages = orderImages.count
         //起始在第0頁
         orderViewPC.currentPage = 0;
         // Do any additional setup after loading the view.
+        NoteTableView.delegate = self
+        NoteTableView.dataSource = self
+        NoteTableView.rowHeight = UITableView.automaticDimension;
+        NoteTableView.estimatedRowHeight = UITableView.automaticDimension;
+        NetworkController.instance().getUserInfo{
+            [weak self] (reponseValue,isSuccess)in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(reponseValue)
+                weakSelf.user =  weakSelf.parseUser(json: json)
+            }else{
+                print("沒拿到使用者資訊")
+            }
+        }
+        NetworkController.instance().getUserBasicInfo(userId: order.p_ownerId){
+            [weak self] (reponseValue,isSuccess)in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(reponseValue)
+                weakSelf.orderOwner = weakSelf.parseUser(json: json)
+            }else{
+                print("沒拿到使用者資訊")
+            }
+        }
     }
     
+    //MARK: - 解析JSON
+    private func parseNote(json:JSON)->NoteModel{
+        let id = json["id"].string ?? ""
+        let orderId = json["orderId"].string ?? ""
+        let senderId = json["senderId"].string ?? ""
+        let senderName = json["senderName"].string ?? ""
+        let message = json["message"].string ?? ""
+        let createTime = json["createTime"].string ?? ""
+        print("id\(id),orderid\(orderId),senderId:\(senderId),senderName\(senderName),message\(message)createTime\(createTime)")
+        return NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime)
+    }
+    private func parseUser(json:JSON)->UserModel{
+        let id = json["id"].string ?? ""
+        let email = json["email"].string ?? ""
+        let name = json["name"].string ?? ""
+        let nickName = json["nickName"].string ?? ""
+        let phone = json["phone"].string ?? ""
+        let address = json["address"].string ?? ""
+        return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
+    }
     private func setText(){
         if(Global.isOnline){
-            lbProductTtile.text = "\(product.title)"
-            lbProductType.text = "分類 : \(product.type)/\(product.type1)/\(product.type2)"
-            lbTradeMethod.text = "交易方式 : \(product.rentMethod)"
-            lbAmount.text = "數量 : \(product.amount)"
-            lbProductDescription.text = "\(product.description)"
+            lbProductTtile.text = "\(order.p_Title)"
+            lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
+            lbTradeMethod.text = "交易方式 : \(order.p_RentMethod)"
+            lbAmount.text = "數量 : \(order.p_tradeCount)"
+            lbProductDescription.text = "\(order.p_Desc)"
             var tradeType = [String]()
             var price = [String]()
-            if(product.isSale){
-                tradeType.append("販售")
-                price.append("售價 : \(product.salePrice)元")
-            }
-            if(product.isRent){
+            
+            switch order.tradeMethod {
+            case 0://租
                 tradeType.append("租借")
-                price.append("押金 : \(product.deposit)元")
-                price.append("租金 : \(product.rent)元/日")
-            }
-            if(product.isExchange){
+                price.append("押金 : \(order.p_Deposit)元")
+                price.append("租金 : \(order.p_Rent)元/日")
+            case 1://買
+                tradeType.append("販售")
+                price.append("售價 : \(order.p_salePrice)元")
+            case 2://換
                 tradeType.append("交換")
-                price.append("權重 : \(product.weightPrice)")
+            //                price.append("權重 : \(order.productId)")
+            default:
+                print("沒找到交易方式")
+                tradeType.append("")
+                price.append("")
             }
-            //            lbSalePrice.text = price
             var tradeTypeText = "模式 : "
             for index in 0..<tradeType.count{
                 if(index==tradeType.count-1){
@@ -80,13 +141,69 @@ class OrderViewController: BaseViewController {
             }
             lbSalePrice.text = priceText
             lbTradeType.text = tradeTypeText
-            lbAddress.text = "商品地區 : \(product.address)"
-            for index in 0..<product.pics.count{
-                orderImages.append(product.pics[index].path)
+            lbAddress.text = "商品地區 : \(order.p_Address)"
+            //            for index in 0..<order.pics.count{
+            //                orderImages.append(order.pics[index].path)
+            //            }
+        }
+    }
+    //MARK:-留言板畫面
+    //設定留言板畫面
+    private func setSendView(){
+        let layer = CAGradientLayer();
+        layer.frame = sendNoteView.bounds;
+        layer.colors = Global.BACKGROUND_COLOR as [Any]
+        layer.startPoint = CGPoint(x: 0,y: 0.5);
+        layer.endPoint = CGPoint(x: 1,y: 0.5);
+        sendNoteView.layer.insertSublayer(layer, at: 0)
+        //設定KVO
+        NoteTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+    }
+    //利用kvo設定tableview高度隨內容改變
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        NoteTableView.layer.removeAllAnimations()
+        noteTableViewHeight.constant = NoteTableView.contentSize.height
+        UIView.animate(withDuration: 0.5) {
+            self.updateViewConstraints()
+        }
+    }
+    //傳送
+    @IBAction func btnSendClick(_ sender: Any) {
+        if(tfInput.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+            return
+        }
+        let messgae = tfInput.text!
+        NetworkController.instance().addNote(orderId: order.id, message: messgae){
+            [weak self] (responseValue, isSuccess)in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(responseValue)
+                print(json)
+                weakSelf.notes.append(weakSelf.parseNote(json: json))
+                weakSelf.tfInput.text = ""
+                weakSelf.NoteTableView.reloadData()
             }
         }
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
+//MARK:-留言板
+extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        notes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = NoteTableView.dequeueReusableCell(withIdentifier: TableViewCell.noteTableViewCell.rawValue,for:indexPath) as? NoteTableViewCell{
+            cell.conficgure(with: notes[indexPath.row])
+            return cell
+        }
+        return UITableViewCell()
+    }
+}
+//MARK:- 圖片collectionVIew
 extension OrderViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         orderImages.count
@@ -95,13 +212,9 @@ extension OrderViewController:UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductInfoImageCollectionViewCell", for: indexPath) as? ProductInfoImageCollectionViewCell {
             cell.configure(with: orderImages[indexPath.row])
-            
             return cell;
         }
         return UICollectionViewCell()
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
