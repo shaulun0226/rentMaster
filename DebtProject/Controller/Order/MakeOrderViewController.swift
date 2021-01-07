@@ -49,6 +49,7 @@ class MakeOrderViewController: BaseViewController {
     //販售區
     
     @IBOutlet weak var lbProductPrice: UILabel!
+    @IBOutlet weak var lbTradePrice: UILabel!
     @IBOutlet weak var productPriceView: DesignableView!
     //租借區
     @IBOutlet weak var productDepositView: DesignableView!
@@ -115,6 +116,7 @@ class MakeOrderViewController: BaseViewController {
             
         }
         lbProductPrice.text = "商品售價:\(product.salePrice)元"
+//        lbTradePrice.text = "交易金額:\(product.salePrice)元"
         lbProductDeposit.text = "租借押金:\(product.deposit)"
         lbProductRentPrice.text = "商品租金:\(product.rent)元/日"
         lbProductAmount.text = "剩餘數量:\(product.amount)"
@@ -230,7 +232,7 @@ class MakeOrderViewController: BaseViewController {
                 }
             }
         }
-        lbProductPrice.text =  "商品售價:\(String(Int(buyAmount)*product.salePrice))元"
+        lbTradePrice.text =  "交易金額:\(String(Int(buyAmount)*product.salePrice))元"
         lbProductRentPrice.text = "商品租金:\(String(Int(buyAmount)*product.rent))元/日"
         lbProductDeposit.text = "租借押金:\(String(Int(buyAmount)*product.deposit))元"
         lbNeedWeightPrice.text = String(buyAmount*product.weightPrice)
