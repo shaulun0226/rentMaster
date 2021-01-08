@@ -49,6 +49,27 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
     }
     @objc func didTapCart() {
         //尚未設定跳至何頁
+        if(User.token.isEmpty){
+            let notLoginAlertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "確定")
+            notLoginAlertView.clickedCancelButtonAction = {
+                notLoginAlertView.dismiss()
+            }
+            notLoginAlertView.clickedButtonAction = {[self] index in
+                if(index==1){
+                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        //                            }
+                        self.present(loginView, animated: true, completion: nil)
+                    }
+                }
+            }
+            notLoginAlertView.messageLabel.textColor = .white
+            notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+            notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+            notLoginAlertView.buttonTitleColor = .white
+            notLoginAlertView.show()
+            return
+        }
         let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
             view.title = "購物車"

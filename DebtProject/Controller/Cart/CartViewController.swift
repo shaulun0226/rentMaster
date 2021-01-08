@@ -7,19 +7,18 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftAlertView
 
 class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDataSource{
     
     var cartProducts = [ProductModel]()
 //    var isGotItems = false
-    @IBOutlet weak var lbHint: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.isGotItems = false
         cartTableView.delegate = self
         cartTableView.dataSource = self
-        lbHint.isHidden = !User.token.isEmpty
         if(!User.token.isEmpty){
             NetworkController.instance().getCartList{
                 [weak self] (reponseJSON,isSuccess) in

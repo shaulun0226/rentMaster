@@ -109,7 +109,7 @@ class AddProductViewController: BaseViewController {
         //設定按外面會把鍵盤收起
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-        
+//        
     }
     override func viewWillAppear(_ animated: Bool) {
         //加入子視圖(在這裡是要彈出的popoverview)

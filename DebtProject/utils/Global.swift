@@ -69,7 +69,8 @@ class Global{
     static let BACKGROUND_COLOR = [UIColor(named: "GradientBegin")?.cgColor
                                    ,UIColor(named: "GradientEnd")?.cgColor] ;
     
-    
+    //螢幕尺寸
+    static let screenSize = UIScreen.main.bounds.size
     static func setBackgroundColor(_ view:UIView)->CAGradientLayer{
         let layer = CAGradientLayer();
         layer.frame = view.bounds;

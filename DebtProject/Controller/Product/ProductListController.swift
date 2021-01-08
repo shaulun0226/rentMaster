@@ -95,18 +95,17 @@ class ProductListController: BaseSideMenuViewController{
     }
     private func setCollectionViewCell(){
         let flowLayout = collectview.collectionViewLayout as? UICollectionViewFlowLayout
-            flowLayout?.estimatedItemSize = .zero
-            flowLayout?.minimumInteritemSpacing = 0
+        flowLayout?.estimatedItemSize = .zero
+        flowLayout?.minimumInteritemSpacing = 0
         if(isMyStore){
-            flowLayout?.itemSize = CGSize(width: self.view.frame.width/3.5, height: 45)
+            flowLayout?.itemSize = CGSize(width: self.view.frame.width/2, height: 45)
         }else{
-            flowLayout?.itemSize = CGSize(width: self.view.frame.width/4.5, height: 45)
-            
+            flowLayout?.itemSize = CGSize(width: self.view.frame.width/2.5, height: 45)
         }
     }
     private func setupSlider(){
         self.slider.frame.size = CGSize(width: 90, height: 5)
-        self.slider.center.y = collectview.bounds.maxY-10
+        self.slider.center.y = collectview.bounds.maxY-15
         collectview.addSubview(slider)
         //        collectionView(collectview, didSelectItemAt:[0,0])
     }
@@ -118,16 +117,7 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
-        //設定searchController 背景顏色
-        //        searchController?.searchBar.backgroundColor = UIColor(named: "card")//沒用
-        //設定searchBar顏色
-        //                    searchController?.searchBar.barStyle = .black
         searchController?.searchBar.barTintColor = UIColor(named: "card")
-        //            searchController?.searchBar.searchTextField.backgroundColor = UIColor(named: "card")?.withAlphaComponent(0.1)
-        //searchbar取消文字顏色
-        //        searchController?.searchBar.backgroundColor = UIColor(named: "card")
-        //        searchController?.view.tintColor = UIColor(named: "card")
-        //        searchController?.view.backgroundColor = UIColor(named: "card")   沒用的方法
         searchController?.searchBar.tintColor = UIColor(named: "Button")
         //searvhbar輸入文字顏色
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -226,85 +216,95 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
         return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        self.title = buttonText[indexPath.row]
-        // 先清空
-        if let cell = collectview.cellForItem(at: indexPath){
-            //設定點擊背景色變化
-            if(indexPath.row != 0){
-                if let firstcell = collectview.cellForItem(at: IndexPath(item: 0, section: 0)){
-                    if(firstcell.isSelected){
-                        firstcell.isSelected = false
-                        firstcell.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.168627451, blue: 0.168627451, alpha: 1)
-                    }
+        guard let cell = collectview.cellForItem(at: indexPath) else { return }
+        //設定點擊背景色變化
+        if(indexPath.row != 0){
+            if let firstcell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)){
+                if(firstcell.isSelected){
+                    firstcell.isSelected = false
+                    firstcell.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.168627451, blue: 0.168627451, alpha: 1)
                 }
             }
-            cell.isSelected = true
-            cell.backgroundColor = UIColor(named: "card")
-            //設定collection滾到選的
-            collectview.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            
-            //設定slider滑到點擊的cell
-            UIView.animate(withDuration: 0.4) { [weak self] in
-                if let self = self{
-                    self.slider.center.x = cell.center.x
-                }
+        }
+        cell.isSelected = true
+        cell.backgroundColor = UIColor(named: "card")
+        
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            if let self = self{
+                self.slider.center.x = cell.center.x
             }
-            //刪掉所有產品
-            products.removeAll()
-            let selectedProductType = tabbarTitle[indexPath.row]
-            if(isMyStore){
-                switch selectedProductType {
-                case "上架中":
-                    NetworkController.instance().getMyOwnItemOnShelf{
-                        [weak self](responseValue, isSuccess) in
-                        guard let weakSelf = self else {return}
-                        if(isSuccess){
-                            let jsonArr = JSON(responseValue)
-                            weakSelf.parseProduct(jsonArr: jsonArr)
-                            weakSelf.tableview.reloadData()
-                        }else{
-                            weakSelf.products = ProductModel.defaultHostLists
-                        }
+        }
+        
+        //刪掉所有產品
+        products.removeAll()
+        let selectedProductType = tabbarTitle[indexPath.row]
+        if(isMyStore){
+            switch selectedProductType {
+            case "上架中":
+                NetworkController.instance().getMyOwnItemOnShelf{
+                    [weak self](responseValue, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(responseValue)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultHostLists
                     }
-                case "未上架":
-                    NetworkController.instance().getMyOwnItemNotOnShelf{
-                        [weak self](responseValue, isSuccess) in
-                        guard let weakSelf = self else {return}
-                        if(isSuccess){
-                            let jsonArr = JSON(responseValue)
-                            weakSelf.parseProduct(jsonArr: jsonArr)
-                            weakSelf.tableview.reloadData()
-                        }else{
-                            weakSelf.products = ProductModel.defaultHostLists
-                        }
+                }
+            case "未上架":
+                NetworkController.instance().getMyOwnItemNotOnShelf{
+                    [weak self](responseValue, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(responseValue)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultHostLists
                     }
-                default:
-                    self.products = ProductModel.defaultAllList
                 }
-            }else{
-                switch selectedProductType {
-                case "所有":
-                    productType2 = "all"
-                case "主機":
-                    productType2 = "主機"
-                case "周邊":
-                    productType2 = "周邊"
-                case "遊戲":
-                    productType2 = "遊戲"
-                case "其他":
-                    productType2 = "其他"
-                default:
-                    products = ProductModel.defaultGameLists
+            default:
+                self.products = ProductModel.defaultAllList
+            }
+        }else{
+            switch selectedProductType {
+            case "所有":
+                productType2 = "all"
+            case "主機":
+                productType2 = "主機"
+            case "周邊":
+                productType2 = "周邊"
+            case "遊戲":
+                productType2 = "遊戲"
+            case "其他":
+                productType2 = "其他"
+            default:
+                products = ProductModel.defaultGameLists
+            }
+            if let productType1 = productType1 {
+                print(productType1)
+            }
+            if let productType2 = productType2 {
+                print(productType2)
+            }
+            switch productType2 {
+            case "all":
+                NetworkController.instance().getProductListByType1(type1: productType1 ?? "",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
+                        weakSelf.tableview.reloadData()
+                    }else{
+                        weakSelf.products = ProductModel.defaultHostLists
+                    }
                 }
-                if let productType1 = productType1 {
-                    print(productType1)
-                }
-                if let productType2 = productType2 {
-                    print(productType2)
-                }
-                switch productType2 {
-                case "all":
-                    NetworkController.instance().getProductListByType1(type1: productType1 ?? "",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+            default:
+                if(Global.isOnline){
+                    NetworkController.instance().getProductListByType2(type1: productType1 ?? "",type2: productType2 ?? ""  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){
@@ -315,26 +315,11 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                             weakSelf.products = ProductModel.defaultHostLists
                         }
                     }
-                default:
-                    if(Global.isOnline){
-                        NetworkController.instance().getProductListByType2(type1: productType1 ?? "",type2: productType2 ?? ""  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                            [weak self](value, isSuccess) in
-                            guard let weakSelf = self else {return}
-                            if(isSuccess){
-                                let jsonArr = JSON(value)
-                                weakSelf.parseProduct(jsonArr: jsonArr)
-                                weakSelf.tableview.reloadData()
-                            }else{
-                                weakSelf.products = ProductModel.defaultHostLists
-                            }
-                        }
-                    }
                 }
             }
-            tableview.reloadData()
         }
+        tableview.reloadData()
     }
-    
 }
 extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

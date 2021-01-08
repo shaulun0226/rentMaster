@@ -127,7 +127,7 @@ class MakeOrderViewController: BaseViewController {
         var wishListTmp = [WishItemModel]()
         print("下訂單頁面解析願望清單,共\(jsonArr.count)項")
         for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string!
+            let id = jsonArr[index]["id"].string  ?? ""
             let userId = jsonArr[index]["userId"].string ?? ""
             let wishProductName = jsonArr[index]["exchangeItem"].string ?? ""
             let wishProductAmount = jsonArr[index]["requestQuantity"].int ?? 0
@@ -171,10 +171,6 @@ class MakeOrderViewController: BaseViewController {
         //設定圓角
         selectView.layer.cornerRadius = 10
         super.viewWillAppear(animated)
-    }
-    //點擊空白收回鍵盤
-    @objc func dismissKeyBoard() {
-        self.view.endEditing(true)
     }
     //利用kvo設定tableview高度隨內容改變
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

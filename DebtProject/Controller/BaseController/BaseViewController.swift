@@ -21,6 +21,8 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         let layer = Global.setBackgroundColor(view);
         view.layer.insertSublayer(layer, at: 0)
         // Do any additional setup after loading the view.
+        
+        
     }
     
     func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool {

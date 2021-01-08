@@ -9,6 +9,9 @@ import UIKit
 import SwiftyJSON
 
 class OrderViewController: BaseViewController {
+    //畫面
+    @IBOutlet weak var orderScrollView: UIScrollView!
+   
     //商品資訊區
     @IBOutlet weak var productTitleStackView: UIStackView!
     @IBOutlet weak var productInfoStackView: UIStackView!
@@ -75,8 +78,29 @@ class OrderViewController: BaseViewController {
                 print("沒拿到使用者資訊")
             }
         }
+        
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //設定按外面會把鍵盤收起(有可能會手勢衝突)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
     
+    //MARK:- 根據鍵盤出現移動螢幕
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+           // if keyboard size is not available for some reason, dont do anything
+           return
+        }
+      // move the root view up by the distance of keyboard height
+      self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+      // move back the root view origin to zero
+      self.view.frame.origin.y = 0
+    }
     //MARK: - 解析JSON
     private func parseNote(json:JSON)->NoteModel{
         let id = json["id"].string ?? ""
@@ -104,32 +128,26 @@ class OrderViewController: BaseViewController {
             lbTradeMethod.text = "交易方式 : \(order.p_RentMethod)"
             lbAmount.text = "數量 : \(order.p_tradeCount)"
             lbProductDescription.text = "\(order.p_Desc)"
-            var tradeType = [String]()
             var price = [String]()
             
             switch order.tradeMethod {
             case 0://租
-                tradeType.append("租借")
+                lbTradeType.text = "交易模式:租借"
                 price.append("押金 : \(order.p_Deposit)元")
                 price.append("租金 : \(order.p_Rent)元/日")
             case 1://買
-                tradeType.append("販售")
+                lbTradeType.text = "交易模式:販售"
                 price.append("售價 : \(order.p_salePrice)元")
             case 2://換
-                tradeType.append("交換")
+                lbTradeType.text = "交易模式:交換"
+                
+                for index in 0..<order.orderExchangeItems.count{
+                    price.append("\(index+1).\(order.orderExchangeItems[index].exchangeItem)  \(order.orderExchangeItems[index].packageQuantity)個")
+                }
             //                price.append("權重 : \(order.productId)")
             default:
                 print("沒找到交易方式")
-                tradeType.append("")
                 price.append("")
-            }
-            var tradeTypeText = "模式 : "
-            for index in 0..<tradeType.count{
-                if(index==tradeType.count-1){
-                    tradeTypeText += "\(tradeType[index])"
-                }else{
-                    tradeTypeText += "\(tradeType[index])/"
-                }
             }
             var priceText = ""
             for index in 0..<price.count{
@@ -140,7 +158,6 @@ class OrderViewController: BaseViewController {
                 }
             }
             lbSalePrice.text = priceText
-            lbTradeType.text = tradeTypeText
             lbAddress.text = "商品地區 : \(order.p_Address)"
             //            for index in 0..<order.pics.count{
             //                orderImages.append(order.pics[index].path)
@@ -171,12 +188,18 @@ class OrderViewController: BaseViewController {
             self.updateViewConstraints()
         }
     }
+    
+    //點擊空白收回鍵盤
+    @objc func dismissKeyBoard() {
+        self.view.endEditing(true)
+    }
     //傳送
     @IBAction func btnSendClick(_ sender: Any) {
         if(txSend.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
             return
         }
         let messgae = txSend.text!
+        print("留言內容\(messgae)")
         NetworkController.instance().addNote(orderId: order.id, message: messgae){
             [weak self] (responseValue, isSuccess)in
             guard let weakSelf = self else{return}
@@ -202,6 +225,7 @@ extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = NoteTableView.dequeueReusableCell(withIdentifier: TableViewCell.noteTableViewCell.rawValue,for:indexPath) as? NoteTableViewCell{
             cell.conficgure(with: notes[indexPath.row])
+            print(notes[indexPath.row].message)
             return cell
         }
         return UITableViewCell()
@@ -209,12 +233,17 @@ extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
 }
 extension OrderViewController:UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
+        //按下鍵盤時螢幕往上滑
+//        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: Global.screenSize.height*0.35), animated: true)
+//        descIconStack.isHidden = true
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.white
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
+        //結束編輯時螢幕往下滑
+//        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         if textView.text.isEmpty {
             textView.text = "請輸入留言內容"
             textView.textColor = UIColor.lightGray

@@ -39,6 +39,7 @@
 		9F3F2D7D258B563400E156A8 /* PageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */; };
 		9F6C478D25A6A07E004C9EC5 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C478C25A6A07E004C9EC5 /* OrderModel.swift */; };
 		9F6C479525A6DF4F004C9EC5 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C479425A6DF4F004C9EC5 /* NoteTableViewCell.swift */; };
+		9F6C47A325A7FC08004C9EC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6C47A225A7FC08004C9EC5 /* GoogleService-Info.plist */; };
 		9F6C4D7E2577F26C0091BEA5 /* ProductListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */; };
 		9F6C4D842577F6110091BEA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D832577F6110091BEA5 /* Global.swift */; };
 		9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C532582831D0082A94E /* UnderLineTextField.swift */; };
@@ -144,6 +145,8 @@
 		9F3F2D7B258B563400E156A8 /* PageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F6C478C25A6A07E004C9EC5 /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		9F6C479425A6DF4F004C9EC5 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		9F6C479925A7FB37004C9EC5 /* DebtProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DebtProject.entitlements; sourceTree = "<group>"; };
+		9F6C47A225A7FC08004C9EC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F6C4D7D2577F26C0091BEA5 /* ProductListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListController.swift; sourceTree = "<group>"; };
 		9F6C4D832577F6110091BEA5 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9F6E6C532582831D0082A94E /* UnderLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 		9F3C778D2577BF3B0063E641 /* DebtProject */ = {
 			isa = PBXGroup;
 			children = (
+				9F6C47A225A7FC08004C9EC5 /* GoogleService-Info.plist */,
+				9F6C479925A7FB37004C9EC5 /* DebtProject.entitlements */,
 				9F85285125972786004454E6 /* Singleton */,
 				9F85282D25921D3E004454E6 /* Helper */,
 				9F12BCF72585EBAF00813616 /* Model */,
@@ -627,6 +632,7 @@
 				9F3F2D7D258B563400E156A8 /* PageCollectionViewCell.xib in Resources */,
 				9FB0FFB62590785700A02A44 /* Product.storyboard in Resources */,
 				9F847C4025A2A11B00CACE2F /* ImgSideMenuCell.xib in Resources */,
+				9F6C47A325A7FC08004C9EC5 /* GoogleService-Info.plist in Resources */,
 				9F3F2D76258B560900E156A8 /* PageTableViewCell.xib in Resources */,
 				9F3C77962577BF3B0063E641 /* Main.storyboard in Resources */,
 			);
@@ -945,7 +951,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DebtProject/DebtProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AW4ZXGRW5N;
 				INFOPLIST_FILE = DebtProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -965,7 +973,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DebtProject/DebtProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AW4ZXGRW5N;
 				INFOPLIST_FILE = DebtProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
