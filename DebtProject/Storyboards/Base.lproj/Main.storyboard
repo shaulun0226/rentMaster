@@ -1983,7 +1983,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ohm-pd-8AP">
-                                <rect key="frame" x="0.0" y="761" width="414" height="41"/>
+                                <rect key="frame" x="0.0" y="695" width="414" height="41"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKS-x4-Z3Y">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
@@ -2025,7 +2025,6 @@
                         <constraints>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="bottom" secondItem="ohm-pd-8AP" secondAttribute="bottom" id="AkI-0e-IMf"/>
                             <constraint firstItem="ohm-pd-8AP" firstAttribute="leading" secondItem="CjJ-LH-u2s" secondAttribute="leading" id="RkY-l6-ihh"/>
-                            <constraint firstItem="CjJ-LH-u2s" firstAttribute="bottom" secondItem="1gL-1R-e32" secondAttribute="bottom" constant="242" id="YIo-Z4-TN3"/>
                             <constraint firstItem="1gL-1R-e32" firstAttribute="leading" secondItem="CjJ-LH-u2s" secondAttribute="leading" constant="20" id="Yff-jc-5ai"/>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="trailing" secondItem="1gL-1R-e32" secondAttribute="trailing" constant="20" id="e7w-8n-6ZV"/>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="trailing" secondItem="ohm-pd-8AP" secondAttribute="trailing" id="oTJ-IL-nFk"/>

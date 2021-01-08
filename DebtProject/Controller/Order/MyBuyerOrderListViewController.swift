@@ -57,35 +57,35 @@ class MyBuyerOrderListViewController: BaseViewController {
     }
     private func parseOrder(jsonArr:JSON){
         for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string!
-            let p_Title = jsonArr[index]["p_Title"].string!
-            let p_Desc = jsonArr[index]["p_Desc"].string!
-            let p_Address = jsonArr[index]["p_Address"].string!
-            let p_isSale = jsonArr[index]["p_isSale"].bool!
-            let p_isRent = jsonArr[index]["p_isRent"].bool!
-            let p_isExchange = jsonArr[index]["p_isExchange"].bool!
-            let p_Deposit = jsonArr[index]["p_Deposit"].int!
-            let p_Rent = jsonArr[index]["p_Rent"].int!
-            let p_salePrice = jsonArr[index]["p_salePrice"].int!
-            let p_RentMethod = jsonArr[index]["p_RentMethod"].string!
-            let p_Type = jsonArr[index]["p_Type"].string!
-            let p_Type1 = jsonArr[index]["p_Type1"].string!
-            let p_Type2 = jsonArr[index]["p_Type2"].string!
-            let p_ownerId = jsonArr[index]["p_ownerId"].string!
-            let p_tradeCount = jsonArr[index]["p_tradeCount"].int!
+            let id = jsonArr[index]["id"].string ?? ""
+            let p_Title = jsonArr[index]["p_Title"].string ?? ""
+            let p_Desc = jsonArr[index]["p_Desc"].string ?? ""
+            let p_Address = jsonArr[index]["p_Address"].string ?? ""
+            let p_isSale = jsonArr[index]["p_isSale"].bool ?? false
+            let p_isRent = jsonArr[index]["p_isRent"].bool ?? false
+            let p_isExchange = jsonArr[index]["p_isExchange"].bool ?? false
+            let p_Deposit = jsonArr[index]["p_Deposit"].int ?? 0
+            let p_Rent = jsonArr[index]["p_Rent"].int ?? 0
+            let p_salePrice = jsonArr[index]["p_salePrice"].int ?? 0
+            let p_RentMethod = jsonArr[index]["p_RentMethod"].string ?? ""
+            let p_Type = jsonArr[index]["p_Type"].string ?? ""
+            let p_Type1 = jsonArr[index]["p_Type1"].string ?? ""
+            let p_Type2 = jsonArr[index]["p_Type2"].string ?? ""
+            let p_ownerId = jsonArr[index]["p_ownerId"].string ?? ""
+            let p_tradeCount = jsonArr[index]["p_tradeCount"].int ?? 0
             let tradeMethod = jsonArr[index]["tradeMethod"].int!
             let orderExchangeItemsArr = jsonArr[index]["orderExchangeItems"].array ?? []
             let tradeQuantity = jsonArr[index]["tradeQuantity"].int!
-            let status = jsonArr[index]["status"].string!
-            let orderTime = jsonArr[index]["orderTime"].string!
+            let status = jsonArr[index]["status"].string ?? ""
+            let orderTime = jsonArr[index]["orderTime"].string ?? ""
             let payTime = jsonArr[index]["payTime"].string ?? ""
             
             let productSend = jsonArr[index]["productSend"].object
             let productArrive = jsonArr[index]["productArrive"].string ?? ""
             let productSendBack = jsonArr[index]["productSendBack"].string ?? ""
             let productGetBack = jsonArr[index]["productGetBack"].string ?? ""
-            let productId = jsonArr[index]["productId"].string!
-            let lender = jsonArr[index]["lender"].string!
+            let productId = jsonArr[index]["productId"].string ?? ""
+            let lender = jsonArr[index]["lender"].string ?? ""
             
             let notesArr = jsonArr[index]["notes"].array ?? []
             

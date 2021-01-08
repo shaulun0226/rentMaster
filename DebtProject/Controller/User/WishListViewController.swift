@@ -45,7 +45,7 @@ class WishListViewController: BaseViewController {
     }
     private func parseWishItem(jsonArr:JSON){
         for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string!
+            let id = jsonArr[index]["id"].string ?? ""
             let userId = jsonArr[index]["userId"].string ?? ""
             let wishProductName = jsonArr[index]["exchangeItem"].string ?? ""
             let wishProductAmount = jsonArr[index]["requestQuantity"].int ?? 0
