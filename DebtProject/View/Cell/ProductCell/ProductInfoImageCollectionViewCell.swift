@@ -20,7 +20,7 @@ class ProductInfoImageCollectionViewCell: UICollectionViewCell {
     }
     func configure(with imgUrl: String) {
         if (!imgUrl.contains("http")){
-            self.productImage.image = UIImage(named: "monsterhunter")
+            self.productImage.image = UIImage(named: "imageNotFound")
             return
         }
         //防止url內有中文 先進行編碼

@@ -11,6 +11,8 @@ import SwiftAlertView
 class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
     
     
+    //目前選取的textField
+    var activeTextField : UITextField? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定navigation bar
@@ -24,7 +26,33 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         
         
     }
-    
+    @objc func keyboardWillShow(notification: NSNotification) {
+
+      guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+
+        // if keyboard size is not available for some reason, dont do anything
+        return
+      }
+
+      var shouldMoveViewUp = false
+
+      // if active text field is not nil
+      if let activeTextField = activeTextField {
+
+        let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY;
+        
+        let topOfKeyboard = self.view.frame.height - keyboardSize.height
+
+        // if the bottom of Textfield is below the top of keyboard, move up
+        if bottomOfTextField > topOfKeyboard {
+          shouldMoveViewUp = true
+        }
+      }
+
+      if(shouldMoveViewUp) {
+        self.view.frame.origin.y = 0 - keyboardSize.height
+      }
+    }
     func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag+1
         print(textField.tag)
@@ -44,4 +72,15 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         return true
     }
 }
-
+extension BaseViewController : UITextFieldDelegate {
+  // when user select a textfield, this method will be called
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    // set the activeTextField to the selected textfield
+    self.activeTextField = textField
+  }
+    
+  // when user click 'done' or dismiss the keyboard
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    self.activeTextField = nil
+  }
+}

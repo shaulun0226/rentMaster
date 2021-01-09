@@ -11,7 +11,7 @@ import SwiftyJSON
 class OrderViewController: BaseViewController {
     //畫面
     @IBOutlet weak var orderScrollView: UIScrollView!
-   
+    
     //商品資訊區
     @IBOutlet weak var productTitleStackView: UIStackView!
     @IBOutlet weak var productInfoStackView: UIStackView!
@@ -24,9 +24,17 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var lbRentMethod: UILabel!
     @IBOutlet weak var lbTradeMethod: UILabel!
     @IBOutlet weak var orderViewPC: UIPageControl!
+    //訂單狀態
+    @IBOutlet weak var lbOrderState: UILabel!
+    @IBOutlet weak var lbOrderDate: UILabel!
+    @IBOutlet weak var lbOrderTime: UILabel!
     //買/賣家資訊
     var user : UserModel!
     var orderOwner : UserModel!
+    @IBOutlet weak var lbOwnerName: UILabel!
+    @IBOutlet weak var lbOwnerEmail: UILabel!
+    @IBOutlet weak var lbOwnerPhone: UILabel!
+    @IBOutlet weak var lbOwnerAddress: UILabel!
     //留言板
     @IBOutlet weak var sendNoteView: DesignableView!
     @IBOutlet weak var txSend: UITextView!
@@ -61,12 +69,14 @@ class OrderViewController: BaseViewController {
         NoteTableView.dataSource = self
         NoteTableView.rowHeight = UITableView.automaticDimension
         NoteTableView.estimatedRowHeight = UITableView.automaticDimension
+        //拿買家資訊
         NetworkController.instance().getUserInfo{
             [weak self] (reponseValue,isSuccess)in
             guard let weakSelf = self else{return}
             if(isSuccess){
                 let json = JSON(reponseValue)
                 weakSelf.user =  weakSelf.parseUser(json: json)
+                
             }else{
                 print("沒拿到使用者資訊")
             }
@@ -77,6 +87,10 @@ class OrderViewController: BaseViewController {
             if(isSuccess){
                 let json = JSON(reponseValue)
                 weakSelf.orderOwner = weakSelf.parseUser(json: json)
+                guard let orderOwner = weakSelf.orderOwner else {
+                    return
+                }
+                weakSelf.setOrderOwnerInfo(orderOwner: orderOwner)
             }else{
                 print("沒拿到使用者資訊")
             }
@@ -95,21 +109,23 @@ class OrderViewController: BaseViewController {
             let path = order.pics[index].path
             orderImages.append(path)
         }
-        orderViewCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.orderViewCollectionView.reloadData()
+        }
     }
     //MARK:- 根據鍵盤出現移動螢幕
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc override func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-           // if keyboard size is not available for some reason, dont do anything
-           return
+            // if keyboard size is not available for some reason, dont do anything
+            return
         }
-      // move the root view up by the distance of keyboard height
-      self.view.frame.origin.y = 0 - keyboardSize.height
+        // move the root view up by the distance of keyboard height
+        self.view.frame.origin.y = 0 - keyboardSize.height
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-      // move back the root view origin to zero
-      self.view.frame.origin.y = 0
+        // move back the root view origin to zero
+        self.view.frame.origin.y = 0
     }
     //MARK: - 解析JSON
     private func parseNote(json:JSON)->NoteModel{
@@ -130,6 +146,12 @@ class OrderViewController: BaseViewController {
         let phone = json["phone"].string ?? ""
         let address = json["address"].string ?? ""
         return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
+    }
+    private func setOrderOwnerInfo(orderOwner:UserModel){
+        lbOwnerName.text = "稱呼 : \(orderOwner.name)"
+        lbOwnerEmail.text = "Email : \(orderOwner.email)"
+        lbOwnerPhone.text = "聯絡電話 : \(orderOwner.phone)"
+        lbOwnerAddress.text = "地區 : \(orderOwner.address)"
     }
     private func setText(){
         if(Global.isOnline){
@@ -174,6 +196,10 @@ class OrderViewController: BaseViewController {
             //            }
         }
     }
+    //MARK: - 訂單狀態
+    @IBAction func nextStateClick(_ sender: Any) {
+    }
+    
     //MARK:-留言板畫面
     //設定留言板畫面
     private func setSendView(){
@@ -203,8 +229,9 @@ class OrderViewController: BaseViewController {
     @objc func dismissKeyBoard() {
         self.view.endEditing(true)
     }
-    //傳送
+    //傳送留言
     @IBAction func btnSendClick(_ sender: Any) {
+        self.view.endEditing(true)
         if(txSend.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
             return
         }
@@ -215,8 +242,12 @@ class OrderViewController: BaseViewController {
             if(isSuccess){
                 let json = JSON(responseValue)
                 weakSelf.notes.append(weakSelf.parseNote(json: json))
-                weakSelf.txSend.text = ""
-                weakSelf.NoteTableView.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.txSend.text = ""
+                    weakSelf.NoteTableView.reloadData()
+                    weakSelf.txSend.text = "請輸入留言內容"
+                    weakSelf.txSend.textColor = UIColor.lightGray
+                }
             }
         }
     }
@@ -233,7 +264,6 @@ extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = NoteTableView.dequeueReusableCell(withIdentifier: TableViewCell.noteTableViewCell.rawValue,for:indexPath) as? NoteTableViewCell{
             cell.conficgure(with: notes[indexPath.row])
-            print(notes[indexPath.row].message)
             return cell
         }
         return UITableViewCell()
@@ -242,8 +272,8 @@ extension OrderViewController:UITableViewDelegate,UITableViewDataSource{
 extension OrderViewController:UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         //按下鍵盤時螢幕往上滑
-//        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: Global.screenSize.height*0.35), animated: true)
-//        descIconStack.isHidden = true
+        //        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: Global.screenSize.height*0.35), animated: true)
+        //        descIconStack.isHidden = true
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.white
@@ -251,7 +281,7 @@ extension OrderViewController:UITextViewDelegate{
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         //結束編輯時螢幕往下滑
-//        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        //        self.orderScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         if textView.text.isEmpty {
             textView.text = "請輸入留言內容"
             textView.textColor = UIColor.lightGray

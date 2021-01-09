@@ -48,6 +48,8 @@ enum CollectionViewCell:String,CaseIterable{
     case productInfoImageCollectionViewCell = "ProductInfoImageCollectionViewCell"
 }
 class Global{
+    //device token
+    static var deviceToken = ""
     //預計跳轉的頁面
     static var presentView = UIViewController()
     //前個頁面

@@ -27,7 +27,9 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
                     let jsonItemArr = JSON(reponseJSON)
                     print("購物車解析清單\(jsonItemArr)")
                     weakSelf.parseProduct(jsonArr: jsonItemArr)
-                    weakSelf.cartTableView.reloadData()
+                    DispatchQueue.main.async {
+                        weakSelf.cartTableView.reloadData()
+                    }
                 }else{
                     print("購物車清單取得失敗")
                 }
@@ -95,7 +97,9 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
                     guard let  weakSelf = self else{return}
                     if(isSuccess){
                         weakSelf.cartProducts.remove(at: indexPath.row)
-                        weakSelf.cartTableView.reloadData()
+                        DispatchQueue.main.async {
+                            weakSelf.cartTableView.reloadData()
+                        }
                         print(reponseValue)
                     }
                 }
@@ -158,7 +162,9 @@ extension CartViewController:CartCellMenuViewDelegate{
                 [weak self] (reponseValue,isSuccess) in
                 guard let weakSelf  = self else{return}
                 weakSelf.cartProducts.remove(at: index)
-                weakSelf.cartTableView.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.cartTableView.reloadData()
+                }
             }
         }
     }

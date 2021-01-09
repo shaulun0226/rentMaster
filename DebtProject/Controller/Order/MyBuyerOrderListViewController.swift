@@ -42,8 +42,10 @@ class MyBuyerOrderListViewController: BaseViewController {
             if(isSuccess){
                 let jsonArr = JSON(reponseValue)
                 weakSelf.parseOrder(jsonArr: jsonArr)
-                weakSelf.collectionView.reloadData()
-                weakSelf.tableview.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.collectionView.reloadData()
+                    weakSelf.tableview.reloadData()
+                }
             }else{
                 print("進到我的訂單")
             }
@@ -134,6 +136,9 @@ extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let orderView = Global.productStoryboard.instantiateViewController(withIdentifier: ProductStoryboardController.orderViewController.rawValue)as? OrderViewController{
+            guard indexPath.row < orders.count else {
+                return
+            }
             orderView.order = orders[indexPath.row]
             orderView.notes = orders[indexPath.row].notes
             self.show(orderView, sender: nil)

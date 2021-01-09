@@ -12,7 +12,8 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
-    
+    var deviceToken = ""
+    var userDefault = UserDefaults()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Initiazlie Firebase
@@ -86,6 +87,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        for byte in deviceToken {
+             let hexString = String(format: "%02x", byte)
+            self.deviceToken += hexString
+        }
+        userDefault.setValue( self.deviceToken, forKey: "DeviceToken")
+        guard let account = userDefault.value(forKey: "Account") as? String else{return}
+        guard let password = userDefault.value(forKey: "Password") as? String else{return}
+        if(account.isEmpty||password.isEmpty){
+            return
+        }
+        if(Global.isOnline && User.token.isEmpty){
+            NetworkController.instance().login(email: account, password: password,deviceToken: self.deviceToken) {
+                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
+                (value,isSuccess)  in
+                if(isSuccess){
+                    User.token = value as? String ?? ""
+                    if(!User.token.isEmpty){
+                        print("登入成功")
+                    }
+                }else{
+                    print("登入失敗")
+                }
+            }
+        }
+    }
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error)
+    }
     
 }
 @available(iOS 10, *)
@@ -129,6 +159,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 
     completionHandler()
   }
+    
 }
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
@@ -137,10 +168,7 @@ extension AppDelegate: MessagingDelegate {
             return
         }
         print("Firebase registration token: \(fcmToken)")
-        
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     }
-    
-   
 }

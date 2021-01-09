@@ -41,9 +41,9 @@ class NetworkController{
         print("error msg: \(value)")
     }
     // MARK: - memberCenter
-    func login(email:String,password:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+    func login(email:String,password:String,deviceToken:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Users/login";
-        let parameter: [String: String] = ["Email":email,"Password":password]
+        let parameter: [String: String] = ["Email":email,"Password":password,"DeviceToken":deviceToken]
         print(parameter)
         AF.request(url,method: .post,parameters: parameter,encoding:JSONEncoding.default)
             .responseString{ response in
@@ -794,9 +794,36 @@ class NetworkController{
                 case.success(let value):
                     //再解析errorCode
                     if let status = response.response?.statusCode {
-                        print(status)
                         switch(status){
                         
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func getMyOrderListSeller(completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/Mylist/seller";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        switch(status){
                         case 200:
                             //to get JSON return value
                             completionHandler(value,true)

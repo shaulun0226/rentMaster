@@ -17,6 +17,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var tfAccount: UnderLineTextField!{
         didSet {
             tfAccount.tag = 1
+            tfAccount.delegate = self
             tfAccount.underLineTextFieldDelegate = self
             tfAccount.text = userDefault.value(forKey: "Account") as? String
         }
@@ -24,11 +25,11 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var tfPassword: UnderLineTextField!{
         didSet {
             tfPassword.tag = 2
+            tfPassword.delegate = self
             tfPassword.underLineTextFieldDelegate = self
             tfPassword.text = userDefault.value(forKey: "Password") as? String
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定hint
@@ -70,7 +71,8 @@ class LoginViewController: BaseViewController {
         let password = tfPassword.text!;
         
         if(Global.isOnline){
-            NetworkController.instance().login(email: email, password: password) {
+            guard let deviceToken = userDefault.value(forKey: "DeviceToken") as? String else{return}
+            NetworkController.instance().login(email: email, password: password,deviceToken:deviceToken) {
                 
                 // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去）
                 [weak self]

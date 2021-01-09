@@ -40,18 +40,18 @@ class MyOrderListTableViewCell: BaseTableViewCell {
     }
     func configure(with model: OrderModel) {
         self.lbProductTitle.text = model.p_Title
-        //        var price = [String]()
-        //            if model.pics.count == 0 {
-        //                self.cartImg.image = UIImage(named: "monsterhunter")
-        //                return
-        //            }
-        //            //        self.cartImg.image = UIImage(named: model.pics[0])
-        //            let imgUrl = model.pics[0].path
-        //            //防止url內有中文 先進行編碼
-        //            let newUrl = imgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        //            let articleUrl = URL(string: newUrl)
-        //            self.cartImg.kf.indicatorType = .activity
-        //            self.cartImg.kf.setImage(with: articleUrl,placeholder: UIImage(named: "camera.png"))
-        //
+//        var price = [String]()
+        if model.pics.count == 0 {
+            self.ivProduct.image = UIImage(named: "imageNotFound")
+            return
+        }
+        //        self.cartImg.image = UIImage(named: model.pics[0])
+        let imgUrl = model.pics[0].path
+        //防止url內有中文 先進行編碼
+        let newUrl = imgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let articleUrl = URL(string: newUrl)
+        self.ivProduct.kf.indicatorType = .activity
+        self.ivProduct.kf.setImage(with: articleUrl,placeholder: UIImage(named: "camera.png"))
+        
     }
 }

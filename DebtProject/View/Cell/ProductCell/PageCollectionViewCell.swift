@@ -34,13 +34,13 @@ class PageCollectionViewCell: UICollectionViewCell {
         self.lbState.text = saleTypeText
         //放照片
         if model.pics.count == 0 {
-            self.imgGame.image = UIImage(named: "monsterhunter")
+            self.imgGame.image = UIImage(named: "imageNotFound")
             return
         }
         //        self.img.image = UIImage(named: model.pics[0])
         let imgUrl = model.pics[0].path
         if (!imgUrl.contains("http")){
-            self.imgGame.image = UIImage(named: "monsterhunter")
+            self.imgGame.image = UIImage(named: "imageNotFound")
             return
         }
         //防止url內有中文 先進行編碼

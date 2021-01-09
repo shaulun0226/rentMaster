@@ -104,7 +104,7 @@ class CartTableViewCell: UITableViewCell {
             
             
             if model.pics.count == 0 {
-                self.cartImg.image = UIImage(named: "monsterhunter")
+                self.cartImg.image = UIImage(named: "imageNotFound")
                 return
             }
             //        self.cartImg.image = UIImage(named: model.pics[0])

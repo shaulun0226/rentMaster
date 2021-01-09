@@ -72,16 +72,13 @@ class MakeOrderViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         wishListTableView.delegate = self
         wishListTableView.dataSource = self
         wishListTableView.backgroundColor = .clear
         //設定KVO
         wishListTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        //設定exchangeList資料--從userAPi拿
-        
         self.wishListTableView.allowsSelection = true
-        wishListTableView.reloadData()
         //設定pickview
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -101,11 +98,13 @@ class MakeOrderViewController: BaseViewController {
                 if(isSuccess){
                     let jsonArr = JSON(responseValue)
                     weakSelf.parseUser(jsonArr: jsonArr)
-                    weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.nickName)"
-                    weakSelf.lbSellerEmail.text = "Email:\(weakSelf.user.email)"
-                    weakSelf.lbSellerPhone.text = "聯絡電話:\(weakSelf.user.phone)"
-                    weakSelf.lbSellerLocation.text = "地區:\(weakSelf.product.address)"
-                    weakSelf.wishListTableView.reloadData()
+                    DispatchQueue.main.async {
+                        weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.nickName)"
+                        weakSelf.lbSellerEmail.text = "Email:\(weakSelf.user.email)"
+                        weakSelf.lbSellerPhone.text = "聯絡電話:\(weakSelf.user.phone)"
+                        weakSelf.lbSellerLocation.text = "地區:\(weakSelf.product.address)"
+                        weakSelf.wishListTableView.reloadData()
+                    }
                 }else{
                     weakSelf.lbSellerName.text = "稱呼:測試"
                     weakSelf.lbSellerEmail.text = "Email:test"
@@ -116,7 +115,7 @@ class MakeOrderViewController: BaseViewController {
             
         }
         lbProductPrice.text = "商品售價:\(product.salePrice)元"
-//        lbTradePrice.text = "交易金額:\(product.salePrice)元"
+        //        lbTradePrice.text = "交易金額:\(product.salePrice)元"
         lbProductDeposit.text = "租借押金:\(product.deposit)"
         lbProductRentPrice.text = "商品租金:\(product.rent)元/日"
         lbProductAmount.text = "剩餘數量:\(product.amount)"
@@ -374,8 +373,8 @@ class MakeOrderViewController: BaseViewController {
                     if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
                         weakSelf.dismiss(animated: true, completion: nil)
                         mainView.modalPresentationStyle = .automatic
-//                        weakSelf.present(mainView, animated: true, completion: nil)
-//                        weakSelf.showDetailViewController(mainView, sender: nil)
+                        //                        weakSelf.present(mainView, animated: true, completion: nil)
+                        //                        weakSelf.showDetailViewController(mainView, sender: nil)
                     }
                 }
             }else{
@@ -391,19 +390,19 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         1
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
-//        view.backgroundColor = .clear;
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
-//        view.addSubview(label);
-//        label.text = "交換物:"
-//        label.font = UIFont.systemFont(ofSize: 30)
-//        label.textColor = .white
-//        return view;
-//    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        50
-//    }
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
+    //        view.backgroundColor = .clear;
+    //        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
+    //        view.addSubview(label);
+    //        label.text = "交換物:"
+    //        label.font = UIFont.systemFont(ofSize: 30)
+    //        label.textColor = .white
+    //        return view;
+    //    }
+    //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    //        50
+    //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         wishList.count
     }

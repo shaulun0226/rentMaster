@@ -109,7 +109,7 @@ class AddProductViewController: BaseViewController {
         //設定按外面會把鍵盤收起
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-//        
+        //
     }
     override func viewWillAppear(_ animated: Bool) {
         //加入子視圖(在這裡是要彈出的popoverview)
@@ -518,12 +518,16 @@ class AddProductViewController: BaseViewController {
                 let json = JSON(responseValue)
                 weakSelf.parseProduct(json: json)
                 weakSelf.putInProductInfo()
-                weakSelf.addProductImageCV.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.addProductImageCV.reloadData()
+                }
             }else{
                 print("AddProductViewController網路錯誤")
             }
         }
-        addProductImageCV.reloadData()
+        DispatchQueue.main.async {
+            self.addProductImageCV.reloadData()
+        }
     }
     @IBAction func modifyClick(_ sender: Any) {
         switch btnModify.titleLabel?.text{
@@ -687,10 +691,14 @@ extension AddProductViewController:AddProductImageCollectionViewCellDelegate{
             }else{
                 productImages.remove(at: (indexPath.row-oldPics.count))
             }
-            addProductImageCV.reloadData()
+            DispatchQueue.main.async {
+                self.addProductImageCV.reloadData()
+            }
         }else{
             productImages.remove(at: indexPath.row)
-            addProductImageCV.reloadData()
+            DispatchQueue.main.async {
+                self.addProductImageCV.reloadData()
+            }
         }
     }
 }
@@ -707,7 +715,9 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
         productImages.append(image)
-        addProductImageCV.reloadData()
+        DispatchQueue.main.async {
+            self.addProductImageCV.reloadData()
+        }
         dismiss(animated: true, completion: nil)
     }
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
@@ -733,7 +743,9 @@ extension AddProductViewController:TLPhotosPickerViewControllerDelegate{
         //自動滑到新增照片的最尾端
         let index = IndexPath.init(item: productImages.count-1, section: 0)
         self.addProductImageCV.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-        addProductImageCV.reloadData()
+        DispatchQueue.main.async {
+            self.addProductImageCV.reloadData()
+        }
     }
     func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) {
         //選取超過最大上限數量的照片

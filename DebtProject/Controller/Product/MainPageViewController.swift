@@ -21,11 +21,12 @@ class MainPageViewController: BaseSideMenuViewController {
     override func viewWillAppear(_ animated: Bool) {
         guard let account = userDefault.value(forKey: "Account") as? String else{return}
         guard let password = userDefault.value(forKey: "Password") as? String else{return}
+        guard let deviceToken = userDefault.value(forKey: "DeviceToken") as? String else{return}
         if(account.isEmpty||password.isEmpty){
             return
         }
         if(Global.isOnline && User.token.isEmpty){
-            NetworkController.instance().login(email: account, password: password) {
+            NetworkController.instance().login(email: account, password: password,deviceToken: deviceToken) {
                 // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
                 (value,isSuccess)  in
                 if(isSuccess){
@@ -94,7 +95,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                             print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                                cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             cell.products = ProductModel.defaultAllList
                         }
@@ -116,7 +119,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                             
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                                cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             cell.products = ProductModel.defaultAllList
                         }
@@ -137,7 +142,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                             print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                                cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             cell.products = ProductModel.defaultAllList
                         }
@@ -158,7 +165,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                             print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                                cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             cell.products = ProductModel.defaultAllList
                         }

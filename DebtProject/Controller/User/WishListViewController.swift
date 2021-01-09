@@ -34,7 +34,9 @@ class WishListViewController: BaseViewController {
                 let jsonArr = JSON(reponseValue)
                 print("\(jsonArr.count)")
                 weakSelf.parseWishItem(jsonArr: jsonArr)
-                weakSelf.wishListTV.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.wishListTV.reloadData()
+                }
             }
         }
         //        wishList = [WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5)]
@@ -74,10 +76,12 @@ class WishListViewController: BaseViewController {
             guard let weakSelf = self else{return}
             if(isSuccess){
                 weakSelf.wishList.append(WishItemModel.init(id: reponseValue, userId: "", productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
-                weakSelf.wishListTV.reloadData()
-                weakSelf.tfWishProductName.text = ""
-                weakSelf.tfWishProductAmount.text = ""
-                weakSelf.tfWishProductWeightPrice.text = ""
+                DispatchQueue.main.async {
+                    weakSelf.wishListTV.reloadData()
+                    weakSelf.tfWishProductName.text = ""
+                    weakSelf.tfWishProductAmount.text = ""
+                    weakSelf.tfWishProductWeightPrice.text = ""
+                }
             }
         }
     }
@@ -114,7 +118,9 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
                 guard let  weakSelf = self else{return}
                 if(isSuccess){
                     weakSelf.wishList.remove(at: indexPath.row)
+                    DispatchQueue.main.async {
                     weakSelf.wishListTV.reloadData()
+                    }
                     print(reponseValue)
                 }
             }

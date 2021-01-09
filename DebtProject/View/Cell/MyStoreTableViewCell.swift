@@ -94,13 +94,13 @@ class MyStoreTableViewCell: UITableViewCell {
         }
         self.lbPrice.text = price
         if model.pics.count == 0 {
-            self.img.image = UIImage(named: "monsterhunter")
+            self.img.image = UIImage(named: "imageNotFound")
             return
         }
         //        self.img.image = UIImage(named: model.pics[0])
         let imgUrl = model.pics[0].path
         if (!imgUrl.contains("http")){
-            self.img.image = UIImage(named: "monsterhunter")
+            self.img.image = UIImage(named: "imageNotFound")
             return
         }
         //防止url內有中文 先進行編碼

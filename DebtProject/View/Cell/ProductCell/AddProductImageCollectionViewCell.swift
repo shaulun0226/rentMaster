@@ -18,7 +18,7 @@ class AddProductImageCollectionViewCell: UICollectionViewCell {
     }
     func configureWithUrl(with imgUrl:String){
         if (!imgUrl.contains("http")){
-            self.imageView.image = UIImage(named: "monsterhunter")
+            self.imageView.image = UIImage(named: "imageNotFound")
             return
         }
         //防止url內有中文 先進行編碼

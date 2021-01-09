@@ -21,6 +21,7 @@ class ProductListController: BaseSideMenuViewController{
     var products = [ProductModel]()
     //searchbar
     var searchProducts = [ProductModel]()
+    var searchOrders = [OrderModel]()
     open var searchController: UISearchController? //建立searchController
     //    var searchResultController = UITableViewController()
     //建立一個搜尋結果controller
@@ -29,6 +30,9 @@ class ProductListController: BaseSideMenuViewController{
     var slider = UIView()
     var productType1:String?
     var productType2:String?
+    //order
+    var isOrder = false
+    var orders = [OrderModel]()
     //searchbar
     
     override func viewDidLoad() {
@@ -42,6 +46,7 @@ class ProductListController: BaseSideMenuViewController{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
+//        tableview.register(MyOrderListTableViewCell.self, forCellReuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
         tableview.backgroundView?.backgroundColor = .clear
         //        tableview.bounces = false
         collectview.delegate = self
@@ -52,15 +57,17 @@ class ProductListController: BaseSideMenuViewController{
     override func viewWillAppear(_ animated: Bool) {
         self.products.removeAll()
         if(isMyStore){
-            tabbarTitle = ["上架中","未上架","出租中","未出貨"]
+            tabbarTitle = ["上架中","未上架","賣出訂單","出租中","未出貨"]
             if(Global.isOnline){
-                NetworkController.instance().getMyOwnItem{ [weak self](value, isSuccess) in
+                NetworkController.instance().getMyOwnItemOnShelf{ [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
                         let jsonArr = JSON(value)
                         print("解析\(jsonArr)")
                         weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.tableview.reloadData()
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
                         weakSelf.products = ProductModel.defaultGameLists
                     }
@@ -71,18 +78,20 @@ class ProductListController: BaseSideMenuViewController{
         }else{//不是我的賣場就call list的API
             tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             if(Global.isOnline){
-                guard productType1 != nil else {
+                guard let productType1 = productType1  else {
                     print("productType is nil")
                     return
                 }
-                print("進到getProductListByType1")
-                NetworkController.instance().getProductListByType1(type1: productType1!, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
+                print("進到getProductListByType1       \(productType1) "   )
+                NetworkController.instance().getProductListByType1(type1: productType1, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
                         let jsonArr = JSON(value)
                         print("解析\(jsonArr)")
                         weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.tableview.reloadData()
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
                         print("失敗")
                         weakSelf.products = ProductModel.defaultGameLists
@@ -181,6 +190,69 @@ class ProductListController: BaseSideMenuViewController{
             self.products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
         }
     }
+    private func parseOrder(jsonArr:JSON){
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string ?? ""
+            let p_Title = jsonArr[index]["p_Title"].string ?? ""
+            let p_Desc = jsonArr[index]["p_Desc"].string ?? ""
+            let p_Address = jsonArr[index]["p_Address"].string ?? ""
+            let p_isSale = jsonArr[index]["p_isSale"].bool ?? false
+            let p_isRent = jsonArr[index]["p_isRent"].bool ?? false
+            let p_isExchange = jsonArr[index]["p_isExchange"].bool ?? false
+            let p_Deposit = jsonArr[index]["p_Deposit"].int ?? 0
+            let p_Rent = jsonArr[index]["p_Rent"].int ?? 0
+            let p_salePrice = jsonArr[index]["p_salePrice"].int ?? 0
+            let p_RentMethod = jsonArr[index]["p_RentMethod"].string ?? ""
+            let p_Type = jsonArr[index]["p_Type"].string ?? ""
+            let p_Type1 = jsonArr[index]["p_Type1"].string ?? ""
+            let p_Type2 = jsonArr[index]["p_Type2"].string ?? ""
+            let p_ownerId = jsonArr[index]["p_ownerId"].string ?? ""
+            let p_weightPrice = jsonArr[index]["p_WeightPrice"].float ?? 0.0
+            let tradeMethod = jsonArr[index]["tradeMethod"].int!
+            let picsArr = jsonArr[index]["pics"].array ?? []
+            let orderExchangeItemsArr = jsonArr[index]["orderExchangeItems"].array ?? []
+            let tradeQuantity = jsonArr[index]["tradeQuantity"].int!
+            let status = jsonArr[index]["status"].string ?? ""
+            let orderTime = jsonArr[index]["orderTime"].string ?? ""
+            let payTime = jsonArr[index]["payTime"].string ?? ""
+            
+            let productSend = jsonArr[index]["productSend"].object
+            let productArrive = jsonArr[index]["productArrive"].string ?? ""
+            let productSendBack = jsonArr[index]["productSendBack"].string ?? ""
+            let productGetBack = jsonArr[index]["productGetBack"].string ?? ""
+            let productId = jsonArr[index]["productId"].string ?? ""
+            let lender = jsonArr[index]["lender"].string ?? ""
+            
+            let notesArr = jsonArr[index]["notes"].array ?? []
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id = picsArr[index]["id"].string ?? ""
+                let path = picsArr[index]["path"].string ?? ""
+                let productId = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
+            var orderExchangeItems = [ExchangeModel]()
+            for index in 0..<orderExchangeItemsArr.count{
+                let id  = orderExchangeItemsArr[index]["id"].string ?? ""
+                let orderId  = orderExchangeItemsArr[index]["orderId"].string ?? ""
+                let wishItemId  = orderExchangeItemsArr[index]["wishItemId"].string ?? ""
+                let exchangeItem  = orderExchangeItemsArr[index]["exchangeItem"].string ?? ""
+                let packageQuantity  = orderExchangeItemsArr[index]["packageQuantity"].int ?? 0
+                orderExchangeItems.append(ExchangeModel.init(id: id, orderId: orderId, wishItemId: wishItemId, exchangeItem: exchangeItem, packageQuantity: packageQuantity))
+            }
+            var notes = [NoteModel]()
+            for index in 0..<notesArr.count{
+                let id  = notesArr[index]["id"].string ?? ""
+                let orderId  = notesArr[index]["orderId"].string ?? ""
+                let senderId  = notesArr[index]["senderId"].string ?? ""
+                let senderName  = notesArr[index]["senderName"].string ?? ""
+                let message  = notesArr[index]["message"].string ?? ""
+                let createTime  = notesArr[index]["createTime"].string ?? ""
+                notes.append(NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime))
+            }
+            self.orders.append(OrderModel.init(id: id, p_Title: p_Title, p_Desc: p_Desc, p_Address: p_Address, p_isSale: p_isSale, p_isRent: p_isRent, p_isExchange: p_isExchange, p_Deposit: p_Deposit, p_Rent: p_Rent, p_salePrice: p_salePrice, p_RentMethod: p_RentMethod, p_Type: p_Type, p_Type1: p_Type1, p_Type2: p_Type2, p_ownerId: p_ownerId, p_weightPrice: p_weightPrice,pics:pics, tradeMethod: tradeMethod, orderExchangeItems: orderExchangeItems, tradeQuantity: tradeQuantity, status: status, orderTime: orderTime, payTime: payTime, productSend: productSend, productArrive: productArrive, productSendBack: productSendBack, productGetBack: productGetBack, productId: productId, lender: lender, notes: notes))
+        }
+    }
 }
 extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -248,7 +320,10 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     if(isSuccess){
                         let jsonArr = JSON(responseValue)
                         weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.tableview.reloadData()
+                        weakSelf.isOrder = false
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
                         weakSelf.products = ProductModel.defaultHostLists
                     }
@@ -260,8 +335,28 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     if(isSuccess){
                         let jsonArr = JSON(responseValue)
                         weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.tableview.reloadData()
+                        weakSelf.isOrder = false
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
+                        weakSelf.products = ProductModel.defaultHostLists
+                    }
+                }
+            case "賣出訂單":
+                print("進賣出訂單")
+                NetworkController.instance().getMyOrderListSeller{
+                    [weak self](responseValue, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(responseValue)
+                        weakSelf.parseOrder(jsonArr: jsonArr)
+                        weakSelf.isOrder = true
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
+                    }else{
+                        print("進賣出訂單API失敗")
                         weakSelf.products = ProductModel.defaultHostLists
                     }
                 }
@@ -297,7 +392,9 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     if(isSuccess){
                         let jsonArr = JSON(value)
                         weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.tableview.reloadData()
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
                         weakSelf.products = ProductModel.defaultHostLists
                     }
@@ -310,7 +407,9 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             weakSelf.parseProduct(jsonArr: jsonArr)
-                            weakSelf.tableview.reloadData()
+                            DispatchQueue.main.async {
+                                weakSelf.tableview.reloadData()
+                            }
                         }else{
                             weakSelf.products = ProductModel.defaultHostLists
                         }
@@ -318,22 +417,48 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 }
             }
         }
-        tableview.reloadData()
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
+        }
     }
 }
 extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ((searchController?.isActive)!) ? searchProducts.count : products.count
+        if(isOrder){
+            print("訂單數量\(orders.count)")
+            return ((searchController?.isActive)!) ? searchOrders.count : orders.count
+        }else{
+            return ((searchController?.isActive)!) ? searchProducts.count : products.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(isMyStore){
-            if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myStoreTableViewCell.rawValue ) as? MyStoreTableViewCell {
-                cell.backgroundColor = UIColor(named: "card")
-                ((searchController?.isActive)!)
-                    ?cell.configure(with: searchProducts[indexPath.row])
-                    :cell.configure(with: products[indexPath.row])
-                return cell;
+            if(isOrder){
+                if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myOrderListTableViewCell.rawValue) as? MyOrderListTableViewCell {
+                    print("進訂單cell")
+                    cell.backgroundColor = UIColor(named: "card")
+                    ((searchController?.isActive)!)
+                        ?cell.configure(with: searchOrders[indexPath.row])
+                        :cell.configure(with: orders[indexPath.row])
+                    return cell;
+                }else {
+                    print("else進訂單cell")
+                    let cell = MyOrderListTableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
+                    cell.backgroundColor = UIColor(named: "card")
+                    ((searchController?.isActive)!)
+                        ?cell.configure(with: searchOrders[indexPath.row])
+                        :cell.configure(with: orders[indexPath.row])
+                    return cell;
+                }
+            }else{
+                if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myStoreTableViewCell.rawValue ) as? MyStoreTableViewCell {
+                    cell.backgroundColor = UIColor(named: "card")
+                    ((searchController?.isActive)!)
+                        ?cell.configure(with: searchProducts[indexPath.row])
+                        :cell.configure(with: products[indexPath.row])
+                    return cell;
+                }
             }
         }else{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
@@ -377,7 +502,9 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                     guard let  weakSelf = self else{return}
                     if(isSuccess){
                         weakSelf.products.remove(at: indexPath.row)
-                        weakSelf.tableview.reloadData()
+                        DispatchQueue.main.async {
+                            weakSelf.tableview.reloadData()
+                        }
                         print(reponseValue)
                     }
                 }
@@ -401,7 +528,18 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         products.removeAll()
         if(isMyStore){
-            if(Global.isOnline){
+            if(isOrder){//拿訂單
+                NetworkController.instance().getMyOrderListSeller{ [weak self](value, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(value)
+                        print("解析\(jsonArr)")
+                        weakSelf.parseOrder(jsonArr: jsonArr)
+                    }else{
+                        print("沒訂單")
+                    }
+                }
+            }else{
                 NetworkController.instance().getMyOwnItem{ [weak self](value, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
@@ -412,8 +550,6 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
                         weakSelf.products = ProductModel.defaultGameLists
                     }
                 }
-            }else{
-                self.products = ProductModel.defaultAllList
             }
         }else{//不是我的賣場就call list的API
             if(Global.isOnline){
@@ -444,8 +580,15 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
             return
         }
         let searchString = searchController.searchBar.text!
-        searchProducts = products.filter { $0.title.lowercased().contains(searchString.lowercased())}
-        products = searchProducts
-        self.tableview.reloadData()
+        if(isOrder){
+            searchOrders = orders.filter { $0.p_Title.lowercased().contains(searchString.lowercased())}
+            orders = searchOrders
+        }else{
+            searchProducts = products.filter { $0.title.lowercased().contains(searchString.lowercased())}
+            products = searchProducts
+        }
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
+        }
     }
 }

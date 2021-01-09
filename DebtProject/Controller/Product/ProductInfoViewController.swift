@@ -55,7 +55,9 @@ class ProductInfoViewController: BaseViewController {
             if(isSuccess){
                 let jsonArr = JSON(responseValue)
                 weakSelf.productsBySeller = weakSelf.parseProduct(jsonArr: jsonArr)
-                weakSelf.productInfoTableView.reloadData()
+                DispatchQueue.main.async {
+                    weakSelf.productInfoTableView.reloadData()
+                }
             }else{
                 
             }
@@ -146,7 +148,9 @@ class ProductInfoViewController: BaseViewController {
             productsImage.append("monsterhunter")
             productsImage.append("ps4")
             productsImage.append("ps5Controller")
-            self.productInfoCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.productInfoCollectionView.reloadData()
+            }
             lbTradeItem.text = "商品詳情:測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試內容測試測試內容;"
         }
     }
@@ -259,7 +263,9 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
                             let jsonArr = JSON(responseValue)
                             cell.products.removeAll()
                             cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                                cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             print("取得賣家其他商品失敗")
                         }
@@ -275,7 +281,9 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
                             let jsonArr = JSON(responseValue)
                             cell.products.removeAll()
                             cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
-                            cell.pageCollectionView.reloadData()
+                            DispatchQueue.main.async {
+                               cell.pageCollectionView.reloadData()
+                            }
                         }else{
                             print("取得可能喜歡商品失敗")
                         }
