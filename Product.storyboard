@@ -302,6 +302,7 @@
                                                 <color key="backgroundColor" name="card"/>
                                                 <size key="customSize" width="412" height="215"/>
                                                 <connections>
+                                                    <outlet property="productImage" destination="P8a-3n-y1x" id="gxo-g4-0tg"/>
                                                     <outlet property="widthConstraint" destination="Zef-Ko-kxw" id="SiH-Tn-R1n"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -331,13 +332,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品詳情:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPA-l8-OJ0">
-                                        <rect key="frame" x="10" y="422.5" width="94.5" height="26.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <rect key="frame" x="10" y="422.5" width="120" height="33.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="productInfo" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T8v-ru-nfm">
-                                        <rect key="frame" x="40" y="449" width="364" height="304"/>
+                                        <rect key="frame" x="40" y="456" width="364" height="176"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分類:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ3-un-yDH">
                                                 <rect key="frame" x="8" y="8" width="348" height="24"/>
@@ -345,35 +346,48 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-em-1Vz">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出貨地" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haR-jr-45Y">
                                                 <rect key="frame" x="8" y="42" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出貨地" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haR-jr-45Y">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-em-1Vz">
                                                 <rect key="frame" x="8" y="76" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="skI-cD-ddD">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEq-OX-1j9">
                                                 <rect key="frame" x="8" y="110" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價格:" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhD-zz-VqV">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spw-mX-r5e">
                                                 <rect key="frame" x="8" y="144" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價格:" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhD-zz-VqV">
+                                        <rect key="frame" x="10" y="632" width="63.5" height="33.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qL8-8f-iF9">
+                                        <rect key="frame" x="48" y="665.5" width="348" height="84"/>
+                                        <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLp-qv-IKU">
-                                                <rect key="frame" x="8" y="178" width="348" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="348" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易價格/物品" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR1-ZR-DSz">
-                                                        <rect key="frame" x="50" y="0.0" width="278" height="50"/>
+                                                        <rect key="frame" x="20" y="0.0" width="308" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -383,28 +397,20 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="XR1-ZR-DSz" secondAttribute="bottom" id="PGc-W8-PZ8"/>
                                                     <constraint firstItem="XR1-ZR-DSz" firstAttribute="top" secondItem="xLp-qv-IKU" secondAttribute="top" id="SKv-NA-Rx0"/>
-                                                    <constraint firstItem="XR1-ZR-DSz" firstAttribute="leading" secondItem="xLp-qv-IKU" secondAttribute="leading" constant="50" id="kpJ-Uq-N4C"/>
+                                                    <constraint firstItem="XR1-ZR-DSz" firstAttribute="leading" secondItem="xLp-qv-IKU" secondAttribute="leading" constant="20" id="kpJ-Uq-N4C"/>
                                                     <constraint firstAttribute="trailing" secondItem="XR1-ZR-DSz" secondAttribute="trailing" constant="20" symbolic="YES" id="to0-ce-ZRL"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spw-mX-r5e">
-                                                <rect key="frame" x="8" y="238" width="348" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="補充" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f2-pX-v5R">
-                                                <rect key="frame" x="8" y="272" width="348" height="24"/>
+                                                <rect key="frame" x="0.0" y="60" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MR7-x5-AeW">
-                                        <rect key="frame" x="0.0" y="823" width="404" height="136"/>
+                                        <rect key="frame" x="0.0" y="799.5" width="404" height="136"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-RW-T7Y">
                                                 <rect key="frame" x="48" y="5" width="326" height="126"/>
@@ -444,7 +450,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="賣/買家資訊:" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noY-XE-45c">
-                                        <rect key="frame" x="10" y="773" width="167.5" height="50"/>
+                                        <rect key="frame" x="10" y="749.5" width="167.5" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="LTM-GI-Y9f"/>
                                         </constraints>
@@ -453,13 +459,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="留言板:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tC-lR-ue8">
-                                        <rect key="frame" x="10" y="989" width="111" height="41"/>
+                                        <rect key="frame" x="10" y="965.5" width="111" height="41"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m4Y-OI-3Tn">
-                                        <rect key="frame" x="0.0" y="1035" width="414" height="500"/>
+                                        <rect key="frame" x="0.0" y="1011.5" width="414" height="500"/>
                                         <color key="backgroundColor" name="card"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="500" id="fXY-7O-2Pz"/>
@@ -598,17 +604,21 @@
                                     <constraint firstItem="m4Y-OI-3Tn" firstAttribute="trailing" secondItem="QkP-gn-otX" secondAttribute="trailing" id="Qcb-NR-TXj"/>
                                     <constraint firstItem="T8v-ru-nfm" firstAttribute="leading" secondItem="QkP-gn-otX" secondAttribute="leading" constant="40" id="R5K-KZ-TPV"/>
                                     <constraint firstItem="7BT-RW-T7Y" firstAttribute="leading" secondItem="gZ3-un-yDH" secondAttribute="leading" id="RrI-aM-sah"/>
+                                    <constraint firstItem="qL8-8f-iF9" firstAttribute="top" secondItem="rhD-zz-VqV" secondAttribute="bottom" id="U91-hn-JiR"/>
+                                    <constraint firstItem="qL8-8f-iF9" firstAttribute="leading" secondItem="gZ3-un-yDH" secondAttribute="leading" id="YCf-4G-DgH"/>
+                                    <constraint firstItem="noY-XE-45c" firstAttribute="top" secondItem="qL8-8f-iF9" secondAttribute="bottom" id="Yxj-x9-g6V"/>
                                     <constraint firstItem="93H-JX-y2Z" firstAttribute="top" secondItem="vry-ZM-bIi" secondAttribute="bottom" constant="10" id="ZMc-td-r3J"/>
                                     <constraint firstItem="EhO-wA-dRv" firstAttribute="centerX" secondItem="gEo-rR-RAB" secondAttribute="centerX" id="btM-W7-jm6"/>
                                     <constraint firstItem="0tC-lR-ue8" firstAttribute="height" secondItem="AC3-ta-d1Q" secondAttribute="height" id="dFS-uO-9rp"/>
                                     <constraint firstItem="kPA-l8-OJ0" firstAttribute="top" secondItem="93H-JX-y2Z" secondAttribute="bottom" constant="10" id="e1y-Mc-xCW"/>
                                     <constraint firstItem="0tC-lR-ue8" firstAttribute="top" secondItem="MR7-x5-AeW" secondAttribute="bottom" constant="30" id="gnI-yy-EpA"/>
+                                    <constraint firstItem="rhD-zz-VqV" firstAttribute="top" secondItem="T8v-ru-nfm" secondAttribute="bottom" id="ilC-fN-x5e"/>
                                     <constraint firstItem="kPA-l8-OJ0" firstAttribute="leading" secondItem="xLV-gD-VhE" secondAttribute="leading" id="kWW-dy-laf"/>
                                     <constraint firstItem="0tC-lR-ue8" firstAttribute="leading" secondItem="xLV-gD-VhE" secondAttribute="leading" id="kf1-l3-5gf"/>
                                     <constraint firstItem="T8v-ru-nfm" firstAttribute="top" secondItem="kPA-l8-OJ0" secondAttribute="bottom" id="lta-WH-PBC"/>
                                     <constraint firstItem="EhO-wA-dRv" firstAttribute="width" secondItem="vry-ZM-bIi" secondAttribute="width" multiplier="0.7" id="pJo-SL-Rko"/>
                                     <constraint firstItem="QkP-gn-otX" firstAttribute="leading" secondItem="vry-ZM-bIi" secondAttribute="leading" id="pf0-lT-V5c"/>
-                                    <constraint firstItem="noY-XE-45c" firstAttribute="top" secondItem="T8v-ru-nfm" secondAttribute="bottom" constant="20" id="sFz-LT-5uD"/>
+                                    <constraint firstItem="rhD-zz-VqV" firstAttribute="leading" secondItem="xLV-gD-VhE" secondAttribute="leading" id="rOr-OQ-qFi"/>
                                     <constraint firstItem="vry-ZM-bIi" firstAttribute="trailing" secondItem="QkP-gn-otX" secondAttribute="trailing" id="ubY-CY-etB"/>
                                     <constraint firstItem="93H-JX-y2Z" firstAttribute="leading" secondItem="QkP-gn-otX" secondAttribute="leading" constant="10" id="ufw-Bo-l1s"/>
                                     <constraint firstItem="QkP-gn-otX" firstAttribute="trailing" secondItem="93H-JX-y2Z" secondAttribute="trailing" constant="10" id="zOj-qI-WTe"/>
@@ -640,9 +650,9 @@
                         <outlet property="lbProductDescription" destination="AC3-ta-d1Q" id="equ-P2-en5"/>
                         <outlet property="lbProductTtile" destination="xLV-gD-VhE" id="aK2-iX-maF"/>
                         <outlet property="lbProductType" destination="gZ3-un-yDH" id="o78-D1-gbN"/>
+                        <outlet property="lbRentMethod" destination="QPs-em-1Vz" id="vgE-DF-RhO"/>
                         <outlet property="lbSalePrice" destination="XR1-ZR-DSz" id="AY9-OV-uXs"/>
-                        <outlet property="lbTradeMethod" destination="QPs-em-1Vz" id="vgE-DF-RhO"/>
-                        <outlet property="lbTradeType" destination="skI-cD-ddD" id="lMd-Ca-ddt"/>
+                        <outlet property="lbTradeMethod" destination="LEq-OX-1j9" id="jlb-8P-5bA"/>
                         <outlet property="noteTableViewHeight" destination="fXY-7O-2Pz" id="wm7-Ef-7Mv"/>
                         <outlet property="orderScrollView" destination="gEo-rR-RAB" id="nLi-B3-1F7"/>
                         <outlet property="orderViewCollectionView" destination="vry-ZM-bIi" id="udN-e7-9DV"/>

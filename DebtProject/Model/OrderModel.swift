@@ -22,7 +22,8 @@ struct OrderModel{
     var p_Type1: String
     var p_Type2: String
     var p_ownerId: String
-    var p_tradeCount: Int
+    var p_weightPrice: Float
+    var pics:[PicModel]
     var tradeMethod: Int   //(0:租 1:買 2:換)
     var orderExchangeItems: [ExchangeModel]
     var tradeQuantity:Int //(交易數量)

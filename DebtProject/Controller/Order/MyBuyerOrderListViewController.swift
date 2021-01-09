@@ -72,8 +72,9 @@ class MyBuyerOrderListViewController: BaseViewController {
             let p_Type1 = jsonArr[index]["p_Type1"].string ?? ""
             let p_Type2 = jsonArr[index]["p_Type2"].string ?? ""
             let p_ownerId = jsonArr[index]["p_ownerId"].string ?? ""
-            let p_tradeCount = jsonArr[index]["p_tradeCount"].int ?? 0
+            let p_weightPrice = jsonArr[index]["p_WeightPrice"].float ?? 0.0
             let tradeMethod = jsonArr[index]["tradeMethod"].int!
+            let picsArr = jsonArr[index]["pics"].array ?? []
             let orderExchangeItemsArr = jsonArr[index]["orderExchangeItems"].array ?? []
             let tradeQuantity = jsonArr[index]["tradeQuantity"].int!
             let status = jsonArr[index]["status"].string ?? ""
@@ -88,7 +89,13 @@ class MyBuyerOrderListViewController: BaseViewController {
             let lender = jsonArr[index]["lender"].string ?? ""
             
             let notesArr = jsonArr[index]["notes"].array ?? []
-            
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id = picsArr[index]["id"].string ?? ""
+                let path = picsArr[index]["path"].string ?? ""
+                let productId = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
             var orderExchangeItems = [ExchangeModel]()
             for index in 0..<orderExchangeItemsArr.count{
                 let id  = orderExchangeItemsArr[index]["id"].string ?? ""
@@ -108,7 +115,7 @@ class MyBuyerOrderListViewController: BaseViewController {
                 let createTime  = notesArr[index]["createTime"].string ?? ""
                 notes.append(NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime))
             }
-            self.orders.append(OrderModel.init(id: id, p_Title: p_Title, p_Desc: p_Desc, p_Address: p_Address, p_isSale: p_isSale, p_isRent: p_isRent, p_isExchange: p_isExchange, p_Deposit: p_Deposit, p_Rent: p_Rent, p_salePrice: p_salePrice, p_RentMethod: p_RentMethod, p_Type: p_Type, p_Type1: p_Type1, p_Type2: p_Type2, p_ownerId: p_ownerId, p_tradeCount: p_tradeCount, tradeMethod: tradeMethod, orderExchangeItems: orderExchangeItems, tradeQuantity: tradeQuantity, status: status, orderTime: orderTime, payTime: payTime, productSend: productSend, productArrive: productArrive, productSendBack: productSendBack, productGetBack: productGetBack, productId: productId, lender: lender, notes: notes))
+            self.orders.append(OrderModel.init(id: id, p_Title: p_Title, p_Desc: p_Desc, p_Address: p_Address, p_isSale: p_isSale, p_isRent: p_isRent, p_isExchange: p_isExchange, p_Deposit: p_Deposit, p_Rent: p_Rent, p_salePrice: p_salePrice, p_RentMethod: p_RentMethod, p_Type: p_Type, p_Type1: p_Type1, p_Type2: p_Type2, p_ownerId: p_ownerId, p_weightPrice: p_weightPrice,pics:pics, tradeMethod: tradeMethod, orderExchangeItems: orderExchangeItems, tradeQuantity: tradeQuantity, status: status, orderTime: orderTime, payTime: payTime, productSend: productSend, productArrive: productArrive, productSendBack: productSendBack, productGetBack: productGetBack, productId: productId, lender: lender, notes: notes))
         }
     }
 }

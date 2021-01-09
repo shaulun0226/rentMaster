@@ -20,11 +20,9 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var lbSalePrice: UILabel!
     @IBOutlet weak var lbProductDescription: UILabel!
     @IBOutlet weak var lbProductType: UILabel!
-    @IBOutlet weak var lbTradeType: UILabel!
     @IBOutlet weak var lbAddress: UILabel!
+    @IBOutlet weak var lbRentMethod: UILabel!
     @IBOutlet weak var lbTradeMethod: UILabel!
-    @IBOutlet weak var lbTradeItem: UILabel!
-    @IBOutlet weak var orderViewCollectionView: UICollectionView!
     @IBOutlet weak var orderViewPC: UIPageControl!
     //買/賣家資訊
     var user : UserModel!
@@ -38,14 +36,19 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var noteTableViewHeight: NSLayoutConstraint!
     //變數
     var order : OrderModel!
+    
+    //照片
     var orderImages = [String]()
+    @IBOutlet weak var orderViewCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.orderViewCollectionView.delegate = self
         self.orderViewCollectionView.dataSource = self
         self.orderViewCollectionView.isPagingEnabled = true
-        
+        //設定照片
+        setImage()
+        //設定商品文字
         setText()
         //商品留言板
         setSendView()
@@ -86,7 +89,14 @@ class OrderViewController: BaseViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
-    
+    //MARK:- 設定照片
+    func setImage(){
+        for index in 0..<order.pics.count{
+            let path = order.pics[index].path
+            orderImages.append(path)
+        }
+        orderViewCollectionView.reloadData()
+    }
     //MARK:- 根據鍵盤出現移動螢幕
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -125,24 +135,24 @@ class OrderViewController: BaseViewController {
         if(Global.isOnline){
             lbProductTtile.text = "\(order.p_Title)"
             lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
-            lbTradeMethod.text = "交易方式 : \(order.p_RentMethod)"
-            lbAmount.text = "數量 : \(order.p_tradeCount)"
+            lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
+            
+            lbAmount.text = "交易數量 : \(order.tradeQuantity)"
             lbProductDescription.text = "\(order.p_Desc)"
             var price = [String]()
             
             switch order.tradeMethod {
             case 0://租
-                lbTradeType.text = "交易模式:租借"
+                lbTradeMethod.text = "交易方式 : 租借"
                 price.append("押金 : \(order.p_Deposit)元")
                 price.append("租金 : \(order.p_Rent)元/日")
             case 1://買
-                lbTradeType.text = "交易模式:販售"
+                lbTradeMethod.text = "交易方式 : 購買"
                 price.append("售價 : \(order.p_salePrice)元")
             case 2://換
-                lbTradeType.text = "交易模式:交換"
-                
+                lbTradeMethod.text = "交易方式 : 交換"
                 for index in 0..<order.orderExchangeItems.count{
-                    price.append("\(index+1).\(order.orderExchangeItems[index].exchangeItem)  \(order.orderExchangeItems[index].packageQuantity)個")
+                    price.append("\(order.orderExchangeItems[index].exchangeItem)*\(order.orderExchangeItems[index].packageQuantity)")
                 }
             //                price.append("權重 : \(order.productId)")
             default:
@@ -199,13 +209,11 @@ class OrderViewController: BaseViewController {
             return
         }
         let messgae = txSend.text!
-        print("留言內容\(messgae)")
         NetworkController.instance().addNote(orderId: order.id, message: messgae){
             [weak self] (responseValue, isSuccess)in
             guard let weakSelf = self else{return}
             if(isSuccess){
                 let json = JSON(responseValue)
-                print(json)
                 weakSelf.notes.append(weakSelf.parseNote(json: json))
                 weakSelf.txSend.text = ""
                 weakSelf.NoteTableView.reloadData()
