@@ -2942,11 +2942,11 @@
                                             <constraint firstItem="QeH-zF-hIF" firstAttribute="leading" secondItem="yb4-hB-qO7" secondAttribute="leading" id="zYg-ia-UdZ"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xEE-yj-8yc">
-                                        <rect key="frame" x="40" y="449" width="374" height="1000"/>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xEE-yj-8yc">
+                                        <rect key="frame" x="30" y="449" width="384" height="1000"/>
                                         <subviews>
                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="grh-zl-K07">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="1000"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="1000"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -2956,10 +2956,10 @@
                                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MakeOrderTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MakeOrderTableViewCell" rowHeight="75" id="qLQ-dT-v0r" customClass="MakeOrderTableViewCell" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="374" height="75"/>
+                                                        <rect key="frame" x="0.0" y="28" width="384" height="75"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qLQ-dT-v0r" id="7cq-Sj-LHP">
-                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="75"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="75"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlh-IW-6VF">
@@ -2981,20 +2981,20 @@
                                                                         <action selector="checkMarkClick:" destination="qLQ-dT-v0r" eventType="touchUpInside" id="8yl-MP-bdt"/>
                                                                     </connections>
                                                                 </button>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願望清單名稱" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FeO-2h-7Hx">
-                                                                    <rect key="frame" x="65" y="25.5" width="122.5" height="24"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願望清單名稱" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeO-2h-7Hx">
+                                                                    <rect key="frame" x="65" y="27.5" width="104" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="權重" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9a4-ta-fZY">
-                                                                    <rect key="frame" x="253.5" y="28" width="33" height="19.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="244.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9a4-ta-fZY">
+                                                                    <rect key="frame" x="238" y="28" width="57.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="299-jH-W1C">
-                                                                    <rect key="frame" x="296.5" y="12.5" width="37.5" height="50"/>
+                                                                    <rect key="frame" x="305.5" y="12.5" width="38.5" height="50"/>
                                                                     <color key="backgroundColor" name="card"/>
                                                                     <state key="normal" title="1">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3009,7 +3009,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTU-8R-1X9">
-                                                                    <rect key="frame" x="342" y="28.5" width="22" height="18"/>
+                                                                    <rect key="frame" x="352" y="28.5" width="22" height="18"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="BTU-8R-1X9" secondAttribute="height" multiplier="1:1" id="duE-oA-Lcq"/>
                                                                     </constraints>
@@ -3025,12 +3025,13 @@
                                                                 <constraint firstItem="9a4-ta-fZY" firstAttribute="centerY" secondItem="Dlh-IW-6VF" secondAttribute="centerY" id="6Hu-JK-fAA"/>
                                                                 <constraint firstItem="299-jH-W1C" firstAttribute="centerY" secondItem="Dlh-IW-6VF" secondAttribute="centerY" id="7TJ-CF-Oqq"/>
                                                                 <constraint firstItem="Dlh-IW-6VF" firstAttribute="top" secondItem="7cq-Sj-LHP" secondAttribute="top" constant="12.5" id="A9C-06-CYr"/>
-                                                                <constraint firstItem="9a4-ta-fZY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FeO-2h-7Hx" secondAttribute="trailing" constant="10" id="AGP-Yg-pHO"/>
+                                                                <constraint firstItem="9a4-ta-fZY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FeO-2h-7Hx" secondAttribute="trailing" constant="20" id="AGP-Yg-pHO"/>
                                                                 <constraint firstItem="299-jH-W1C" firstAttribute="leading" secondItem="9a4-ta-fZY" secondAttribute="trailing" constant="10" id="CEv-3Y-cLx"/>
                                                                 <constraint firstItem="BTU-8R-1X9" firstAttribute="centerY" secondItem="7cq-Sj-LHP" secondAttribute="centerY" id="Err-RB-klA"/>
                                                                 <constraint firstItem="FeO-2h-7Hx" firstAttribute="centerY" secondItem="Dlh-IW-6VF" secondAttribute="centerY" id="IEk-pL-Dks"/>
                                                                 <constraint firstItem="FeO-2h-7Hx" firstAttribute="leading" secondItem="Dlh-IW-6VF" secondAttribute="trailing" constant="5" id="J2I-la-BQ5"/>
                                                                 <constraint firstAttribute="trailing" secondItem="BTU-8R-1X9" secondAttribute="trailing" constant="10" id="U2y-IL-Ym5"/>
+                                                                <constraint firstItem="9a4-ta-fZY" firstAttribute="width" secondItem="7cq-Sj-LHP" secondAttribute="width" multiplier="0.15" id="UAD-5Q-hJB"/>
                                                                 <constraint firstItem="Dlh-IW-6VF" firstAttribute="centerY" secondItem="7cq-Sj-LHP" secondAttribute="centerY" id="ZBR-2e-DOi"/>
                                                                 <constraint firstItem="Dlh-IW-6VF" firstAttribute="leading" secondItem="7cq-Sj-LHP" secondAttribute="leading" constant="10" id="cIg-Cn-ZMA"/>
                                                                 <constraint firstItem="299-jH-W1C" firstAttribute="height" secondItem="Dlh-IW-6VF" secondAttribute="height" id="f9w-YJ-WCl"/>
@@ -3066,7 +3067,7 @@
                                     <constraint firstItem="0QR-gU-lsL" firstAttribute="top" secondItem="qBp-cO-7LK" secondAttribute="bottom" id="53O-xr-VEC"/>
                                     <constraint firstItem="oWA-Ju-O9E" firstAttribute="top" secondItem="QdE-KA-pNc" secondAttribute="top" constant="15" id="92u-VZ-RwF"/>
                                     <constraint firstItem="oWA-Ju-O9E" firstAttribute="bottom" secondItem="qBp-cO-7LK" secondAttribute="top" id="GcE-i0-74G"/>
-                                    <constraint firstItem="xEE-yj-8yc" firstAttribute="leading" secondItem="QdE-KA-pNc" secondAttribute="leading" constant="40" id="Mvo-73-zjE"/>
+                                    <constraint firstItem="xEE-yj-8yc" firstAttribute="leading" secondItem="QdE-KA-pNc" secondAttribute="leading" constant="30" id="Mvo-73-zjE"/>
                                     <constraint firstItem="xEE-yj-8yc" firstAttribute="top" secondItem="g7I-G1-a6n" secondAttribute="bottom" id="O7j-PJ-rNU"/>
                                     <constraint firstItem="QdE-KA-pNc" firstAttribute="trailing" secondItem="xEE-yj-8yc" secondAttribute="trailing" id="RYw-eF-6F9"/>
                                     <constraint firstItem="xEE-yj-8yc" firstAttribute="bottom" secondItem="QdE-KA-pNc" secondAttribute="bottom" id="VHC-6w-LpN"/>
@@ -3152,6 +3153,7 @@
                         <outlet property="selectView" destination="FUq-wb-iAw" id="qXS-iy-9Ay"/>
                         <outlet property="selfItemWeightPriceView" destination="R7h-pG-AAI" id="6d1-Id-tQg"/>
                         <outlet property="tradeAmountView" destination="TTm-CT-uS4" id="UVm-ER-L9W"/>
+                        <outlet property="tradeItemsStackView" destination="xEE-yj-8yc" id="ItY-YE-iu7"/>
                         <outlet property="wishItemTitleView" destination="ahM-fw-oGm" id="vdX-w5-RQr"/>
                         <outlet property="wishListTableView" destination="grh-zl-K07" id="UAG-bI-nb0"/>
                     </connections>

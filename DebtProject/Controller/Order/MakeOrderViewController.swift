@@ -60,6 +60,7 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var lbProductAmount: UILabel!
     
     //交換畫面區
+    @IBOutlet weak var tradeItemsStackView:UIStackView!
     @IBOutlet weak var wishItemTitleView: DesignableView!
     @IBOutlet weak var selfItemWeightPriceView: DesignableView!
     @IBOutlet weak var needItemWeightPriceView: DesignableView!
@@ -206,6 +207,7 @@ class MakeOrderViewController: BaseViewController {
     }
     //隱藏交換畫面
     private func setExchangeViewHidden(bool:Bool){
+        self.tradeItemsStackView.isHidden = bool
         self.wishListTableView.isHidden = bool
         self.currentWeightPriceView.isHidden = bool
         self.needItemWeightPriceView.isHidden = bool
