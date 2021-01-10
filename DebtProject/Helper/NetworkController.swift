@@ -934,6 +934,35 @@ class NetworkController{
                 }
             }
     }
+    func changeOrdersStatus(id:String,status:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/status/\(id)/\(status)";
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(url,method: .patch,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            print(value)
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
 //MARK:- Note
     func addNote(orderId:String,message:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Notes/add";

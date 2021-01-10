@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftAlertView
 
 class OrderViewController: BaseViewController {
     //畫面
@@ -29,6 +30,9 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var lbOrderDate: UILabel!
     @IBOutlet weak var lbOrderTime: UILabel!
     //買/賣家資訊
+    @IBOutlet weak var lbOrderOwnerInfo: UILabel!
+    var orderOwnerInfo :String?
+    var customerId : String?
     var user : UserModel!
     var orderOwner : UserModel!
     @IBOutlet weak var lbOwnerName: UILabel!
@@ -81,7 +85,8 @@ class OrderViewController: BaseViewController {
                 print("沒拿到使用者資訊")
             }
         }
-        NetworkController.instance().getUserBasicInfo(userId: order.p_ownerId){
+        //拿訂單
+        NetworkController.instance().getUserBasicInfo(userId: self.customerId ?? ""){
             [weak self] (reponseValue,isSuccess)in
             guard let weakSelf = self else{return}
             if(isSuccess){
@@ -103,7 +108,8 @@ class OrderViewController: BaseViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
-    //MARK:- 設定照片
+    //MARK:- 設定
+    //照片
     func setImage(){
         for index in 0..<order.pics.count{
             let path = order.pics[index].path
@@ -111,6 +117,66 @@ class OrderViewController: BaseViewController {
         }
         DispatchQueue.main.async {
             self.orderViewCollectionView.reloadData()
+        }
+    }
+    //文字
+    private func setText(){
+        if(Global.isOnline){
+            lbProductTtile.text = "\(order.p_Title)"
+            lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
+            lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
+            
+            lbAmount.text = "交易數量 : \(order.tradeQuantity)"
+            lbOrderOwnerInfo.text = orderOwnerInfo ?? ""
+            lbProductDescription.text = "\(order.p_Desc)"
+            var price = [String]()
+            
+            switch order.tradeMethod {
+            case 0://租
+                lbTradeMethod.text = "交易方式 : 租借"
+                price.append("押金 : \(order.p_Deposit)元")
+                price.append("租金 : \(order.p_Rent)元/日")
+            case 1://買
+                lbTradeMethod.text = "交易方式 : 購買"
+                price.append("售價 : \(order.p_salePrice)元")
+            case 2://換
+                lbTradeMethod.text = "交易方式 : 交換"
+                for index in 0..<order.orderExchangeItems.count{
+                    price.append("\(order.orderExchangeItems[index].exchangeItem)*\(order.orderExchangeItems[index].packageQuantity)")
+                }
+            //                price.append("權重 : \(order.productId)")
+            default:
+                print("沒找到交易方式")
+                price.append("")
+            }
+            
+            switch order.status{
+            case "CREATE":
+                lbOrderState.text = "訂單成立"
+            case "SEND":
+                lbOrderState.text = "已寄送"
+            case "ARRIVE":
+                lbOrderState.text = "已送達"
+            case "SENDBACK":
+                lbOrderState.text = "已寄回"
+            case "GETBACK":
+                lbOrderState.text = "已收到"
+            default:
+                lbOrderState.text = "不明錯誤，無法顯示"
+            }
+            var priceText = ""
+            for index in 0..<price.count{
+                if(index==price.count-1){
+                    priceText += "\(price[index])"
+                }else{
+                    priceText += "\(price[index])\n"
+                }
+            }
+            lbSalePrice.text = priceText
+            lbAddress.text = "商品地區 : \(order.p_Address)"
+            //            for index in 0..<order.pics.count{
+            //                orderImages.append(order.pics[index].path)
+            //            }
         }
     }
     //MARK:- 根據鍵盤出現移動螢幕
@@ -153,51 +219,38 @@ class OrderViewController: BaseViewController {
         lbOwnerPhone.text = "聯絡電話 : \(orderOwner.phone)"
         lbOwnerAddress.text = "地區 : \(orderOwner.address)"
     }
-    private func setText(){
-        if(Global.isOnline){
-            lbProductTtile.text = "\(order.p_Title)"
-            lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
-            lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
-            
-            lbAmount.text = "交易數量 : \(order.tradeQuantity)"
-            lbProductDescription.text = "\(order.p_Desc)"
-            var price = [String]()
-            
-            switch order.tradeMethod {
-            case 0://租
-                lbTradeMethod.text = "交易方式 : 租借"
-                price.append("押金 : \(order.p_Deposit)元")
-                price.append("租金 : \(order.p_Rent)元/日")
-            case 1://買
-                lbTradeMethod.text = "交易方式 : 購買"
-                price.append("售價 : \(order.p_salePrice)元")
-            case 2://換
-                lbTradeMethod.text = "交易方式 : 交換"
-                for index in 0..<order.orderExchangeItems.count{
-                    price.append("\(order.orderExchangeItems[index].exchangeItem)*\(order.orderExchangeItems[index].packageQuantity)")
-                }
-            //                price.append("權重 : \(order.productId)")
-            default:
-                print("沒找到交易方式")
-                price.append("")
-            }
-            var priceText = ""
-            for index in 0..<price.count{
-                if(index==price.count-1){
-                    priceText += "\(price[index])"
-                }else{
-                    priceText += "\(price[index])\n"
-                }
-            }
-            lbSalePrice.text = priceText
-            lbAddress.text = "商品地區 : \(order.p_Address)"
-            //            for index in 0..<order.pics.count{
-            //                orderImages.append(order.pics[index].path)
-            //            }
-        }
-    }
+    
     //MARK: - 訂單狀態
     @IBAction func nextStateClick(_ sender: Any) {
+        NetworkController.instance().changeOrdersStatus(id: order.id, status: order.status){
+            [weak self] (reponseValue,isSuccess) in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(reponseValue)
+                let dateTime = json["dateTime"].string ?? ""
+                let newStatus = json["newStatus"].string ?? ""
+                weakSelf.lbOrderState.text = newStatus
+                let dateTimeArr = dateTime.split(separator: "T")
+                if(dateTimeArr.count<2){
+                    weakSelf.lbOrderDate.text = ""
+                    weakSelf.lbOrderTime.text = ""
+                    return
+                }
+                weakSelf.lbOrderDate.text = String(dateTimeArr[0])
+                weakSelf.lbOrderTime.text = String(dateTimeArr[1])
+            }else{
+                let alertView = SwiftAlertView(title: "", message: "狀態錯誤\n", delegate: nil, cancelButtonTitle: "確定")
+                alertView.clickedCancelButtonAction = {
+                    alertView.dismiss()
+                }
+                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.buttonTitleColor = .white
+                alertView.show()
+            }
+        }
     }
     
     //MARK:-留言板畫面

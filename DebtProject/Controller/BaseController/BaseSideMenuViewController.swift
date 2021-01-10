@@ -12,7 +12,8 @@ import SwiftAlertView
 class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate {
     
     var menu :SideMenuNavigationController?
-    
+    //做圓形的label
+    var lbBadge:UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         setMenu()
@@ -40,6 +41,18 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         btnNotify.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
         let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
         self.navigationItem.leftBarButtonItems = [leftBarButton]
+        
+        //做圓形的label
+//        let label =
+        lbBadge = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: 10, height: 10))
+        self.lbBadge.backgroundColor = .red
+        self.lbBadge.clipsToBounds = true
+        lbBadge.layer.cornerRadius =  lbBadge.frame.width/2
+//        self.label.textColor = UIColor.white
+//        self.label.font = FontLatoRegular(s: 10)
+        self.lbBadge.textAlignment = .center
+        lbBadge.layer.masksToBounds = true
+        btnNotify.addSubview(lbBadge)
         let rightCartButton = UIBarButtonItem(customView: btnCart)
         let rightNotifyButton = UIBarButtonItem(customView: btnNotify)
         self.navigationItem.rightBarButtonItems = [rightNotifyButton,rightCartButton]
@@ -77,6 +90,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         }
     }
     @objc func didTapNotify() {
+        self.lbBadge.isHidden = true
         //設定popover
         let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
         if let popoverController = storyboard.instantiateViewController(withIdentifier: MainStoryboardController.notifyViewController.rawValue) as? NotifyViewController {

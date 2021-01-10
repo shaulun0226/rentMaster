@@ -46,7 +46,7 @@ class ProductListController: BaseSideMenuViewController{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
-//        tableview.register(MyOrderListTableViewCell.self, forCellReuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
+        //        tableview.register(MyOrderListTableViewCell.self, forCellReuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
         tableview.backgroundView?.backgroundColor = .clear
         //        tableview.bounces = false
         collectview.delegate = self
@@ -475,10 +475,24 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(isMyStore){
             //跳到編輯頁面
-            if let productModifyView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.addProductViewController.rawValue) as? AddProductViewController{
-                productModifyView.isModifyType = true
-                productModifyView.product = products[indexPath.row]
-                self.show(productModifyView,sender: nil)
+            if(isOrder){
+                if let orderView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.orderViewController.rawValue) as? OrderViewController{
+                    guard indexPath.row < orders.count else {
+                        return
+                    }
+                    orderView.orderOwnerInfo = "買家資訊"
+                    orderView.customerId = orders[indexPath.row].lender
+                    orderView.order  = orders[indexPath.row]
+                    orderView.notes = orders[indexPath.row].notes
+                    self.show(orderView, sender: nil)
+                }
+                return
+            }else{
+                if let productModifyView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.addProductViewController.rawValue) as? AddProductViewController{
+                    productModifyView.isModifyType = true
+                    productModifyView.product = products[indexPath.row]
+                    self.show(productModifyView,sender: nil)
+                }
             }
         }else{
             //跳到商品資訊
@@ -495,30 +509,34 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt
                     indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if(isMyStore){
-            print("id:\(self.products[indexPath.row].id)")
-            let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
-                NetworkController.instance().deleteMyOwnItem(id: self.products[indexPath.row].id){
-                    [weak self] (reponseValue,isSuccess) in
-                    guard let  weakSelf = self else{return}
-                    if(isSuccess){
-                        weakSelf.products.remove(at: indexPath.row)
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
+            if(isOrder){
+                return  UISwipeActionsConfiguration()
+            }else{
+                print("id:\(self.products[indexPath.row].id)")
+                let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
+                    NetworkController.instance().deleteMyOwnItem(id: self.products[indexPath.row].id){
+                        [weak self] (reponseValue,isSuccess) in
+                        guard let  weakSelf = self else{return}
+                        if(isSuccess){
+                            weakSelf.products.remove(at: indexPath.row)
+                            DispatchQueue.main.async {
+                                weakSelf.tableview.reloadData()
+                            }
+                            print(reponseValue)
                         }
-                        print(reponseValue)
                     }
+                    // 需要返回true，不然會没有反應
+                    completionHandler(true)
                 }
-                // 需要返回true，不然會没有反應
-                completionHandler(true)
+                deleteAction.backgroundColor = .red
+                deleteAction.image = UIImage(systemName: "trash")
+                let config = UISwipeActionsConfiguration(actions: [deleteAction])
+                
+                // 取消拉長後自動執行
+                config.performsFirstActionWithFullSwipe = false
+                
+                return config
             }
-            deleteAction.backgroundColor = .red
-            deleteAction.image = UIImage(systemName: "trash")
-            let config = UISwipeActionsConfiguration(actions: [deleteAction])
-            
-            // 取消拉長後自動執行
-            config.performsFirstActionWithFullSwipe = false
-            
-            return config
         }
         return UISwipeActionsConfiguration()
     }

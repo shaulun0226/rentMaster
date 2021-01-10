@@ -128,6 +128,9 @@ extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableview.dequeueReusableCell(withIdentifier: TableViewCell.myOrderListTableViewCell.rawValue,for: indexPath) as? MyOrderListTableViewCell{
+            if(indexPath.row>=orders.count){
+                return UITableViewCell()
+            }
             cell.backgroundColor = UIColor(named: "card")
             cell.configure(with: orders[indexPath.row])
             return cell
@@ -139,6 +142,8 @@ extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSour
             guard indexPath.row < orders.count else {
                 return
             }
+            orderView.orderOwnerInfo = "賣家資訊"
+            orderView.customerId = orders[indexPath.row].p_ownerId
             orderView.order = orders[indexPath.row]
             orderView.notes = orders[indexPath.row].notes
             self.show(orderView, sender: nil)
@@ -193,14 +198,13 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
             }
             cell.isSelected = true
             cell.backgroundColor = UIColor(named: "card")
-            
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             UIView.animate(withDuration: 0.4) { [weak self] in
                 if let self = self{
                     self.slider.center.x = cell.center.x
                 }
             }
-            orders.removeAll()
+//            orders.removeAll()
         }
     }
 }

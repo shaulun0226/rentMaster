@@ -10,7 +10,8 @@ import UIKit
 class MyOrderListTableViewCell: BaseTableViewCell {
     @IBOutlet weak var ivProduct:UIImageView!
     @IBOutlet weak var lbProductTitle:UILabel!
-    @IBOutlet weak var lbProductDescription:UILabel!
+    @IBOutlet weak var lbProductTradeMethod:UILabel!
+    @IBOutlet weak var lbTradeQuantity:UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -40,6 +41,18 @@ class MyOrderListTableViewCell: BaseTableViewCell {
     }
     func configure(with model: OrderModel) {
         self.lbProductTitle.text = model.p_Title
+        self.lbTradeQuantity.text = "交易數量 : \(model.tradeQuantity)"
+        switch model.tradeMethod {
+        case 0://租
+            lbProductTradeMethod.text = "交易方式 : 租借"
+        case 1://買
+            lbProductTradeMethod.text = "交易方式 : 購買"
+        case 2://換
+            lbProductTradeMethod.text = "交易方式 : 交換"
+        default:
+            lbProductTradeMethod.text = ""
+            
+        }
 //        var price = [String]()
         if model.pics.count == 0 {
             self.ivProduct.image = UIImage(named: "imageNotFound")

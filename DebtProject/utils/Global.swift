@@ -48,6 +48,9 @@ enum CollectionViewCell:String,CaseIterable{
     case productInfoImageCollectionViewCell = "ProductInfoImageCollectionViewCell"
 }
 class Global{
+    
+    //notifyBadge
+    static var badgeIsHidden = false
     //device token
     static var deviceToken = ""
     //預計跳轉的頁面
