@@ -9,7 +9,7 @@ import UIKit
 import SwiftyJSON
 
 class MyBuyerOrderListViewController: BaseViewController {
-    
+    var orderStatus = ""
     var orders = [OrderModel]()
     var tabbarTitle = [String]()
     //collectionview底線
@@ -25,7 +25,7 @@ class MyBuyerOrderListViewController: BaseViewController {
         tableview.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        tabbarTitle = ["未出貨","租借中","歷史紀錄"]
+        tabbarTitle = ["已立單","已寄送","歷史紀錄"]
 //        orders = ProductModel.defaultAllList
         //設定CollectionView Cell大小
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -36,7 +36,7 @@ class MyBuyerOrderListViewController: BaseViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         orders.removeAll()
-        NetworkController.instance().getMyOrderListBuyer{
+        NetworkController.instance().getMyOrderListBuyer(status: self.orderStatus){
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
@@ -186,7 +186,7 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //        self.title = buttonText[indexPath.row]
         // 先清空
-        if let cell = collectionView.cellForItem(at: indexPath){
+        if let cell = collectionView.cellForItem(at: indexPath) as? MyOrderListTabBarCell{
             //設定點擊背景色變化
             if(indexPath.row != 0){
                 if let firstcell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)){
@@ -204,7 +204,25 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
                     self.slider.center.x = cell.center.x
                 }
             }
-//            orders.removeAll()
+            guard let orderStatus = cell.lbTitle.text else {
+                return
+            }
+            orders.removeAll()
+            print("選取標籤：\(orderStatus)")
+            NetworkController.instance().getMyOrderListBuyer(status: orderStatus){
+                [weak self] (reponseValue,isSuccess) in
+                guard let weakSelf = self else{return}
+                if(isSuccess){
+                    let jsonArr = JSON(reponseValue)
+                    weakSelf.parseOrder(jsonArr: jsonArr)
+                    DispatchQueue.main.async {
+                        weakSelf.collectionView.reloadData()
+                        weakSelf.tableview.reloadData()
+                    }
+                }else{
+                    print("進到我的訂單")
+                }
+            }
         }
     }
 }

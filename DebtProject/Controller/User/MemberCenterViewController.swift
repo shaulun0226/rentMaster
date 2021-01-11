@@ -58,6 +58,7 @@ extension MemberCenterViewController:UITableViewDelegate,UITableViewDataSource{
         switch indexPath.row {
         case 0:
             if let myOrderListViewController = Global.productStoryboard.instantiateViewController(identifier:ProductStoryboardController.myBuyerOrderListViewController.rawValue) as? MyBuyerOrderListViewController{
+                myOrderListViewController.orderStatus = "已立單"
                 self.show(myOrderListViewController, sender: nil);
             }
         case 1:

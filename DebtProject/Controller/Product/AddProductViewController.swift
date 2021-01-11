@@ -188,6 +188,7 @@ class AddProductViewController: BaseViewController {
         }
         if(product.type.elementsEqual("BoardGame")){
             btnProductType.setTitle("桌遊", for: .normal)
+            lbProductType2.text = "遊玩人數:"
         }else{
             btnProductType.setTitle(product.type, for: .normal)
         }
@@ -325,16 +326,16 @@ class AddProductViewController: BaseViewController {
         pickerList.removeAll()
         switch productType {
         case "PlayStation":
-            lbProductType1.text = "主機型號"
+            lbProductType1.text = "主機型號:"
             pickerList = ["PS5","PS4"]
         case "Xbox":
-            lbProductType1.text = "主機型號"
+            lbProductType1.text = "主機型號:"
             pickerList = ["One","Series"]
         case "Switch":
-            lbProductType1.text = "主機型號"
+            lbProductType1.text = "主機型號:"
             pickerList = ["Switch"]
         case "桌遊":
-            lbProductType1.text = "遊玩人數"
+            lbProductType1.text = "遊玩人數:"
             pickerList = ["4人以下","4-8人","8人以上"]
         default:
             pickerList = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
@@ -346,7 +347,18 @@ class AddProductViewController: BaseViewController {
     @IBAction func type2Click(_ sender: Any) {
         currentButton = btnProductType2
         pickerList.removeAll()
-        pickerList = ["遊戲","主機","周邊","其他"]
+        guard let productType1 = btnProductType1.titleLabel?.text else { return  }
+        if(productType1.elementsEqual("請選擇主機型號")){
+            return
+        }
+        if(productType1.elementsEqual("4人以下")
+           || productType1.elementsEqual("4-8人")
+           || productType1.elementsEqual("8人以上")){
+            pickerList = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
+        }else{
+            
+            pickerList = ["遊戲","主機","周邊","其他"]
+        }
         //刷新pick內容
         pickerView.reloadAllComponents()
         displayPicker(true)
@@ -456,7 +468,7 @@ class AddProductViewController: BaseViewController {
                             myStoreView.navigationController?.navigationBar.prefersLargeTitles = true
                             myStoreView.isMyStore = true
                             myStoreView.slider.backgroundColor = .white
-                            myStoreView.tabbarTitle = ["上架中","未上架","出租中","未出貨","不知道"]
+                            myStoreView.isOrder = false
                             weakSelf.show(myStoreView, sender: nil);
                         }
                     }
@@ -563,24 +575,24 @@ class AddProductViewController: BaseViewController {
     }
     //MARK:-解析JSON
     private func parseProduct(json:JSON){
-        let id = json["id"].string!
-        let title = json["title"].string!
-        let description = json["description"].string!
-        let isSale = json["isSale"].bool!
-        let isRent = json["isRent"].bool!
-        let isExchange = json["isExchange"].bool!
+        let id = json["id"].string  ?? ""
+        let title = json["title"].string  ?? ""
+        let description = json["description"].string  ?? ""
+        let isSale = json["isSale"].bool  ?? false
+        let isRent = json["isRent"].bool  ?? false
+        let isExchange = json["isExchange"].bool ?? false
         let address = json["address"].string ?? ""
-        let deposit = json["deposit"].int!
-        let rent = json["rent"].int!
-        let salePrice = json["salePrice"].int!
-        let rentMethod = json["rentMethod"].string!
-        let amount = json["amount"].int!
-        let type = json["type"].string!
-        let type1 = json["type1"].string!
-        let type2 = json["type2"].string!
-        let userId = json["userId"].string!
-        let picsArr = json["pics"].array!
-        let weightPrice = json["weightPrice"].float!
+        let deposit = json["deposit"].int ?? 0
+        let rent = json["rent"].int ?? 0
+        let salePrice = json["salePrice"].int ?? 0
+        let rentMethod = json["rentMethod"].string  ?? ""
+        let amount = json["amount"].int ?? 0
+        let type = json["type"].string ?? ""
+        let type1 = json["type1"].string  ?? ""
+        let type2 = json["type2"].string ?? ""
+        let userId = json["userId"].string ?? ""
+        let picsArr = json["pics"].array ?? []
+        let weightPrice = json["weightPrice"].float ?? 0.0
         var pics = [PicModel]()
         for index in 0..<picsArr.count{
             let id  = picsArr[index]["id"].string ?? ""
@@ -647,7 +659,6 @@ extension AddProductViewController:UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         //Create UICollectionReusableView
         var reusableView = UICollectionReusableView()
         

@@ -619,7 +619,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
                                 <rect key="frame" x="33" y="62" width="348" height="594"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="kuA-eK-HD6">
@@ -1008,6 +1008,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="wdv-qO-hv7" firstAttribute="height" secondItem="Fw6-27-SmR" secondAttribute="height" multiplier="0.0690236" id="D7X-sn-Iin"/>
                                     <constraint firstItem="nVM-3m-T5x" firstAttribute="leading" secondItem="GN7-gf-lce" secondAttribute="leading" id="F8L-Gs-QyL"/>
                                     <constraint firstItem="GN7-gf-lce" firstAttribute="leading" secondItem="qMz-Yw-qi1" secondAttribute="leading" id="WRd-9X-Vc3"/>
                                     <constraint firstItem="GN7-gf-lce" firstAttribute="leading" secondItem="Fw6-27-SmR" secondAttribute="leading" id="m2k-pW-U8G"/>
@@ -1023,6 +1024,7 @@
                             <constraint firstItem="Fw6-27-SmR" firstAttribute="top" secondItem="sNz-Ak-Qpa" secondAttribute="top" constant="62" id="LJ9-dw-tDA"/>
                             <constraint firstItem="sNz-Ak-Qpa" firstAttribute="trailing" secondItem="Fw6-27-SmR" secondAttribute="trailing" constant="33" id="TF4-ag-uOT"/>
                             <constraint firstItem="Fw6-27-SmR" firstAttribute="leading" secondItem="sNz-Ak-Qpa" secondAttribute="leading" constant="33" id="p2E-jK-ylg"/>
+                            <constraint firstItem="sNz-Ak-Qpa" firstAttribute="bottom" secondItem="Fw6-27-SmR" secondAttribute="bottom" constant="60" id="t6M-cD-1hV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6oL-r6-E87"/>

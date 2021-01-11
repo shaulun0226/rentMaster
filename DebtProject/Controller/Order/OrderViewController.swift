@@ -149,21 +149,6 @@ class OrderViewController: BaseViewController {
                 print("沒找到交易方式")
                 price.append("")
             }
-            
-            switch order.status{
-            case "CREATE":
-                lbOrderState.text = "訂單成立"
-            case "SEND":
-                lbOrderState.text = "已寄送"
-            case "ARRIVE":
-                lbOrderState.text = "已送達"
-            case "SENDBACK":
-                lbOrderState.text = "已寄回"
-            case "GETBACK":
-                lbOrderState.text = "已收到"
-            default:
-                lbOrderState.text = "不明錯誤，無法顯示"
-            }
             var priceText = ""
             for index in 0..<price.count{
                 if(index==price.count-1){
@@ -172,6 +157,7 @@ class OrderViewController: BaseViewController {
                     priceText += "\(price[index])\n"
                 }
             }
+            lbOrderState.text = order.status
             lbSalePrice.text = priceText
             lbAddress.text = "商品地區 : \(order.p_Address)"
             //            for index in 0..<order.pics.count{

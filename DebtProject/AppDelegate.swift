@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         // Set Firebase messaging delegate
         Messaging.messaging().delegate = self
-        
         // Register for remote notifications. This shows a permission dialog on first run, to
         // show the dialog at a more appropriate time move this registration accordingly.
         if #available(iOS 10.0, *) {
@@ -84,34 +83,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Print full message.
         print(userInfo)
-        
+        //傳來的資料是AnyHashable的話要用這樣拆開
+        guard let message = userInfo[AnyHashable("Message")] as? String else{return}
+        guard let sender = userInfo[AnyHashable("Sender")] as? String else{return}
+        print("傳送推播")
+        let content = UNMutableNotificationContent()
+                content.title = sender
+                content.subtitle = "測試副標題"
+                content.body = message
+                content.badge = 1
+                content.sound = UNNotificationSound.default
+                //timeInterval設定收到訊息後多久跳出
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let request = UNNotificationRequest(identifier: "notification1", content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         completionHandler(UIBackgroundFetchResult.newData)
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        for byte in deviceToken {
-             let hexString = String(format: "%02x", byte)
-            self.deviceToken += hexString
-        }
-        userDefault.setValue( self.deviceToken, forKey: "DeviceToken")
-        guard let account = userDefault.value(forKey: "Account") as? String else{return}
-        guard let password = userDefault.value(forKey: "Password") as? String else{return}
-        if(account.isEmpty||password.isEmpty){
-            return
-        }
-        if(Global.isOnline && User.token.isEmpty){
-            NetworkController.instance().login(email: account, password: password,deviceToken: self.deviceToken) {
-                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
-                (value,isSuccess)  in
-                if(isSuccess){
-                    User.token = value as? String ?? ""
-                    if(!User.token.isEmpty){
-                        print("登入成功")
-                    }
-                }else{
-                    print("登入失敗")
-                }
-            }
-        }
+//        for byte in deviceToken {
+//             let hexString = String(format: "%02x", byte)
+//            self.deviceToken += hexString
+//        }
+        
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
@@ -156,16 +149,37 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 
     // Print full message.
     print(userInfo)
-
+   
     completionHandler()
   }
-    
+  
 }
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         guard let fcmToken = fcmToken else {
             print("沒拿到token")
             return
+        }
+        self.deviceToken = fcmToken
+        userDefault.setValue( self.deviceToken, forKey: "DeviceToken")
+        guard let account = userDefault.value(forKey: "Account") as? String else{return}
+        guard let password = userDefault.value(forKey: "Password") as? String else{return}
+        if(account.isEmpty||password.isEmpty){
+            return
+        }
+        if(Global.isOnline && User.token.isEmpty){
+            NetworkController.instance().login(email: account, password: password,deviceToken: self.deviceToken) {
+                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
+                (value,isSuccess)  in
+                if(isSuccess){
+                    User.token = value as? String ?? ""
+                    if(!User.token.isEmpty){
+                        print("登入成功")
+                    }
+                }else{
+                    print("登入失敗")
+                }
+            }
         }
         print("Firebase registration token: \(fcmToken)")
         let dataDict:[String: String] = ["token": fcmToken]

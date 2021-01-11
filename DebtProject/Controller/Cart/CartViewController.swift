@@ -38,24 +38,24 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
     }
     private func parseProduct(jsonArr:JSON){
         for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string!
-            let title = jsonArr[index]["title"].string!
-            let description = jsonArr[index]["description"].string!
-            let isSale = jsonArr[index]["isSale"].bool!
-            let isRent = jsonArr[index]["isRent"].bool!
-            let isExchange = jsonArr[index]["isExchange"].bool!
+            let id = jsonArr[index]["id"].string ?? ""
+            let title = jsonArr[index]["title"].string ?? ""
+            let description = jsonArr[index]["description"].string ?? ""
+            let isSale = jsonArr[index]["isSale"].bool ?? false
+            let isRent = jsonArr[index]["isRent"].bool ?? false
+            let isExchange = jsonArr[index]["isExchange"].bool ?? false
             let address = jsonArr[index]["address"].string ?? ""
-            let deposit = jsonArr[index]["deposit"].int!
-            let rent = jsonArr[index]["rent"].int!
-            let salePrice = jsonArr[index]["salePrice"].int!
-            let rentMethod = jsonArr[index]["rentMethod"].string!
-            let amount = jsonArr[index]["amount"].int!
-            let type = jsonArr[index]["type"].string!
-            let type1 = jsonArr[index]["type1"].string!
-            let type2 = jsonArr[index]["type2"].string!
-            let userId = jsonArr[index]["userId"].string!
-            let picsArr = jsonArr[index]["pics"].array!
-            let weightPrice = jsonArr[index]["weightPrice"].float!
+            let deposit = jsonArr[index]["deposit"].int ?? 0
+            let rent = jsonArr[index]["rent"].int ?? 0
+            let salePrice = jsonArr[index]["salePrice"].int ?? 0
+            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
+            let amount = jsonArr[index]["amount"].int ?? 0
+            let type = jsonArr[index]["type"].string ?? ""
+            let type1 = jsonArr[index]["type1"].string ?? ""
+            let type2 = jsonArr[index]["type2"].string ?? ""
+            let userId = jsonArr[index]["userId"].string ?? ""
+            let picsArr = jsonArr[index]["pics"].array ?? []
+            let weightPrice = jsonArr[index]["weightPrice"].float ?? 0.0
             
             var pics = [PicModel]()
             for index in 0..<picsArr.count{

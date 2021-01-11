@@ -252,6 +252,7 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableViewCell") as? PageTableViewCell {
+            cell.lbMainPageTitle.font = UIFont(name: "", size: 40)
             switch indexPath.row {
             case 0:
                 cell.lbMainPageTitle.text = "賣場其他商品"

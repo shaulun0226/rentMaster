@@ -358,6 +358,35 @@ class NetworkController{
                 }
             }
     }
+    func getProductListByTypeAndType2(type:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/listByTypeNType2/\(type)/\(type2)/\(pageBegin)/\(pageEnd)";
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     func emailConfirm(email:String,completionHandler:@escaping (Bool) -> ()){
         let parameters :Parameters = ["Email":email]
         let url = "\(serverUrl)/Users/security/check";
@@ -784,10 +813,12 @@ class NetworkController{
                 }
             }
     }
-    func getMyOrderListBuyer(completionHandler:@escaping (_ :Any,Bool) -> ()){
-        let url = "\(serverUrl)/Orders/Mylist/buyer";
+    func getMyOrderListBuyer(status:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/Mylist/buyer/\(status)";
+        //因為網址含有中文，需要做編碼處理
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
-        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default,headers: header)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功
@@ -813,10 +844,12 @@ class NetworkController{
                 }
             }
     }
-    func getMyOrderListSeller(completionHandler:@escaping (_ :Any,Bool) -> ()){
-        let url = "\(serverUrl)/Orders/Mylist/seller";
+    func getMyOrderListSeller(status:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/Mylist/seller/\(status)";
+        //因為網址含有中文，需要做編碼處理
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
-        AF.request(url,method: .get,encoding:JSONEncoding.default,headers: header)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default,headers: header)
             .responseJSON{ response in
                 switch response.result {
                 //先看連線有沒有成功
@@ -826,6 +859,37 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func changeOrdersStatus(id:String,status:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/status/\(id)/\(status)";
+        //因為網址含有中文，需要做編碼處理
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(encodedUrl!,method: .patch,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            print(value)
                             completionHandler(value,true)
                             break
                         default:
@@ -934,35 +998,7 @@ class NetworkController{
                 }
             }
     }
-    func changeOrdersStatus(id:String,status:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
-        let url = "\(serverUrl)/Orders/status/\(id)/\(status)";
-        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
-        AF.request(url,method: .patch,encoding:JSONEncoding.default,headers: header)
-            .responseJSON{ response in
-                switch response.result {
-                //先看連線有沒有成功
-                case.success(let value):
-                    //再解析errorCode
-                    if let status = response.response?.statusCode {
-                        print(status)
-                        switch(status){
-                        case 200:
-                            print(value)
-                            completionHandler(value,true)
-                            break
-                        default:
-                            self.textNotCode200(status: status, value: value)
-                            completionHandler(value,false)
-                            break
-                        }
-                    }
-                case .failure(let error):
-                    print("error:\(error)")
-                    completionHandler( error.localizedDescription, false)
-                    break
-                }
-            }
-    }
+    
 //MARK:- Note
     func addNote(orderId:String,message:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Notes/add";

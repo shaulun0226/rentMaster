@@ -12,6 +12,7 @@ class MyOrderListTableViewCell: BaseTableViewCell {
     @IBOutlet weak var lbProductTitle:UILabel!
     @IBOutlet weak var lbProductTradeMethod:UILabel!
     @IBOutlet weak var lbTradeQuantity:UILabel!
+    @IBOutlet weak var lbTradeState:UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -51,8 +52,8 @@ class MyOrderListTableViewCell: BaseTableViewCell {
             lbProductTradeMethod.text = "交易方式 : 交換"
         default:
             lbProductTradeMethod.text = ""
-            
         }
+        lbTradeState.text = "訂單狀態 : \(model.status)"
 //        var price = [String]()
         if model.pics.count == 0 {
             self.ivProduct.image = UIImage(named: "imageNotFound")

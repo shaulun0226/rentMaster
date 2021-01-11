@@ -12,8 +12,6 @@ import SwiftAlertView
 class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate {
     
     var menu :SideMenuNavigationController?
-    //做圓形的label
-    var lbBadge:UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         setMenu()
@@ -26,35 +24,23 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //設定右邊cart button
         //        let btnCart = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action:#selector(didTapCart))
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
-        btnCart.setBackgroundImage(UIImage(systemName: "cart.fill"), for: .normal)
+        btnCart.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         btnCart.addTarget(self, action:#selector(didTapCart), for: .touchUpInside)//沒選touchUpInside會有重複點擊的可能
         btnCart.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊ring button
-        let btnNotify = UIButton(type: UIButton.ButtonType.custom)
-        btnNotify.setBackgroundImage(UIImage(systemName: "bell.fill"), for: .normal)
-        btnNotify.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
-        btnNotify.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+        let btnMemberCenter = UIButton(type: UIButton.ButtonType.custom)
+        btnMemberCenter.setBackgroundImage(UIImage(systemName: "person.circle.fill"), for: .normal)
+        btnMemberCenter.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
+        btnMemberCenter.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         //設定抽屜圖示的顏色
         btnSideMenu.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
         //設定右列圖示的顏色
-        btnCart.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
-        btnNotify.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
+        btnCart.tintColor = #colorLiteral(red: 0.8745098039, green: 0.6901960784, blue: 0.3921568627, alpha: 1)
+        btnMemberCenter.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
         let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
         self.navigationItem.leftBarButtonItems = [leftBarButton]
-        
-        //做圓形的label
-//        let label =
-        lbBadge = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: 10, height: 10))
-        self.lbBadge.backgroundColor = .red
-        self.lbBadge.clipsToBounds = true
-        lbBadge.layer.cornerRadius =  lbBadge.frame.width/2
-//        self.label.textColor = UIColor.white
-//        self.label.font = FontLatoRegular(s: 10)
-        self.lbBadge.textAlignment = .center
-        lbBadge.layer.masksToBounds = true
-        btnNotify.addSubview(lbBadge)
         let rightCartButton = UIBarButtonItem(customView: btnCart)
-        let rightNotifyButton = UIBarButtonItem(customView: btnNotify)
+        let rightNotifyButton = UIBarButtonItem(customView: btnMemberCenter)
         self.navigationItem.rightBarButtonItems = [rightNotifyButton,rightCartButton]
     }
     @objc func didTapMenu() {
@@ -85,33 +71,55 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         }
         let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
-            view.title = "購物車"
+            view.title = "喜愛清單"
             self.show(view, sender: nil);
         }
     }
     @objc func didTapNotify() {
-        self.lbBadge.isHidden = true
-        //設定popover
-        let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
-        if let popoverController = storyboard.instantiateViewController(withIdentifier: MainStoryboardController.notifyViewController.rawValue) as? NotifyViewController {
-            //設定popoverview backgroundColor
-            let layer = Global.setBackgroundColor(view);
-            popoverController.view.layer.insertSublayer(layer, at: 0)
-            //設定以 popover 的效果跳轉
-            popoverController.modalPresentationStyle = .popover
-            //設定popover的來源視圖
-            popoverController.popoverPresentationController?.sourceView = self.view
-            //下面註解掉的這行可以指定箭頭指的座標
-            //            popoverController.popoverPresentationController?.sourceRect = buttonFrame
-            popoverController.popoverPresentationController?.delegate = self
-            //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
-            popoverController.popoverPresentationController?.permittedArrowDirections = .up
-            popoverController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-            //設定popover視窗大小
-            popoverController.preferredContentSize = CGSize(width: 350, height: 500)
-            //跳轉頁面
-            present(popoverController, animated: true, completion: nil)
+        if(User.token.isEmpty){
+            let notLoginAlertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "確定")
+            notLoginAlertView.clickedCancelButtonAction = {
+                notLoginAlertView.dismiss()
+            }
+            notLoginAlertView.clickedButtonAction = {[self] index in
+                if(index==1){
+                    if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                        //                            }
+                        self.present(loginView, animated: true, completion: nil)
+                    }
+                }
+            }
+            notLoginAlertView.messageLabel.textColor = .white
+            notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+            notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+            notLoginAlertView.buttonTitleColor = .white
+            notLoginAlertView.show()
+            return
         }
+        if let memberView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue)as? MemberCenterViewController{
+            self.show(memberView, sender: nil)
+        }
+//        let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
+//        if let popoverController = storyboard.instantiateViewController(withIdentifier: MainStoryboardController.notifyViewController.rawValue) as? NotifyViewController {
+//            //設定popoverview backgroundColor
+//            let layer = Global.setBackgroundColor(view);
+//            popoverController.view.layer.insertSublayer(layer, at: 0)
+//            //設定以 popover 的效果跳轉
+//            popoverController.modalPresentationStyle = .popover
+//            //設定popover的來源視圖
+//            popoverController.popoverPresentationController?.sourceView = self.view
+//            //下面註解掉的這行可以指定箭頭指的座標
+//            //            popoverController.popoverPresentationController?.sourceRect = buttonFrame
+//            popoverController.popoverPresentationController?.delegate = self
+//            //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
+//            popoverController.popoverPresentationController?.permittedArrowDirections = .up
+//            popoverController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+//            //設定popover視窗大小
+//            popoverController.preferredContentSize = CGSize(width: 350, height: 500)
+//            //跳轉頁面
+//            present(popoverController, animated: true, completion: nil)
+//        }
     }
     
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {
@@ -195,92 +203,114 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.isMyStore = false
                 view = vcMain
             }
-        case .boardgame:
+//        case .boardgame:
+//            if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
+//                vcMain.slider.backgroundColor = .yellow
+//                vcMain.productType1 = "桌遊"
+//                vcMain.isMyStore = false
+//                view = vcMain
+//            }
+        case .fourPlayerBoardGame:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.slider.backgroundColor = .yellow
-                vcMain.productType1 = "桌遊"
+                vcMain.productType1 = "4人以下"
                 vcMain.isMyStore = false
                 view = vcMain
             }
-        case .changePassword:
-            if (User.token.isEmpty){
-                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                        self.show(loginView, sender: nil);
-                    }
-                }
-                controller.addAction(okAction)
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                controller.addAction(cancelAction)
-                self.present(controller, animated: true, completion: nil)
-                return
-            }
-            if let changePasswordView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changePasswordViewController.rawValue) as? ChangePasswordViewController{
-                view = changePasswordView
-            }
-        case .logout:
-            if (User.token.isEmpty){
-                //設定UIAlertController的title,message
-                let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
-                //設定ok的action按鈕
-                let okAction = UIAlertAction(title: "確定", style: .default)
-                //將action加入UIAlertController
-                alertController.addAction(okAction)
-                //彈出UIAlertController
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }else{
-                //設定UIAlertController的title,message
-                let controller = UIAlertController(title: "是否登出", message: "", preferredStyle: .alert)
-                //設定ok的action按鈕，並加入按下後的動作
-                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
-                    User.token = ""
-                    let logoutController = UIAlertController(title: "帳號已登出", message: "", preferredStyle: .alert)
-                    let logoutOkAction = UIAlertAction(title: "確定", style: .default)
-                    logoutController.addAction(logoutOkAction)
-                    self.present(logoutController, animated: true, completion: nil)
-                }
-                //將action加入UIAlertController
-                controller.addAction(okAction)
-                //設定cancel的action按鈕
-                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-                //將action加入UIAlertController
-                controller.addAction(cancelAction)
-                //彈出UIAlertController
-                self.present(controller, animated: true, completion: nil)
-                return
-            }
-        case .memberCenter:
-            if(Global.isOnline){
-                if(User.token.isEmpty){
-                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
-                    alertView.clickedCancelButtonAction = {
-                        alertView.dismiss()
-                    }
-                    alertView.clickedButtonAction = {[self] index in
-                        if(index==1){
-                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                                //                            }
-                                self.present(loginView, animated: true, completion: nil)
-                            }
-                        }
-                    }
-                    alertView.messageLabel.textColor = .white
-                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
-                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-                    alertView.backgroundColor = UIColor(named: "Alert")
-                    alertView.buttonTitleColor = .white
-                    alertView.show()
-                    return
-                }
-            }
-            if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
-                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
+        case .fourToEightPlayerBoardGame:
+            if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
+                vcMain.slider.backgroundColor = .yellow
+                vcMain.productType1 = "4-8人"
+                vcMain.isMyStore = false
                 view = vcMain
             }
+        case .eightPlayerBoardGame:
+            if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
+                vcMain.slider.backgroundColor = .yellow
+                vcMain.productType1 = "8人以上"
+                vcMain.isMyStore = false
+                view = vcMain
+            }
+//        case .changePassword:
+//            if (User.token.isEmpty){
+//                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
+//                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
+//                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+//                        self.show(loginView, sender: nil);
+//                    }
+//                }
+//                controller.addAction(okAction)
+//                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//                controller.addAction(cancelAction)
+//                self.present(controller, animated: true, completion: nil)
+//                return
+//            }
+//            if let changePasswordView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changePasswordViewController.rawValue) as? ChangePasswordViewController{
+//                view = changePasswordView
+//            }
+//        case .logout:
+//            if (User.token.isEmpty){
+//                //設定UIAlertController的title,message
+//                let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
+//                //設定ok的action按鈕
+//                let okAction = UIAlertAction(title: "確定", style: .default)
+//                //將action加入UIAlertController
+//                alertController.addAction(okAction)
+//                //彈出UIAlertController
+//                self.present(alertController, animated: true, completion: nil)
+//                return
+//            }else{
+//                //設定UIAlertController的title,message
+//                let controller = UIAlertController(title: "是否登出", message: "", preferredStyle: .alert)
+//                //設定ok的action按鈕，並加入按下後的動作
+//                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
+//                    User.token = ""
+//                    let logoutController = UIAlertController(title: "帳號已登出", message: "", preferredStyle: .alert)
+//                    let logoutOkAction = UIAlertAction(title: "確定", style: .default)
+//                    logoutController.addAction(logoutOkAction)
+//                    self.present(logoutController, animated: true, completion: nil)
+//                }
+//                //將action加入UIAlertController
+//                controller.addAction(okAction)
+//                //設定cancel的action按鈕
+//                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//                //將action加入UIAlertController
+//                controller.addAction(cancelAction)
+//                //彈出UIAlertController
+//                self.present(controller, animated: true, completion: nil)
+//                return
+//            }
+//        case .memberCenter:
+//            if(Global.isOnline){
+//                if(User.token.isEmpty){
+//                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+//                    alertView.clickedCancelButtonAction = {
+//                        alertView.dismiss()
+//                    }
+//                    alertView.clickedButtonAction = {[self] index in
+//                        if(index==1){
+//                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+//                                //                            }
+//                                self.present(loginView, animated: true, completion: nil)
+//                            }
+//                        }
+//                    }
+//                    alertView.messageLabel.textColor = .white
+//                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+//                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+//                    alertView.backgroundColor = UIColor(named: "Alert")
+//                    alertView.buttonTitleColor = .white
+//                    alertView.show()
+//                    return
+//                }
+//            }
+//            if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
+//                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
+//                view = vcMain
+//            }
+        default:
+            return
         }
-        
         //        view.title = selectedItem
         view.title = selectedItem
         self.show(view, sender: nil);
@@ -296,8 +326,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         sideMenulist.append(SideMenuListModel.init(title:.ps, item: [SideMenuItem.ps5,SideMenuItem.ps4]))
         sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.series,SideMenuItem.one]))
         sideMenulist.append(SideMenuListModel.init(title:.Switch, item:[ SideMenuItem.Switch]))
-        sideMenulist.append(SideMenuListModel.init(title:.boardgame, item:[ SideMenuItem.boardgame]))
-        sideMenulist.append(SideMenuListModel.init(title: .memberCenter, item: [SideMenuItem.memberCenter,SideMenuItem.changePassword,SideMenuItem.logout]))
+        sideMenulist.append(SideMenuListModel.init(title:.boardgame, item:[ SideMenuItem.fourPlayerBoardGame,SideMenuItem.fourToEightPlayerBoardGame,SideMenuItem.eightPlayerBoardGame]))
         
         let menuListController = SideMenuController.init(with: sideMenulist)
         

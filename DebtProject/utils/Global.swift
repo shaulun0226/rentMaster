@@ -61,7 +61,7 @@ class Global{
     static var isOnline = true
     //搜尋的起始頁跟結束頁
     static let pageBegin = 1
-    static let pageEnd = 10
+    static let pageEnd = 100
     
     //storyboard
     static let productStoryboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)

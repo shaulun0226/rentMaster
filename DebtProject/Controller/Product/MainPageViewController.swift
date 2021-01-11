@@ -43,23 +43,23 @@ class MainPageViewController: BaseSideMenuViewController {
     private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
         print(jsonArr)
         for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string!
-            let title = jsonArr[index]["title"].string!
-            let description = jsonArr[index]["description"].string!
-            let isSale = jsonArr[index]["isSale"].bool!
-            let isRent = jsonArr[index]["isRent"].bool!
-            let isExchange = jsonArr[index]["isExchange"].bool!
+            let id = jsonArr[index]["id"].string ?? ""
+            let title = jsonArr[index]["title"].string ?? ""
+            let description = jsonArr[index]["description"].string ?? ""
+            let isSale = jsonArr[index]["isSale"].bool  ?? false
+            let isRent = jsonArr[index]["isRent"].bool ?? false
+            let isExchange = jsonArr[index]["isExchange"].bool ?? false
             let address = jsonArr[index]["address"].string ?? ""
-            let deposit = jsonArr[index]["deposit"].int!
-            let rent = jsonArr[index]["rent"].int!
-            let salePrice = jsonArr[index]["salePrice"].int!
-            let rentMethod = jsonArr[index]["rentMethod"].string!
-            let amount = jsonArr[index]["amount"].int!
-            let type = jsonArr[index]["type"].string!
-            let type1 = jsonArr[index]["type1"].string!
-            let type2 = jsonArr[index]["type2"].string!
-            let userId = jsonArr[index]["userId"].string!
-            let picsArr = jsonArr[index]["pics"].array!
+            let deposit = jsonArr[index]["deposit"].int ?? 0
+            let rent = jsonArr[index]["rent"].int ?? 0
+            let salePrice = jsonArr[index]["salePrice"].int ?? 0
+            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
+            let amount = jsonArr[index]["amount"].int ?? 0
+            let type = jsonArr[index]["type"].string ?? ""
+            let type1 = jsonArr[index]["type1"].string ?? ""
+            let type2 = jsonArr[index]["type2"].string ?? ""
+            let userId = jsonArr[index]["userId"].string ?? ""
+            let picsArr = jsonArr[index]["pics"].array ?? []
             let weightPrice = jsonArr[index]["weightPrice"].float ?? 2.0
             var pics = [PicModel]()
             for index in 0..<picsArr.count{
@@ -192,7 +192,8 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.title = "PlayStation"
             vcMain.isMyStore = false
             vcMain.slider.backgroundColor = .blue
-            vcMain.productType1 = "PS5"//暫定
+            vcMain.productType = "PlayStation"
+//            vcMain.productType1 = "PS5"//暫定
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             self.show(vcMain, sender: nil);
         }
@@ -202,7 +203,8 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Xbox"
             vcMain.isMyStore = false
-            vcMain.productType1 = "XBOX"//暫定
+            vcMain.productType = "Xbox"
+//            vcMain.productType1 = "XBOX"//暫定
             vcMain.slider.backgroundColor = .green
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             self.show(vcMain, sender: nil);
@@ -212,8 +214,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         //設定跳轉
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "Switch"
+            vcMain.productType = "Switch"
             vcMain.isMyStore = false
-            vcMain.productType1 = "SWITCH"//暫定
+//            vcMain.productType1 = "SWITCH"//暫定
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             vcMain.slider.backgroundColor = .red
             self.show(vcMain, sender: nil);
@@ -224,8 +227,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "桌遊"
             vcMain.isMyStore = false
-            vcMain.productType1 = "桌遊"//暫定
-            vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
+            vcMain.productType = "BoardGame"
+//            vcMain.productType1 = "桌遊"//暫定
+            vcMain.tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
             vcMain.slider.backgroundColor = .orange
             self.show(vcMain, sender: nil);
         }
