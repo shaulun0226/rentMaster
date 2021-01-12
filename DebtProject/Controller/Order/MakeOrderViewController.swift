@@ -8,12 +8,14 @@
 import UIKit
 import SwiftyJSON
 import SwiftAlertView
+import Kingfisher
 
 class MakeOrderViewController: BaseViewController {
     
     var product:ProductModel!
     //tavleView
     @IBOutlet weak var lbProductTitle: UILabel!
+    @IBOutlet weak var IVProductImg: UIImageView!
     @IBOutlet weak var wishListTableView: UITableView!
     var buyAmount:Float! = 0.0
     var exchangeList = [String]()
@@ -21,7 +23,7 @@ class MakeOrderViewController: BaseViewController {
     var wishNameList = [String]()
     var wishAmountList = [String:Int]()
     //選擇區
-    var choosedItems = [String]()
+    var choosedItems  = [String]()
     var choosedItemAmounts = [Int]()
     //picker按鈕
     var currentButton:UIButton!
@@ -122,6 +124,15 @@ class MakeOrderViewController: BaseViewController {
         lbProductAmount.text = "剩餘數量:\(product.amount)"
         lbWeightPrice.text = "\(product.weightPrice)"
         lbProductTitle.text = product.title
+        guard product.pics.count>0 else {
+            return
+        }
+        let imgUrl = product.pics[0].path
+        //防止url內有中文 先進行編碼
+        let newUrl = imgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let articleUrl = URL(string: newUrl)
+        IVProductImg.kf.indicatorType = .activity
+        IVProductImg.kf.setImage(with: articleUrl,placeholder: UIImage(named: "camera.png"))
     }
     private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
         var wishListTmp = [WishItemModel]()
@@ -207,7 +218,6 @@ class MakeOrderViewController: BaseViewController {
     }
     //隱藏交換畫面
     private func setExchangeViewHidden(bool:Bool){
-        self.tradeItemsStackView.isHidden = bool
         self.wishListTableView.isHidden = bool
         self.currentWeightPriceView.isHidden = bool
         self.needItemWeightPriceView.isHidden = bool

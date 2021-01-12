@@ -11,6 +11,5 @@ class MyOrderListTabBarCell: TabBarCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 }

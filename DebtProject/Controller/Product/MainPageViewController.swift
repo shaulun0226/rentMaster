@@ -14,6 +14,9 @@ class MainPageViewController: BaseSideMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //設定標題大小
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
+        navigationController?.navigationBar.largeContentTitle = "租之助"
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")

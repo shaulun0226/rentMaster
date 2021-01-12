@@ -65,7 +65,7 @@ class PageTableViewCell: BaseTableViewCell {
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         //
-                    layer.masksToBounds = false//超過框線的地方會被裁掉
+        layer.masksToBounds = false//超過框線的地方會被裁掉
         layer.shadowColor = shadowColor?.cgColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
         layer.shadowOpacity = shadowOpacity

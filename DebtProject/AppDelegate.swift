@@ -84,26 +84,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Print full message.
         print(userInfo)
         //傳來的資料是AnyHashable的話要用這樣拆開
-        guard let message = userInfo[AnyHashable("Message")] as? String else{return}
-        guard let sender = userInfo[AnyHashable("Sender")] as? String else{return}
-        print("傳送推播")
+        let noteType = userInfo[AnyHashable("noteType")] as? String ?? ""
+        let message = userInfo[AnyHashable("Message")] as? String ?? ""
+        let sender = userInfo[AnyHashable("Sender")] as? String ?? ""
+        let productTitle = userInfo[AnyHashable("ProductTitle")] as? String ?? ""
+        let newStatus = userInfo[AnyHashable("newStatus")] as? String ?? ""
+        
         let content = UNMutableNotificationContent()
-                content.title = sender
-                content.subtitle = "測試副標題"
-                content.body = message
-                content.badge = 1
-                content.sound = UNNotificationSound.default
-                //timeInterval設定收到訊息後多久跳出
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-                let request = UNNotificationRequest(identifier: "notification1", content: content, trigger: trigger)
-                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        content.title = "商品:\(productTitle)"
+        print("通知格式\(noteType)")
+        switch noteType {
+        case "message":
+            content.body = "\(sender):\(message)"
+        case "status":
+            content.body = "狀態變更為:\(newStatus)"
+        default:
+            content.body = "您有新的通知"
+        }
+        content.badge = 1
+        content.sound = UNNotificationSound.default
+        //timeInterval設定收到訊息後多久跳出
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: "notification1", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        //        NetworkController.instance().getMyOrderById(id: orderId){
+        //           (orderTitle,isSuccess) in
+        //            if isSuccess{
+        //                let content = UNMutableNotificationContent()
+        //                        content.title = "商品:\(orderTitle)"
+        //                        content.body = "\(sender):\(message)"
+        //                        content.badge = 1
+        //                        content.sound = UNNotificationSound.default
+        //                        //timeInterval設定收到訊息後多久跳出
+        //                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        //                        let request = UNNotificationRequest(identifier: "notification1", content: content, trigger: trigger)
+        //                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        //            }
+        //        }
+        
         completionHandler(UIBackgroundFetchResult.newData)
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//        for byte in deviceToken {
-//             let hexString = String(format: "%02x", byte)
-//            self.deviceToken += hexString
-//        }
+        //        for byte in deviceToken {
+        //             let hexString = String(format: "%02x", byte)
+        //            self.deviceToken += hexString
+        //        }
         
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -113,46 +138,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-
-  // Receive displayed notifications for iOS 10 devices.
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification,
-    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    let userInfo = notification.request.content.userInfo
-
-    // With swizzling disabled you must let Messaging know about the message, for Analytics
-    // Messaging.messaging().appDidReceiveMessage(userInfo)
-
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
+    
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+        
+        // Change this to your preferred presentation option
+        completionHandler([[.alert, .sound,.badge]])
     }
-
-    // Print full message.
-    print(userInfo)
-
-    // Change this to your preferred presentation option
-    completionHandler([[.alert, .sound,.badge]])
-  }
-
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              didReceive response: UNNotificationResponse,
-                              withCompletionHandler completionHandler: @escaping () -> Void) {
-    let userInfo = response.notification.request.content.userInfo
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print full message.
+        print(userInfo)
+        
+        completionHandler()
     }
-
-    // With swizzling disabled you must let Messaging know about the message, for Analytics
-    // Messaging.messaging().appDidReceiveMessage(userInfo)
-
-    // Print full message.
-    print(userInfo)
-   
-    completionHandler()
-  }
-  
+    
 }
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {

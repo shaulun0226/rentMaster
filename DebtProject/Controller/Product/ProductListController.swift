@@ -34,6 +34,7 @@ class ProductListController: BaseSideMenuViewController{
     var productType:String = ""
     var productType1:String = ""
     var productType2:String = ""
+    var currentType2 = ""
     //order
     var isOrder = false
     var orderSelectStatus = ""
@@ -58,7 +59,7 @@ class ProductListController: BaseSideMenuViewController{
         collectview.delegate = self
         collectview.dataSource = self
         if(isMyStore){
-            tabbarTitle = ["上架中","未上架","已立單","已寄送","出租中","未出貨"]
+            tabbarTitle = ["上架中","未上架","已立單","已寄送","已抵達","歸還已寄出","歷史記錄"]
         }else{
             if(productType1.elementsEqual("")){
                 print("prodectType1為空字串")
@@ -117,67 +118,82 @@ class ProductListController: BaseSideMenuViewController{
                 self.products = ProductModel.defaultAllList
             }
         }else{//不是我的賣場就call list的API
-            if(productType1.elementsEqual("") && productType2.elementsEqual("")){
-                NetworkController.instance().getProductListByType(type: productType, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
-                    [weak self](value, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(value)
-                        print("解析\(jsonArr)")
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        print("失敗")
-                        weakSelf.products = ProductModel.defaultGameLists
+            NetworkController.instance().getProductListBy(type: productType,type1: productType1,type2: productType2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+                [weak self](value, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(value)
+                    print("解析\(jsonArr)")
+                    weakSelf.parseProduct(jsonArr: jsonArr)
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
                     }
+                }else{
+                    print("失敗")
+                    weakSelf.products = ProductModel.defaultGameLists
                 }
-                return
             }
-            if(productType1.elementsEqual("")){
-                NetworkController.instance().getProductListByTypeAndType2(type: productType ,type2: productType2 , pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(value)
-                        print("解析\(jsonArr)")
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        print("失敗")
-                        weakSelf.products = ProductModel.defaultGameLists
-                    }
-                }
-                return
-            }
-            if(productType1.elementsEqual("4人以下") || productType1.elementsEqual("4-8人") ||
-                productType1.elementsEqual("8人以上")){
-                tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
-            }else{
-                tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
-            }
-            
-            if(Global.isOnline){
-                print("進到getProductListByType1       \(productType1) "   )
-                NetworkController.instance().getProductListByType1(type1: productType1, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(value)
-                        print("解析\(jsonArr)")
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        print("失敗")
-                        weakSelf.products = ProductModel.defaultGameLists
-                    }
-                }
-            }else{
-                self.products = ProductModel.defaultAllList
-            }
+//            if(productType1.elementsEqual("") && productType2.elementsEqual("")){
+//                NetworkController.instance().getProductListByType(type: productType, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+//                    [weak self](value, isSuccess) in
+//                    guard let weakSelf = self else {return}
+//                    if(isSuccess){
+//                        let jsonArr = JSON(value)
+//                        print("解析\(jsonArr)")
+//                        weakSelf.parseProduct(jsonArr: jsonArr)
+//                        DispatchQueue.main.async {
+//                            weakSelf.tableview.reloadData()
+//                        }
+//                    }else{
+//                        print("失敗")
+//                        weakSelf.products = ProductModel.defaultGameLists
+//                    }
+//                }
+//                return
+//            }
+//            if(productType1.elementsEqual("")){
+//                NetworkController.instance().getProductListByTypeAndType2(type: productType ,type2: productType2 , pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
+//                    guard let weakSelf = self else {return}
+//                    if(isSuccess){
+//                        let jsonArr = JSON(value)
+//                        print("解析\(jsonArr)")
+//                        weakSelf.parseProduct(jsonArr: jsonArr)
+//                        DispatchQueue.main.async {
+//                            weakSelf.tableview.reloadData()
+//                        }
+//                    }else{
+//                        print("失敗")
+//                        weakSelf.products = ProductModel.defaultGameLists
+//                    }
+//                }
+//                return
+//            }
+//            if(productType1.elementsEqual("4人以下") || productType1.elementsEqual("4-8人") ||
+//                productType1.elementsEqual("8人以上")){
+//                tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
+//            }else{
+//                tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
+//            }
+//
+//            if(Global.isOnline){
+//                print("進到getProductListByType1       \(productType1) "   )
+//                NetworkController.instance().getProductListByType1(type1: productType1, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
+//                    guard let weakSelf = self else {return}
+//                    if(isSuccess){
+//                        let jsonArr = JSON(value)
+//                        print("解析\(jsonArr)")
+//                        weakSelf.parseProduct(jsonArr: jsonArr)
+//                        DispatchQueue.main.async {
+//                            weakSelf.tableview.reloadData()
+//                        }
+//                    }else{
+//                        print("失敗")
+//                        weakSelf.products = ProductModel.defaultGameLists
+//                    }
+//                }
+//            }else{
+//                self.products = ProductModel.defaultAllList
+//            }
         }
     }
     
@@ -357,12 +373,6 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             if(indexPath.row==0 && !firstTabbarDidLoad ){
                 cell.isSelected = true
                 firstTabbarDidLoad = true
-                //                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                //                UIView.animate(withDuration: 0.4) { [weak self] in
-                //                    if let self = self{
-                //                        self.slider.center.x = cell.center.x
-                //                    }
-                //                }
             }
             return cell
         }
@@ -427,164 +437,82 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                             weakSelf.tableview.reloadData()
                         }
                     }else{
-                        weakSelf.products = ProductModel.defaultHostLists
+                        print("沒有商品")
                         DispatchQueue.main.async {
                             weakSelf.tableview.reloadData()
                         }
                     }
                 }
+                return
             case "已立單":
-                print("進賣出訂單")
                 orderSelectStatus = selectedProductType
-                NetworkController.instance().getMyOrderListSeller(status: "已立單"){
-                    [weak self](responseValue, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(responseValue)
-                        weakSelf.parseOrder(jsonArr: jsonArr)
-                        weakSelf.isOrder = true
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        print("進賣出訂單API失敗")
-                        weakSelf.products = ProductModel.defaultHostLists
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }
-                }
             case "已寄送":
-                print("進賣出訂單")
                 orderSelectStatus = selectedProductType
-                NetworkController.instance().getMyOrderListSeller(status: "已寄送"){
-                    [weak self](responseValue, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(responseValue)
-                        weakSelf.parseOrder(jsonArr: jsonArr)
-                        weakSelf.isOrder = true
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        print("進賣出訂單API失敗")
-                        weakSelf.products = ProductModel.defaultHostLists
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }
-                }
+            case "已抵達":
+                orderSelectStatus = selectedProductType
+            case"歸還已寄出":
+                orderSelectStatus = selectedProductType
+            case"歷史記錄":
+                orderSelectStatus = "已結單"
             default:
                 self.products = ProductModel.defaultAllList
             }
+            if !orderSelectStatus.elementsEqual("上架中") && !orderSelectStatus.elementsEqual("未上架"){
+                NetworkController.instance().getMyOrderListSeller(status: orderSelectStatus){
+                    [weak self](responseValue, isSuccess) in
+                    guard let weakSelf = self else {return}
+                    if(isSuccess){
+                        let jsonArr = JSON(responseValue)
+                        weakSelf.parseOrder(jsonArr: jsonArr)
+                        weakSelf.isOrder = true
+                    }else{
+                        print("進賣出訂單API失敗")
+                        weakSelf.products = ProductModel.defaultHostLists
+                    }
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
+                    }
+                }
+            }
         }else{
+            if(selectedProductType.elementsEqual("所有")&&currentType2.elementsEqual("All")){
+                return
+            }
+            if(currentType2.elementsEqual(selectedProductType)){
+                return
+            }
             switch selectedProductType {
             case "所有":
-                productType2 = "all"
+                currentType2 = "All"
+                productType2 = "All"
             case "主機":
+                currentType2 = "主機"
                 productType2 = "主機"
             case "周邊":
+                currentType2 = "周邊"
                 productType2 = "周邊"
             case "遊戲":
+                currentType2 = "遊戲"
                 productType2 = "遊戲"
             case "其他":
+                currentType2 = "其他"
                 productType2 = "其他"
             default:
                 products = ProductModel.defaultGameLists
             }
-            if(productType2.elementsEqual("all") && productType1.elementsEqual("")){
-                NetworkController.instance().getProductListByType(type: productType,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                    [weak self](value, isSuccess) in
-                    guard let weakSelf = self else {return}
-                    if(isSuccess){
-                        let jsonArr = JSON(value)
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
-                    }else{
-                        weakSelf.products = ProductModel.defaultHostLists
-                        DispatchQueue.main.async {
-                            weakSelf.tableview.reloadData()
-                        }
+            NetworkController.instance().getProductListBy(type: productType, type1: productType1, type2: productType2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+                [weak self](value, isSuccess) in
+                guard let weakSelf = self else {return}
+                if(isSuccess){
+                    let jsonArr = JSON(value)
+                    weakSelf.parseProduct(jsonArr: jsonArr)
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
                     }
-                }
-            }
-            if(productType1.elementsEqual("")){
-                switch productType2 {
-                case "all":
-                    NetworkController.instance().getProductListByType(type: productType  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                        [weak self](value, isSuccess) in
-                        guard let weakSelf = self else {return}
-                        if(isSuccess){
-                            let jsonArr = JSON(value)
-                            weakSelf.parseProduct(jsonArr: jsonArr)
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }else{
-                            weakSelf.products = ProductModel.defaultHostLists
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }
-                    }
-                default:
-                    NetworkController.instance().getProductListByTypeAndType2(type: productType,type2: productType2  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                        [weak self](value, isSuccess) in
-                        guard let weakSelf = self else {return}
-                        if(isSuccess){
-                            let jsonArr = JSON(value)
-                            weakSelf.parseProduct(jsonArr: jsonArr)
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }else{
-                            weakSelf.products = ProductModel.defaultHostLists
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }
-                    }
-                }
-            }else{
-                switch productType2 {
-                case "all":
-                    NetworkController.instance().getProductListByType1(type1: productType1  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                        [weak self](value, isSuccess) in
-                        guard let weakSelf = self else {return}
-                        if(isSuccess){
-                            let jsonArr = JSON(value)
-                            weakSelf.parseProduct(jsonArr: jsonArr)
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }else{
-                            weakSelf.products = ProductModel.defaultHostLists
-                            DispatchQueue.main.async {
-                                weakSelf.tableview.reloadData()
-                            }
-                        }
-                    }
-                default:
-                    if(Global.isOnline){
-                        NetworkController.instance().getProductListByType2(type1: productType1,type2: productType2  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
-                            [weak self](value, isSuccess) in
-                            guard let weakSelf = self else {return}
-                            if(isSuccess){
-                                let jsonArr = JSON(value)
-                                weakSelf.parseProduct(jsonArr: jsonArr)
-                                DispatchQueue.main.async {
-                                    weakSelf.tableview.reloadData()
-                                }
-                            }else{
-                                weakSelf.products = ProductModel.defaultHostLists
-                                DispatchQueue.main.async {
-                                    weakSelf.tableview.reloadData()
-                                }
-                            }
-                        }
+                }else{
+                    weakSelf.products = ProductModel.defaultHostLists
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
                     }
                 }
             }
@@ -607,14 +535,16 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(isMyStore){
             if(isOrder){
+                if((searchController?.isActive)!){
+                    guard indexPath.row<searchProducts.count else {
+                        return UITableViewCell()
+                    }
+                }else{
+                    guard indexPath.row<orders.count else {
+                        return UITableViewCell()
+                    }
+                }
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myOrderListTableViewCell.rawValue) as? MyOrderListTableViewCell {
-                    cell.backgroundColor = UIColor(named: "card")
-                    ((searchController?.isActive)!)
-                        ?cell.configure(with: searchOrders[indexPath.row])
-                        :cell.configure(with: orders[indexPath.row])
-                    return cell;
-                }else {
-                    let cell = MyOrderListTableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
                     cell.backgroundColor = UIColor(named: "card")
                     ((searchController?.isActive)!)
                         ?cell.configure(with: searchOrders[indexPath.row])
@@ -631,9 +561,19 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }else{
+            if((searchController?.isActive)!){
+                guard indexPath.row<searchProducts.count else {
+                    return UITableViewCell()
+                }
+            }else{
+                guard indexPath.row<products.count else {
+                    return UITableViewCell()
+                }
+            }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
                 cell.backgroundColor = UIColor(named: "card")
                 print("位置\(indexPath.row)\n總數\(self.products.count)")
+                
                 ((searchController?.isActive)!)
                     ?cell.configure(with: searchProducts[indexPath.row])
                     :cell.configure(with: products[indexPath.row])
@@ -650,6 +590,7 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                     guard indexPath.row < orders.count else {
                         return
                     }
+                    orderView.isSeller = true
                     orderView.orderOwnerInfo = "買家資訊"
                     orderView.customerId = orders[indexPath.row].lender
                     orderView.order  = orders[indexPath.row]
@@ -665,7 +606,6 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }else{
-            //跳到商品資訊
             if let productInfoView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productInfoViewController.rawValue) as? ProductInfoViewController{
                 productInfoView.product = products[indexPath.row]
                 self.show(productInfoView, sender: nil);

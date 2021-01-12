@@ -358,6 +358,47 @@ class NetworkController{
                 }
             }
     }
+    func getProductListBy(type:String,type1:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        var typeTmp = "All"
+        var type1Tmp = "All"
+        var type2Tmp = "All"
+        if(!type.elementsEqual("")){
+            typeTmp = type
+        }
+        if(!type1.elementsEqual("")){
+            type1Tmp = type1
+        }
+        if(!type2.elementsEqual("")){
+            type2Tmp = type2
+        }
+        let url = "\(serverUrl)/Products/listBy/\(typeTmp)/\(type1Tmp)/\(type2Tmp)/\(pageBegin)/\(pageEnd)";
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     func getProductListByTypeAndType2(type:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Products/listByTypeNType2/\(type)/\(type2)/\(pageBegin)/\(pageEnd)";
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -803,6 +844,37 @@ class NetworkController{
                         default:
                             self.textNotCode200(status: status, value: value)
                             completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error.localizedDescription, false)
+                    break
+                }
+            }
+    }
+    func getMyOrderById(id:String,completionHandler:@escaping (_ :String,Bool) -> ()){
+        let url = "\(serverUrl)/Orders/\(id)";
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let header : HTTPHeaders = ["Authorization" : "bearer \(User.token)"]
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default,headers: header)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            let json = JSON(value)
+                            let orderName = json["p_Title"].string ?? ""
+                            completionHandler(orderName,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler("",false)
                             break
                         }
                     }

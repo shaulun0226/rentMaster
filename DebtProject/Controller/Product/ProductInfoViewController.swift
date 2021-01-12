@@ -21,6 +21,7 @@ class ProductInfoViewController: BaseViewController {
     @IBOutlet weak var lbTradeItem: UILabel!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var productInfoTableView: UITableView!
+    @IBOutlet weak var productInfoTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var productInfoCollectionView: UICollectionView!
     @IBOutlet weak var productInfoPC: UIPageControl!
     var products = [ProductModel]()
@@ -28,11 +29,21 @@ class ProductInfoViewController: BaseViewController {
     var product:ProductModel!
     var productsImage = [String]()
     var productTitle:String!
-    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        productInfoTableView.layer.removeAllAnimations()
+        productInfoTableViewHeight.constant = productInfoTableView.contentSize.height
+        UIView.animate(withDuration: 0.5) {
+            self.updateViewConstraints()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.productInfoTableView.delegate = self
         self.productInfoTableView.dataSource = self
+        self.productInfoTableView.rowHeight = UITableView.automaticDimension
+        self.productInfoTableView.estimatedRowHeight = UITableView.automaticDimension
+        //設定KVO
+        self.productInfoTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         self.productInfoTableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
         self.productInfoCollectionView.delegate = self
         self.productInfoCollectionView.dataSource = self
@@ -218,7 +229,7 @@ class ProductInfoViewController: BaseViewController {
             NetworkController.instance().addCart(productId: product.id){
                 (responseValue, isSuccess) in
                 //                guard let weakSelf = self else {return}
-                let alertView = SwiftAlertView(title: "", message: "加入購物車！\n", delegate: nil, cancelButtonTitle: "確定")
+                let alertView = SwiftAlertView(title: "", message: "成功加入購物車！\n", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = .white
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
@@ -227,32 +238,30 @@ class ProductInfoViewController: BaseViewController {
                 alertView.clickedButtonAction = { index in
                     alertView.dismiss()
                 }
-                alertView.show()
-                //                if(isSuccess){
-                //                    alertView.clickedButtonAction = { index in
-                //                        alertView.dismiss()
-                //                    }
-                //                    alertView.messageLabel.text = "\(responseValue)\n"
-                //                    alertView.show()
-                //                }else{
-                //                    alertView.clickedButtonAction = { index in
-                //                        alertView.dismiss()
-                //                    }
-                //                    alertView.messageLabel.text = "\(responseValue)\n"
-                //                    alertView.show()
-                //                }
+                if(isSuccess){
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
+                    alertView.show()
+                }else{
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
+                    alertView.messageLabel.text = "\(responseValue)\n"
+                    alertView.show()
+                }
             }
         }
     }
 }
 extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableViewCell") as? PageTableViewCell {
-            cell.lbMainPageTitle.font = UIFont(name: "", size: 40)
+            cell.lbMainPageTitle.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.regular)
             switch indexPath.row {
             case 0:
                 cell.lbMainPageTitle.text = "賣場其他商品"
@@ -283,7 +292,7 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
                             cell.products.removeAll()
                             cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
                             DispatchQueue.main.async {
-                               cell.pageCollectionView.reloadData()
+                                cell.pageCollectionView.reloadData()
                             }
                         }else{
                             print("取得可能喜歡商品失敗")
@@ -340,7 +349,6 @@ extension ProductInfoViewController:UICollectionViewDelegate,UICollectionViewDat
         self.productInfoPC.currentPage = Int(roundedIndex)
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
         productInfoPC.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     

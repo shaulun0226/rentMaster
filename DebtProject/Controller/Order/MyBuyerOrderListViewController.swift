@@ -12,6 +12,7 @@ class MyBuyerOrderListViewController: BaseViewController {
     var orderStatus = ""
     var orders = [OrderModel]()
     var tabbarTitle = [String]()
+    var firstTabbarDidLoad = false
     //collectionview底線
     var slider = UIView()
     @IBOutlet weak var collectionView: UICollectionView!
@@ -25,7 +26,7 @@ class MyBuyerOrderListViewController: BaseViewController {
         tableview.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        tabbarTitle = ["已立單","已寄送","歷史紀錄"]
+        tabbarTitle = ["已立單","已寄送","已抵達","歸還已寄出","已寄回","歷史記錄"]
 //        orders = ProductModel.defaultAllList
         //設定CollectionView Cell大小
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -43,7 +44,6 @@ class MyBuyerOrderListViewController: BaseViewController {
                 let jsonArr = JSON(reponseValue)
                 weakSelf.parseOrder(jsonArr: jsonArr)
                 DispatchQueue.main.async {
-                    weakSelf.collectionView.reloadData()
                     weakSelf.tableview.reloadData()
                 }
             }else{
@@ -82,14 +82,12 @@ class MyBuyerOrderListViewController: BaseViewController {
             let status = jsonArr[index]["status"].string ?? ""
             let orderTime = jsonArr[index]["orderTime"].string ?? ""
             let payTime = jsonArr[index]["payTime"].string ?? ""
-            
             let productSend = jsonArr[index]["productSend"].object
             let productArrive = jsonArr[index]["productArrive"].string ?? ""
             let productSendBack = jsonArr[index]["productSendBack"].string ?? ""
             let productGetBack = jsonArr[index]["productGetBack"].string ?? ""
             let productId = jsonArr[index]["productId"].string ?? ""
             let lender = jsonArr[index]["lender"].string ?? ""
-            
             let notesArr = jsonArr[index]["notes"].array ?? []
             var pics = [PicModel]()
             for index in 0..<picsArr.count{
@@ -131,7 +129,6 @@ extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSour
             if(indexPath.row>=orders.count){
                 return UITableViewCell()
             }
-            cell.backgroundColor = UIColor(named: "card")
             cell.configure(with: orders[indexPath.row])
             return cell
         }
@@ -142,6 +139,7 @@ extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSour
             guard indexPath.row < orders.count else {
                 return
             }
+            orderView.isSeller = false
             orderView.orderOwnerInfo = "賣家資訊"
             orderView.customerId = orders[indexPath.row].p_ownerId
             orderView.order = orders[indexPath.row]
@@ -162,29 +160,19 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.myOrderListTabBarCell.rawValue, for: indexPath) as? MyOrderListTabBarCell{
-            if(indexPath.row == 0){
+            //第一次產生cell時 設定tabbar slider
+            if(indexPath.row==0 && !firstTabbarDidLoad ){
+                print("改變第一個我的訂單tabbar顏色")
                 cell.isSelected = true
-            }else{
-                cell.isSelected = false
+                firstTabbarDidLoad = true
             }
-            cell.backgroundColor = UIColor(named: "card")
             cell.lbTitle.text = tabbarTitle[indexPath.row]
             cell.lbTitle.textColor = .white
-            //        cell.layer.insertSublayer(layer, at: 0)
-            if(indexPath.row==0){
-                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                UIView.animate(withDuration: 0.4) { [weak self] in
-                    if let self = self{
-                        self.slider.center.x = cell.center.x
-                    }
-                }
-            }
             return cell
         }
         return UICollectionViewCell()
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        self.title = buttonText[indexPath.row]
         // 先清空
         if let cell = collectionView.cellForItem(at: indexPath) as? MyOrderListTabBarCell{
             //設定點擊背景色變化
@@ -197,30 +185,31 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
                 }
             }
             cell.isSelected = true
-            cell.backgroundColor = UIColor(named: "card")
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             UIView.animate(withDuration: 0.4) { [weak self] in
                 if let self = self{
                     self.slider.center.x = cell.center.x
                 }
             }
-            guard let orderStatus = cell.lbTitle.text else {
+            guard var orderStatus = cell.lbTitle.text else {
                 return
             }
             orders.removeAll()
             print("選取標籤：\(orderStatus)")
+            if orderStatus.elementsEqual("歷史記錄"){
+                orderStatus = "已結單"
+            }
             NetworkController.instance().getMyOrderListBuyer(status: orderStatus){
                 [weak self] (reponseValue,isSuccess) in
                 guard let weakSelf = self else{return}
                 if(isSuccess){
                     let jsonArr = JSON(reponseValue)
                     weakSelf.parseOrder(jsonArr: jsonArr)
-                    DispatchQueue.main.async {
-                        weakSelf.collectionView.reloadData()
-                        weakSelf.tableview.reloadData()
-                    }
                 }else{
                     print("進到我的訂單")
+                }
+                DispatchQueue.main.async {
+                    weakSelf.tableview.reloadData()
                 }
             }
         }

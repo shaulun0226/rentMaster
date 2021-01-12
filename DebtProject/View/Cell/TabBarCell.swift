@@ -13,7 +13,7 @@ class TabBarCell: UICollectionViewCell {
         didSet{
             if (self.isSelected) {
                 print("tabbar被選")
-                self.contentView.backgroundColor = UIColor(named: "card")
+                self.contentView.backgroundColor = UIColor(named: "Button")
             }
             else {
                 print("tabbar沒被選")

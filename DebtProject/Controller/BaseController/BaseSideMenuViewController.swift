@@ -24,7 +24,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //設定右邊cart button
         //        let btnCart = UIBarButtonItem(image: UIImage(systemName: "cart.fill"), style: .plain, target: self, action:#selector(didTapCart))
         let btnCart = UIButton(type: UIButton.ButtonType.custom)
-        btnCart.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        btnCart.setBackgroundImage(UIImage(systemName: "star.fill"), for: .normal)
         btnCart.addTarget(self, action:#selector(didTapCart), for: .touchUpInside)//沒選touchUpInside會有重複點擊的可能
         btnCart.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
         //設定右邊ring button
@@ -33,10 +33,10 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         btnMemberCenter.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
         btnMemberCenter.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         //設定抽屜圖示的顏色
-        btnSideMenu.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
+        btnSideMenu.tintColor = UIColor(named: "textColor")
         //設定右列圖示的顏色
-        btnCart.tintColor = #colorLiteral(red: 0.8745098039, green: 0.6901960784, blue: 0.3921568627, alpha: 1)
-        btnMemberCenter.tintColor = #colorLiteral(red: 0.5254901961, green: 0.8980392157, blue: 0.7960784314, alpha: 1)
+        btnCart.tintColor = UIColor(named: "textColor")
+        btnMemberCenter.tintColor = UIColor(named: "textColor")
         let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
         self.navigationItem.leftBarButtonItems = [leftBarButton]
         let rightCartButton = UIBarButtonItem(customView: btnCart)
@@ -311,7 +311,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         default:
             return
         }
-        //        view.title = selectedItem
         view.title = selectedItem
         self.show(view, sender: nil);
         

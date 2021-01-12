@@ -10,9 +10,11 @@ import SwiftyJSON
 import SwiftAlertView
 
 class OrderViewController: BaseViewController {
+    //判斷是買家還是賣家
+    @IBOutlet weak var btnNextStatus: UIButton!
+    var isSeller:Bool!
     //畫面
     @IBOutlet weak var orderScrollView: UIScrollView!
-    
     //商品資訊區
     @IBOutlet weak var productTitleStackView: UIStackView!
     @IBOutlet weak var productInfoStackView: UIStackView!
@@ -54,7 +56,6 @@ class OrderViewController: BaseViewController {
     @IBOutlet weak var orderViewCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.orderViewCollectionView.delegate = self
         self.orderViewCollectionView.dataSource = self
         self.orderViewCollectionView.isPagingEnabled = true
@@ -73,6 +74,16 @@ class OrderViewController: BaseViewController {
         NoteTableView.dataSource = self
         NoteTableView.rowHeight = UITableView.automaticDimension
         NoteTableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //設定按外面會把鍵盤收起(有可能會手勢衝突)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        setStatusButton()
         //拿買家資訊
         NetworkController.instance().getUserInfo{
             [weak self] (reponseValue,isSuccess)in
@@ -100,13 +111,6 @@ class OrderViewController: BaseViewController {
                 print("沒拿到使用者資訊")
             }
         }
-        
-        //設定觀察鍵盤
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        //設定按外面會把鍵盤收起(有可能會手勢衝突)
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
-        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
     //MARK:- 設定
     //照片
@@ -125,7 +129,6 @@ class OrderViewController: BaseViewController {
             lbProductTtile.text = "\(order.p_Title)"
             lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
             lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
-            
             lbAmount.text = "交易數量 : \(order.tradeQuantity)"
             lbOrderOwnerInfo.text = orderOwnerInfo ?? ""
             lbProductDescription.text = "\(order.p_Desc)"
@@ -211,6 +214,15 @@ class OrderViewController: BaseViewController {
         NetworkController.instance().changeOrdersStatus(id: order.id, status: order.status){
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
+            let alertView = SwiftAlertView(title: "", message: "狀態錯誤\n", delegate: nil, cancelButtonTitle: "確定")
+            alertView.clickedCancelButtonAction = {
+                alertView.dismiss()
+            }
+            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.buttonTitleColor = .white
             if(isSuccess){
                 let json = JSON(reponseValue)
                 let dateTime = json["dateTime"].string ?? ""
@@ -222,23 +234,87 @@ class OrderViewController: BaseViewController {
                     weakSelf.lbOrderTime.text = ""
                     return
                 }
+                weakSelf.order.status = newStatus
                 weakSelf.lbOrderDate.text = String(dateTimeArr[0])
                 weakSelf.lbOrderTime.text = String(dateTimeArr[1])
+                weakSelf.setStatusButton()
+                alertView.messageLabel.text = "狀態已變更為:\(newStatus)\n"
+                alertView.show()
             }else{
-                let alertView = SwiftAlertView(title: "", message: "狀態錯誤\n", delegate: nil, cancelButtonTitle: "確定")
-                alertView.clickedCancelButtonAction = {
-                    alertView.dismiss()
-                }
-                alertView.messageLabel.textColor = .white
-                alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
-                alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
-                alertView.buttonTitleColor = .white
+                alertView.messageLabel.text = "狀態變更失敗"
                 alertView.show()
             }
         }
     }
-    
+    private func setStatusButton(){
+        if(isSeller){
+            switch order.tradeMethod {
+            case 0:
+                switch order.status {
+                case "已立單":
+                    btnNextStatus.isHidden = false
+                case "已寄送":
+                    btnNextStatus.isHidden = true
+                case "已抵達":
+                    btnNextStatus.isHidden = true
+                case "歸還已寄出":
+                    btnNextStatus.isHidden = false
+                case "已歸還":
+                    btnNextStatus.isHidden = true
+                default:
+                    btnNextStatus.isHidden = true
+                }
+            default:
+                switch order.status {
+                case "已立單":
+                    btnNextStatus.isHidden = false
+                case "已寄送":
+                    btnNextStatus.isHidden = true
+                case "已抵達":
+                    btnNextStatus.isHidden = true
+                case "歸還已寄出":
+                    btnNextStatus.isHidden = false
+                case "已歸還":
+                    btnNextStatus.isHidden = true
+                default:
+                    btnNextStatus.isHidden = true
+                }
+            }
+        }else{
+            switch order.tradeMethod {
+            case 0:
+                switch order.status {
+                case "已立單":
+                    btnNextStatus.isHidden = true
+                case "已寄送":
+                    btnNextStatus.isHidden = false
+                case "已抵達":
+                    btnNextStatus.isHidden = false
+                case "歸還已寄出":
+                    btnNextStatus.isHidden = true
+                case "已歸還":
+                    btnNextStatus.isHidden = true
+                default:
+                    btnNextStatus.isHidden = true
+                }
+            default:
+                switch order.status {
+                case "已立單":
+                    btnNextStatus.isHidden = true
+                case "已寄送":
+                    btnNextStatus.isHidden = false
+                case "已抵達":
+                    btnNextStatus.isHidden = true
+                case "歸還已寄出":
+                    btnNextStatus.isHidden = false
+                case "已歸還":
+                    btnNextStatus.isHidden = true
+                default:
+                    btnNextStatus.isHidden = true
+                }
+            }
+        }
+    }
     //MARK:-留言板畫面
     //設定留言板畫面
     private func setSendView(){
@@ -250,7 +326,6 @@ class OrderViewController: BaseViewController {
         sendNoteView.layer.insertSublayer(layer, at: 0)
         //設定KVO
         NoteTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        
         txSend.text = "請輸入留言內容"
         txSend.textColor = UIColor.lightGray
         txSend.delegate = self
