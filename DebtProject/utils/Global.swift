@@ -40,12 +40,14 @@ enum TableViewCell:String,CaseIterable{
     case makeOrderTableViewCell = "MakeOrderTableViewCell"
     case myStoreTableViewCell = "MyStoreTableViewCell"
     case noteTableViewCell = "NoteTableViewCell"
+    case mainPageTableViewCell = "MainPageTableViewCell"
 }
 enum CollectionViewCell:String,CaseIterable{
     case pageCollectionViewCell = "PageCollectionViewCell"
     case tabBarCell = "TabBarCell"
     case myOrderListTabBarCell = "MyOrderListTabBarCell"
     case productInfoImageCollectionViewCell = "ProductInfoImageCollectionViewCell"
+    case mainPageCollectionViewCell = "MainPageCollectionViewCell"
 }
 class Global{
     

@@ -16,7 +16,7 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定navigation bar
-        self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3411764706, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBar")
         //設定barItem 的顏色
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

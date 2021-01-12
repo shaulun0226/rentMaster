@@ -1,51 +1,37 @@
 //
-//  PageCollectionViewCell.swift
+//  MainPageCollectionViewCell.swift
 //  DebtProject
 //
-//  Created by allenhung on 2020/12/17.
+//  Created by allenhung on 2021/1/12.
 //
 
 import UIKit
 
-class PageCollectionViewCell: UICollectionViewCell {
+class MainPageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgGame: UIImageView!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbState: UILabel!
-    var cornerRadius: CGFloat = 5
-    var shadowOffsetWidth: Int = 0
-    var shadowOffsetHeight: Int = 5
-    var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 3
-    override open var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame =  newFrame
-            //               frame.origin.y += 5//調整y起點
-            frame.origin.x = 10//調整x起點
-            frame.size.height -= 2 * frame.origin.x//調整高度
-            frame.size.width -= 2 * frame.origin.x
-            super.frame = frame
-        }
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        //設定陰影
-        // add shadow on cell
-           backgroundColor = .clear // very important
-           layer.masksToBounds = false
-           layer.shadowOpacity = 0.23
-           layer.shadowRadius = 5
-           layer.shadowOffset = CGSize(width: 0, height: 0)
+    @IBOutlet weak var lbPrice: UILabel!
+    func addShadow(backgroundColor: UIColor = .white, cornerRadius: CGFloat = 12, shadowRadius: CGFloat = 5, shadowOpacity: Float = 0.1, shadowPathInset: (dx: CGFloat, dy: CGFloat), shadowPathOffset: (dx: CGFloat, dy: CGFloat)) {
+            layer.cornerRadius = cornerRadius
+            layer.masksToBounds = true
             layer.shadowColor = UIColor.black.cgColor
-        //設定圓角
-           // add corner radius on `contentView`
-           contentView.backgroundColor = .white
-           contentView.layer.cornerRadius = cornerRadius
-       
-    }
+            layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+            layer.shadowRadius = shadowRadius
+            layer.shadowOpacity = shadowOpacity
+            layer.shadowPath = UIBezierPath(roundedRect: bounds.insetBy(dx: shadowPathInset.dx, dy: shadowPathInset.dy).offsetBy(dx: shadowPathOffset.dx, dy: shadowPathOffset.dy), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+            layer.shouldRasterize = true
+            layer.rasterizationScale = UIScreen.main.scale
+            
+            let whiteBackgroundView = UIView()
+            whiteBackgroundView.backgroundColor = backgroundColor
+            whiteBackgroundView.layer.cornerRadius = cornerRadius
+            whiteBackgroundView.layer.masksToBounds = true
+            whiteBackgroundView.clipsToBounds = false
+            
+            whiteBackgroundView.frame = bounds.insetBy(dx: shadowPathInset.dx, dy: shadowPathInset.dy)
+            insertSubview(whiteBackgroundView, at: 0)
+        }
     func configure(with model: ProductModel) {
         self.lbTitle.text = model.title
         var saleType = [String]()
@@ -85,4 +71,3 @@ class PageCollectionViewCell: UICollectionViewCell {
         self.imgGame.kf.setImage(with: articleUrl,placeholder: UIImage(named: "camera.png"))
     }
 }
-

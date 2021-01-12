@@ -27,7 +27,7 @@ class MakeOrderTableViewCell: UITableViewCell {
     var shadowOffsetWidth: Int = 2//偏移量
     var shadowOffsetHeight: Int = 2//偏移量
     var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 0.6//陰影的透明度
+    var shadowOpacity: Float = 0.4//陰影的透明度
     var cornerRadius: CGFloat = 10
     weak var makeOrderTableViewCellDelegate:MakeOrderTableViewCellDelegate?
     override func awakeFromNib() {

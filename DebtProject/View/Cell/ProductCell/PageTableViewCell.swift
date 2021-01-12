@@ -9,7 +9,7 @@ import UIKit
 protocol PageTableViewCellDelegate : AnyObject{
     func cellClick(indexPath: IndexPath,products:[ProductModel])
 }
-class PageTableViewCell: BaseTableViewCell {
+class PageTableViewCell: UITableViewCell {
     var myCollectionView:UICollectionView?
     @IBOutlet weak var pageCollectionView:UICollectionView!
     @IBOutlet weak var lbMainPageTitle: UILabel!
@@ -35,43 +35,8 @@ class PageTableViewCell: BaseTableViewCell {
         
         // Configure the view for the selected state
     }
-//    @IBInspectable var cornerRadius: CGFloat = 20
-//    //
-//    var shadowOffsetWidth: Int = 5
-//    var shadowOffsetHeight: Int = 5
-//    var shadowColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//    var shadowOpacity: Float = 0.4
-    //
-//    override open var frame: CGRect {
-//        get {
-//            return super.frame
-//        }
-//        set (newFrame) {
-//            var frame =  newFrame
-//            frame.origin.y += 5//調整y起點
-//            frame.origin.x += 5//調整x起點
-//            frame.size.height -= 15//調整高度
-//            frame.size.width -= 2 * 5
-//            super.frame = frame
-//        }
-//    }
     override func layoutSubviews() {
         super.layoutSubviews()
-        //設定cell下緣
-        //        let bottomSpace = 10.0 //
-        //        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top:0, left: 0, bottom: CGFloat(bottomSpace), right: 0))
-        
-        
-        layer.cornerRadius = cornerRadius
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        //
-        layer.masksToBounds = false//超過框線的地方會被裁掉
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
-//        //            layer.borderWidth = 1.0
-        //            layer.borderColor = UIColor.black.cgColor
     }
 }
 extension PageTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource{
@@ -92,7 +57,7 @@ extension PageTableViewCell:UICollectionViewDelegate,UICollectionViewDataSource{
     
 }
 extension PageTableViewCell: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 200, height: 255)
-        }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//            return CGSize(width: 200, height: 255)
+//        }
 }

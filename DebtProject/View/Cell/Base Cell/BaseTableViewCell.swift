@@ -18,6 +18,18 @@ class BaseTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    private func setShadow(){
+        backgroundColor = .clear // very important
+        layer.masksToBounds = false
+        layer.shadowOpacity = 0.23
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+         layer.shadowColor = UIColor.black.cgColor
+
+        // add corner radius on `contentView`
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = cornerRadius
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

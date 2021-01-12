@@ -33,10 +33,10 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         btnMemberCenter.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
         btnMemberCenter.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         //設定抽屜圖示的顏色
-        btnSideMenu.tintColor = UIColor(named: "textColor")
+        btnSideMenu.tintColor = UIColor(named: "Icon")
         //設定右列圖示的顏色
-        btnCart.tintColor = UIColor(named: "textColor")
-        btnMemberCenter.tintColor = UIColor(named: "textColor")
+        btnCart.tintColor = UIColor(named: "Icon")
+        btnMemberCenter.tintColor = UIColor(named: "Icon")
         let leftBarButton = UIBarButtonItem(customView: btnSideMenu)
         self.navigationItem.leftBarButtonItems = [leftBarButton]
         let rightCartButton = UIBarButtonItem(customView: btnCart)
