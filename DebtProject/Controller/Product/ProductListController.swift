@@ -53,6 +53,7 @@ class ProductListController: BaseSideMenuViewController{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.separatorStyle = .none
         //        tableview.register(MyOrderListTableViewCell.self, forCellReuseIdentifier: TableViewCell.myOrderListTableViewCell.rawValue)
         tableview.backgroundView?.backgroundColor = .clear
         //        tableview.bounces = false
@@ -408,6 +409,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
         if(isMyStore){
             switch selectedProductType {
             case "上架中":
+                print("進上架中")
                 NetworkController.instance().getMyOwnItemOnShelf{
                     [weak self](responseValue, isSuccess) in
                     guard let weakSelf = self else {return}
@@ -425,6 +427,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                         }
                     }
                 }
+                return
             case "未上架":
                 NetworkController.instance().getMyOwnItemNotOnShelf{
                     [weak self](responseValue, isSuccess) in
@@ -457,7 +460,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             default:
                 self.products = ProductModel.defaultAllList
             }
-            if !orderSelectStatus.elementsEqual("上架中") && !orderSelectStatus.elementsEqual("未上架"){
+            if !(orderSelectStatus.elementsEqual("上架中") || orderSelectStatus.elementsEqual("未上架")){
                 NetworkController.instance().getMyOrderListSeller(status: orderSelectStatus){
                     [weak self](responseValue, isSuccess) in
                     guard let weakSelf = self else {return}
@@ -545,7 +548,6 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myOrderListTableViewCell.rawValue) as? MyOrderListTableViewCell {
-                    cell.backgroundColor = UIColor(named: "card")
                     ((searchController?.isActive)!)
                         ?cell.configure(with: searchOrders[indexPath.row])
                         :cell.configure(with: orders[indexPath.row])
@@ -553,7 +555,6 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                 }
             }else{
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myStoreTableViewCell.rawValue ) as? MyStoreTableViewCell {
-                    cell.backgroundColor = UIColor(named: "card")
                     ((searchController?.isActive)!)
                         ?cell.configure(with: searchProducts[indexPath.row])
                         :cell.configure(with: products[indexPath.row])
@@ -571,9 +572,7 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
-                cell.backgroundColor = UIColor(named: "card")
                 print("位置\(indexPath.row)\n總數\(self.products.count)")
-                
                 ((searchController?.isActive)!)
                     ?cell.configure(with: searchProducts[indexPath.row])
                     :cell.configure(with: products[indexPath.row])

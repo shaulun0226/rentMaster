@@ -297,6 +297,7 @@ class AddProductViewController: BaseViewController {
     //按下位置按鈕後的action
     @IBAction func cityClick(_ sender: Any) {
         currentButton = btnProductCity
+        btnProductRegion.setTitle("請選擇商品所在地區", for: .normal)
         pickerList.removeAll()
         pickerList = CityList.city
         //刷新pick內容

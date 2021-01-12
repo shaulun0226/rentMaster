@@ -87,7 +87,7 @@ class ProductModelCell: BaseTableViewCell {
                 saleTypeText += "\(saleType[index])/"
             }
         }
-        lbTradeType.text = "交易模式:\(saleTypeText)"
+        lbTradeType.text = "\(saleTypeText)"
         if model.pics.count == 0 {
             self.img.image = UIImage(named: "imageNotFound")
             return

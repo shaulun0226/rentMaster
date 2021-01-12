@@ -12,10 +12,6 @@ class PageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbState: UILabel!
     var cornerRadius: CGFloat = 5
-    var shadowOffsetWidth: Int = 0
-    var shadowOffsetHeight: Int = 5
-    var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 3
     override open var frame: CGRect {
         get {
             return super.frame
@@ -23,7 +19,7 @@ class PageCollectionViewCell: UICollectionViewCell {
         set (newFrame) {
             var frame =  newFrame
             //               frame.origin.y += 5//調整y起點
-            frame.origin.x = 10//調整x起點
+            frame.origin.x = 8//調整x起點
             frame.size.height -= 2 * frame.origin.x//調整高度
             frame.size.width -= 2 * frame.origin.x
             super.frame = frame
@@ -40,9 +36,11 @@ class PageCollectionViewCell: UICollectionViewCell {
            layer.shadowRadius = 5
            layer.shadowOffset = CGSize(width: 0, height: 0)
             layer.shadowColor = UIColor.black.cgColor
+
+        
         //設定圓角
            // add corner radius on `contentView`
-           contentView.backgroundColor = .white
+           contentView.backgroundColor = UIColor(named: "Card-1")
            contentView.layer.cornerRadius = cornerRadius
        
     }

@@ -19,6 +19,8 @@ class MainPageViewController: BaseSideMenuViewController {
         navigationController?.navigationBar.largeContentTitle = "租之助"
         tableView.delegate = self
         tableView.dataSource = self
+        //去除分隔線
+        tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +46,6 @@ class MainPageViewController: BaseSideMenuViewController {
         }
     }
     private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
-        print(jsonArr)
         for index in 0..<jsonArr.count{
             let id = jsonArr[index]["id"].string ?? ""
             let title = jsonArr[index]["title"].string ?? ""
@@ -95,7 +96,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         guard let weakSelf = self else {return}
                         if(isSuccess){
                             let jsonArr = JSON(value)
-                            print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             DispatchQueue.main.async {
@@ -118,8 +118,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         guard let weakSelf = self else {return}
                         if(isSuccess){
                             let jsonArr = JSON(value)
-                            print(jsonArr.type)
-                            
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             DispatchQueue.main.async {
@@ -142,7 +140,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         guard let weakSelf = self else {return}
                         if(isSuccess){
                             let jsonArr = JSON(value)
-                            print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             DispatchQueue.main.async {
@@ -165,7 +162,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         guard let weakSelf = self else {return}
                         if(isSuccess){
                             let jsonArr = JSON(value)
-                            print(jsonArr.type)
                             cell.products.removeAll()
                             weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             DispatchQueue.main.async {
@@ -238,7 +234,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 350
     }
 }
 extension MainPageViewController:PageTableViewCellDelegate{
