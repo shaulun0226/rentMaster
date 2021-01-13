@@ -39,12 +39,39 @@ class WishListViewController: BaseViewController {
                 }
             }
         }
-        //        wishList = [WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5),WishListModel.init(id: "2131", userId: "324234", productName: "動物森友會", amount: 2, weightPrice: 1.5)]
         wishListTV.delegate = self
         wishListTV.dataSource = self
-        
-        
+        //設定輸入框
+        tfWishProductName.underLineTextFieldDelegate = self
+        tfWishProductAmount.underLineTextFieldDelegate = self
+        tfWishProductWeightPrice.underLineTextFieldDelegate = self
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //設定按外面會把鍵盤收起(有可能會手勢衝突)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
+    
+    //MARK:- 根據鍵盤出現移動螢幕
+    @objc override func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            // if keyboard size is not available for some reason, dont do anything
+            return
+        }
+        // move the root view up by the distance of keyboard height
+        self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    @objc override func keyboardWillHide(notification: NSNotification) {
+        // move back the root view origin to zero
+        self.view.frame.origin.y = 0
+    }
+    //點擊空白收回鍵盤
+    @objc override func dismissKeyBoard() {
+        self.view.endEditing(true)
+    }
+    //MARK:-解析json
     private func parseWishItem(jsonArr:JSON){
         for index in 0..<jsonArr.count{
             let id = jsonArr[index]["id"].string ?? ""

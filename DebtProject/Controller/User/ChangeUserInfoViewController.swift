@@ -23,6 +23,11 @@ class ChangeUserInfoViewController:BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("token     \(User.token)")
+        tfEmail.underLineTextFieldDelegate = self
+        tfName.underLineTextFieldDelegate = self
+        tfPhone.underLineTextFieldDelegate = self
+        tfNickName.underLineTextFieldDelegate = self
+        tfAddress.underLineTextFieldDelegate = self
         if(Global.isOnline){
             NetworkController.instance().getUserInfo{
                 [weak self](responseValue, isSuccess) in

@@ -431,6 +431,22 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         70
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? MakeOrderTableViewCell{
+            if(!cell.btnIsSelected){
+                cell.btnIsSelected = !cell.btnIsSelected
+                print("勾選按鈕")
+                cell.btnWishItemSelect.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for:.normal)
+                cell.btnWishItemSelect.tintColor = UIColor(named: "Button")
+            }else{
+                print("取消勾選")
+                cell.btnIsSelected = !cell.btnIsSelected
+                cell.btnWishItemSelect.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
+                cell.btnWishItemSelect.tintColor = .darkGray
+            }
+            self.calculateWieghtPrice()
+        }
+    }
 }
 extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
     func wishItemSelectClick() {

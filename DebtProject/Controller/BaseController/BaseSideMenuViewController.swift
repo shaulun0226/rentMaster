@@ -17,7 +17,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         setMenu()
         //設定左邊button
         let btnSideMenu = UIButton(type: UIButton.ButtonType.custom)
-        //        btnSideMenu.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.setBackgroundImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         btnSideMenu.addTarget(self, action:#selector(didTapMenu), for: .touchUpInside)
         btnSideMenu.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
@@ -100,26 +99,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         if let memberView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue)as? MemberCenterViewController{
             self.show(memberView, sender: nil)
         }
-//        let storyboard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
-//        if let popoverController = storyboard.instantiateViewController(withIdentifier: MainStoryboardController.notifyViewController.rawValue) as? NotifyViewController {
-//            //設定popoverview backgroundColor
-//            let layer = Global.setBackgroundColor(view);
-//            popoverController.view.layer.insertSublayer(layer, at: 0)
-//            //設定以 popover 的效果跳轉
-//            popoverController.modalPresentationStyle = .popover
-//            //設定popover的來源視圖
-//            popoverController.popoverPresentationController?.sourceView = self.view
-//            //下面註解掉的這行可以指定箭頭指的座標
-//            //            popoverController.popoverPresentationController?.sourceRect = buttonFrame
-//            popoverController.popoverPresentationController?.delegate = self
-//            //讓 popover 的箭頭指到 rightBarButtonItem。並且方向向上
-//            popoverController.popoverPresentationController?.permittedArrowDirections = .up
-//            popoverController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-//            //設定popover視窗大小
-//            popoverController.preferredContentSize = CGSize(width: 350, height: 500)
-//            //跳轉頁面
-//            present(popoverController, animated: true, completion: nil)
-//        }
     }
     
     func didSelectMenuItem(titleNamed: SideMenuSelectTitle, itemNamed: SideMenuItem) {

@@ -8,11 +8,10 @@
 import UIKit
 import SwiftAlertView
 
-class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
-    
-    
+class BaseViewController: UIViewController{
     //目前選取的textField
     var activeTextField : UITextField? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定navigation bar
@@ -26,7 +25,12 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         view.backgroundColor = UIColor(named: "background-bottom")
         // Do any additional setup after loading the view.
         
-        
+//        //設定觀察鍵盤
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        //設定按外面會把鍵盤收起(有可能會手勢衝突)
+////        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+////        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
     @objc func keyboardWillShow(notification: NSNotification) {
 
@@ -42,7 +46,7 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
       if let activeTextField = activeTextField {
 
         let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY;
-        
+
         let topOfKeyboard = self.view.frame.height - keyboardSize.height
 
         // if the bottom of Textfield is below the top of keyboard, move up
@@ -54,6 +58,24 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
       if(shouldMoveViewUp) {
         self.view.frame.origin.y = 0 - keyboardSize.height
       }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        // move back the root view origin to zero
+        self.view.frame.origin.y = 0
+    }
+    //點擊空白收回鍵盤
+    @objc func dismissKeyBoard() {
+        self.view.endEditing(true)
+    }
+}
+extension BaseViewController : UnderLineTextFieldDelegate {
+    func underLineTextFieldTextFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeTextField = textField
+        print("目前")
+    }
+    
+    func underLineTextFieldTextFieldDidEndEditing(_ textField: UITextField) {
+        self.activeTextField = nil
     }
     func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag+1
@@ -73,16 +95,4 @@ class BaseViewController: UIViewController,UnderLineTextFieldDelegate {
         }
         return true
     }
-}
-extension BaseViewController : UITextFieldDelegate {
-  // when user select a textfield, this method will be called
-  func textFieldDidBeginEditing(_ textField: UITextField) {
-    // set the activeTextField to the selected textfield
-    self.activeTextField = textField
-  }
-    
-  // when user click 'done' or dismiss the keyboard
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    self.activeTextField = nil
-  }
 }

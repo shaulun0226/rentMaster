@@ -162,7 +162,6 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.myOrderListTabBarCell.rawValue, for: indexPath) as? MyOrderListTabBarCell{
             //第一次產生cell時 設定tabbar slider
             if(indexPath.row==0 && !firstTabbarDidLoad ){
-                print("改變第一個我的訂單tabbar顏色")
                 cell.isSelected = true
                 firstTabbarDidLoad = true
             }

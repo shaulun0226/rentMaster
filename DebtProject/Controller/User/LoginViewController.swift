@@ -17,7 +17,6 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var tfAccount: UnderLineTextField!{
         didSet {
             tfAccount.tag = 1
-            tfAccount.delegate = self
             tfAccount.underLineTextFieldDelegate = self
             tfAccount.text = userDefault.value(forKey: "Account") as? String
         }
@@ -25,7 +24,6 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var tfPassword: UnderLineTextField!{
         didSet {
             tfPassword.tag = 2
-            tfPassword.delegate = self
             tfPassword.underLineTextFieldDelegate = self
             tfPassword.text = userDefault.value(forKey: "Password") as? String
         }
@@ -41,8 +39,6 @@ class LoginViewController: BaseViewController {
         self.tfPassword.attributedPlaceholder = NSAttributedString(string:
                                                                     "Password", attributes:
                                                                         [NSAttributedString.Key.foregroundColor:UIColor.lightGray])
-        tfAccount.textColor = .white
-        tfPassword.textColor = .white
     }
     func verify()-> Bool{
         if(tfAccount.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||

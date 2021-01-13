@@ -106,6 +106,18 @@ class AddProductViewController: BaseViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.setValue(UIColor.white, forKeyPath: "textColor")
+        //設定鍵盤
+        tfProductTitle.underLineTextFieldDelegate = self
+        tfProductAmount.underLineTextFieldDelegate = self
+        tfProductDescription.underLineTextFieldDelegate = self
+        tfTradeMethod.underLineTextFieldDelegate = self
+        tfProductPrice.underLineTextFieldDelegate = self
+        tfProductDeposit.underLineTextFieldDelegate = self
+        tfProductRent.underLineTextFieldDelegate = self
+        tfProductWeightPrice.underLineTextFieldDelegate = self
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         //設定按外面會把鍵盤收起
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
@@ -382,7 +394,7 @@ class AddProductViewController: BaseViewController {
     }
     
     //點擊空白收回鍵盤
-    @objc func dismissKeyBoard() {
+    @objc override func dismissKeyBoard() {
         self.view.endEditing(true)
     }
     

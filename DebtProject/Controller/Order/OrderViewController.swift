@@ -178,9 +178,13 @@ class OrderViewController: BaseViewController {
         self.view.frame.origin.y = 0 - keyboardSize.height
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc override func keyboardWillHide(notification: NSNotification) {
         // move back the root view origin to zero
         self.view.frame.origin.y = 0
+    }
+    //點擊空白收回鍵盤
+    @objc override func dismissKeyBoard() {
+        self.view.endEditing(true)
     }
     //MARK: - 解析JSON
     private func parseNote(json:JSON)->NoteModel{
@@ -339,10 +343,7 @@ class OrderViewController: BaseViewController {
         }
     }
     
-    //點擊空白收回鍵盤
-    @objc func dismissKeyBoard() {
-        self.view.endEditing(true)
-    }
+   
     //傳送留言
     @IBAction func btnSendClick(_ sender: Any) {
         self.view.endEditing(true)
@@ -361,6 +362,7 @@ class OrderViewController: BaseViewController {
                     weakSelf.NoteTableView.reloadData()
                     weakSelf.txSend.text = "請輸入留言內容"
                     weakSelf.txSend.textColor = UIColor.lightGray
+                    weakSelf.NoteTableView.scrollToRow(at: IndexPath(row: weakSelf.notes.count-1, section: 0), at: .bottom, animated: true)
                 }
             }
         }

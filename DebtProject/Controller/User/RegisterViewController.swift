@@ -51,21 +51,37 @@ class RegisterViewController: BaseViewController {
             tfName.layer.masksToBounds = true
         }
     }
+    
     @IBOutlet weak var btnRegisterConfirm: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //設定按鈕
-        tfEmail.textColor = .white
-        tfPassword.textColor = .white
-        tfPasswordConfirm.textColor = .white
-        tfName.textColor = .white
-        tfPhone.textColor = .white
         //設定hint
         errorHint.leftAnchor.constraint(equalToSystemSpacingAfter: self.view.leftAnchor, multiplier: 0).isActive = true
-        //        btnRegisterConfirm.backgroundColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1);
-        // Do any additional setup after loading the view.
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //設定按外面會把鍵盤收起(有可能會手勢衝突)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
-    
+    //MARK:- 根據鍵盤出現移動螢幕
+//    @objc override func keyboardWillShow(notification: NSNotification) {
+//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+//            // if keyboard size is not available for some reason, dont do anything
+//            return
+//        }
+//        // move the root view up by the distance of keyboard height
+//        self.view.frame.origin.y = 0 - keyboardSize.height
+//    }
+//    
+//    @objc override func keyboardWillHide(notification: NSNotification) {
+//        // move back the root view origin to zero
+//        self.view.frame.origin.y = 0
+//    }
+//    //點擊空白收回鍵盤
+//    @objc override func dismissKeyBoard() {
+//        self.view.endEditing(true)
+//    }
     //設定按下return 自動跳到下一格，因為自定義textField的關係兩邊都需要實現UITextFieldDelegate，所以沒辦法用
     @IBAction func emailConfirmClick(_ sender: Any) {
         if(!emailCheck()){
