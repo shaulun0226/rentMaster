@@ -115,9 +115,9 @@ class ProductInfoViewController: BaseViewController {
         if(Global.isOnline){
             lbProductTtile.text = "\(product.title)"
             lbProductType.text = "分類 : \(product.type)/\(product.type1)/\(product.type2)"
-            lbTradeMethod.text = "交易方式 : \(product.rentMethod)"
-            lbAmount.text = "數量 : \(product.amount)"
-            lbProductDescription.text = "\(product.description)"
+            lbTradeMethod.text = "交貨方式 : \(product.rentMethod)"
+            lbAmount.text = "剩餘數量 : \(product.amount)"
+            lbProductDescription.text = "商品敘述:\(product.description)"
             var tradeType = [String]()
             var price = [String]()
             if(product.isSale){

@@ -322,12 +322,6 @@ class OrderViewController: BaseViewController {
     //MARK:-留言板畫面
     //設定留言板畫面
     private func setSendView(){
-        let layer = CAGradientLayer();
-        layer.frame = sendNoteView.bounds;
-        layer.colors = Global.BACKGROUND_COLOR as [Any]
-        layer.startPoint = CGPoint(x: 0,y: 0.5);
-        layer.endPoint = CGPoint(x: 1,y: 0.5);
-        sendNoteView.layer.insertSublayer(layer, at: 0)
         //設定KVO
         NoteTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         txSend.text = "請輸入留言內容"
@@ -392,7 +386,7 @@ extension OrderViewController:UITextViewDelegate{
         //        descIconStack.isHidden = true
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.white
+            textView.textColor = UIColor(named: "textfieldTextColor")
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
