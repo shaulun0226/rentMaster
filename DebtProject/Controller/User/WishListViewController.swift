@@ -125,7 +125,6 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
         if let cell = wishListTV.dequeueReusableCell(withIdentifier: "WishListTableViewCell") as? WishListTableViewCell {
             print("創造cell位置\(indexPath.row)")
             cell.configure(wishListModel:wishList[indexPath.row])
-            cell.lbNumber.text = "\(indexPath.row+1):"
 //            cell.backgroundColor = .clear
             return cell
         }
@@ -137,8 +136,6 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     //側滑刪除
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        print("id:\(self.wishList[indexPath.row].id)")
         let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in
             NetworkController.instance().deleteWishItem(id: self.wishList[indexPath.row].id){
                 [weak self] (reponseValue,isSuccess) in

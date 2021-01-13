@@ -13,10 +13,33 @@ class MyStoreTableViewCell: BaseTableViewCell {
     @IBOutlet weak var lbPrice :UILabel!
     @IBOutlet weak var lbTradeType:UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-//        super.setShadowAndCornerRadius()
+    //加入此段程式碼讓每個cell間有空隙
+//    override open var frame: CGRect {
+//        get {
+//            return super.frame
+//        }
+//        set (newFrame) {
+//            var frame =  newFrame
+////            frame.origin.y = 5//調整y起點
+//            frame.origin.x = 5//調整x起點
+//            frame.size.height -= 2 * frame.origin.x//調整高度
+//            frame.size.width -= 2 * frame.origin.x//調整寬度
+//            super.frame = frame
+//        }
+//    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = cornerRadius
+        //        設定陰影
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
+        //        設定框線
+        //        layer.borderWidth = 1.0
+        //        layer.borderColor = UIColor.black.cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

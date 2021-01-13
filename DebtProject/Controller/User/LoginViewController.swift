@@ -92,10 +92,10 @@ class LoginViewController: BaseViewController {
                     alertView.clickedButtonAction = { index in
                         alertView.dismiss()
                     }
-                    alertView.messageLabel.textColor = .white
+                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
                     alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
                     alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                    alertView.backgroundColor = UIColor(named: "Alert")
+                    alertView.backgroundColor = UIColor(named: "Card-2")
                     alertView.buttonTitleColor = .white
                     alertView.show()
 //                    let controller = UIAlertController(title: "登入失敗！", message: "登入失敗！", preferredStyle: .alert)

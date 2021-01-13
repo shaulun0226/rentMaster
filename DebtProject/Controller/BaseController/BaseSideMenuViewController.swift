@@ -60,17 +60,18 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     }
                 }
             }
-            notLoginAlertView.messageLabel.textColor = .white
+            notLoginAlertView.messageLabel.textColor = UIColor(named: "labelColor")
             notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            notLoginAlertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
             notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-            notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+            notLoginAlertView.backgroundColor = UIColor(named: "Card-2")
             notLoginAlertView.buttonTitleColor = .white
             notLoginAlertView.show()
             return
         }
         let storyboard = UIStoryboard(name: Storyboard.product.rawValue, bundle: nil)
         if let view = storyboard.instantiateViewController(withIdentifier: ProductStoryboardController.cartViewController.rawValue) as? CartViewController {
-            view.title = "喜愛清單"
+            view.title = "關注清單"
             self.show(view, sender: nil);
         }
     }
@@ -88,10 +89,11 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                     }
                 }
             }
-            notLoginAlertView.messageLabel.textColor = .white
+            notLoginAlertView.messageLabel.textColor = UIColor(named: "labelColor")
             notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+            notLoginAlertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
             notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-            notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+            notLoginAlertView.backgroundColor = UIColor(named: "Card-2")
             notLoginAlertView.buttonTitleColor = .white
             notLoginAlertView.show()
             return
@@ -127,10 +129,11 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                             }
                         }
                     }
-                    alertView.messageLabel.textColor = .white
+                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
                     alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
                     alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-                    alertView.backgroundColor = UIColor(named: "Alert")
+                    alertView.backgroundColor = UIColor(named: "Card-2")
                     alertView.buttonTitleColor = .white
                     alertView.show()
                     return
@@ -139,8 +142,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.navigationController?.navigationBar.prefersLargeTitles = true
                 vcMain.isMyStore = true
-                vcMain.slider.backgroundColor = .white
-                vcMain.productType1 = "PS5"//暫時先用這個代替
                 view = vcMain
             }
         case .home:
@@ -149,35 +150,30 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             }
         case .ps4:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS4"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .ps5:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .blue
                 vcMain.productType1 = "PS5"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .series:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .green
                 vcMain.productType1 = "Series"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .one:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .green
                 vcMain.productType1 = "One"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .Switch:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .red
                 vcMain.productType1 = "Switch"
                 vcMain.isMyStore = false
                 view = vcMain
@@ -191,21 +187,18 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
 //            }
         case .fourPlayerBoardGame:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .yellow
                 vcMain.productType1 = "4人以下"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .fourToEightPlayerBoardGame:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .yellow
                 vcMain.productType1 = "4-8人"
                 vcMain.isMyStore = false
                 view = vcMain
             }
         case .eightPlayerBoardGame:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-                vcMain.slider.backgroundColor = .yellow
                 vcMain.productType1 = "8人以上"
                 vcMain.isMyStore = false
                 view = vcMain
@@ -274,7 +267,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
 //                            }
 //                        }
 //                    }
-//                    alertView.messageLabel.textColor = .white
+//                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
 //                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
 //                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
 //                    alertView.backgroundColor = UIColor(named: "Alert")

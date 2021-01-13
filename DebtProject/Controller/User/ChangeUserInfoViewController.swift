@@ -51,6 +51,13 @@ class ChangeUserInfoViewController:BaseViewController {
             }
         }
         changeTextFieldEnable(bool:false)
+        //設定觀察鍵盤
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        //                設定按外面會把鍵盤收起(有可能會手勢衝突)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
     }
     private func parseUser(json:JSON){
         let id = json["id"].string ?? ""
@@ -134,10 +141,10 @@ class ChangeUserInfoViewController:BaseViewController {
                 // 如果此 weakSelf 賦值失敗，就 return
                 guard let weakSelf = self else {return}
                 let alertView = SwiftAlertView(title: "", message: "變更成功！", delegate: nil, cancelButtonTitle: "確定")
-                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.backgroundColor = UIColor(named: "Card-2")
                 alertView.buttonTitleColor = .white
                 alertView.clickedButtonAction = { index in
                     if let view = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{

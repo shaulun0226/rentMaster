@@ -427,10 +427,10 @@ class AddProductViewController: BaseViewController {
     private func productInfoCheck()->Bool{
         if(!emptyCheck()){
             let alertView = SwiftAlertView(title: "", message: "請確認資料是否完整", delegate: nil, cancelButtonTitle: "確定")
-            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.textColor = UIColor(named: "labelColor")
             alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
             alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.backgroundColor = UIColor(named: "Card-2")
             alertView.buttonTitleColor = .white
             alertView.clickedButtonAction = { index in
                 alertView.dismiss()
@@ -469,10 +469,10 @@ class AddProductViewController: BaseViewController {
             NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, weightPrice:productWeightPrice){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
                 let alertView = SwiftAlertView(title: "", message: " 上架成功！\n", delegate: nil, cancelButtonTitle: "確定")
-                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.backgroundColor = UIColor(named: "Card-2")
                 alertView.buttonTitleColor = .white
                 if(isSuccess){
                     alertView.clickedButtonAction = { index in
@@ -573,9 +573,22 @@ class AddProductViewController: BaseViewController {
                 NetworkController.instance().productModify(id:product.id,title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type: productType, type1: productType1, type2: productType2, oldPics: oldPics, pics: productImages, weightPrice: productWeightPrice){
                     (reponseValue,isSuccess) in
                     //                    guard let weakSelf = self else{return}
+                    let alertView = SwiftAlertView(title: "", message: " 上架成功！\n", delegate: nil, cancelButtonTitle: "確定")
+                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Card-2")
+                    alertView.buttonTitleColor = .white
+                    alertView.clickedButtonAction = { index in
+                        alertView.dismiss()
+                    }
                     if(isSuccess){
+                        alertView.messageLabel.text = "編輯成功"
+                        alertView.show()
                         print("編輯成功")
                     }else{
+                        alertView.show()
+                        alertView.messageLabel.text = "編輯失敗"
                         print("編輯失敗")
                     }
                 }

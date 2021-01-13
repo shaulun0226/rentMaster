@@ -29,9 +29,9 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho4-9B-M58">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ho4-9B-M58">
                         <rect key="frame" x="10" y="180" width="31.5" height="19.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                         <color key="textColor" name="textColor-brown"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -57,6 +57,7 @@
                 <constraint firstAttribute="trailing" secondItem="ni4-uy-98T" secondAttribute="trailing" id="Sqg-oJ-Ap2"/>
                 <constraint firstAttribute="top" secondItem="ni4-uy-98T" secondAttribute="top" id="mbr-Jb-2W2"/>
                 <constraint firstItem="Ho4-9B-M58" firstAttribute="top" secondItem="ni4-uy-98T" secondAttribute="bottom" constant="5" id="ngR-hJ-vAa"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ho4-9B-M58" secondAttribute="trailing" constant="10" id="yHt-85-k0s"/>
                 <constraint firstItem="ni4-uy-98T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yUj-7w-IsF"/>
             </constraints>
             <size key="customSize" width="86" height="166"/>
@@ -76,10 +77,10 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MainPageCellTradeMethod">
-            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="0.99000011587142944" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor-brown">
-            <color red="0.49411764705882355" green="0.30980392156862746" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="tradeMethodText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

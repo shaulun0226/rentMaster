@@ -222,10 +222,10 @@ class OrderViewController: BaseViewController {
             alertView.clickedCancelButtonAction = {
                 alertView.dismiss()
             }
-            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.textColor = UIColor(named: "labelColor")
             alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
-            alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Card-2")
             alertView.buttonTitleColor = .white
             if(isSuccess){
                 let json = JSON(reponseValue)

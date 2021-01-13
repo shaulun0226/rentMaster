@@ -190,9 +190,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "PlayStation"
             vcMain.isMyStore = false
-            vcMain.slider.backgroundColor = .blue
             vcMain.productType = "PlayStation"
-//            vcMain.productType1 = "PS5"//暫定
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             self.show(vcMain, sender: nil);
         }
@@ -203,8 +201,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.title = "Xbox"
             vcMain.isMyStore = false
             vcMain.productType = "Xbox"
-//            vcMain.productType1 = "XBOX"//暫定
-            vcMain.slider.backgroundColor = .green
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             self.show(vcMain, sender: nil);
         }
@@ -217,7 +213,6 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.isMyStore = false
 //            vcMain.productType1 = "SWITCH"//暫定
             vcMain.tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
-            vcMain.slider.backgroundColor = .red
             self.show(vcMain, sender: nil);
         }
     }
@@ -227,9 +222,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
             vcMain.title = "桌遊"
             vcMain.isMyStore = false
             vcMain.productType = "BoardGame"
-//            vcMain.productType1 = "桌遊"//暫定
             vcMain.tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
-            vcMain.slider.backgroundColor = .orange
             self.show(vcMain, sender: nil);
         }
     }

@@ -55,6 +55,7 @@ class ProductInfoViewController: BaseViewController {
         productInfoPC.numberOfPages = productsImage.count
         //起始在第0頁
         productInfoPC.currentPage = 0;
+        productInfoPC.tintColor = UIColor(named: "icon")
         // Do any additional setup after loading the view.
     }
     
@@ -182,10 +183,11 @@ class ProductInfoViewController: BaseViewController {
                         }
                     }
                 }
-                notLoginAlertView.messageLabel.textColor = .white
+                notLoginAlertView.messageLabel.textColor = UIColor(named: "labelColor")
                 notLoginAlertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                notLoginAlertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
                 notLoginAlertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-                notLoginAlertView.backgroundColor = UIColor(named: "Alert")
+                notLoginAlertView.backgroundColor = UIColor(named: "Card-2")
                 notLoginAlertView.buttonTitleColor = .white
                 notLoginAlertView.show()
                 return
@@ -201,10 +203,11 @@ class ProductInfoViewController: BaseViewController {
         if(Global.isOnline){
             if (User.token.isEmpty){
                 let alertView = SwiftAlertView(title: "", message: "請先登入\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
-                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
+                alertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
                 alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.backgroundColor = UIColor(named: "Card-2")
                 alertView.buttonTitleColor = .white
                 alertView.clickedButtonAction = { index in
                     if(index==0){
@@ -230,10 +233,10 @@ class ProductInfoViewController: BaseViewController {
                 (responseValue, isSuccess) in
                 //                guard let weakSelf = self else {return}
                 let alertView = SwiftAlertView(title: "", message: "成功加入購物車！\n", delegate: nil, cancelButtonTitle: "確定")
-                alertView.messageLabel.textColor = .white
+                alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-                alertView.backgroundColor = UIColor(named: "Alert")
+                alertView.backgroundColor = UIColor(named: "Card-2")
                 alertView.buttonTitleColor = .white
                 alertView.clickedButtonAction = { index in
                     alertView.dismiss()

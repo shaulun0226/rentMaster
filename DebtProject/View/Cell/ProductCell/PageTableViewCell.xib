@@ -24,7 +24,7 @@
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="ng2-cv-39g"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                        <color key="textColor" name="textColor"/>
+                        <color key="textColor" name="textMainCardTitle"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Adr-ii-cKP">
@@ -59,11 +59,11 @@
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="q2h-ZA-ygN"/>
                         </constraints>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                        <color key="textColor" name="textColor"/>
+                        <color key="textColor" name="查看更多"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" name="Card-2"/>
                 <constraints>
                     <constraint firstItem="Rby-xq-tws" firstAttribute="top" secondItem="Adr-ii-cKP" secondAttribute="bottom" constant="10" id="0Ko-gu-Ciy"/>
                     <constraint firstItem="Adr-ii-cKP" firstAttribute="leading" secondItem="ZwM-H7-DEI" secondAttribute="leading" constant="-20" id="2pA-yz-tSG"/>
@@ -93,8 +93,14 @@
         <namedColor name="Card-1">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="textColor">
-            <color red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Card-2">
+            <color red="0.99607843137254903" green="0.97647058823529409" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textMainCardTitle">
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="查看更多">
+            <color red="0.28627450980392155" green="0.34509803921568627" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

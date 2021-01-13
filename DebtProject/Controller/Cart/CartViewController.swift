@@ -19,6 +19,7 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
 //        self.isGotItems = false
         cartTableView.delegate = self
         cartTableView.dataSource = self
+        cartTableView.separatorStyle = .none
         if(!User.token.isEmpty){
             NetworkController.instance().getCartList{
                 [weak self] (reponseJSON,isSuccess) in
@@ -72,7 +73,6 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = cartTableView.dequeueReusableCell(withIdentifier: "CartTableViewCell") as? CartTableViewCell {
-            cell.backgroundColor = UIColor(named: "card")
             cell.index = indexPath.row
             cell.configure(with:cartProducts[indexPath.row])
             cell.cartTableViewCellDelegate = self

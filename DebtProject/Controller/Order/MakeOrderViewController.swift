@@ -325,10 +325,10 @@ class MakeOrderViewController: BaseViewController {
     
     @IBAction func confirmClick(_ sender: Any) {
         let alertView = SwiftAlertView(title: "", message: "", delegate: nil, cancelButtonTitle: "確定")
-        alertView.messageLabel.textColor = .white
+        alertView.messageLabel.textColor = UIColor(named: "labelColor")
         alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
         alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-        alertView.backgroundColor = UIColor(named: "Alert")
+        alertView.backgroundColor = UIColor(named: "Card-2")
         alertView.buttonTitleColor = .white
         alertView.clickedButtonAction = { index in
             alertView.dismiss()

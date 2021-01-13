@@ -40,10 +40,10 @@ class ForgotPasswordViewController: BaseViewController {
             alertView.clickedButtonAction = { index in
                 alertView.dismiss()
             }
-            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.textColor = UIColor(named: "labelColor")
             alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
             alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.backgroundColor = UIColor(named: "Card-2")
             alertView.buttonTitleColor = .white
             if(isSuccess){
                 alertView.show()
@@ -74,10 +74,10 @@ class ForgotPasswordViewController: BaseViewController {
             // 如果此 weakSelf 賦值失敗，就 return
             guard let weakSelf = self else {return}
             let alertView = SwiftAlertView(title: "", message: " 傳送成功！\n", delegate: nil, cancelButtonTitle: "確定")
-            alertView.messageLabel.textColor = .white
+            alertView.messageLabel.textColor = UIColor(named: "labelColor")
             alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
             alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
-            alertView.backgroundColor = UIColor(named: "Alert")
+            alertView.backgroundColor = UIColor(named: "Card-2")
             alertView.buttonTitleColor = .white
             if(isSuccess){
                 alertView.clickedButtonAction = { index in

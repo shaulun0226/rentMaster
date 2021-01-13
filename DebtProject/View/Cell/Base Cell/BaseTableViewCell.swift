@@ -12,7 +12,7 @@ class BaseTableViewCell: UITableViewCell {
     var shadowOffsetWidth: Int = 1//偏移量
     var shadowOffsetHeight: Int = 1//偏移量
     var shadowColor: UIColor? =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //陰影顏色
-    var shadowOpacity: Float = 0.6//陰影的透明度
+    var shadowOpacity: Float = 0.1//陰影的透明度
     var cornerRadius: CGFloat = 5
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -66,9 +66,9 @@ class BaseTableViewCell: UITableViewCell {
         }
         set (newFrame) {
             var frame =  newFrame
-            frame.origin.y += 5//調整y起點
-            frame.origin.x = 10//調整x起點
-            frame.size.height -= 15//調整高度
+//            frame.origin.y = 5//調整y起點
+            frame.origin.x = 5//調整x起點
+            frame.size.height -= 2 * frame.origin.x//調整高度
             frame.size.width -= 2 * frame.origin.x//調整寬度
             super.frame = frame
         }

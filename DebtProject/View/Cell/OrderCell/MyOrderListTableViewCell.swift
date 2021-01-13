@@ -23,33 +23,30 @@ class MyOrderListTableViewCell: BaseTableViewCell {
         
         // Configure the view for the selected state
     }
-    override open var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame =  newFrame
-            frame.origin.y += 5//調整y起點
-            frame.origin.x = 5//調整x起點
-            frame.size.height -= 15//調整高度
-            frame.size.width -= 2 * frame.origin.x//調整寬度
-            super.frame = frame
-        }
-    }
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = cornerRadius
+        //        設定陰影
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
+        //        設定框線
+        //        layer.borderWidth = 1.0
+        //        layer.borderColor = UIColor.black.cgColor
     }
     func configure(with model: OrderModel) {
         self.lbProductTitle.text = model.p_Title
         self.lbTradeQuantity.text = "交易數量 : \(model.tradeQuantity)"
         switch model.tradeMethod {
         case 0://租
-            lbProductTradeMethod.text = "交易方式 : 租借"
+            lbProductTradeMethod.text = "租借"
         case 1://買
-            lbProductTradeMethod.text = "交易方式 : 購買"
+            lbProductTradeMethod.text = "購買"
         case 2://換
-            lbProductTradeMethod.text = "交易方式 : 交換"
+            lbProductTradeMethod.text = "交換"
         default:
             lbProductTradeMethod.text = ""
         }

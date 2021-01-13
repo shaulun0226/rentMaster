@@ -30,7 +30,7 @@ class MyBuyerOrderListViewController: BaseViewController {
 //        orders = ProductModel.defaultAllList
         //設定CollectionView Cell大小
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3, height:50)
+        flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3.5, height:50)
         flowLayout?.estimatedItemSize = .zero
         flowLayout?.minimumInteritemSpacing = 1
        
@@ -52,9 +52,9 @@ class MyBuyerOrderListViewController: BaseViewController {
         }
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: 90, height: 5)
-        self.slider.center.y = collectionView.bounds.maxY-10
-        self.slider.backgroundColor = .purple
+        self.slider.frame.size = CGSize(width: self.view.frame.size.width/3.5, height: 5)
+        self.slider.center.y = collectionView.bounds.maxY-14
+        self.slider.backgroundColor = UIColor(named: "slider")
         collectionView.addSubview(slider)
     }
     private func parseOrder(jsonArr:JSON){
@@ -164,9 +164,13 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
             if(indexPath.row==0 && !firstTabbarDidLoad ){
                 cell.isSelected = true
                 firstTabbarDidLoad = true
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    if let self = self{
+                        self.slider.center.x = cell.center.x
+                    }
+                }
             }
             cell.lbTitle.text = tabbarTitle[indexPath.row]
-            cell.lbTitle.textColor = .white
             return cell
         }
         return UICollectionViewCell()
@@ -179,7 +183,6 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
                 if let firstcell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)){
                     if(firstcell.isSelected){
                         firstcell.isSelected = false
-                        firstcell.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.168627451, blue: 0.168627451, alpha: 1)
                     }
                 }
             }

@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,6 +71,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27.333333333333314" id="w7D-yG-lsb"/>
                                         </constraints>
+                                        <color key="pageIndicatorTintColor" name="dotUnSelect"/>
+                                        <color key="currentPageIndicatorTintColor" name="dotSelect"/>
                                     </pageControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VOF-gq-sge">
                                         <rect key="frame" x="10" y="320.5" width="394" height="203"/>
@@ -226,7 +227,7 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="加入購物車"/>
+                                        <state key="normal" title="加入關注清單"/>
                                         <connections>
                                             <action selector="addCartClick:" destination="iy7-nV-YaT" eventType="touchUpInside" id="zAP-lM-HmL"/>
                                         </connections>
@@ -341,6 +342,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27.333333333333314" id="xSy-pl-DNC"/>
                                         </constraints>
+                                        <color key="pageIndicatorTintColor" name="dotUnSelect"/>
+                                        <color key="currentPageIndicatorTintColor" name="dotSelect"/>
                                     </pageControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="93H-JX-y2Z">
                                         <rect key="frame" x="10" y="320.5" width="394" height="84.5"/>
@@ -407,7 +410,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價格:" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhD-zz-VqV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="總價:" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhD-zz-VqV">
                                         <rect key="frame" x="10" y="634.5" width="63.5" height="33.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" name="labelColor"/>
@@ -501,7 +504,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="Card-1"/>
                                                 <constraints>
                                                     <constraint firstItem="hN4-vS-56n" firstAttribute="trailing" secondItem="GrP-nD-0QN" secondAttribute="trailing" id="1EM-HD-1Wk"/>
                                                     <constraint firstItem="GrP-nD-0QN" firstAttribute="top" secondItem="P4c-tA-ozM" secondAttribute="top" constant="5" id="3lg-aF-2pl"/>
@@ -613,14 +616,15 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="lhJ-7S-ibn" secondAttribute="height" multiplier="1:1" id="DOz-cA-Gbm"/>
                                                     </constraints>
-                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="selectButton"/>
                                                     <state key="normal" backgroundImage="send"/>
                                                     <connections>
                                                         <action selector="btnSendClick:" destination="qdG-Fd-BSO" eventType="touchUpInside" id="hOv-K4-K4E"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" name="Button"/>
+                                            <color key="backgroundColor" name="Card-1"/>
+                                            <color key="tintColor" name="Button"/>
                                             <constraints>
                                                 <constraint firstItem="a13-Uz-KqR" firstAttribute="top" secondItem="7Bi-PX-JnJ" secondAttribute="top" id="2Lu-Uc-UB6"/>
                                                 <constraint firstItem="a13-Uz-KqR" firstAttribute="leading" secondItem="7Bi-PX-JnJ" secondAttribute="leading" constant="10" id="9Pr-Bj-sII"/>
@@ -661,23 +665,25 @@
                                                                 <constraint firstAttribute="height" constant="42" id="wac-n7-d6E"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" name="labelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="2021-01-07 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-IF-KYA">
                                                             <rect key="frame" x="315" y="10" width="94" height="20.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="16C-mL-ETn"/>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="94" id="lIF-cV-IZo"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14:05" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-cN-mce">
                                                             <rect key="frame" x="366" y="38" width="43" height="20.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="訊息" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fg7-Xu-blF">
@@ -686,7 +692,7 @@
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="SL8-oF-3FV"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" name="Card-2"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -705,7 +711,7 @@
                                                         <constraint firstItem="SMj-6i-JMy" firstAttribute="top" secondItem="jRC-hd-ZKq" secondAttribute="top" constant="10" id="nbt-hc-KxU"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NoteBoard"/>
                                                 <connections>
                                                     <outlet property="lbNoteDate" destination="5B0-IF-KYA" id="xQl-tg-5cu"/>
                                                     <outlet property="lbNoteMessage" destination="fg7-Xu-blF" id="3hL-rx-ZvY"/>
@@ -893,16 +899,16 @@
                                         </collectionReusableView>
                                     </collectionView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="tWg-Tq-bt6">
-                                        <rect key="frame" x="15" y="163.5" width="399" height="1040"/>
+                                        <rect key="frame" x="15" y="163.5" width="389" height="1040"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="r1L-fg-ghe">
-                                                <rect key="frame" x="0.0" y="0.0" width="399" height="500"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="389" height="500"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bWU-sx-uk3" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品名稱:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30U-0b-o57">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="XTD-zt-g0C"/>
                                                                 </constraints>
@@ -911,7 +917,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入商品名稱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nd1-10-9yb" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="X1F-wf-bIa"/>
@@ -957,10 +963,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8W-Wy-q9Q" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="100" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="100" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品描述:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IDr-dk-4Kb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="ziG-GX-q4O"/>
                                                                 </constraints>
@@ -969,7 +975,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入商品描述" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="r1u-kq-H0Q" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="igd-Wm-veW"/>
@@ -1015,10 +1021,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syu-tu-gx2" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="200" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="200" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K68-ds-bMK">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="DWd-gy-LkM"/>
                                                                 </constraints>
@@ -1027,7 +1033,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入商品數量" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4k2-A2-tez" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="FSV-aF-QHm"/>
@@ -1073,10 +1079,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqp-MD-nYk" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="300" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="300" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易方式:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17X-fZ-uPI">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="bv2-w5-nRm"/>
                                                                 </constraints>
@@ -1085,7 +1091,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入交易方式(ex.郵寄)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-Jk-26v" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="2sF-Lz-vQd"/>
@@ -1131,10 +1137,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUc-l3-MOp" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="400" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="400" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品販售方式:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lON-3Z-kVP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="OCi-lp-Mdg"/>
                                                                 </constraints>
@@ -1143,7 +1149,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Adr-wq-9dB">
-                                                                <rect key="frame" x="40" y="50" width="319" height="50"/>
+                                                                <rect key="frame" x="39" y="50" width="311" height="50"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1US-fe-zCp">
                                                                         <rect key="frame" x="0.0" y="8" width="35" height="34"/>
@@ -1159,13 +1165,13 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="販售" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl1-cV-1Ij">
-                                                                        <rect key="frame" x="48.5" y="10.5" width="49" height="29"/>
+                                                                        <rect key="frame" x="46.5" y="10.5" width="49" height="29"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                         <color key="textColor" name="labelColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eme-3o-mTx">
-                                                                        <rect key="frame" x="111" y="8" width="35" height="34"/>
+                                                                        <rect key="frame" x="107.5" y="8" width="35" height="34"/>
                                                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" backgroundImage="circle" catalog="system">
                                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1175,13 +1181,13 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租借" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ys-z6-hFT">
-                                                                        <rect key="frame" x="159" y="10.5" width="49" height="29"/>
+                                                                        <rect key="frame" x="154.5" y="10.5" width="49" height="29"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                         <color key="textColor" name="labelColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1wZ-X7-qaU">
-                                                                        <rect key="frame" x="221.5" y="8" width="35" height="34"/>
+                                                                        <rect key="frame" x="215.5" y="8" width="35" height="34"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="1wZ-X7-qaU" secondAttribute="height" multiplier="1:1" id="cMa-2i-cbt"/>
                                                                         </constraints>
@@ -1194,7 +1200,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghr-cC-Uld">
-                                                                        <rect key="frame" x="270" y="10.5" width="49" height="29"/>
+                                                                        <rect key="frame" x="262" y="10.5" width="49" height="29"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                         <color key="textColor" name="labelColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1235,10 +1241,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upM-GL-KOd" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="500" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="500" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="販售價錢:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-qJ-Pbf">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="cks-hv-bkQ"/>
                                                                 </constraints>
@@ -1247,7 +1253,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入販售價錢" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xld-4e-1vm" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="Vxb-vD-iNh"/>
@@ -1293,10 +1299,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyJ-mf-90A" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="500" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="500" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品押金:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhB-1H-Lhs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="nf6-Sn-hY7"/>
                                                                 </constraints>
@@ -1305,7 +1311,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入商品押金" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5EV-VQ-Oy1" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="8XI-eD-9RU"/>
@@ -1351,10 +1357,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rm8-Zd-cZU" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="500" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="500" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租借金額/天:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTv-b1-uYJ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="arQ-aU-KUW"/>
                                                                 </constraints>
@@ -1363,7 +1369,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入租借天數" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="13t-Gj-QrA" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
                                                                 <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="TyP-4l-yEe"/>
@@ -1411,35 +1417,35 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6fy-Fk-tK3">
-                                                <rect key="frame" x="0.0" y="500" width="399" height="540"/>
+                                                <rect key="frame" x="0.0" y="500" width="389" height="540"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOi-3p-MbH" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-100" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="-100" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換商品總權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgC-HQ-Ao3">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="OUQ-hm-62n"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" name="labelColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入總權重值" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZnW-ar-brE" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
-                                                                <color key="tintColor" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <rect key="frame" x="5" y="50" width="379" height="50"/>
+                                                                <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="ZMe-ch-UAD"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" name="textfieldTextColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="value" name="textfieldLineColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                                        <color key="value" red="0.017983105030000002" green="0.97276204820000001" blue="0.85664981600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="value" name="textfieldSelectedLineColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                         <real key="value" value="1"/>
@@ -1472,10 +1478,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIq-Ld-U7i" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品所在縣市:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-AW-nIU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="aRw-Fz-CRC"/>
                                                                 </constraints>
@@ -1484,7 +1490,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xe-rn-hQ7">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="10" y="50" width="369" height="50"/>
                                                                 <color key="backgroundColor" name="selectButton"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="Wka-a6-iCa"/>
@@ -1493,6 +1499,11 @@
                                                                 <state key="normal" title="請選擇商品所在地">
                                                                     <color key="titleColor" name="textColor"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="cityClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="5CH-fc-ZuJ"/>
                                                                 </connections>
@@ -1500,11 +1511,11 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="a9u-AW-nIU" secondAttribute="trailing" id="3rL-Of-NN5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="7xe-rn-hQ7" secondAttribute="trailing" constant="5" id="7bQ-DW-aQo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="7xe-rn-hQ7" secondAttribute="trailing" constant="10" id="7bQ-DW-aQo"/>
                                                             <constraint firstItem="7xe-rn-hQ7" firstAttribute="top" secondItem="a9u-AW-nIU" secondAttribute="bottom" id="UqC-OX-lww"/>
                                                             <constraint firstItem="a9u-AW-nIU" firstAttribute="leading" secondItem="UIq-Ld-U7i" secondAttribute="leading" id="Y2G-ki-EfE"/>
                                                             <constraint firstItem="a9u-AW-nIU" firstAttribute="top" secondItem="UIq-Ld-U7i" secondAttribute="top" id="YKV-XB-n4O"/>
-                                                            <constraint firstItem="7xe-rn-hQ7" firstAttribute="leading" secondItem="UIq-Ld-U7i" secondAttribute="leading" constant="5" id="YbC-MM-NqT"/>
+                                                            <constraint firstItem="7xe-rn-hQ7" firstAttribute="leading" secondItem="UIq-Ld-U7i" secondAttribute="leading" constant="10" id="YbC-MM-NqT"/>
                                                             <constraint firstAttribute="bottom" secondItem="7xe-rn-hQ7" secondAttribute="bottom" id="rWM-Ef-xhQ"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -1523,10 +1534,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Hn-mS-V2q" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="110" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="110" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品所在區域:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwQ-kv-6hb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="zO2-EQ-FOS"/>
                                                                 </constraints>
@@ -1535,7 +1546,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uws-o7-GG3">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="10" y="50" width="369" height="50"/>
                                                                 <color key="backgroundColor" name="selectButton"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="gQU-mt-H8A"/>
@@ -1544,6 +1555,11 @@
                                                                 <state key="normal" title="請選擇商品所在地區">
                                                                     <color key="titleColor" name="textColor"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="regionClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="A16-uQ-3kV"/>
                                                                 </connections>
@@ -1551,11 +1567,11 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="Uws-o7-GG3" secondAttribute="bottom" id="7W2-ow-90d"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Uws-o7-GG3" secondAttribute="trailing" constant="5" id="Bqi-0d-AXL"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Uws-o7-GG3" secondAttribute="trailing" constant="10" id="Bqi-0d-AXL"/>
                                                             <constraint firstItem="Uws-o7-GG3" firstAttribute="top" secondItem="kwQ-kv-6hb" secondAttribute="bottom" id="IjA-BF-Z4b"/>
                                                             <constraint firstItem="kwQ-kv-6hb" firstAttribute="leading" secondItem="8Hn-mS-V2q" secondAttribute="leading" id="M3g-hm-GGO"/>
                                                             <constraint firstItem="kwQ-kv-6hb" firstAttribute="top" secondItem="8Hn-mS-V2q" secondAttribute="top" id="aRG-Fz-fva"/>
-                                                            <constraint firstItem="Uws-o7-GG3" firstAttribute="leading" secondItem="8Hn-mS-V2q" secondAttribute="leading" constant="5" id="jQA-n9-YOU"/>
+                                                            <constraint firstItem="Uws-o7-GG3" firstAttribute="leading" secondItem="8Hn-mS-V2q" secondAttribute="leading" constant="10" id="jQA-n9-YOU"/>
                                                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="kwQ-kv-6hb" secondAttribute="trailing" id="w5W-E6-IRW"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -1574,10 +1590,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQ3-nU-yok" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="220" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="220" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品平台:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5l-QJ-haE">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="9u8-oo-cXd"/>
                                                                 </constraints>
@@ -1586,7 +1602,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAv-eh-vbA">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="10" y="50" width="369" height="50"/>
                                                                 <color key="backgroundColor" name="selectButton"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="mZI-fA-Mre"/>
@@ -1595,16 +1611,21 @@
                                                                 <state key="normal" title="請選擇商品平台">
                                                                     <color key="titleColor" name="textColor"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="typeClick:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="YvB-6k-wn4"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="WAv-eh-vbA" secondAttribute="trailing" constant="5" id="0u6-Cp-aPc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="WAv-eh-vbA" secondAttribute="trailing" constant="10" id="0u6-Cp-aPc"/>
                                                             <constraint firstAttribute="bottom" secondItem="WAv-eh-vbA" secondAttribute="bottom" id="CZT-fA-E5D"/>
                                                             <constraint firstItem="WAv-eh-vbA" firstAttribute="top" secondItem="k5l-QJ-haE" secondAttribute="bottom" id="XNw-HU-89h"/>
-                                                            <constraint firstItem="WAv-eh-vbA" firstAttribute="leading" secondItem="RQ3-nU-yok" secondAttribute="leading" constant="5" id="dy5-A8-PsS"/>
+                                                            <constraint firstItem="WAv-eh-vbA" firstAttribute="leading" secondItem="RQ3-nU-yok" secondAttribute="leading" constant="10" id="dy5-A8-PsS"/>
                                                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="k5l-QJ-haE" secondAttribute="trailing" id="g1y-5C-eKw"/>
                                                             <constraint firstItem="k5l-QJ-haE" firstAttribute="top" secondItem="RQ3-nU-yok" secondAttribute="top" id="icI-dM-6wx"/>
                                                             <constraint firstItem="k5l-QJ-haE" firstAttribute="leading" secondItem="RQ3-nU-yok" secondAttribute="leading" id="rxk-G8-lRp"/>
@@ -1625,10 +1646,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oNI-BO-Lh9" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="330" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="330" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主機型號:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqL-tA-Ngv">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="0Sj-bc-eDH"/>
                                                                 </constraints>
@@ -1637,7 +1658,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8S-v5-V7Q">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="10" y="50" width="369" height="50"/>
                                                                 <color key="backgroundColor" name="selectButton"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="Fvr-2n-b9E"/>
@@ -1646,19 +1667,24 @@
                                                                 <state key="normal" title="請選擇主機型號">
                                                                     <color key="titleColor" name="textColor"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="type1Click:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="QnN-rn-tc8"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="E8S-v5-V7Q" secondAttribute="trailing" constant="5" id="11k-c8-ple"/>
+                                                            <constraint firstAttribute="trailing" secondItem="E8S-v5-V7Q" secondAttribute="trailing" constant="10" id="11k-c8-ple"/>
                                                             <constraint firstItem="E8S-v5-V7Q" firstAttribute="top" secondItem="NqL-tA-Ngv" secondAttribute="bottom" id="7X2-gO-BqA"/>
                                                             <constraint firstAttribute="bottom" secondItem="E8S-v5-V7Q" secondAttribute="bottom" id="AcQ-1d-Q6Y"/>
                                                             <constraint firstItem="NqL-tA-Ngv" firstAttribute="top" secondItem="oNI-BO-Lh9" secondAttribute="top" id="MMg-Se-cNM"/>
                                                             <constraint firstItem="NqL-tA-Ngv" firstAttribute="leading" secondItem="oNI-BO-Lh9" secondAttribute="leading" id="YHx-1J-2vv"/>
                                                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="NqL-tA-Ngv" secondAttribute="trailing" id="cZI-cI-6sh"/>
-                                                            <constraint firstItem="E8S-v5-V7Q" firstAttribute="leading" secondItem="oNI-BO-Lh9" secondAttribute="leading" constant="5" id="gye-ua-zmT"/>
+                                                            <constraint firstItem="E8S-v5-V7Q" firstAttribute="leading" secondItem="oNI-BO-Lh9" secondAttribute="leading" constant="10" id="gye-ua-zmT"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -1676,10 +1702,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQv-b0-D72" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="440" width="399" height="100"/>
+                                                        <rect key="frame" x="0.0" y="440" width="389" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品類別:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-4j-Wx2">
-                                                                <rect key="frame" x="0.0" y="0.0" width="399" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="389" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="frQ-M4-Adj"/>
                                                                 </constraints>
@@ -1688,7 +1714,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIC-Hz-xGT">
-                                                                <rect key="frame" x="5" y="50" width="389" height="50"/>
+                                                                <rect key="frame" x="10" y="50" width="369" height="50"/>
                                                                 <color key="backgroundColor" name="selectButton"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="NiK-6O-yRE"/>
@@ -1697,6 +1723,11 @@
                                                                 <state key="normal" title="請選擇商品種類">
                                                                     <color key="titleColor" name="textColor"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="type2Click:" destination="Pu8-bs-wC9" eventType="touchUpInside" id="kUm-Cl-Hbl"/>
                                                                 </connections>
@@ -1706,10 +1737,10 @@
                                                             <constraint firstItem="PTv-4j-Wx2" firstAttribute="leading" secondItem="yQv-b0-D72" secondAttribute="leading" id="1hp-u3-gqI"/>
                                                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="PTv-4j-Wx2" secondAttribute="trailing" id="Cox-aB-Q6w"/>
                                                             <constraint firstAttribute="bottom" secondItem="dIC-Hz-xGT" secondAttribute="bottom" id="cbE-1C-Phm"/>
-                                                            <constraint firstAttribute="trailing" secondItem="dIC-Hz-xGT" secondAttribute="trailing" constant="5" id="iYE-rL-DbV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dIC-Hz-xGT" secondAttribute="trailing" constant="10" id="iYE-rL-DbV"/>
                                                             <constraint firstItem="PTv-4j-Wx2" firstAttribute="top" secondItem="yQv-b0-D72" secondAttribute="top" id="qtW-R4-Y1P"/>
                                                             <constraint firstItem="dIC-Hz-xGT" firstAttribute="top" secondItem="PTv-4j-Wx2" secondAttribute="bottom" id="sm6-S2-G1u"/>
-                                                            <constraint firstItem="dIC-Hz-xGT" firstAttribute="leading" secondItem="yQv-b0-D72" secondAttribute="leading" constant="5" id="vzY-Vx-Gz8"/>
+                                                            <constraint firstItem="dIC-Hz-xGT" firstAttribute="leading" secondItem="yQv-b0-D72" secondAttribute="leading" constant="10" id="vzY-Vx-Gz8"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -1811,7 +1842,7 @@
                             <constraint firstItem="8Dc-O2-IUd" firstAttribute="height" secondItem="JsL-WF-H4j" secondAttribute="height" multiplier="0.08" id="HDv-d2-gye"/>
                             <constraint firstItem="egK-xb-0FX" firstAttribute="trailing" secondItem="JsL-WF-H4j" secondAttribute="trailing" id="MhN-nP-P30"/>
                             <constraint firstItem="egK-xb-0FX" firstAttribute="leading" secondItem="JsL-WF-H4j" secondAttribute="leading" id="OK5-to-c8Z"/>
-                            <constraint firstItem="JsL-WF-H4j" firstAttribute="trailing" secondItem="tWg-Tq-bt6" secondAttribute="trailing" id="PHJ-QH-6C3"/>
+                            <constraint firstItem="JsL-WF-H4j" firstAttribute="trailing" secondItem="tWg-Tq-bt6" secondAttribute="trailing" constant="10" id="PHJ-QH-6C3"/>
                             <constraint firstItem="JsL-WF-H4j" firstAttribute="trailing" secondItem="27f-Sz-itX" secondAttribute="trailing" id="Q7J-ni-VU6"/>
                             <constraint firstItem="egK-xb-0FX" firstAttribute="top" secondItem="JsL-WF-H4j" secondAttribute="top" id="RTA-LA-zwD"/>
                             <constraint firstItem="JsL-WF-H4j" firstAttribute="bottom" secondItem="8Dc-O2-IUd" secondAttribute="bottom" id="RpK-6T-6HG"/>
@@ -1917,7 +1948,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bI5-6l-rH5">
                                 <rect key="frame" x="0.0" y="44" width="414" height="49"/>
-                                <color key="backgroundColor" name="card"/>
+                                <color key="backgroundColor" name="Card-2"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="1" id="6Qo-C1-v8P">
                                     <size key="itemSize" width="180" height="45.666666666666657"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1932,14 +1963,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="140" height="45.666666666666657"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lbText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aE1-7n-c4W">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lbText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aE1-7n-c4W">
                                                     <rect key="frame" x="10" y="0.0" width="120" height="45.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" name="labelColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="tarbarBackground"/>
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="aE1-7n-c4W" firstAttribute="leading" secondItem="4qD-Mz-wro" secondAttribute="leading" constant="10" id="QSg-w3-Mji"/>
@@ -1963,35 +1994,40 @@
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProductModelCell" rowHeight="250" id="fT6-CE-C3E" customClass="ProductModelCell" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="250"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProductModelCell" rowHeight="200" id="fT6-CE-C3E" customClass="ProductModelCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fT6-CE-C3E" id="u9J-OF-eYN">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uGI-5f-A3h">
-                                                    <rect key="frame" x="20" y="37.5" width="175" height="175"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="uGI-5f-A3h" secondAttribute="height" multiplier="1:1" id="upG-M9-aAU"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProductName" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGl-qL-gKM">
-                                                    <rect key="frame" x="215" y="37.5" width="131.5" height="26.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProductName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xGl-qL-gKM">
+                                                    <rect key="frame" x="205" y="10" width="131.5" height="26.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩餘數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="co9-OA-Pjf">
-                                                    <rect key="frame" x="214.5" y="74" width="189.5" height="18"/>
+                                                    <rect key="frame" x="205" y="46.5" width="199" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換模式交換模式交換模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="4" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCn-9h-xFx">
-                                                    <rect key="frame" x="214.5" y="102" width="189.5" height="20.5"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交換模式交換模式交換模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCn-9h-xFx">
+                                                    <rect key="frame" x="215" y="74.5" width="159.5" height="16"/>
                                                     <color key="backgroundColor" name="MainPageCellTradeMethod"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" name="tradeMethodText"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -2001,13 +2037,13 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDp-d5-ub7">
-                                                    <rect key="frame" x="235" y="155.5" width="37.5" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <rect key="frame" x="240" y="123.5" width="33" height="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價格:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEr-9H-Hhx">
-                                                    <rect key="frame" x="214.5" y="132.5" width="35" height="18"/>
+                                                    <rect key="frame" x="205" y="100.5" width="35" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Pjv-PM-sYc"/>
                                                     </constraints>
@@ -2018,29 +2054,27 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GEr-9H-Hhx" secondAttribute="trailing" constant="10" id="2SR-cP-gp7"/>
-                                                <constraint firstItem="co9-OA-Pjf" firstAttribute="leading" secondItem="uGI-5f-A3h" secondAttribute="trailing" constant="19.5" id="3S6-fs-uI8"/>
                                                 <constraint firstItem="MCn-9h-xFx" firstAttribute="top" secondItem="co9-OA-Pjf" secondAttribute="bottom" constant="10" id="3vF-1c-8WN"/>
                                                 <constraint firstItem="sDp-d5-ub7" firstAttribute="top" secondItem="GEr-9H-Hhx" secondAttribute="bottom" constant="5" id="82D-7a-RkB"/>
-                                                <constraint firstItem="xGl-qL-gKM" firstAttribute="top" secondItem="uGI-5f-A3h" secondAttribute="top" id="Bqo-Ef-Kzg"/>
-                                                <constraint firstItem="uGI-5f-A3h" firstAttribute="height" secondItem="u9J-OF-eYN" secondAttribute="height" multiplier="0.7" id="JuH-X4-gVV"/>
+                                                <constraint firstItem="xGl-qL-gKM" firstAttribute="top" secondItem="uGI-5f-A3h" secondAttribute="top" constant="10" id="Bqo-Ef-Kzg"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sDp-d5-ub7" secondAttribute="trailing" constant="10" id="Kh3-IT-UEj"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xGl-qL-gKM" secondAttribute="trailing" constant="10" id="QyE-xD-9iS"/>
                                                 <constraint firstItem="sDp-d5-ub7" firstAttribute="leading" secondItem="uGI-5f-A3h" secondAttribute="trailing" constant="40" id="Rv3-cg-ama"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MCn-9h-xFx" secondAttribute="trailing" constant="10" id="Tdz-El-N8e"/>
+                                                <constraint firstItem="uGI-5f-A3h" firstAttribute="top" secondItem="u9J-OF-eYN" secondAttribute="top" id="U0Q-kC-U71"/>
+                                                <constraint firstItem="co9-OA-Pjf" firstAttribute="leading" secondItem="xGl-qL-gKM" secondAttribute="leading" id="VYQ-Dl-hxa"/>
                                                 <constraint firstItem="co9-OA-Pjf" firstAttribute="top" secondItem="xGl-qL-gKM" secondAttribute="bottom" constant="10" id="VfT-Tk-Iek"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sDp-d5-ub7" secondAttribute="bottom" constant="10" id="WEK-vU-Tv9"/>
-                                                <constraint firstItem="MCn-9h-xFx" firstAttribute="leading" secondItem="co9-OA-Pjf" secondAttribute="leading" id="Wc0-hd-qUi"/>
-                                                <constraint firstItem="xGl-qL-gKM" firstAttribute="leading" secondItem="uGI-5f-A3h" secondAttribute="trailing" constant="20" id="Wpd-6t-IuR"/>
+                                                <constraint firstItem="MCn-9h-xFx" firstAttribute="leading" secondItem="co9-OA-Pjf" secondAttribute="leading" constant="10" id="Wc0-hd-qUi"/>
+                                                <constraint firstItem="xGl-qL-gKM" firstAttribute="leading" secondItem="uGI-5f-A3h" secondAttribute="trailing" constant="5" id="Wpd-6t-IuR"/>
                                                 <constraint firstItem="GEr-9H-Hhx" firstAttribute="top" secondItem="MCn-9h-xFx" secondAttribute="bottom" constant="10" id="h9h-Pg-IqG"/>
-                                                <constraint firstItem="uGI-5f-A3h" firstAttribute="leading" secondItem="u9J-OF-eYN" secondAttribute="leading" constant="20" symbolic="YES" id="hHL-0D-eCj"/>
+                                                <constraint firstItem="uGI-5f-A3h" firstAttribute="leading" secondItem="u9J-OF-eYN" secondAttribute="leading" id="hHL-0D-eCj"/>
                                                 <constraint firstAttribute="trailing" secondItem="co9-OA-Pjf" secondAttribute="trailing" constant="10" id="jP3-ae-tXU"/>
+                                                <constraint firstAttribute="bottom" secondItem="uGI-5f-A3h" secondAttribute="bottom" id="yRg-4D-BEV"/>
                                                 <constraint firstItem="GEr-9H-Hhx" firstAttribute="leading" secondItem="co9-OA-Pjf" secondAttribute="leading" id="ye7-yh-a6I"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="card"/>
-                                        <constraints>
-                                            <constraint firstItem="uGI-5f-A3h" firstAttribute="centerY" secondItem="fT6-CE-C3E" secondAttribute="centerY" id="cjr-Ad-Ghl"/>
-                                        </constraints>
+                                        <color key="backgroundColor" name="Card-1"/>
                                         <connections>
                                             <outlet property="img" destination="uGI-5f-A3h" id="jte-HE-eiB"/>
                                             <outlet property="lbName" destination="xGl-qL-gKM" id="qTJ-dw-GDQ"/>
@@ -2049,40 +2083,45 @@
                                             <outlet property="lbTradeType" destination="MCn-9h-xFx" id="bF3-un-a6U"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyStoreTableViewCell" rowHeight="250" id="nqc-6c-NPI" customClass="MyStoreTableViewCell" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="278" width="414" height="250"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyStoreTableViewCell" rowHeight="200" id="nqc-6c-NPI" customClass="MyStoreTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="228" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nqc-6c-NPI" id="Qaa-Bi-Xxu">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BR1-jo-Bof">
-                                                    <rect key="frame" x="20" y="37.5" width="175" height="175"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="BR1-jo-Bof" secondAttribute="height" multiplier="1:1" id="2qn-b8-ueK"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProductName" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyu-jo-fk7">
-                                                    <rect key="frame" x="215" y="37.5" width="131.5" height="26.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProductName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyu-jo-fk7">
+                                                    <rect key="frame" x="205" y="10" width="131.5" height="26.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5P-oC-R3v">
-                                                    <rect key="frame" x="235" y="135.5" width="35" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V5P-oC-R3v">
+                                                    <rect key="frame" x="240" y="103.5" width="31" height="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="discriptiondiscriptiondiscriptiondiscription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="owQ-p8-cXk">
-                                                    <rect key="frame" x="214.5" y="79" width="189.5" height="20.5"/>
+                                                    <rect key="frame" x="210" y="51.5" width="194" height="16"/>
                                                     <color key="backgroundColor" name="MainPageCellTradeMethod"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" name="tradeMethodText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價格:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-Nj-l27">
-                                                    <rect key="frame" x="215" y="107.5" width="35" height="18"/>
+                                                    <rect key="frame" x="205" y="75.5" width="35" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2091,22 +2130,22 @@
                                             <constraints>
                                                 <constraint firstItem="V5P-oC-R3v" firstAttribute="leading" secondItem="BR1-jo-Bof" secondAttribute="trailing" constant="40" id="4aG-a5-08E"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="V5P-oC-R3v" secondAttribute="trailing" constant="10" id="4o4-Dx-lzJ"/>
-                                                <constraint firstItem="BR1-jo-Bof" firstAttribute="centerY" secondItem="Qaa-Bi-Xxu" secondAttribute="centerY" id="87K-lV-95Q"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="owQ-p8-cXk" secondAttribute="trailing" constant="10" id="Gox-ze-XhN"/>
                                                 <constraint firstItem="rbS-Nj-l27" firstAttribute="leading" secondItem="nyu-jo-fk7" secondAttribute="leading" id="IwQ-ec-LfM"/>
-                                                <constraint firstItem="BR1-jo-Bof" firstAttribute="leading" secondItem="Qaa-Bi-Xxu" secondAttribute="leading" constant="20" symbolic="YES" id="Ujs-EN-Rja"/>
-                                                <constraint firstItem="nyu-jo-fk7" firstAttribute="leading" secondItem="BR1-jo-Bof" secondAttribute="trailing" constant="20" id="Zq0-9s-MmA"/>
+                                                <constraint firstItem="BR1-jo-Bof" firstAttribute="top" secondItem="Qaa-Bi-Xxu" secondAttribute="top" id="MbL-Ki-6yT"/>
+                                                <constraint firstItem="BR1-jo-Bof" firstAttribute="leading" secondItem="Qaa-Bi-Xxu" secondAttribute="leading" id="Ujs-EN-Rja"/>
+                                                <constraint firstAttribute="bottom" secondItem="BR1-jo-Bof" secondAttribute="bottom" id="WyN-xq-b7G"/>
+                                                <constraint firstItem="nyu-jo-fk7" firstAttribute="leading" secondItem="BR1-jo-Bof" secondAttribute="trailing" constant="5" id="Zq0-9s-MmA"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="V5P-oC-R3v" secondAttribute="bottom" constant="10" id="cWs-Cf-1tM"/>
-                                                <constraint firstItem="nyu-jo-fk7" firstAttribute="top" secondItem="BR1-jo-Bof" secondAttribute="top" id="dhu-FO-HNS"/>
+                                                <constraint firstItem="nyu-jo-fk7" firstAttribute="top" secondItem="BR1-jo-Bof" secondAttribute="top" constant="10" id="dhu-FO-HNS"/>
                                                 <constraint firstItem="owQ-p8-cXk" firstAttribute="top" secondItem="nyu-jo-fk7" secondAttribute="bottom" constant="15" id="g9M-he-EoW"/>
                                                 <constraint firstItem="rbS-Nj-l27" firstAttribute="top" secondItem="owQ-p8-cXk" secondAttribute="bottom" constant="8" symbolic="YES" id="iNq-uc-sfH"/>
                                                 <constraint firstItem="V5P-oC-R3v" firstAttribute="top" secondItem="rbS-Nj-l27" secondAttribute="bottom" constant="10" id="pBu-wm-pIw"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nyu-jo-fk7" secondAttribute="trailing" constant="10" id="rab-cj-1Mi"/>
-                                                <constraint firstItem="BR1-jo-Bof" firstAttribute="height" secondItem="Qaa-Bi-Xxu" secondAttribute="height" multiplier="0.7" id="sqI-j6-7Nu"/>
-                                                <constraint firstItem="owQ-p8-cXk" firstAttribute="leading" secondItem="BR1-jo-Bof" secondAttribute="trailing" constant="19.5" id="wTR-o0-4jq"/>
+                                                <constraint firstItem="owQ-p8-cXk" firstAttribute="leading" secondItem="BR1-jo-Bof" secondAttribute="trailing" constant="10" id="wTR-o0-4jq"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="card"/>
+                                        <color key="backgroundColor" name="Card-1"/>
                                         <connections>
                                             <outlet property="img" destination="BR1-jo-Bof" id="Ejn-NW-Ok0"/>
                                             <outlet property="lbName" destination="nyu-jo-fk7" id="sUy-IV-apn"/>
@@ -2114,29 +2153,34 @@
                                             <outlet property="lbTradeType" destination="owQ-p8-cXk" id="gyo-ps-bOf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" id="6Zi-SI-9Hj" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="528" width="414" height="250"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" rowHeight="200" id="6Zi-SI-9Hj" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="428" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Zi-SI-9Hj" id="yfC-eC-SGV">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8UG-Dc-LZr">
-                                                    <rect key="frame" x="10" y="37.5" width="175" height="175"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="8UG-Dc-LZr" secondAttribute="height" multiplier="1:1" id="9NL-6L-4fT"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="標題" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFt-8Q-ouM">
-                                                    <rect key="frame" x="193" y="26" width="49" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="標題" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mFt-8Q-ouM">
+                                                    <rect key="frame" x="205" y="10" width="45" height="26.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YDe-cy-ESQ">
-                                                    <rect key="frame" x="193" y="65" width="69.5" height="20.5"/>
+                                                    <rect key="frame" x="215" y="46.5" width="53.5" height="16"/>
                                                     <color key="backgroundColor" name="MainPageCellTradeMethod"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" name="tradeMethodText"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -2144,37 +2188,37 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhF-eR-e2a">
-                                                    <rect key="frame" x="193" y="93.5" width="74" height="20.5"/>
+                                                    <rect key="frame" x="205" y="70.5" width="74" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="訂單狀態:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xzt-Jv-Whh">
-                                                    <rect key="frame" x="193" y="122" width="74" height="21"/>
+                                                    <rect key="frame" x="205" y="99" width="74" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="card"/>
                                             <constraints>
-                                                <constraint firstItem="mFt-8Q-ouM" firstAttribute="top" secondItem="yfC-eC-SGV" secondAttribute="top" constant="26" id="6AU-S9-qTs"/>
+                                                <constraint firstItem="mFt-8Q-ouM" firstAttribute="top" secondItem="yfC-eC-SGV" secondAttribute="top" constant="10" id="6AU-S9-qTs"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YDe-cy-ESQ" secondAttribute="trailing" constant="10" id="9dZ-FD-3Rr"/>
                                                 <constraint firstItem="xzt-Jv-Whh" firstAttribute="top" secondItem="xhF-eR-e2a" secondAttribute="bottom" constant="8" symbolic="YES" id="Bsn-eJ-hfW"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xhF-eR-e2a" secondAttribute="trailing" constant="10" id="GnL-Wu-Zai"/>
                                                 <constraint firstItem="xhF-eR-e2a" firstAttribute="top" secondItem="YDe-cy-ESQ" secondAttribute="bottom" constant="8" symbolic="YES" id="JGm-Yj-Opz"/>
-                                                <constraint firstItem="8UG-Dc-LZr" firstAttribute="height" secondItem="yfC-eC-SGV" secondAttribute="height" multiplier="0.7" id="Lz2-Ex-KJd"/>
-                                                <constraint firstItem="8UG-Dc-LZr" firstAttribute="centerY" secondItem="yfC-eC-SGV" secondAttribute="centerY" id="NE3-uq-koh"/>
+                                                <constraint firstAttribute="bottom" secondItem="8UG-Dc-LZr" secondAttribute="bottom" id="Lg6-sz-24L"/>
                                                 <constraint firstItem="xzt-Jv-Whh" firstAttribute="leading" secondItem="mFt-8Q-ouM" secondAttribute="leading" id="UgH-EQ-nyt"/>
-                                                <constraint firstItem="mFt-8Q-ouM" firstAttribute="leading" secondItem="8UG-Dc-LZr" secondAttribute="trailing" constant="8" symbolic="YES" id="Ut6-LC-D6I"/>
+                                                <constraint firstItem="mFt-8Q-ouM" firstAttribute="leading" secondItem="8UG-Dc-LZr" secondAttribute="trailing" constant="5" id="Ut6-LC-D6I"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mFt-8Q-ouM" secondAttribute="trailing" constant="10" id="Vju-2Y-fbU"/>
-                                                <constraint firstItem="8UG-Dc-LZr" firstAttribute="leading" secondItem="yfC-eC-SGV" secondAttribute="leading" constant="10" id="aFp-hg-5Oo"/>
+                                                <constraint firstItem="8UG-Dc-LZr" firstAttribute="leading" secondItem="yfC-eC-SGV" secondAttribute="leading" id="aFp-hg-5Oo"/>
                                                 <constraint firstItem="xzt-Jv-Whh" firstAttribute="trailing" secondItem="xhF-eR-e2a" secondAttribute="trailing" id="dl9-OR-uMB"/>
                                                 <constraint firstItem="YDe-cy-ESQ" firstAttribute="top" secondItem="mFt-8Q-ouM" secondAttribute="bottom" constant="10" id="hqe-tf-Zm5"/>
                                                 <constraint firstItem="xhF-eR-e2a" firstAttribute="leading" secondItem="mFt-8Q-ouM" secondAttribute="leading" id="mZl-fq-j5m"/>
-                                                <constraint firstItem="YDe-cy-ESQ" firstAttribute="leading" secondItem="mFt-8Q-ouM" secondAttribute="leading" id="xGD-zk-ulS"/>
+                                                <constraint firstItem="8UG-Dc-LZr" firstAttribute="top" secondItem="yfC-eC-SGV" secondAttribute="top" id="tNl-iv-U6o"/>
+                                                <constraint firstItem="YDe-cy-ESQ" firstAttribute="leading" secondItem="mFt-8Q-ouM" secondAttribute="leading" constant="10" id="xGD-zk-ulS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="Card-1"/>
                                         <connections>
                                             <outlet property="ivProduct" destination="8UG-Dc-LZr" id="WXQ-QP-e7u"/>
                                             <outlet property="lbProductTitle" destination="mFt-8Q-ouM" id="6yf-Oe-wDQ"/>
@@ -2201,7 +2245,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HBi-ma-ZWV"/>
-                        <color key="backgroundColor" name="card"/>
+                        <color key="backgroundColor" name="Card-2"/>
                         <constraints>
                             <constraint firstItem="HBi-ma-ZWV" firstAttribute="bottom" secondItem="EEG-4j-axs" secondAttribute="bottom" id="3ck-mS-wAg"/>
                             <constraint firstItem="HBi-ma-ZWV" firstAttribute="bottom" secondItem="LI5-6J-arZ" secondAttribute="bottom" constant="30" id="8rN-O2-zr3"/>
@@ -2238,7 +2282,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZUg-fS-gj4">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" name="Card-2"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" id="QFB-dd-0qB" customClass="CartTableViewCell" customModule="DebtProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
@@ -2248,13 +2292,18 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4jM-Tm-6xA">
-                                                    <rect key="frame" x="10" y="10" width="80" height="80"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="4jM-Tm-6xA" secondAttribute="height" multiplier="1:1" id="AeQ-8Y-Mz6"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="6Mg-Hz-3e8">
-                                                    <rect key="frame" x="98" y="10" width="39.5" height="80"/>
+                                                    <rect key="frame" x="108" y="10" width="39.5" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lth-gd-BKC">
                                                             <rect key="frame" x="0.0" y="0.0" width="39.5" height="20.5"/>
@@ -2262,11 +2311,17 @@
                                                             <color key="textColor" name="labelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8p-c1-Lai">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8p-c1-Lai">
                                                             <rect key="frame" x="0.0" y="34" width="39.5" height="18"/>
+                                                            <color key="backgroundColor" name="MainPageCellTradeMethod"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" name="labelColor"/>
+                                                            <color key="textColor" name="tradeMethodText"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價錢:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15d-ro-on0">
                                                             <rect key="frame" x="0.0" y="65.5" width="39.5" height="14.5"/>
@@ -2293,16 +2348,16 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="7gi-mK-35t" firstAttribute="centerY" secondItem="n00-Yc-s16" secondAttribute="centerY" id="2JK-7t-Pe5"/>
+                                                <constraint firstItem="4jM-Tm-6xA" firstAttribute="top" secondItem="n00-Yc-s16" secondAttribute="top" id="Aur-S4-vm4"/>
                                                 <constraint firstItem="6Mg-Hz-3e8" firstAttribute="leading" secondItem="4jM-Tm-6xA" secondAttribute="trailing" constant="8" symbolic="YES" id="FKz-91-KI1"/>
-                                                <constraint firstItem="4jM-Tm-6xA" firstAttribute="height" secondItem="n00-Yc-s16" secondAttribute="height" multiplier="0.8" id="LiL-Ue-zlH"/>
+                                                <constraint firstAttribute="bottom" secondItem="4jM-Tm-6xA" secondAttribute="bottom" id="Jks-49-f5k"/>
                                                 <constraint firstAttribute="trailing" secondItem="7gi-mK-35t" secondAttribute="trailing" constant="20" id="OW8-Mf-b9u"/>
-                                                <constraint firstItem="6Mg-Hz-3e8" firstAttribute="bottom" secondItem="4jM-Tm-6xA" secondAttribute="bottom" id="aLo-5q-oke"/>
-                                                <constraint firstItem="4jM-Tm-6xA" firstAttribute="leading" secondItem="n00-Yc-s16" secondAttribute="leading" constant="10" id="uSq-Oa-h4p"/>
-                                                <constraint firstItem="4jM-Tm-6xA" firstAttribute="centerY" secondItem="n00-Yc-s16" secondAttribute="centerY" id="uSz-Ms-1Gs"/>
-                                                <constraint firstItem="6Mg-Hz-3e8" firstAttribute="top" secondItem="4jM-Tm-6xA" secondAttribute="top" id="ufS-lL-7gS"/>
+                                                <constraint firstAttribute="bottom" secondItem="6Mg-Hz-3e8" secondAttribute="bottom" constant="10" id="cFl-c8-3AY"/>
+                                                <constraint firstItem="4jM-Tm-6xA" firstAttribute="leading" secondItem="n00-Yc-s16" secondAttribute="leading" id="uSq-Oa-h4p"/>
+                                                <constraint firstItem="6Mg-Hz-3e8" firstAttribute="top" secondItem="4jM-Tm-6xA" secondAttribute="top" constant="10" id="ufS-lL-7gS"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="card"/>
+                                        <color key="backgroundColor" name="Card-1"/>
                                         <connections>
                                             <outlet property="btnMenu" destination="7gi-mK-35t" id="c6v-mU-DdG"/>
                                             <outlet property="cartImg" destination="4jM-Tm-6xA" id="DyM-jy-RHj"/>
@@ -2383,7 +2438,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AtJ-3A-0hk">
                                 <rect key="frame" x="0.0" y="44" width="414" height="49"/>
-                                <color key="backgroundColor" name="card"/>
+                                <color key="backgroundColor" name="Card-2"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="1" id="uZf-Ik-PPY">
                                     <size key="itemSize" width="180" height="45.666666666666657"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -2398,17 +2453,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="45.666666666666657"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLF-ix-RDW">
-                                                    <rect key="frame" x="62.5" y="9" width="55" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VLF-ix-RDW">
+                                                    <rect key="frame" x="10" y="11" width="160" height="24"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="Card-2"/>
                                             <constraints>
                                                 <constraint firstItem="VLF-ix-RDW" firstAttribute="centerY" secondItem="4bX-OY-BKI" secondAttribute="centerY" id="6bq-fl-YG7"/>
+                                                <constraint firstAttribute="trailing" secondItem="VLF-ix-RDW" secondAttribute="trailing" constant="10" id="Asa-90-mQr"/>
                                                 <constraint firstItem="VLF-ix-RDW" firstAttribute="centerX" secondItem="4bX-OY-BKI" secondAttribute="centerX" id="K9T-XK-cg9"/>
+                                                <constraint firstItem="VLF-ix-RDW" firstAttribute="leading" secondItem="4bX-OY-BKI" secondAttribute="leading" constant="10" id="S7l-c2-whu"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
@@ -2421,63 +2478,74 @@
                                 <rect key="frame" x="0.0" y="96" width="414" height="766"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" id="QPP-9C-lhC" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="250"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" rowHeight="200" id="QPP-9C-lhC" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QPP-9C-lhC" id="mf0-wl-yCN">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JdO-FR-qkB">
-                                                    <rect key="frame" x="5" y="42" width="165.5" height="166"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="JdO-FR-qkB" secondAttribute="height" multiplier="1:1" id="wOn-f9-IHt"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="標題" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-Wi-fx0">
-                                                    <rect key="frame" x="178.5" y="42" width="49" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="標題" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-Wi-fx0">
+                                                    <rect key="frame" x="208" y="10" width="45" height="26.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="39Y-gI-oUo">
-                                                    <rect key="frame" x="178.5" y="81" width="69.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="labelColor"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="39Y-gI-oUo">
+                                                    <rect key="frame" x="218" y="46.5" width="82" height="24"/>
+                                                    <color key="backgroundColor" name="MainPageCellTradeMethod"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" name="tradeMethodText"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0uH-SX-IyJ">
-                                                    <rect key="frame" x="178.5" y="109.5" width="74" height="20.5"/>
+                                                    <rect key="frame" x="208" y="78.5" width="74" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="訂單狀態:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Dy-yp-uFT">
-                                                    <rect key="frame" x="178.5" y="138" width="74" height="21"/>
+                                                    <rect key="frame" x="208" y="107" width="74" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="card"/>
                                             <constraints>
-                                                <constraint firstItem="JdO-FR-qkB" firstAttribute="centerY" secondItem="mf0-wl-yCN" secondAttribute="centerY" id="44f-CK-sYh"/>
+                                                <constraint firstItem="JdO-FR-qkB" firstAttribute="top" secondItem="mf0-wl-yCN" secondAttribute="top" id="5Rs-AI-jNg"/>
                                                 <constraint firstItem="6Dy-yp-uFT" firstAttribute="top" secondItem="0uH-SX-IyJ" secondAttribute="bottom" constant="8" symbolic="YES" id="6EZ-Q4-lti"/>
                                                 <constraint firstItem="6Dy-yp-uFT" firstAttribute="leading" secondItem="ByU-Wi-fx0" secondAttribute="leading" id="DT1-zm-hjA"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="39Y-gI-oUo" secondAttribute="trailing" constant="10" id="Ebq-Xd-prb"/>
-                                                <constraint firstItem="JdO-FR-qkB" firstAttribute="width" secondItem="mf0-wl-yCN" secondAttribute="width" multiplier="0.4" id="Kkd-sN-Pgr"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0uH-SX-IyJ" secondAttribute="trailing" constant="10" id="XtP-wR-gT7"/>
                                                 <constraint firstItem="0uH-SX-IyJ" firstAttribute="top" secondItem="39Y-gI-oUo" secondAttribute="bottom" constant="8" symbolic="YES" id="Z2w-W9-weF"/>
-                                                <constraint firstItem="39Y-gI-oUo" firstAttribute="leading" secondItem="ByU-Wi-fx0" secondAttribute="leading" id="ZaK-db-4BR"/>
-                                                <constraint firstItem="JdO-FR-qkB" firstAttribute="leading" secondItem="mf0-wl-yCN" secondAttribute="leading" constant="5" id="aNu-Va-o7p"/>
+                                                <constraint firstItem="39Y-gI-oUo" firstAttribute="leading" secondItem="ByU-Wi-fx0" secondAttribute="leading" constant="10" id="ZaK-db-4BR"/>
+                                                <constraint firstItem="JdO-FR-qkB" firstAttribute="leading" secondItem="mf0-wl-yCN" secondAttribute="leading" id="aNu-Va-o7p"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ByU-Wi-fx0" secondAttribute="trailing" constant="10" id="d4Q-Ya-V86"/>
                                                 <constraint firstItem="6Dy-yp-uFT" firstAttribute="trailing" secondItem="0uH-SX-IyJ" secondAttribute="trailing" id="hdS-8a-BS3"/>
                                                 <constraint firstItem="0uH-SX-IyJ" firstAttribute="leading" secondItem="ByU-Wi-fx0" secondAttribute="leading" id="jRv-fO-a19"/>
                                                 <constraint firstItem="ByU-Wi-fx0" firstAttribute="leading" secondItem="JdO-FR-qkB" secondAttribute="trailing" constant="8" symbolic="YES" id="q0f-5G-WMW"/>
                                                 <constraint firstItem="39Y-gI-oUo" firstAttribute="top" secondItem="ByU-Wi-fx0" secondAttribute="bottom" constant="10" id="vhT-YM-9zZ"/>
-                                                <constraint firstItem="ByU-Wi-fx0" firstAttribute="top" secondItem="JdO-FR-qkB" secondAttribute="top" id="xEP-gB-LTY"/>
+                                                <constraint firstItem="ByU-Wi-fx0" firstAttribute="top" secondItem="JdO-FR-qkB" secondAttribute="top" constant="10" id="xEP-gB-LTY"/>
+                                                <constraint firstAttribute="bottom" secondItem="JdO-FR-qkB" secondAttribute="bottom" id="yrC-EN-ry4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="Card-1"/>
                                         <connections>
                                             <outlet property="ivProduct" destination="JdO-FR-qkB" id="wZJ-TU-HWE"/>
                                             <outlet property="lbProductTitle" destination="ByU-Wi-fx0" id="Y3s-2Q-xpJ"/>
@@ -2490,7 +2558,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iNV-Sf-5J3"/>
-                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                        <color key="backgroundColor" name="Card-2"/>
                         <constraints>
                             <constraint firstItem="AtJ-3A-0hk" firstAttribute="leading" secondItem="iNV-Sf-5J3" secondAttribute="leading" id="LO0-XM-hFr"/>
                             <constraint firstItem="AtJ-3A-0hk" firstAttribute="top" secondItem="iNV-Sf-5J3" secondAttribute="top" id="LZo-F4-Mfd"/>
@@ -2552,13 +2620,13 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQ2-HP-aDQ">
                                                         <rect key="frame" x="158.5" y="0.0" width="201" height="50"/>
-                                                        <color key="backgroundColor" name="Alert"/>
+                                                        <color key="backgroundColor" name="selectButton"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="C8Y-WN-zgq"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <state key="normal" title="請選擇商品交易方式">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" name="textColor"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2639,14 +2707,14 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWU-Hq-85W">
                                                         <rect key="frame" x="153.5" y="0.0" width="201" height="50"/>
-                                                        <color key="backgroundColor" name="Alert"/>
+                                                        <color key="backgroundColor" name="selectButton"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="2ZB-jY-eNu"/>
                                                             <constraint firstAttribute="height" constant="50" id="6MT-h5-ixs"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <state key="normal" title="請選擇交易商品數量">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="titleColor" name="textColor"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -3135,7 +3203,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" name="card"/>
+                                <color key="backgroundColor" name="Card-2"/>
                                 <constraints>
                                     <constraint firstItem="iQO-6L-oqO" firstAttribute="top" secondItem="QdE-KA-pNc" secondAttribute="top" constant="10" id="6ea-mK-tCj"/>
                                     <constraint firstItem="iQO-6L-oqO" firstAttribute="centerY" secondItem="oWA-Ju-O9E" secondAttribute="centerY" id="AJo-0q-ebA"/>
@@ -3289,23 +3357,38 @@
         <image name="send" width="485.72500610351562" height="485.72500610351562"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="threedots" width="96" height="96"/>
-        <namedColor name="Alert">
-            <color red="0.37700000405311584" green="0.375" blue="0.37900000810623169" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="Button">
-            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.87450980392156863" green="0.69019607843137254" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Card-1">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Card-2">
+            <color red="0.99607843137254903" green="0.97647058823529409" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MainPageCellTradeMethod">
-            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="0.99000011587142944" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NoteBoard">
+            <color red="0.87450980392156863" green="0.69019607843137254" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="card">
             <color red="0.27799999713897705" green="0.27500000596046448" blue="0.43900001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="dotSelect">
+            <color red="0.99607843137254903" green="0.42745098039215684" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="dotUnSelect">
+            <color red="0.99607843137254903" green="0.42745098039215684" blue="0.45098039215686275" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="selectButton">
-            <color red="0.19348669052124023" green="0.24869135022163391" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79607843137254897" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tarbarBackground">
+            <color red="0.99607843137254903" green="0.97647058823529409" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor">
             <color red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3317,13 +3400,10 @@
             <color red="0.73905307054519653" green="0.60980421304702759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldTextColor">
-            <color red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="tradeMethodText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

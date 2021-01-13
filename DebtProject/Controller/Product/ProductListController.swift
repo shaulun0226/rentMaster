@@ -209,14 +209,15 @@ class ProductListController: BaseSideMenuViewController{
         flowLayout?.estimatedItemSize = .zero
         flowLayout?.minimumInteritemSpacing = 0
         if(isMyStore){
-            flowLayout?.itemSize = CGSize(width: self.view.frame.width/3, height: 45)
+            flowLayout?.itemSize = CGSize(width: self.view.frame.width/3.5, height: 45)
         }else{
             flowLayout?.itemSize = CGSize(width: self.view.frame.width/3.5, height: 45)
         }
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: 90, height: 3)
-        self.slider.center.y = collectview.bounds.maxY-15
+        self.slider.frame.size = CGSize(width: self.view.frame.width/3.5, height: 3)
+        self.slider.center.y = collectview.bounds.maxY-14
+        self.slider.backgroundColor = UIColor(named: "slider")
         collectview.addSubview(slider)
         //        collectionView(collectview, didSelectItemAt:[0,0])
     }
@@ -228,7 +229,7 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
-        searchController?.searchBar.barTintColor = UIColor(named: "card")
+        searchController?.searchBar.barTintColor = UIColor(named: "Card-2")
         searchController?.searchBar.tintColor = UIColor(named: "Button")
         //searvhbar輸入文字顏色
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -368,12 +369,15 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabBarCell", for: indexPath) as? TabBarCell{
             cell.lbTitle.text = tabbarTitle[indexPath.row]
-            cell.lbTitle.textColor = .white
-            
             //第一次產生cell時 設定tabbar slider
             if(indexPath.row==0 && !firstTabbarDidLoad ){
                 cell.isSelected = true
                 firstTabbarDidLoad = true
+                UIView.animate(withDuration: 0.4) { [weak self] in
+                    if let self = self{
+                        self.slider.center.x = cell.center.x
+                    }
+                }
             }
             return cell
         }
@@ -387,7 +391,6 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             if let firstcell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)){
                 if(firstcell.isSelected){
                     firstcell.isSelected = false
-                    //                    firstcell.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.168627451, blue: 0.168627451, alpha: 1)
                 }
             }
         }

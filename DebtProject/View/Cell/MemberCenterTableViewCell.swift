@@ -7,26 +7,19 @@
 
 import UIKit
 
-class MemberCenterTableViewCell: UITableViewCell {
+class MemberCenterTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var lbTilte:UILabel!
-    var cornerRadius: CGFloat = 20
-    override open var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame =  newFrame
-            frame.origin.y += 5//調整y起點
-            frame.origin.x = 20//調整x起點
-            frame.size.height -= 15//調整高度
-            frame.size.width -= 2 * frame.origin.x//調整寬度
-            super.frame = frame
-        }
-    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = cornerRadius
+        //        設定陰影
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
     }
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -32,7 +32,7 @@ class PageCollectionViewCell: UICollectionViewCell {
         // add shadow on cell
            backgroundColor = .clear // very important
            layer.masksToBounds = false
-           layer.shadowOpacity = 0.23
+           layer.shadowOpacity = 0.1
            layer.shadowRadius = 5
            layer.shadowOffset = CGSize(width: 0, height: 0)
             layer.shadowColor = UIColor.black.cgColor
