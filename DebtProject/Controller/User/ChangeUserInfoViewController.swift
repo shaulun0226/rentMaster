@@ -10,6 +10,7 @@ import SwiftyJSON
 import SwiftAlertView
 
 class ChangeUserInfoViewController:BaseViewController {
+    let userDefault = UserDefaults()
     // 使用者資料
     @IBOutlet weak var tfEmail: UnderLineTextField!
     @IBOutlet weak var tfName: UnderLineTextField!
@@ -86,7 +87,7 @@ class ChangeUserInfoViewController:BaseViewController {
         setTextFieldUnderLine(size: CGFloat(0))
         btnModify.setTitle("編輯", for:.normal)
         btnCancel.isHidden = true
-        self.btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        btnModify.backgroundColor = UIColor(named: "Button")
     }
     @IBAction func btnCancelClick(_ sender: Any) {
         setBtnModify()
@@ -111,6 +112,30 @@ class ChangeUserInfoViewController:BaseViewController {
                 weakSelf.tfAddress.text = "111"
             }
         }
+    }
+    @IBAction func btnLogoutClick(_ sender: Any) {
+        let alertView = SwiftAlertView(title: "", message: " 是否登出？\n", delegate: nil, cancelButtonTitle: "取消",otherButtonTitles: "確定")
+        alertView.messageLabel.textColor = UIColor(named: "labelColor")
+        alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+        alertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
+        alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+        alertView.backgroundColor = UIColor(named: "Card-2")
+        alertView.buttonTitleColor = .white
+        alertView.clickedButtonAction = { [self] index in
+            if(index==0){//設定取消鍵
+                alertView.dismiss()
+            }
+            if(index==1){
+                User.token = ""
+                self.userDefault.removeObject(forKey: "Account")
+                self.userDefault.removeObject(forKey: "Password")
+                if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+                    self.show(mainView, sender: nil)
+                }
+//                    alertView.dismiss()
+            }
+        }
+        alertView.show()
     }
     @IBAction func btnModifyClick(_ sender: Any) {
         switch btnModify.titleLabel?.text{

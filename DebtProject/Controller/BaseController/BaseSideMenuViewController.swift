@@ -29,7 +29,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //設定右邊ring button
         let btnMemberCenter = UIButton(type: UIButton.ButtonType.custom)
         btnMemberCenter.setBackgroundImage(UIImage(systemName: "person.circle.fill"), for: .normal)
-        btnMemberCenter.addTarget(self, action:#selector(didTapNotify), for: .touchUpInside)
+        btnMemberCenter.addTarget(self, action:#selector(didTapUserInfo), for: .touchUpInside)
         btnMemberCenter.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         //設定抽屜圖示的顏色
         btnSideMenu.tintColor = UIColor(named: "Icon")
@@ -75,7 +75,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             self.show(view, sender: nil);
         }
     }
-    @objc func didTapNotify() {
+    @objc func didTapUserInfo() {
         if(User.token.isEmpty){
             let notLoginAlertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: nil, cancelButtonTitle: "取消", otherButtonTitles: "確定")
             notLoginAlertView.clickedCancelButtonAction = {
@@ -98,8 +98,8 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
             notLoginAlertView.show()
             return
         }
-        if let memberView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue)as? MemberCenterViewController{
-            self.show(memberView, sender: nil)
+        if let userInfoView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changeUserInfoViewController.rawValue)as? ChangeUserInfoViewController{
+            self.show(userInfoView, sender: nil)
         }
     }
     
