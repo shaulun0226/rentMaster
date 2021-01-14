@@ -20,34 +20,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="EN8-u0-v2N">
-                                <rect key="frame" x="27" y="59.666666666666686" width="360" height="617"/>
+                                <rect key="frame" x="27" y="40" width="360" height="656"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="6Ei-Ek-O8N">
-                                        <rect key="frame" x="0.0" y="8" width="360" height="129"/>
+                                        <rect key="frame" x="0.0" y="12" width="360" height="164"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租之助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC5-59-7cg">
-                                                <rect key="frame" x="72" y="0.0" width="216" height="84"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="72"/>
+                                                <rect key="frame" x="30" y="0.0" width="300" height="116.66666666666667"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="100"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="副標題 say" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHX-E0-PBL">
-                                                <rect key="frame" x="136.66666666666666" y="107.99999999999999" width="87" height="21.000000000000014"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="遊戲的租借買賣都在這裡！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHX-E0-PBL">
+                                                <rect key="frame" x="60" y="140.66666666666666" width="240" height="23.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="20"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DNI-ee-sL7">
-                                        <rect key="frame" x="0.0" y="187" width="360" height="260"/>
+                                        <rect key="frame" x="0.0" y="226" width="360" height="260"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8M-Ks-bN7" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vzf-mP-hct" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                         <rect key="frame" x="60" y="0.0" width="300" height="50"/>
-                                                        <color key="tintColor" name="textfieldTextColor"/>
+                                                        <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="qpR-b8-c69"/>
                                                         </constraints>
@@ -67,7 +67,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LA9-vY-X8r">
-                                                        <rect key="frame" x="0.0" y="-6.333333333333325" width="58" height="55.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="-6.3333333333333535" width="58" height="55.333333333333343"/>
                                                         <color key="tintColor" name="accountLabelColor"/>
                                                     </imageView>
                                                 </subviews>
@@ -97,11 +97,11 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sOA-8U-J4i" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="70.000000000000028" width="360" height="50"/>
+                                                <rect key="frame" x="0.0" y="70" width="360" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="32y-LF-YwZ" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                         <rect key="frame" x="60" y="0.0" width="300" height="50"/>
-                                                        <color key="tintColor" name="textfieldTextColor"/>
+                                                        <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="YQc-sw-JiW"/>
                                                         </constraints>
@@ -150,31 +150,37 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvk-rd-w4s">
-                                                <rect key="frame" x="0.0" y="140.00000000000003" width="360" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaH-1m-eHi">
+                                                <rect key="frame" x="0.0" y="140" width="360" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvk-rd-w4s">
+                                                        <rect key="frame" x="256.66666666666669" y="0.0" width="103.33333333333331" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="jbq-85-WKn"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="忘記密碼?">
+                                                            <color key="titleColor" name="labelColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <segue destination="p9q-SA-VHT" kind="popoverPresentation" popoverAnchorView="yvk-rd-w4s" id="GjA-84-iBb">
+                                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                            </segue>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="jbq-85-WKn"/>
+                                                    <constraint firstItem="yvk-rd-w4s" firstAttribute="centerY" secondItem="VaH-1m-eHi" secondAttribute="centerY" id="5Ih-An-Bge"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yvk-rd-w4s" secondAttribute="trailing" id="Fzl-qo-hqH"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yvk-rd-w4s" secondAttribute="bottom" id="q3y-eb-Csc"/>
+                                                    <constraint firstItem="yvk-rd-w4s" firstAttribute="top" secondItem="VaH-1m-eHi" secondAttribute="top" id="rFC-eu-O5f"/>
+                                                    <constraint firstItem="yvk-rd-w4s" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VaH-1m-eHi" secondAttribute="leading" constant="20" symbolic="YES" id="tIB-b9-3N1"/>
                                                 </constraints>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Forgot Password?">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.99992352724075317" green="1" blue="0.99988299608230591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="p9q-SA-VHT" kind="popoverPresentation" popoverAnchorView="yvk-rd-w4s" id="GjA-84-iBb">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
-                                                </connections>
-                                            </button>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-VO-gKz">
-                                                <rect key="frame" x="0.0" y="210.00000000000003" width="360" height="49.999999999999972"/>
+                                                <rect key="frame" x="0.0" y="210" width="360" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -182,7 +188,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="aa5-DM-Pr4">
-                                        <rect key="frame" x="0.0" y="497" width="360" height="112"/>
+                                        <rect key="frame" x="0.0" y="536" width="360" height="112"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMz-py-iSb">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="41"/>
@@ -243,6 +249,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EN8-u0-v2N" secondAttribute="trailing" constant="27" id="KGP-Vn-vH7"/>
                             <constraint firstItem="EN8-u0-v2N" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KQa-eJ-meQ"/>
                             <constraint firstItem="EN8-u0-v2N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LtP-eV-mYW"/>
+                            <constraint firstItem="yvk-rd-w4s" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.25" id="s2S-M6-iM6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DLK-76-QXx"/>
@@ -266,27 +273,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="uKQ-v4-zMx">
-                                <rect key="frame" x="27" y="55" width="360" height="606.33333333333337"/>
+                                <rect key="frame" x="27" y="37.333333333333314" width="360" height="641.33333333333348"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="GTg-JP-Qm0">
-                                        <rect key="frame" x="0.0" y="8" width="360" height="129"/>
+                                        <rect key="frame" x="0.0" y="8" width="360" height="164"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租之助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPl-1V-4Fi">
-                                                <rect key="frame" x="72" y="0.0" width="216" height="84"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="72"/>
+                                                <rect key="frame" x="30" y="0.0" width="300" height="116.66666666666667"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="100"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="副標題 say" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fk-8B-fLj">
-                                                <rect key="frame" x="136.66666666666666" y="108" width="87" height="21"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="遊戲的租借買賣都在這裡！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fk-8B-fLj">
+                                                <rect key="frame" x="60" y="140.66666666666666" width="240" height="23.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="20"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bYo-bc-WhU">
-                                        <rect key="frame" x="0.0" y="187" width="360" height="250"/>
+                                        <rect key="frame" x="0.0" y="222" width="360" height="250"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9E-Ac-7OM" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="50"/>
@@ -368,12 +375,12 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="key.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ka0-GE-Shu">
-                                                        <rect key="frame" x="0.0" y="-9.6666666666666892" width="58" height="51.666666666666671"/>
+                                                        <rect key="frame" x="0.0" y="-9.6666666666666323" width="58" height="51.666666666666671"/>
                                                         <color key="tintColor" name="accountLabelColor"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4w-e8-Ubf">
                                                         <rect key="frame" x="283" y="5" width="77" height="30"/>
-                                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="Button"/>
                                                         <state key="normal" title="傳送驗證碼">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -525,13 +532,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39f-m7-Nlb">
-                                        <rect key="frame" x="0.0" y="487" width="360" height="20.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="522" width="360" height="20.333333333333371"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bkW-sm-kcb">
-                                        <rect key="frame" x="0.0" y="557.33333333333337" width="360" height="41"/>
+                                        <rect key="frame" x="0.0" y="592.33333333333326" width="360" height="41"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWQ-b9-1QX">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="41"/>
@@ -595,20 +602,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
-                                <rect key="frame" x="33" y="62" width="348" height="594"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-27-SmR">
+                                <rect key="frame" x="33" y="10" width="348" height="686"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="kuA-eK-HD6">
-                                        <rect key="frame" x="0.0" y="0.0" width="348" height="129"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="348" height="161.66666666666666"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租之助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxy-7T-UgH">
-                                                <rect key="frame" x="66" y="0.0" width="216" height="84"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="72"/>
+                                                <rect key="frame" x="24" y="0.0" width="300" height="116.66666666666667"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="100"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="副標題 say" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEh-dN-tci">
-                                                <rect key="frame" x="130.66666666666666" y="108" width="87" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="遊戲的租借買賣都在這裡！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEh-dN-tci">
+                                                <rect key="frame" x="66" y="140.66666666666666" width="216" height="21"/>
                                                 <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="18"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -616,7 +623,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GN7-gf-lce" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="188.33333333333334" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入信箱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hg5-d8-DOY" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -641,7 +648,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="envelope" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lmH-pN-sym">
-                                                <rect key="frame" x="0.0" y="-6.333333333333325" width="58" height="45.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="-6.3333333333333535" width="58" height="45.333333333333343"/>
                                                 <color key="tintColor" name="accountLabelColor"/>
                                             </imageView>
                                         </subviews>
@@ -671,7 +678,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="njO-J5-qWq" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="209" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="255" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入驗證碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-XE-Bw4" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="211" height="40"/>
@@ -701,7 +708,7 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eil-k2-6zw">
                                                 <rect key="frame" x="271" y="5" width="77" height="30"/>
-                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="Button"/>
                                                 <state key="normal" title="傳送驗證碼">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -743,7 +750,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMz-Yw-qi1" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="269" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="321.66666666666669" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3jn-lc-7X1" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -794,7 +801,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b33-01-vrM" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="329" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="388" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="再次確認密碼" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OoH-0g-36l" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -845,7 +852,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="174-re-ZQI" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="389" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="454.66666666666669" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入姓名" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GbK-fx-PQ4" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -899,7 +906,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVM-3m-T5x" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="449" width="348" height="40"/>
+                                        <rect key="frame" x="0.0" y="521.33333333333337" width="348" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入聯絡電話" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wPN-bK-eXi" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="60" y="0.0" width="288" height="40"/>
@@ -923,7 +930,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="phone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pis-Db-1BZ">
-                                                <rect key="frame" x="0.0" y="-7.3333333333333535" width="58" height="47.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="-7.3333333333334103" width="58" height="47.333333333333336"/>
                                                 <color key="tintColor" name="accountLabelColor"/>
                                             </imageView>
                                         </subviews>
@@ -953,13 +960,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEh-pi-Wwg">
-                                        <rect key="frame" x="0.0" y="509" width="348" height="24"/>
+                                        <rect key="frame" x="0.0" y="588" width="348" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdv-qO-hv7">
-                                        <rect key="frame" x="0.0" y="553" width="348" height="41"/>
+                                        <rect key="frame" x="0.0" y="638.66666666666663" width="348" height="47.333333333333371"/>
                                         <color key="backgroundColor" name="Button"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="註冊">
@@ -989,10 +996,10 @@
                         <viewLayoutGuide key="safeArea" id="sNz-Ak-Qpa"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
-                            <constraint firstItem="Fw6-27-SmR" firstAttribute="top" secondItem="sNz-Ak-Qpa" secondAttribute="top" constant="62" id="LJ9-dw-tDA"/>
+                            <constraint firstItem="Fw6-27-SmR" firstAttribute="top" secondItem="sNz-Ak-Qpa" secondAttribute="top" constant="10" id="LJ9-dw-tDA"/>
                             <constraint firstItem="sNz-Ak-Qpa" firstAttribute="trailing" secondItem="Fw6-27-SmR" secondAttribute="trailing" constant="33" id="TF4-ag-uOT"/>
                             <constraint firstItem="Fw6-27-SmR" firstAttribute="leading" secondItem="sNz-Ak-Qpa" secondAttribute="leading" constant="33" id="p2E-jK-ylg"/>
-                            <constraint firstItem="sNz-Ak-Qpa" firstAttribute="bottom" secondItem="Fw6-27-SmR" secondAttribute="bottom" constant="60" id="t6M-cD-1hV"/>
+                            <constraint firstItem="sNz-Ak-Qpa" firstAttribute="bottom" secondItem="Fw6-27-SmR" secondAttribute="bottom" constant="20" id="t6M-cD-1hV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6oL-r6-E87"/>
@@ -1352,19 +1359,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="IgH-vE-FTy">
-                                <rect key="frame" x="27" y="95" width="360" height="546.33333333333337"/>
+                                <rect key="frame" x="27" y="10" width="360" height="579"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="9lC-G1-Ybf">
-                                        <rect key="frame" x="0.0" y="8" width="360" height="129"/>
+                                        <rect key="frame" x="0.0" y="8" width="360" height="161.66666666666666"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="租之助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJF-qC-Coe">
-                                                <rect key="frame" x="72" y="0.0" width="216" height="84"/>
-                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="72"/>
+                                                <rect key="frame" x="30" y="0.0" width="300" height="116.66666666666667"/>
+                                                <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="100"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="副標題 say" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKW-lr-Nca">
-                                                <rect key="frame" x="136.66666666666666" y="108" width="87" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="遊戲的租借買賣都在這裡！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKW-lr-Nca">
+                                                <rect key="frame" x="72" y="140.66666666666666" width="216" height="21"/>
                                                 <fontDescription key="fontDescription" name="MLingWaiMedium-TC" family="LingWai TC" pointSize="18"/>
                                                 <color key="textColor" name="TitleTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1372,7 +1379,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2L0-cp-NN1">
-                                        <rect key="frame" x="0.0" y="187" width="360" height="190"/>
+                                        <rect key="frame" x="0.0" y="219.66666666666663" width="360" height="190"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSN-h1-Gry" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="50"/>
@@ -1429,7 +1436,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShS-uL-lKa" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="70" width="360" height="50"/>
+                                                <rect key="frame" x="0.0" y="70.000000000000028" width="360" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入新密碼" textAlignment="natural" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1cM-MK-Sbs" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                         <rect key="frame" x="60" y="0.0" width="300" height="50"/>
@@ -1483,7 +1490,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tIS-JH-Pc4" customClass="DesignableView" customModule="DebtProject" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="140" width="360" height="50"/>
+                                                <rect key="frame" x="0.0" y="140.00000000000003" width="360" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請再次輸入新密碼" textAlignment="natural" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iC7-wJ-249" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
                                                         <rect key="frame" x="60" y="0.0" width="300" height="50"/>
@@ -1539,13 +1546,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qa2-zd-qI8">
-                                        <rect key="frame" x="0.0" y="427" width="360" height="20.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="459.66666666666669" width="360" height="20.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="pyf-Ha-Ato">
-                                        <rect key="frame" x="0.0" y="497.33333333333337" width="360" height="41"/>
+                                        <rect key="frame" x="0.0" y="530" width="360" height="41"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Os2-vG-A9w">
                                                 <rect key="frame" x="0.0" y="0.0" width="360" height="41"/>
@@ -1582,7 +1589,7 @@
                         <viewLayoutGuide key="safeArea" id="Kyq-5z-mF1"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
-                            <constraint firstItem="IgH-vE-FTy" firstAttribute="centerY" secondItem="Kyq-5z-mF1" secondAttribute="centerY" id="JFd-o9-MMB"/>
+                            <constraint firstItem="IgH-vE-FTy" firstAttribute="top" secondItem="Kyq-5z-mF1" secondAttribute="top" constant="10" id="KA9-da-GTg"/>
                             <constraint firstItem="IgH-vE-FTy" firstAttribute="leading" secondItem="Kyq-5z-mF1" secondAttribute="leading" constant="27" id="V17-Uc-3DI"/>
                             <constraint firstItem="Kyq-5z-mF1" firstAttribute="trailing" secondItem="IgH-vE-FTy" secondAttribute="trailing" constant="27" id="XSj-Qc-YrZ"/>
                             <constraint firstItem="IgH-vE-FTy" firstAttribute="centerX" secondItem="Kyq-5z-mF1" secondAttribute="centerX" id="cUp-y3-AMj"/>
@@ -2089,7 +2096,7 @@
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKS-x4-Z3Y">
                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
-                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="取消">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2138,19 +2145,18 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnLogoutClick:" destination="pFx-kw-j5b" eventType="touchUpInside" id="A0t-nt-orx"/>
-                                    <action selector="btnModifyClick:" destination="pFx-kw-j5b" eventType="touchUpInside" id="umS-PB-V5h"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CjJ-LH-u2s"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
+                            <constraint firstItem="mMr-uj-l96" firstAttribute="width" secondItem="ohm-pd-8AP" secondAttribute="width" id="1Jc-Ad-U7A"/>
                             <constraint firstItem="ohm-pd-8AP" firstAttribute="top" secondItem="qJz-mJ-tfy" secondAttribute="bottom" id="40m-WU-ke0"/>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="bottom" secondItem="mMr-uj-l96" secondAttribute="bottom" constant="15" id="B3i-1I-kEj"/>
                             <constraint firstItem="qJz-mJ-tfy" firstAttribute="leading" secondItem="CjJ-LH-u2s" secondAttribute="leading" id="GJw-SV-KSg"/>
                             <constraint firstItem="Wwv-tI-y3a" firstAttribute="height" secondItem="CjJ-LH-u2s" secondAttribute="height" multiplier="0.06" id="IR8-z3-QxT"/>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="trailing" secondItem="qJz-mJ-tfy" secondAttribute="trailing" id="JI8-hB-k7X"/>
-                            <constraint firstItem="mMr-uj-l96" firstAttribute="width" secondItem="Wwv-tI-y3a" secondAttribute="width" id="Rih-C0-Vxn"/>
                             <constraint firstItem="ohm-pd-8AP" firstAttribute="leading" secondItem="CjJ-LH-u2s" secondAttribute="leading" constant="60" id="RkY-l6-ihh"/>
                             <constraint firstItem="mMr-uj-l96" firstAttribute="centerX" secondItem="CjJ-LH-u2s" secondAttribute="centerX" id="UsF-Wy-JEP"/>
                             <constraint firstItem="CjJ-LH-u2s" firstAttribute="trailing" secondItem="eY8-Lw-Auo" secondAttribute="trailing" constant="20" id="Wgf-EB-1U1"/>
@@ -2183,21 +2189,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    願望清單:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-jP-Wgh">
-                                <rect key="frame" x="0.0" y="10" width="204.33333333333334" height="48"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" name="labelColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0xJ-Zx-GMc">
-                                <rect key="frame" x="0.0" y="68" width="414" height="500"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0xJ-Zx-GMc">
+                                <rect key="frame" x="0.0" y="10" width="414" height="726"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="npB-ID-AM2">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 願望清單:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-jP-Wgh">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="500" id="Jvt-vr-uAJ"/>
+                                            <constraint firstAttribute="height" constant="60" id="yhd-3p-DFu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <color key="textColor" name="labelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="npB-ID-AM2">
+                                        <rect key="frame" x="0.0" y="176" width="414" height="550"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="550" id="Jvt-vr-uAJ"/>
                                         </constraints>
                                         <view key="tableFooterView" contentMode="scaleToFill" restorationIdentifier="CustomFooter" id="TYM-wa-FFk" customClass="CustomFooter" customModule="DebtProject" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="156" width="414" height="200"/>
@@ -2372,7 +2381,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願意交換商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX6-wn-qke">
                                                                             <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                            <color key="textColor" name="textColor"/>
+                                                                            <color key="textColor" name="labelColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -2383,7 +2392,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yX-IF-iNM">
                                                                             <rect key="frame" x="0.0" y="0.0" width="46" height="21.333333333333332"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                            <color key="textColor" name="textColor"/>
+                                                                            <color key="textColor" name="labelColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -2394,7 +2403,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-Wc-KG1">
                                                                             <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                            <color key="textColor" name="textColor"/>
+                                                                            <color key="textColor" name="labelColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -2429,11 +2438,9 @@
                         <viewLayoutGuide key="safeArea" id="YzH-QL-t6n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Vsf-jP-Wgh" firstAttribute="top" secondItem="YzH-QL-t6n" secondAttribute="top" constant="10" id="6oa-Yq-hga"/>
+                            <constraint firstItem="0xJ-Zx-GMc" firstAttribute="top" secondItem="YzH-QL-t6n" secondAttribute="top" constant="10" id="5oc-Qo-dGg"/>
                             <constraint firstItem="0xJ-Zx-GMc" firstAttribute="leading" secondItem="YzH-QL-t6n" secondAttribute="leading" id="7va-Jy-CHy"/>
-                            <constraint firstItem="0xJ-Zx-GMc" firstAttribute="top" secondItem="Vsf-jP-Wgh" secondAttribute="bottom" constant="10" id="HFW-rY-R2H"/>
-                            <constraint firstItem="Vsf-jP-Wgh" firstAttribute="leading" secondItem="YzH-QL-t6n" secondAttribute="leading" id="MTU-IG-RnP"/>
-                            <constraint firstItem="YzH-QL-t6n" firstAttribute="trailing" secondItem="Vsf-jP-Wgh" secondAttribute="trailing" constant="209.66666666666666" id="a4l-77-0TF"/>
+                            <constraint firstItem="0xJ-Zx-GMc" firstAttribute="bottom" secondItem="YzH-QL-t6n" secondAttribute="bottom" id="KfF-7z-T1D"/>
                             <constraint firstItem="YzH-QL-t6n" firstAttribute="trailing" secondItem="0xJ-Zx-GMc" secondAttribute="trailing" id="tvt-Of-hhr"/>
                         </constraints>
                     </view>

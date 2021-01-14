@@ -41,6 +41,7 @@ class WishListViewController: BaseSideMenuViewController {
         }
         wishListTV.delegate = self
         wishListTV.dataSource = self
+        wishListTV.separatorStyle = .none
         //設定輸入框
         tfWishProductName.underLineTextFieldDelegate = self
         tfWishProductAmount.underLineTextFieldDelegate = self

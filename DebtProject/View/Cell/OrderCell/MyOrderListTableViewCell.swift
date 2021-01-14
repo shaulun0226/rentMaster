@@ -50,7 +50,7 @@ class MyOrderListTableViewCell: BaseTableViewCell {
         default:
             lbProductTradeMethod.text = ""
         }
-        lbTradeState.text = "訂單狀態 : \(model.status)"
+        lbTradeState.text = "\(model.status)"
 //        var price = [String]()
         if model.pics.count == 0 {
             self.ivProduct.image = UIImage(named: "imageNotFound")

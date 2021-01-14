@@ -10,8 +10,12 @@ import SwiftyJSON
 import SwiftAlertView
 import Kingfisher
 
+protocol MakeOrderViewControllerDelegate :AnyObject{
+    func addOrderFinish()
+}
+
 class MakeOrderViewController: BaseViewController {
-    
+    weak var delegate:MakeOrderViewControllerDelegate?
     var product:ProductModel!
     //tavleView
     @IBOutlet weak var lbProductTitle: UILabel!
@@ -382,12 +386,14 @@ class MakeOrderViewController: BaseViewController {
             if(isSuccess){
                 alertView.messageLabel.text = "下單成功！"
                 alertView.clickedButtonAction = {index in
-                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
-                        weakSelf.dismiss(animated: true, completion: nil)
-                        mainView.modalPresentationStyle = .automatic
-                        //                        weakSelf.present(mainView, animated: true, completion: nil)
+                    weakSelf.delegate?.addOrderFinish()
+                    weakSelf.dismiss(animated: true, completion: nil)
+//                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+//
+//                        mainView.modalPresentationStyle = .fullScreen
+//                        weakSelf.show(mainView, sender: nil)
                         //                        weakSelf.showDetailViewController(mainView, sender: nil)
-                    }
+//                    }
                 }
             }else{
                 alertView.clickedButtonAction = {index in
@@ -429,7 +435,7 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
                 print("取消勾選;l;;;;;")
                 cell.btnIsSelected = !cell.btnIsSelected
                 cell.btnWishItemSelect.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
-                cell.btnWishItemSelect.tintColor = .darkGray
+                cell.btnWishItemSelect.tintColor = .lightGray
             }
             self.calculateWieghtPrice()
         }
@@ -450,7 +456,7 @@ extension MakeOrderViewController:MakeOrderTableViewCellDelegate{
         }else{
             print("取消勾選")
             btnWishItem.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
-            btnWishItem.tintColor = .darkGray
+            btnWishItem.tintColor = .lightGray
             return false
         }
     }

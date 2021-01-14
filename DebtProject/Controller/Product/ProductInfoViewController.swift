@@ -55,7 +55,6 @@ class ProductInfoViewController: BaseViewController {
         productInfoPC.numberOfPages = productsImage.count
         //起始在第0頁
         productInfoPC.currentPage = 0;
-        productInfoPC.tintColor = UIColor(named: "icon")
         // Do any additional setup after loading the view.
     }
     
@@ -110,6 +109,34 @@ class ProductInfoViewController: BaseViewController {
             products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
         }
         return products
+    }
+    private func parseProduct(json:JSON){
+        let id = json["id"].string  ?? ""
+        let title = json["title"].string  ?? ""
+        let description = json["description"].string  ?? ""
+        let isSale = json["isSale"].bool  ?? false
+        let isRent = json["isRent"].bool  ?? false
+        let isExchange = json["isExchange"].bool ?? false
+        let address = json["address"].string ?? ""
+        let deposit = json["deposit"].int ?? 0
+        let rent = json["rent"].int ?? 0
+        let salePrice = json["salePrice"].int ?? 0
+        let rentMethod = json["rentMethod"].string  ?? ""
+        let amount = json["amount"].int ?? 0
+        let type = json["type"].string ?? ""
+        let type1 = json["type1"].string  ?? ""
+        let type2 = json["type2"].string ?? ""
+        let userId = json["userId"].string ?? ""
+        let picsArr = json["pics"].array ?? []
+        let weightPrice = json["weightPrice"].float ?? 0.0
+        var pics = [PicModel]()
+        for index in 0..<picsArr.count{
+            let id  = picsArr[index]["id"].string ?? ""
+            let path  = picsArr[index]["path"].string ?? ""
+            let productId  = picsArr[index]["productId"].string ?? ""
+            pics.append(PicModel.init(id: id, path: path, productId: productId))
+        }
+        self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
     }
     func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
         return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
@@ -181,7 +208,6 @@ class ProductInfoViewController: BaseViewController {
                 notLoginAlertView.clickedButtonAction = {[self] index in
                     if(index==1){
                         if let loginView = Global.mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-                            //                            }
                             self.present(loginView, animated: true, completion: nil)
                         }
                     }
@@ -198,6 +224,7 @@ class ProductInfoViewController: BaseViewController {
         }
         if let makeOrderView = Global.productStoryboard.instantiateViewController(identifier: ProductStoryboardController.makeOrderViewController.rawValue) as? MakeOrderViewController{
             makeOrderView.product  = self.product
+            makeOrderView.delegate = self
             self.present(makeOrderView, animated: true, completion: nil)
             //            self.presentBottom(makeOrderView)
         }
@@ -235,7 +262,7 @@ class ProductInfoViewController: BaseViewController {
             NetworkController.instance().addCart(productId: product.id){
                 (responseValue, isSuccess) in
                 //                guard let weakSelf = self else {return}
-                let alertView = SwiftAlertView(title: "", message: "成功加入購物車！\n", delegate: nil, cancelButtonTitle: "確定")
+                let alertView = SwiftAlertView(title: "", message: "成功加入關注清單！\n", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
                 alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
@@ -377,4 +404,21 @@ extension ProductInfoViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
+}
+extension ProductInfoViewController:MakeOrderViewControllerDelegate{
+    func addOrderFinish() {
+        NetworkController.instance().getProductById(productId: product.id){
+            [weak self] (reponseValue,isSuccess) in
+            guard let weakSelf = self else{return}
+            if(isSuccess){
+                let json = JSON(reponseValue)
+                weakSelf.parseProduct(json: json)
+                weakSelf.setText()
+            }else{
+                print("錯誤")
+            }
+        }
+    }
+    
+    
 }

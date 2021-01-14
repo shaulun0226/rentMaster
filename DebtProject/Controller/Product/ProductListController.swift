@@ -41,14 +41,13 @@ class ProductListController: BaseSideMenuViewController{
     var orders = [OrderModel]()
     
     //searchbar
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定collectionView  cell大小
         setCollectionViewCell()
         //設定collectionView 滑桿
         setupSlider()
-        setupSearchBar()
+//        setupSearchBar()
         //設定標題大小
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
@@ -229,6 +228,7 @@ class ProductListController: BaseSideMenuViewController{
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.placeholder = "請輸入關鍵字"
         searchController?.searchBar.delegate = self
+        searchController?.searchBar.searchTextField.delegate = self
         searchController?.searchBar.barTintColor = UIColor(named: "Card-2")
         searchController?.searchBar.tintColor = UIColor(named: "Button")
         //searvhbar輸入文字顏色
@@ -532,23 +532,26 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(isOrder){
             print("訂單數量\(orders.count)")
-            return ((searchController?.isActive)!) ? searchOrders.count : orders.count
+            return /*((searchController?.isActive)!) ? searchOrders.count :*/ orders.count
         }else{
-            return ((searchController?.isActive)!) ? searchProducts.count : products.count
+            return /*((searchController?.isActive)!) ? searchProducts.count : */products.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(isMyStore){
             if(isOrder){
-                if((searchController?.isActive)!){
-                    guard indexPath.row<searchProducts.count else {
-                        return UITableViewCell()
-                    }
-                }else{
-                    guard indexPath.row<orders.count else {
-                        return UITableViewCell()
-                    }
+//                if((searchController?.isActive)!){
+//                    guard indexPath.row<searchProducts.count else {
+//                        return UITableViewCell()
+//                    }
+//                }else{
+//                    guard indexPath.row<orders.count else {
+//                        return UITableViewCell()
+//                    }
+//                }
+                guard indexPath.row<orders.count else {
+                    return UITableViewCell()
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myOrderListTableViewCell.rawValue) as? MyOrderListTableViewCell {
                     ((searchController?.isActive)!)
@@ -565,20 +568,24 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }else{
-            if((searchController?.isActive)!){
-                guard indexPath.row<searchProducts.count else {
-                    return UITableViewCell()
-                }
-            }else{
-                guard indexPath.row<products.count else {
-                    return UITableViewCell()
-                }
+//            if((searchController?.isActive)!){
+//                guard indexPath.row<searchProducts.count else {
+//                    return UITableViewCell()
+//                }
+//            }else{
+//                guard indexPath.row<products.count else {
+//                    return UITableViewCell()
+//                }
+//            }
+            guard indexPath.row<products.count else {
+                return UITableViewCell()
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ProductModelCell") as? ProductModelCell {
                 print("位置\(indexPath.row)\n總數\(self.products.count)")
-                ((searchController?.isActive)!)
-                    ?cell.configure(with: searchProducts[indexPath.row])
-                    :cell.configure(with: products[indexPath.row])
+//                ((searchController?.isActive)!)
+//                    ?cell.configure(with: searchProducts[indexPath.row])
+//                    :cell.configure(with: products[indexPath.row])
+                cell.configure(with: products[indexPath.row])
                 return cell;
             }
         }
@@ -736,5 +743,29 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
         DispatchQueue.main.async {
             self.tableview.reloadData()
         }
+    }
+    
+}
+extension ProductListController:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
+            return false
+        }
+        let keyword = textField.text!
+        
+        print("搜尋")
+        NetworkController.instance().getProductListByKeyword(keyword: keyword, type1: productType1, type2: productType2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+            [weak self] (reponseValue,isSuccess) in
+            guard let weakSelf = self else {return}
+            if(isSuccess){
+                print("搜尋")
+                let jsonArr = JSON(reponseValue)
+                weakSelf.parseProduct(jsonArr: jsonArr)
+                weakSelf.tableview.reloadData()
+            }else{
+
+            }
+        }
+        return true
     }
 }

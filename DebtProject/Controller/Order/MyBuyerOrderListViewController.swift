@@ -13,6 +13,7 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
     var orders = [OrderModel]()
     var tabbarTitle = [String]()
     var firstTabbarDidLoad = false
+    var currentPage = ""
     //collectionview底線
     var slider = UIView()
     @IBOutlet weak var collectionView: UICollectionView!
@@ -30,7 +31,7 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
 //        orders = ProductModel.defaultAllList
         //設定CollectionView Cell大小
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3.5, height:50)
+        flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3.5, height:45)
         flowLayout?.estimatedItemSize = .zero
         flowLayout?.minimumInteritemSpacing = 1
        
@@ -197,10 +198,14 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
                 return
             }
             orders.removeAll()
+            if orderStatus.elementsEqual(currentPage){
+                return
+            }
             print("選取標籤：\(orderStatus)")
             if orderStatus.elementsEqual("歷史記錄"){
                 orderStatus = "已結單"
             }
+            currentPage = orderStatus
             NetworkController.instance().getMyOrderListBuyer(status: orderStatus){
                 [weak self] (reponseValue,isSuccess) in
                 guard let weakSelf = self else{return}

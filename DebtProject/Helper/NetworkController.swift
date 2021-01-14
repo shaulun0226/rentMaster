@@ -399,6 +399,35 @@ class NetworkController{
                 }
             }
     }
+    func getProductListByKeyword(keyword:String,type1:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
+        let url = "\(serverUrl)/Products/listByKeyWord/\(type1)/\(type2)/\(keyword)/\(pageBegin)/\(pageEnd)";
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        AF.request(encodedUrl!,method: .get,encoding:JSONEncoding.default)
+            .responseJSON{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(value,true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(value,false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( error, false)
+                    break
+                }
+            }
+    }
     func getProductListByTypeAndType2(type:String,type2:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Products/listByTypeNType2/\(type)/\(type2)/\(pageBegin)/\(pageEnd)";
         let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

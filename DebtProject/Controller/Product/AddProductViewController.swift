@@ -11,6 +11,7 @@ import SwiftAlertView
 import SwiftyJSON
 
 class AddProductViewController: BaseViewController {
+    @IBOutlet weak var btnAddConfirm: UIButton!
     @IBOutlet weak var lbProductName: UILabel!
     @IBOutlet weak var lbProductDescription: UILabel!
     @IBOutlet weak var lbProductAmount: UILabel!
@@ -198,9 +199,10 @@ class AddProductViewController: BaseViewController {
             productCity = address[0]+"縣"
             productRegion = address[1]+""
         }
-        if(product.type.elementsEqual("BoardGame")){
+        if(product.type.elementsEqual("桌遊")){
             btnProductType.setTitle("桌遊", for: .normal)
             lbProductType2.text = "遊玩人數:"
+            btnProductType1.setTitle("請選擇遊玩人數", for: .normal)
         }else{
             btnProductType.setTitle(product.type, for: .normal)
         }
@@ -325,6 +327,8 @@ class AddProductViewController: BaseViewController {
     @IBAction func typeClick(_ sender: Any) {
         currentButton = btnProductType
         pickerList.removeAll()
+        btnProductType1.setTitle("請選擇主機型號", for: .normal)
+        btnProductType2.setTitle("請選擇商品類別", for: .normal)
         pickerList = ["PlayStation","Xbox","Switch","桌遊"]
         //刷新pick內容
         pickerView.reloadAllComponents()
@@ -333,6 +337,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func type1Click(_ sender: Any) {
         currentButton = btnProductType1
         pickerList.removeAll()
+        btnProductType2.setTitle("請選擇商品類別", for: .normal)
         switch productType {
         case "PlayStation":
             lbProductType1.text = "主機型號:"
@@ -345,6 +350,7 @@ class AddProductViewController: BaseViewController {
             pickerList = ["Switch"]
         case "桌遊":
             lbProductType1.text = "遊玩人數:"
+            btnProductType1.setTitle("請選擇遊玩人數", for: .normal)
             pickerList = ["4人以下","4-8人","8人以上"]
         default:
             pickerList = ["PS5","PS4","Xbox One","Xbox Series","Switch","桌遊"]
@@ -461,6 +467,7 @@ class AddProductViewController: BaseViewController {
         if(!productInfoCheck()){
             return
         }
+        self.btnAddConfirm.isEnabled = false
         if(Global.isOnline){
             NetworkController.instance().addProduct(title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type:productType , type1: productType1, type2: productType2, pics: productImages, weightPrice:productWeightPrice){  [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
@@ -485,6 +492,7 @@ class AddProductViewController: BaseViewController {
                 }else{
                     alertView.messageLabel.text = responseValue
                     alertView.clickedButtonAction = { index in
+                        weakSelf.btnAddConfirm.isEnabled = true
                         alertView.dismiss()
                     }
                     alertView.show()

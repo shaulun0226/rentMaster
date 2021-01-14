@@ -172,9 +172,7 @@ class ChangeUserInfoViewController:BaseViewController {
                 alertView.backgroundColor = UIColor(named: "Card-2")
                 alertView.buttonTitleColor = .white
                 alertView.clickedButtonAction = { index in
-                    if let view = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
-                        weakSelf.show(view, sender: nil)
-                    }
+                    alertView.dismiss()
                 }
                 if(isSuccess){
                     alertView.clickedButtonAction = { index in

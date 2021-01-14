@@ -27,6 +27,7 @@ class MakeOrderTableViewCell: BaseTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = cornerRadius
+        btnWishItemSelect.tintColor = .lightGray
         // Initialization code
         //設定陰影
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
