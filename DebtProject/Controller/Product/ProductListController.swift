@@ -554,16 +554,18 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                     return UITableViewCell()
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myOrderListTableViewCell.rawValue) as? MyOrderListTableViewCell {
-                    ((searchController?.isActive)!)
-                        ?cell.configure(with: searchOrders[indexPath.row])
-                        :cell.configure(with: orders[indexPath.row])
+//                    ((searchController?.isActive)!)
+//                        ?cell.configure(with: searchOrders[indexPath.row])
+//                        :cell.configure(with: orders[indexPath.row])
+                    cell.configure(with: orders[indexPath.row])
                     return cell;
                 }
             }else{
                 if let cell = tableView.dequeueReusableCell(withIdentifier:TableViewCell.myStoreTableViewCell.rawValue ) as? MyStoreTableViewCell {
-                    ((searchController?.isActive)!)
-                        ?cell.configure(with: searchProducts[indexPath.row])
-                        :cell.configure(with: products[indexPath.row])
+//                    ((searchController?.isActive)!)
+//                        ?cell.configure(with: searchProducts[indexPath.row])
+//                        :cell.configure(with: products[indexPath.row])
+                    cell.configure(with: products[indexPath.row])
                     return cell;
                 }
             }
