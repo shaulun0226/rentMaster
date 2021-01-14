@@ -70,6 +70,7 @@
 		9F925149259DA179007699C4 /* PresentBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925148259DA179007699C4 /* PresentBottomVC.swift */; };
 		9F925151259DA1C2007699C4 /* PresentMiddleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */; };
 		9F925156259DA994007699C4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F925155259DA994007699C4 /* CustomAlertViewController.swift */; };
+		9F934D6F25AF60B70009B626 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F934D6E25AF60B70009B626 /* SideMenuTableViewCell.swift */; };
 		9F972593257FA02B00EF310D /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F972592257FA02B00EF310D /* DesignableView.swift */; };
 		9FA7D6AF25809EA4003CE070 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */; };
 		9FAAA328259A10D400707976 /* WishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAAA327259A10D400707976 /* WishListTableViewCell.swift */; };
@@ -177,6 +178,7 @@
 		9F925148259DA179007699C4 /* PresentBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentBottomVC.swift; sourceTree = "<group>"; };
 		9F925150259DA1C2007699C4 /* PresentMiddleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMiddleVC.swift; sourceTree = "<group>"; };
 		9F925155259DA994007699C4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		9F934D6E25AF60B70009B626 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		9F972592257FA02B00EF310D /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		9FA7D6AE25809EA4003CE070 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9FAAA327259A10D400707976 /* WishListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListTableViewCell.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		9F12BCDA25852ED200813616 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				9F934D6D25AF609E0009B626 /* SideMenu */,
 				9F847C3C25A2A0CF00CACE2F /* ProductCell */,
 				9F85282425920B06004454E6 /* Base Cell */,
 				9F847C3025A20C8400CACE2F /* OrderCell */,
@@ -358,6 +361,7 @@
 		9F3C77D82577E2F90063E641 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9F934D6925AF5BA30009B626 /* SideMenu */,
 				9F80A0ED258A74D000EDE3D2 /* BaseController */,
 				9F847C2C25A208FB00CACE2F /* Other */,
 				9F925147259DA148007699C4 /* PresentVC */,
@@ -445,7 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				9FB0FFBD2590838E00A02A44 /* PickerViewController.swift */,
-				9FEF0412258364DD0041F557 /* SideMenuController.swift */,
 				9F85281A25919687004454E6 /* NotifyViewController.swift */,
 				9F847C3725A2A0C300CACE2F /* ImgSideMenuController.swift */,
 			);
@@ -514,6 +517,22 @@
 				9F925155259DA994007699C4 /* CustomAlertViewController.swift */,
 			);
 			path = PresentVC;
+			sourceTree = "<group>";
+		};
+		9F934D6925AF5BA30009B626 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9FEF0412258364DD0041F557 /* SideMenuController.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		9F934D6D25AF609E0009B626 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				9F934D6E25AF60B70009B626 /* SideMenuTableViewCell.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		9FC9F0DF25822C5D004D20F7 /* Storyboards */ = {
@@ -739,6 +758,7 @@
 				9F1637D6259C2BF5008E9996 /* CustomOutsideFrameView.swift in Sources */,
 				9FB0FF87258F2F3400A02A44 /* AddProductImageCollectionViewCell.swift in Sources */,
 				9FB025E8258A197000D6715E /* MainPageTableViewCell.swift in Sources */,
+				9F934D6F25AF60B70009B626 /* SideMenuTableViewCell.swift in Sources */,
 				9F85C1FC25A59D22002BB99A /* MyStoreTableViewCell.swift in Sources */,
 				9F85281B25919687004454E6 /* NotifyViewController.swift in Sources */,
 				9F877D53258E1EC80030A175 /* ProductInfoImageCollectionViewCell.swift in Sources */,

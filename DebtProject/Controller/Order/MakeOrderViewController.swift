@@ -235,10 +235,10 @@ class MakeOrderViewController: BaseViewController {
                     guard let tmpWeightPrice = Float((cell.btnWishItemAmount.titleLabel?.text)!) else { return  }
                     print("進cell計算\(tmpWeightPrice)")
                     currentWeightPrice += cell.wishItemWeightPrice*tmpWeightPrice
-                    lbCurrentWeightPrice.text = String(currentWeightPrice)
                 }
             }
         }
+        lbCurrentWeightPrice.text = String(currentWeightPrice)
         lbTradePrice.text =  "交易金額:\(String(Int(buyAmount)*product.salePrice))元"
         lbProductRentPrice.text = "商品租金:\(String(Int(buyAmount)*product.rent))元/日"
         lbProductDeposit.text = "租借押金:\(String(Int(buyAmount)*product.deposit))元"
@@ -402,19 +402,6 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         1
     }
-    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50));
-    //        view.backgroundColor = .clear;
-    //        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-15, height: view.frame.height-4));
-    //        view.addSubview(label);
-    //        label.text = "交換物:"
-    //        label.font = UIFont.systemFont(ofSize: 30)
-    //        label.textColor = .white
-    //        return view;
-    //    }
-    //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    //        50
-    //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         wishList.count
     }
@@ -435,11 +422,11 @@ extension MakeOrderViewController:UITableViewDelegate,UITableViewDataSource{
         if let cell = tableView.cellForRow(at: indexPath) as? MakeOrderTableViewCell{
             if(!cell.btnIsSelected){
                 cell.btnIsSelected = !cell.btnIsSelected
-                print("勾選按鈕")
+                print("勾選按鈕l88888")
                 cell.btnWishItemSelect.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for:.normal)
                 cell.btnWishItemSelect.tintColor = UIColor(named: "Button")
             }else{
-                print("取消勾選")
+                print("取消勾選;l;;;;;")
                 cell.btnIsSelected = !cell.btnIsSelected
                 cell.btnWishItemSelect.setBackgroundImage(UIImage(systemName: "square"), for:.normal)
                 cell.btnWishItemSelect.tintColor = .darkGray

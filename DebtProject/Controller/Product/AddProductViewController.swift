@@ -105,7 +105,7 @@ class AddProductViewController: BaseViewController {
         addProductImageCV.dataSource = self
         pickerView.delegate = self
         pickerView.dataSource = self
-        pickerView.setValue(UIColor.white, forKeyPath: "textColor")
+        pickerView.setValue(UIColor(named: "labelColor"), forKeyPath: "textColor")
         //設定鍵盤
         tfProductTitle.underLineTextFieldDelegate = self
         tfProductAmount.underLineTextFieldDelegate = self
@@ -281,11 +281,7 @@ class AddProductViewController: BaseViewController {
         case btnProductType:
             productType = title
         case btnProductType1:
-            if(title.elementsEqual("桌遊")){
-                productType1 = "BoardGame"
-            }else{
-                productType1 = title
-            }
+            productType1 = title
         case btnProductType2:
             productType2 = title
         case btnProductCity:

@@ -27,22 +27,7 @@ class BaseTableViewCell: UITableViewCell {
         layer.shadowPath = shadowPath.cgPath
     }
     
-    func setShadowAndCornerRadius(){
-        backgroundColor = .clear // very important
-        layer.masksToBounds = false
-       
-        layer.shadowOpacity = shadowOpacity
-//        layer.shadowRadius = cornerRadius
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-         layer.shadowColor = UIColor.black.cgColor
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        layer.shadowPath = shadowPath.cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
-        // add corner radius on `contentView`
-        contentView.backgroundColor = UIColor(named: "Card-1")
-        contentView.layer.cornerRadius = cornerRadius
-    }
+   
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

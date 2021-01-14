@@ -61,7 +61,6 @@ class UnderLineTextField: UITextField,UITextFieldDelegate{
        func textFieldDidBeginEditing(_ textField: UITextField) {
 //        border.borderColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1)
         border.borderColor = selectedLineColor.cgColor
-        print("進底線delegate")
         underLineTextFieldDelegate?.underLineTextFieldTextFieldDidBeginEditing(textField)
        }
 

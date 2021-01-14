@@ -79,6 +79,9 @@ class ProductInfoViewController: BaseViewController {
         var products = [ProductModel]()
         for index in 0..<jsonArr.count{
             let id = jsonArr[index]["id"].string ?? ""
+            if(id.elementsEqual(product.id)){
+                continue
+            }
             let title = jsonArr[index]["title"].string ?? ""
             let description = jsonArr[index]["description"].string ?? ""
             let isSale = jsonArr[index]["isSale"].bool ?? false
@@ -114,7 +117,7 @@ class ProductInfoViewController: BaseViewController {
     private func setText(){
         if(Global.isOnline){
             lbProductTtile.text = "\(product.title)"
-            lbProductType.text = "分類 : \(product.type)/\(product.type1)/\(product.type2)"
+            lbProductType.text = "\(product.type)/\(product.type1)/\(product.type2)"
             lbTradeMethod.text = "交貨方式 : \(product.rentMethod)"
             lbAmount.text = "剩餘數量 : \(product.amount)"
             lbProductDescription.text = "商品敘述:\(product.description)"
@@ -134,7 +137,7 @@ class ProductInfoViewController: BaseViewController {
                 price.append("權重 : \(product.weightPrice)")
             }
             //            lbSalePrice.text = price
-            var tradeTypeText = "模式 : "
+            var tradeTypeText = ""
             for index in 0..<tradeType.count{
                 if(index==tradeType.count-1){
                     tradeTypeText += "\(tradeType[index])"

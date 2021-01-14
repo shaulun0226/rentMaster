@@ -23,21 +23,7 @@ class CartTableViewCell: BaseTableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-//    //加入此段程式碼讓每個cell間有空隙
-//    override open var frame: CGRect {
-//        get {
-//            return super.frame
-//        }
-//        set (newFrame) {
-//            var frame =  newFrame
-//            frame.origin.x += 5//調整x起點
-//            frame.size.height -= 2 * frame.origin.x//調整高度
-//            frame.size.width -= 2 * frame.origin.x//調整寬度
-//            super.frame = frame
-//        }
-//    }
     @IBAction func menuOnClick(){
-        print("按下按鈕")
         cartTableViewCellDelegate?.menuOnClick(index:self.index)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -74,7 +60,6 @@ class CartTableViewCell: BaseTableViewCell {
             //            price += "權重:\(model.weightPrice)"
             price.append("權重:\(model.weightPrice)")
         }
-        
         var priceText = ""
         for index in 0..<price.count {
             if(index==price.count-1){
@@ -101,7 +86,7 @@ class CartTableViewCell: BaseTableViewCell {
                     saleTypeText += "\(saleType[index])/"
                 }
             }
-            lbTradeType.text = "交易模式:\(saleTypeText)"
+            lbTradeType.text = "\(saleTypeText)"
             
             
             

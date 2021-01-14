@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotifyModelCell: UITableViewCell {
+class NotifyModelCell: BaseTableViewCell {
     @IBOutlet weak var lbNotify:UILabel!
 
     override func awakeFromNib() {
@@ -20,5 +20,14 @@ class NotifyModelCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //        設定陰影
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
+    }
 }

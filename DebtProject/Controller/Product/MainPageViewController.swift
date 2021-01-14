@@ -91,7 +91,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapPS))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "PlayStation"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListBy(type: "PlayStation", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){
@@ -113,7 +113,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapXbox(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "Xbox"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListBy(type: "Xbox", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){
@@ -135,7 +135,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapSwitch(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "Switch",pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListBy(type: "Xbox", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){
@@ -157,7 +157,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapBoardgame(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListByType(type: "BoardGame"  ,pageBegin: Global.pageBegin, pageEnd: Global.pageEnd) {
+                    NetworkController.instance().getProductListBy(type: "桌遊", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){
@@ -221,8 +221,8 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
         if let vcMain = Global.productStoryboard.instantiateViewController(identifier: "ProductListView") as?  ProductListController{
             vcMain.title = "桌遊"
             vcMain.isMyStore = false
-            vcMain.productType = "BoardGame"
-            vcMain.tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
+            vcMain.productType = "桌遊"
+            vcMain.tabbarTitle = ["所有","策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
             self.show(vcMain, sender: nil);
         }
     }

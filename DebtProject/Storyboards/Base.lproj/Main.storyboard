@@ -1072,6 +1072,50 @@
             </objects>
             <point key="canvasLocation" x="-270" y="457"/>
         </scene>
+        <!--Side Menu Controller-->
+        <scene sceneID="7jw-mD-esR">
+            <objects>
+                <tableViewController storyboardIdentifier="SideMenuController" id="FmJ-cX-sO9" customClass="SideMenuController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uaP-MI-iwj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideMenuTableViewCell" id="OfM-sH-fX7" customClass="SideMenuTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OfM-sH-fX7" id="jNZ-l3-cSu">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWq-GG-S1p">
+                                            <rect key="frame" x="367.66666666666669" y="11.333333333333336" width="41.333333333333314" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="labelColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QWq-GG-S1p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jNZ-l3-cSu" secondAttribute="leading" constant="10" id="C0G-vP-CRh"/>
+                                        <constraint firstItem="QWq-GG-S1p" firstAttribute="centerY" secondItem="jNZ-l3-cSu" secondAttribute="centerY" id="sCC-dh-2iF"/>
+                                        <constraint firstAttribute="trailing" secondItem="QWq-GG-S1p" secondAttribute="trailing" constant="5" id="yXE-PY-nix"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lbTitle" destination="QWq-GG-S1p" id="zMh-t2-iBC"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FmJ-cX-sO9" id="DL2-di-ZbI"/>
+                            <outlet property="delegate" destination="FmJ-cX-sO9" id="YRq-fR-h6d"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Hx-v2-ycm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-287" y="-300"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="grw-fa-Nia">
             <objects>
@@ -2085,7 +2129,7 @@
                                                 <rect key="frame" x="0.0" y="70" width="414" height="666"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="736" id="Jvt-vr-uAJ"/>
+                                                    <constraint firstAttribute="height" constant="500" id="Jvt-vr-uAJ"/>
                                                 </constraints>
                                                 <view key="tableFooterView" contentMode="scaleToFill" restorationIdentifier="CustomFooter" id="TYM-wa-FFk" customClass="CustomFooter" customModule="DebtProject" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="156" width="414" height="200"/>
@@ -2168,18 +2212,18 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="saO-W5-Rdr">
                                                                             <rect key="frame" x="30" y="112.66666666666667" width="344" height="27.333333333333329"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94G-sz-WP4">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="27.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94G-sz-WP4">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="27.333333333333332"/>
+                                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                                     <color key="textColor" name="textfieldTextColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品價值權重" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-XC-kbg" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                                    <rect key="frame" x="132.66666666666663" y="0.0" width="211.33333333333337" height="27.333333333333332"/>
+                                                                                    <rect key="frame" x="113.66666666666664" y="0.0" width="230.33333333333337" height="27.333333333333332"/>
                                                                                     <color key="tintColor" name="textfieldSelectedLineColor"/>
                                                                                     <color key="textColor" name="textfieldTextColor"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
                                                                                             <color key="value" name="textfieldLineColor"/>
@@ -2354,10 +2398,10 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MainPageCellTradeMethod">
-            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="0.99000011587142944" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.76470588235294112" blue="0.69803921568627447" alpha="0.99000000953674316" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TitleTextColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="accountLabelColor">
             <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2372,10 +2416,10 @@
             <color red="0.086274509803921567" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldLineColor">
-            <color red="0.20392156862745098" green="0.33725490196078434" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldSelectedLineColor">
-            <color red="0.73905307054519653" green="0.60980421304702759" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79607843137254897" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldTextColor">
             <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

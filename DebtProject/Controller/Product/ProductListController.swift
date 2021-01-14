@@ -68,7 +68,7 @@ class ProductListController: BaseSideMenuViewController{
             }
             if(productType1.elementsEqual("4人以下") || productType1.elementsEqual("4-8人") ||
                 productType1.elementsEqual("8人以上")){
-                tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
+                tabbarTitle = ["所有","策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
             }else{
                 tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
             }

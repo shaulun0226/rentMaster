@@ -127,8 +127,8 @@ class OrderViewController: BaseViewController {
     private func setText(){
         if(Global.isOnline){
             lbProductTtile.text = "\(order.p_Title)"
-            lbProductType.text = "分類 : \(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
-            lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
+            lbProductType.text = "\(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
+            lbRentMethod.text = "交貨數量 : \(order.p_RentMethod)"
             lbAmount.text = "交易數量 : \(order.tradeQuantity)"
             lbOrderOwnerInfo.text = orderOwnerInfo ?? ""
             lbProductDescription.text = "\(order.p_Desc)"
@@ -136,14 +136,14 @@ class OrderViewController: BaseViewController {
             
             switch order.tradeMethod {
             case 0://租
-                lbTradeMethod.text = "交易方式 : 租借"
+                lbTradeMethod.text = "租借"
                 price.append("押金 : \(order.p_Deposit)元")
                 price.append("租金 : \(order.p_Rent)元/日")
             case 1://買
-                lbTradeMethod.text = "交易方式 : 購買"
+                lbTradeMethod.text = "購買"
                 price.append("售價 : \(order.p_salePrice)元")
             case 2://換
-                lbTradeMethod.text = "交易方式 : 交換"
+                lbTradeMethod.text = "交換"
                 for index in 0..<order.orderExchangeItems.count{
                     price.append("\(order.orderExchangeItems[index].exchangeItem)*\(order.orderExchangeItems[index].packageQuantity)")
                 }

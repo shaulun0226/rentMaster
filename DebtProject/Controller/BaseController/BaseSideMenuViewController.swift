@@ -203,83 +203,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.isMyStore = false
                 view = vcMain
             }
-//        case .changePassword:
-//            if (User.token.isEmpty){
-//                let controller = UIAlertController(title: "尚未登入", message: "請先登入", preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "登入", style: .default){(_) in
-//                    if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-//                        self.show(loginView, sender: nil);
-//                    }
-//                }
-//                controller.addAction(okAction)
-//                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-//                controller.addAction(cancelAction)
-//                self.present(controller, animated: true, completion: nil)
-//                return
-//            }
-//            if let changePasswordView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.changePasswordViewController.rawValue) as? ChangePasswordViewController{
-//                view = changePasswordView
-//            }
-//        case .logout:
-//            if (User.token.isEmpty){
-//                //設定UIAlertController的title,message
-//                let alertController = UIAlertController(title: "並未登入", message: "", preferredStyle: .alert)
-//                //設定ok的action按鈕
-//                let okAction = UIAlertAction(title: "確定", style: .default)
-//                //將action加入UIAlertController
-//                alertController.addAction(okAction)
-//                //彈出UIAlertController
-//                self.present(alertController, animated: true, completion: nil)
-//                return
-//            }else{
-//                //設定UIAlertController的title,message
-//                let controller = UIAlertController(title: "是否登出", message: "", preferredStyle: .alert)
-//                //設定ok的action按鈕，並加入按下後的動作
-//                let okAction = UIAlertAction(title: "確定", style: .default){(_) in
-//                    User.token = ""
-//                    let logoutController = UIAlertController(title: "帳號已登出", message: "", preferredStyle: .alert)
-//                    let logoutOkAction = UIAlertAction(title: "確定", style: .default)
-//                    logoutController.addAction(logoutOkAction)
-//                    self.present(logoutController, animated: true, completion: nil)
-//                }
-//                //將action加入UIAlertController
-//                controller.addAction(okAction)
-//                //設定cancel的action按鈕
-//                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-//                //將action加入UIAlertController
-//                controller.addAction(cancelAction)
-//                //彈出UIAlertController
-//                self.present(controller, animated: true, completion: nil)
-//                return
-//            }
-//        case .memberCenter:
-//            if(Global.isOnline){
-//                if(User.token.isEmpty){
-//                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
-//                    alertView.clickedCancelButtonAction = {
-//                        alertView.dismiss()
-//                    }
-//                    alertView.clickedButtonAction = {[self] index in
-//                        if(index==1){
-//                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
-//                                //                            }
-//                                self.present(loginView, animated: true, completion: nil)
-//                            }
-//                        }
-//                    }
-//                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
-//                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
-//                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
-//                    alertView.backgroundColor = UIColor(named: "Alert")
-//                    alertView.buttonTitleColor = .white
-//                    alertView.show()
-//                    return
-//                }
-//            }
-//            if let vcMain = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
-//                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
-//                view = vcMain
-//            }
         default:
             return
         }
@@ -298,10 +221,9 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.series,SideMenuItem.one]))
         sideMenulist.append(SideMenuListModel.init(title:.Switch, item:[ SideMenuItem.Switch]))
         sideMenulist.append(SideMenuListModel.init(title:.boardgame, item:[ SideMenuItem.fourPlayerBoardGame,SideMenuItem.fourToEightPlayerBoardGame,SideMenuItem.eightPlayerBoardGame]))
-        
         let menuListController = SideMenuController.init(with: sideMenulist)
-        
         menuListController.delegate = self;
+//        menuListController.view.backgroundColor = UIColor(named: "Card-2")
         //將menuListController設定進menu裡
         menu = SideMenuNavigationController(rootViewController: menuListController)
         menu?.leftSide = true
@@ -315,7 +237,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         //設定抽屜動畫
         set.presentationStyle = SideMenuPresentationStyle.menuSlideIn
         set.presentationStyle.presentingEndAlpha = 0.5
-        
+
         //設定抽屜長度
         set.menuWidth = min(view.frame.width, view.frame.height) * 0.60
         //menu.sideMenuManager.addScreenEdgePanGesturesToPresent(toView: self.view)
