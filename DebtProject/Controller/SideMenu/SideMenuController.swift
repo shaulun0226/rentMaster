@@ -47,23 +47,29 @@ class SideMenuController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return sideMenuList.count
     }
-//    //設定section標題
-    override func tableView(_ tableView: UITableView,
-                            titleForHeaderInSection section: Int) -> String? {
-        return sideMenuList[section].title.rawValue;
-    }
+//
+//    override func tableView(_ tableView: UITableView,
+//                            titleForHeaderInSection section: Int) -> String? {
+//        return sideMenuList[section].title.rawValue;
+//    }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if(section<3){
+        if(section<2){
             return 0
         }
         return 30
     }
+    //    //設定section標題
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        <#code#>
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30));
+        view.backgroundColor = UIColor(named: "NavigationBar")
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 30));
+        view.addSubview(label);
+        label.textColor = UIColor(named: "textMainCardTitle")
+        label.text = sideMenuList[section].title.rawValue
+        label.font = label.font.withSize(24)
+        label.textAlignment = .center
+        return view;
     }
-    override func tableView(tableView: UITableView, ViewForHeaderInSection section: Int) -> UIView? {
-            return self.tableView.backgroundColor = UIColor.lightGrayColor()
-        }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return sideMenuList[section].item.count;
@@ -82,12 +88,12 @@ class SideMenuController: UITableViewController {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = sideMenuList[indexPath.section].item[indexPath.row].rawValue
-        cell.textLabel?.textColor = .white
+        cell.textLabel?.textColor = UIColor(named: "MainPageCellTradeMethod")
 //        cell.textLabel?.frame = CGRect(x: 200, y: 0, width: 200, height: 20)
         //为textLabel重新添加约束
 //        cell.textLabel?.trailingAnchor
-        cell.backgroundColor = #colorLiteral(red: 0.3411764706, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-        cell.contentView.backgroundColor = #colorLiteral(red: 0.3411764706, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+        cell.backgroundColor = UIColor(named: "Card-2")
+        cell.contentView.backgroundColor = UIColor(named: "Card-2")
         return cell
 //        if let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableViewCell") as? SideMenuTableViewCell{
 //            print("創抽屜cell")

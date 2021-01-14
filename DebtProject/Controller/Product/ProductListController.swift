@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftyJSON
-
+import SwiftAlertView
 
 
 class ProductListController: BaseSideMenuViewController{
@@ -615,7 +615,12 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        250
+        if(isOrder){
+            return 110
+        }else{
+            return 170
+        }
+        
     }
     //側滑刪除
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt
@@ -629,12 +634,25 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
                     NetworkController.instance().deleteMyOwnItem(id: self.products[indexPath.row].id){
                         [weak self] (reponseValue,isSuccess) in
                         guard let  weakSelf = self else{return}
+                        let alertView = SwiftAlertView(title: "", message: "刪除成功！\n", delegate: nil, cancelButtonTitle: "確定")
+                        alertView.messageLabel.textColor = UIColor(named: "labelColor")
+                        alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+                        alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+                        alertView.backgroundColor = UIColor(named: "Card-2")
+                        alertView.buttonTitleColor = .white
+                        alertView.clickedButtonAction = { index in
+                            alertView.dismiss()
+                        }
                         if(isSuccess){
                             weakSelf.products.remove(at: indexPath.row)
+                            alertView.show()
                             DispatchQueue.main.async {
                                 weakSelf.tableview.reloadData()
                             }
                             print(reponseValue)
+                        }else{
+                            alertView.messageLabel.text = "刪除失敗"
+                            alertView.show()
                         }
                     }
                     // 需要返回true，不然會没有反應

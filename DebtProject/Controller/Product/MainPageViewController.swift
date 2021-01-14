@@ -130,12 +130,12 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                 }else{
                 }
             case 2:
-                cell.lbMainPageTitle.text = "任天堂最新資訊"
+                cell.lbMainPageTitle.text = "Switch最新資訊"
                 //設定label的手勢
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainPageViewController.handleTapSwitch(gestureRecognizer:)))
                 cell.lbMainPageHint.addGestureRecognizer(gestureRecognizer)
                 if(Global.isOnline){
-                    NetworkController.instance().getProductListBy(type: "Xbox", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+                    NetworkController.instance().getProductListBy(type: "Switch", type1: "", type2: "", pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                         [weak self](value, isSuccess) in
                         guard let weakSelf = self else {return}
                         if(isSuccess){

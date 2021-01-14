@@ -492,7 +492,7 @@ extension MakeOrderViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         label.font = UIFont (name: "Helvetica Neue", size: 25)
         label.text =  pickerList[row]
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = UIColor(named: "labelColor")
         return label
     }
     //設定每個選項的高度
