@@ -9,7 +9,7 @@ import UIKit
 import SwiftyJSON
 
 class MainPageViewController: BaseSideMenuViewController {
-    let userDefault = UserDefaults()
+//    let userDefault = UserDefaults()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -24,26 +24,26 @@ class MainPageViewController: BaseSideMenuViewController {
         self.tableView.register(UINib(nibName: "PageTableViewCell", bundle: nil), forCellReuseIdentifier: "PageTableViewCell")
     }
     override func viewWillAppear(_ animated: Bool) {
-        guard let account = userDefault.value(forKey: "Account") as? String else{return}
-        guard let password = userDefault.value(forKey: "Password") as? String else{return}
-        guard let deviceToken = userDefault.value(forKey: "DeviceToken") as? String else{return}
-        if(account.isEmpty||password.isEmpty){
-            return
-        }
-        if(Global.isOnline && User.token.isEmpty){
-            NetworkController.instance().login(email: account, password: password,deviceToken: deviceToken) {
-                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
-                (value,isSuccess)  in
-                if(isSuccess){
-                    User.token = value as? String ?? ""
-                    if(!User.token.isEmpty){
-                        print("登入成功")
-                    }
-                }else{
-                    print("登入失敗")
-                }
-            }
-        }
+//        guard let account = userDefault.value(forKey: "Account") as? String else{return}
+//        guard let password = userDefault.value(forKey: "Password") as? String else{return}
+//        guard let deviceToken = userDefault.value(forKey: "DeviceToken") as? String else{return}
+//        if(account.isEmpty||password.isEmpty){
+//            return
+//        }
+//        if(Global.isOnline && User.token.isEmpty){
+//            NetworkController.instance().login(email: account, password: password,deviceToken: deviceToken) {
+//                // [weak self]表此類為弱連結(結束後會自動釋放)，(isSuccess)自訂方法時會帶進來的 bool 參數（此寫法可不用帶兩個閉包進去
+//                (value,isSuccess)  in
+//                if(isSuccess){
+//                    User.token = value as? String ?? ""
+//                    if(!User.token.isEmpty){
+//                        print("登入成功")
+//                    }
+//                }else{
+//                    print("登入失敗")
+//                }
+//            }
+//        }
     }
     private func parseProduct(cell:PageTableViewCell,jsonArr:JSON){
         for index in 0..<jsonArr.count{
@@ -102,7 +102,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                                 cell.pageCollectionView.reloadData()
                             }
                         }else{
-                            cell.products = ProductModel.defaultAllList
+//                            cell.products = ProductModel.defaultAllList
                         }
                     }
                 }else{
@@ -124,7 +124,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                                 cell.pageCollectionView.reloadData()
                             }
                         }else{
-                            cell.products = ProductModel.defaultAllList
+//                            cell.products = ProductModel.defaultAllList
                         }
                     }
                 }else{
@@ -146,7 +146,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                                 cell.pageCollectionView.reloadData()
                             }
                         }else{
-                            cell.products = ProductModel.defaultAllList
+//                            cell.products = ProductModel.defaultAllList
                         }
                     }
                 }else{
@@ -168,7 +168,7 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                                 cell.pageCollectionView.reloadData()
                             }
                         }else{
-                            cell.products = ProductModel.defaultAllList
+//                            cell.products = ProductModel.defaultAllList
                         }
                     }
                 }else{

@@ -238,13 +238,6 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.isMyStore = false
                 view = vcMain
             }
-//        case .boardgame:
-//            if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
-//                vcMain.slider.backgroundColor = .yellow
-//                vcMain.productType1 = "桌遊"
-//                vcMain.isMyStore = false
-//                view = vcMain
-//            }
         case .fourPlayerBoardGame:
             if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.productListController.rawValue) as? ProductListController{
                 vcMain.productType1 = "4人以下"
@@ -299,7 +292,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         set.presentationStyle.presentingEndAlpha = 0.5
 
         //設定抽屜長度
-        set.menuWidth = min(view.frame.width, view.frame.height) * 0.45
+        set.menuWidth = min(view.frame.width, view.frame.height) * 0.5
         //menu.sideMenuManager.addScreenEdgePanGesturesToPresent(toView: self.view)
         menu?.settings = set
         //SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view)

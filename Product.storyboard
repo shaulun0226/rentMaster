@@ -413,20 +413,20 @@
                                         <color key="textColor" name="labelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="productInfo" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T8v-ru-nfm">
-                                        <rect key="frame" x="40" y="501" width="364" height="290"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="productInfo" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="T8v-ru-nfm">
+                                        <rect key="frame" x="40" y="501" width="364" height="175"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WP3-gj-mQX">
-                                                <rect key="frame" x="8" y="8" width="348" height="64"/>
+                                                <rect key="frame" x="8" y="8" width="348" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分類:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZJ-OO-2q7">
-                                                        <rect key="frame" x="0.0" y="20" width="46" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" name="labelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分類:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ3-un-yDH">
-                                                        <rect key="frame" x="51" y="20" width="46" height="24"/>
+                                                        <rect key="frame" x="51" y="0.0" width="46" height="24"/>
                                                         <color key="backgroundColor" name="MainPageCellTradeMethod"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" name="tradeMethodText"/>
@@ -442,35 +442,36 @@
                                                 <constraints>
                                                     <constraint firstItem="WZJ-OO-2q7" firstAttribute="centerY" secondItem="WP3-gj-mQX" secondAttribute="centerY" id="3FQ-Qw-zf0"/>
                                                     <constraint firstItem="gZ3-un-yDH" firstAttribute="leading" secondItem="WZJ-OO-2q7" secondAttribute="trailing" constant="5" id="7CR-mn-Mtz"/>
-                                                    <constraint firstAttribute="bottom" secondItem="WZJ-OO-2q7" secondAttribute="bottom" constant="20" symbolic="YES" id="GJ5-AC-MTd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="WZJ-OO-2q7" secondAttribute="bottom" id="GJ5-AC-MTd"/>
                                                     <constraint firstItem="WZJ-OO-2q7" firstAttribute="leading" secondItem="WP3-gj-mQX" secondAttribute="leading" id="cY3-dC-bcF"/>
-                                                    <constraint firstItem="WZJ-OO-2q7" firstAttribute="top" secondItem="WP3-gj-mQX" secondAttribute="top" constant="20" symbolic="YES" id="qNY-GU-e3r"/>
+                                                    <constraint firstItem="WZJ-OO-2q7" firstAttribute="top" secondItem="WP3-gj-mQX" secondAttribute="top" id="qNY-GU-e3r"/>
                                                     <constraint firstItem="gZ3-un-yDH" firstAttribute="centerY" secondItem="WP3-gj-mQX" secondAttribute="centerY" id="xFC-eR-wL1"/>
+                                                    <constraint firstAttribute="height" constant="24" id="z5D-Pl-JJ0"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出貨地" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haR-jr-45Y">
-                                                <rect key="frame" x="8" y="82" width="348" height="24"/>
+                                                <rect key="frame" x="8" y="35" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" name="labelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交貨方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEq-OX-1j9">
-                                                <rect key="frame" x="8" y="116" width="348" height="24"/>
+                                                <rect key="frame" x="8" y="62" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" name="labelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-je-UrC">
-                                                <rect key="frame" x="8" y="150" width="348" height="64"/>
+                                                <rect key="frame" x="8" y="89" width="348" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易方式:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-NV-aJH">
-                                                        <rect key="frame" x="0.0" y="20" width="87" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="87" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" name="labelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="交易方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-em-1Vz">
-                                                        <rect key="frame" x="92" y="20" width="82" height="24"/>
+                                                        <rect key="frame" x="92" y="0.0" width="82" height="24"/>
                                                         <color key="backgroundColor" name="MainPageCellTradeMethod"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <color key="textColor" name="tradeMethodText"/>
@@ -486,21 +487,22 @@
                                                 <constraints>
                                                     <constraint firstItem="hdQ-NV-aJH" firstAttribute="centerY" secondItem="H1e-je-UrC" secondAttribute="centerY" id="8ur-9U-2it"/>
                                                     <constraint firstItem="QPs-em-1Vz" firstAttribute="leading" secondItem="hdQ-NV-aJH" secondAttribute="trailing" constant="5" id="9q7-Uh-2m8"/>
-                                                    <constraint firstItem="hdQ-NV-aJH" firstAttribute="top" secondItem="H1e-je-UrC" secondAttribute="top" constant="20" symbolic="YES" id="RZh-Ao-EFG"/>
-                                                    <constraint firstAttribute="bottom" secondItem="hdQ-NV-aJH" secondAttribute="bottom" constant="20" symbolic="YES" id="UBT-Qk-UKR"/>
+                                                    <constraint firstItem="hdQ-NV-aJH" firstAttribute="top" secondItem="H1e-je-UrC" secondAttribute="top" id="RZh-Ao-EFG"/>
+                                                    <constraint firstAttribute="bottom" secondItem="hdQ-NV-aJH" secondAttribute="bottom" id="UBT-Qk-UKR"/>
+                                                    <constraint firstAttribute="height" constant="24" id="ZcC-ZA-yv0"/>
                                                     <constraint firstItem="QPs-em-1Vz" firstAttribute="centerY" secondItem="H1e-je-UrC" secondAttribute="centerY" id="jil-W6-YWS"/>
                                                     <constraint firstItem="hdQ-NV-aJH" firstAttribute="leading" secondItem="H1e-je-UrC" secondAttribute="leading" id="oum-LU-0Pp"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品數量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spw-mX-r5e">
-                                                <rect key="frame" x="8" y="224" width="348" height="24"/>
+                                                <rect key="frame" x="8" y="116" width="348" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" name="labelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="補充" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f2-pX-v5R">
-                                                <rect key="frame" x="8" y="258" width="348" height="24"/>
-                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
+                                                <rect key="frame" x="8" y="143" width="348" height="24"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" name="labelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -514,7 +516,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RkP-Vs-hYc">
-                                        <rect key="frame" x="10" y="821" width="394" height="122.5"/>
+                                        <rect key="frame" x="10" y="706" width="394" height="122.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKk-fW-uqe">
                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="50"/>
@@ -611,7 +613,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MR7-x5-AeW">
-                                        <rect key="frame" x="0.0" y="1013.5" width="404" height="148.5"/>
+                                        <rect key="frame" x="0.0" y="898.5" width="404" height="148.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-RW-T7Y">
                                                 <rect key="frame" x="261.5" y="5" width="112.5" height="138.5"/>
@@ -663,7 +665,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="賣/買家資訊:" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noY-XE-45c">
-                                        <rect key="frame" x="10" y="963.5" width="167.5" height="50"/>
+                                        <rect key="frame" x="10" y="848.5" width="167.5" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="LTM-GI-Y9f"/>
                                         </constraints>
@@ -672,13 +674,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="留言板:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tC-lR-ue8">
-                                        <rect key="frame" x="10" y="1192" width="111" height="41"/>
+                                        <rect key="frame" x="10" y="1077" width="111" height="41"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                         <color key="textColor" name="labelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="40" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m4Y-OI-3Tn">
-                                        <rect key="frame" x="0.0" y="1238" width="414" height="500"/>
+                                        <rect key="frame" x="0.0" y="1123" width="414" height="500"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="500" id="fXY-7O-2Pz"/>
@@ -1186,7 +1188,7 @@
                                                                         <color key="value" name="textfieldSelectedLineColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                        <real key="value" value="-1"/>
+                                                                        <real key="value" value="1"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
@@ -1877,7 +1879,7 @@
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAR-jD-o8D">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="32.5"/>
-                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="取消">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2001,7 +2003,7 @@
                         </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="4HT-KQ-zHb"/>
-                    <color key="backgroundColor" name="Card-2"/>
+                    <color key="backgroundColor" name="Card-1"/>
                     <constraints>
                         <constraint firstItem="WVZ-hs-hTB" firstAttribute="top" secondItem="gK3-H0-OSg" secondAttribute="bottom" constant="10" id="626-Ja-4e9"/>
                         <constraint firstItem="K5O-vG-kyI" firstAttribute="height" secondItem="gK3-H0-OSg" secondAttribute="height" id="FF0-Oa-tUb"/>
@@ -2525,7 +2527,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lwY-53-IUQ"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="Card-1"/>
                         <constraints>
                             <constraint firstItem="Qvj-9T-kzb" firstAttribute="leading" secondItem="lwY-53-IUQ" secondAttribute="leading" constant="20" id="2gt-nz-vvo"/>
                             <constraint firstItem="lwY-53-IUQ" firstAttribute="trailing" secondItem="Qvj-9T-kzb" secondAttribute="trailing" constant="20" id="CBs-9a-Qxr"/>
@@ -2592,7 +2594,7 @@
                                 <rect key="frame" x="0.0" y="96" width="414" height="766"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" rowHeight="110" id="QPP-9C-lhC" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyOrderListTableViewCell" rowHeight="110" id="QPP-9C-lhC" customClass="MyOrderListTableViewCell" customModule="DebtProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QPP-9C-lhC" id="mf0-wl-yCN">
@@ -3480,7 +3482,7 @@
                         </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="7gE-Hl-i6q"/>
-                    <color key="backgroundColor" name="Card-2"/>
+                    <color key="backgroundColor" name="Card-1"/>
                     <constraints>
                         <constraint firstItem="7gE-Hl-i6q" firstAttribute="bottom" secondItem="al7-TL-B38" secondAttribute="bottom" constant="5" id="8Ap-x5-WlE"/>
                         <constraint firstItem="p4j-a0-4wX" firstAttribute="leading" secondItem="FUq-wb-iAw" secondAttribute="leading" constant="20" id="AA8-sy-8ar"/>
@@ -3529,10 +3531,10 @@
             <color red="0.99607843137254903" green="0.97647058823529409" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="dotSelect">
-            <color red="0.99607843137254903" green="0.42745098039215684" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.66666666666666663" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="dotUnSelect">
-            <color red="0.99607843137254903" green="0.42745098039215684" blue="0.45098039215686275" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.66666666666666663" blue="0.30980392156862746" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="labelColor">
             <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

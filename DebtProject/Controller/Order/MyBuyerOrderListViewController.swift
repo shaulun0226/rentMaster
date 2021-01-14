@@ -25,6 +25,7 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25)]
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.separatorStyle = .none
         collectionView.delegate = self
         collectionView.dataSource = self
         tabbarTitle = ["已立單","已寄送","已抵達","歸還已寄出","已寄回","歷史記錄"]

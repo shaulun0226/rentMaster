@@ -162,9 +162,9 @@ class ChangeUserInfoViewController:BaseViewController {
             let address = tfAddress.text ?? ""
             let nickName = tfNickName.text ?? ""
             NetworkController.instance().changeUserInfo(name: name, nickName: nickName, phone: phone, address: address){
-                [weak self] (isSuccess) in
+                (isSuccess) in
                 // 如果此 weakSelf 賦值失敗，就 return
-                guard let weakSelf = self else {return}
+//                guard let weakSelf = self else {return}
                 let alertView = SwiftAlertView(title: "", message: "變更成功！", delegate: nil, cancelButtonTitle: "確定")
                 alertView.messageLabel.textColor = UIColor(named: "labelColor")
                 alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
@@ -176,9 +176,7 @@ class ChangeUserInfoViewController:BaseViewController {
                 }
                 if(isSuccess){
                     alertView.clickedButtonAction = { index in
-                        if let view = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.memberCenterViewController.rawValue) as? MemberCenterViewController{
-                            weakSelf.show(view, sender: nil)
-                        }
+                        alertView.dismiss()
                     }
                     alertView.show()
                 }else{

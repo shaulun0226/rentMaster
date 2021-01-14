@@ -96,7 +96,7 @@ class ProductListController: BaseSideMenuViewController{
                             }
                         }else{
                             print("進賣出訂單API失敗")
-                            weakSelf.products = ProductModel.defaultHostLists
+//                            weakSelf.products = ProductModel.defaultHostLists
                         }
                     }
                 }else{
@@ -110,12 +110,12 @@ class ProductListController: BaseSideMenuViewController{
                                 weakSelf.tableview.reloadData()
                             }
                         }else{
-                            weakSelf.products = ProductModel.defaultGameLists
+//                            weakSelf.products = ProductModel.defaultGameLists
                         }
                     }
                 }
             }else{
-                self.products = ProductModel.defaultAllList
+//                self.products = ProductModel.defaultAllList
             }
         }else{//不是我的賣場就call list的API
             NetworkController.instance().getProductListBy(type: productType,type1: productType1,type2: productType2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
@@ -130,70 +130,9 @@ class ProductListController: BaseSideMenuViewController{
                     }
                 }else{
                     print("失敗")
-                    weakSelf.products = ProductModel.defaultGameLists
+//                    weakSelf.products = ProductModel.defaultGameLists
                 }
             }
-//            if(productType1.elementsEqual("") && productType2.elementsEqual("")){
-//                NetworkController.instance().getProductListByType(type: productType, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
-//                    [weak self](value, isSuccess) in
-//                    guard let weakSelf = self else {return}
-//                    if(isSuccess){
-//                        let jsonArr = JSON(value)
-//                        print("解析\(jsonArr)")
-//                        weakSelf.parseProduct(jsonArr: jsonArr)
-//                        DispatchQueue.main.async {
-//                            weakSelf.tableview.reloadData()
-//                        }
-//                    }else{
-//                        print("失敗")
-//                        weakSelf.products = ProductModel.defaultGameLists
-//                    }
-//                }
-//                return
-//            }
-//            if(productType1.elementsEqual("")){
-//                NetworkController.instance().getProductListByTypeAndType2(type: productType ,type2: productType2 , pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
-//                    guard let weakSelf = self else {return}
-//                    if(isSuccess){
-//                        let jsonArr = JSON(value)
-//                        print("解析\(jsonArr)")
-//                        weakSelf.parseProduct(jsonArr: jsonArr)
-//                        DispatchQueue.main.async {
-//                            weakSelf.tableview.reloadData()
-//                        }
-//                    }else{
-//                        print("失敗")
-//                        weakSelf.products = ProductModel.defaultGameLists
-//                    }
-//                }
-//                return
-//            }
-//            if(productType1.elementsEqual("4人以下") || productType1.elementsEqual("4-8人") ||
-//                productType1.elementsEqual("8人以上")){
-//                tabbarTitle = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
-//            }else{
-//                tabbarTitle = ["所有","遊戲","主機","周邊","其他"]
-//            }
-//
-//            if(Global.isOnline){
-//                print("進到getProductListByType1       \(productType1) "   )
-//                NetworkController.instance().getProductListByType1(type1: productType1, pageBegin: 1, pageEnd: 10) { [weak self](value, isSuccess) in
-//                    guard let weakSelf = self else {return}
-//                    if(isSuccess){
-//                        let jsonArr = JSON(value)
-//                        print("解析\(jsonArr)")
-//                        weakSelf.parseProduct(jsonArr: jsonArr)
-//                        DispatchQueue.main.async {
-//                            weakSelf.tableview.reloadData()
-//                        }
-//                    }else{
-//                        print("失敗")
-//                        weakSelf.products = ProductModel.defaultGameLists
-//                    }
-//                }
-//            }else{
-//                self.products = ProductModel.defaultAllList
-//            }
         }
     }
     
@@ -424,7 +363,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                             weakSelf.tableview.reloadData()
                         }
                     }else{
-                        weakSelf.products = ProductModel.defaultHostLists
+//                        weakSelf.products = ProductModel.defaultHostLists
                         DispatchQueue.main.async {
                             weakSelf.tableview.reloadData()
                         }
@@ -461,7 +400,8 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             case"歷史記錄":
                 orderSelectStatus = "已結單"
             default:
-                self.products = ProductModel.defaultAllList
+                print("標籤錯誤")
+//                self.products = ProductModel.defaultAllList
             }
             if !(orderSelectStatus.elementsEqual("上架中") || orderSelectStatus.elementsEqual("未上架")){
                 NetworkController.instance().getMyOrderListSeller(status: orderSelectStatus){
@@ -473,7 +413,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                         weakSelf.isOrder = true
                     }else{
                         print("進賣出訂單API失敗")
-                        weakSelf.products = ProductModel.defaultHostLists
+//                        weakSelf.products = ProductModel.defaultHostLists
                     }
                     DispatchQueue.main.async {
                         weakSelf.tableview.reloadData()
@@ -503,8 +443,31 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
             case "其他":
                 currentType2 = "其他"
                 productType2 = "其他"
+            case "策略":
+                currentType2 = "策略"
+                productType2 = "策略"
+            case "友情破壞":
+                currentType2 = "友情破壞"
+                productType2 = "友情破壞"
+            case "技巧":
+                currentType2 = "技巧"
+                productType2 = "技巧"
+            case "經營":
+                currentType2 = "經營"
+                productType2 = "經營"
+            case "運氣":
+                currentType2 = "運氣"
+                productType2 = "運氣"
+            case "劇情":
+                currentType2 = "劇情"
+                productType2 = "劇情"
+            case "TRPG":
+                currentType2 = "TRPG"
+                productType2 = "TRPG"
+            
             default:
-                products = ProductModel.defaultGameLists
+                print("標籤錯誤")
+//                products = ProductModel.defaultGameLists
             }
             NetworkController.instance().getProductListBy(type: productType, type1: productType1, type2: productType2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
                 [weak self](value, isSuccess) in
@@ -516,7 +479,7 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                         weakSelf.tableview.reloadData()
                     }
                 }else{
-                    weakSelf.products = ProductModel.defaultHostLists
+//                    weakSelf.products = ProductModel.defaultHostLists
                     DispatchQueue.main.async {
                         weakSelf.tableview.reloadData()
                     }
@@ -702,7 +665,7 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
                         let jsonArr = JSON(value)
                         weakSelf.parseProduct(jsonArr: jsonArr)
                     }else{
-                        weakSelf.products = ProductModel.defaultGameLists
+//                        weakSelf.products = ProductModel.defaultGameLists
                     }
                 }
             }
@@ -721,11 +684,11 @@ extension ProductListController : UISearchResultsUpdating,UISearchBarDelegate{
                         weakSelf.parseProduct(jsonArr: jsonArr)
                     }else{
                         print("失敗")
-                        weakSelf.products = ProductModel.defaultGameLists
+//                        weakSelf.products = ProductModel.defaultGameLists
                     }
                 }
             }else{
-                self.products = ProductModel.defaultAllList
+//                self.products = ProductModel.defaultAllList
             }
         }
     }

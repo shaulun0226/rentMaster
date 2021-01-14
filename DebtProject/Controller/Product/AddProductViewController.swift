@@ -308,6 +308,7 @@ class AddProductViewController: BaseViewController {
     @IBAction func cityClick(_ sender: Any) {
         currentButton = btnProductCity
         btnProductRegion.setTitle("請選擇商品所在地區", for: .normal)
+        productRegion = ""
         pickerList.removeAll()
         pickerList = CityList.city
         //刷新pick內容
@@ -329,6 +330,8 @@ class AddProductViewController: BaseViewController {
         pickerList.removeAll()
         btnProductType1.setTitle("請選擇主機型號", for: .normal)
         btnProductType2.setTitle("請選擇商品類別", for: .normal)
+        productType1 = ""
+        productType2 = ""
         pickerList = ["PlayStation","Xbox","Switch","桌遊"]
         //刷新pick內容
         pickerView.reloadAllComponents()
@@ -338,6 +341,7 @@ class AddProductViewController: BaseViewController {
         currentButton = btnProductType1
         pickerList.removeAll()
         btnProductType2.setTitle("請選擇商品類別", for: .normal)
+        productType2 = ""
         switch productType {
         case "PlayStation":
             lbProductType1.text = "主機型號:"
@@ -371,7 +375,6 @@ class AddProductViewController: BaseViewController {
            || productType1.elementsEqual("8人以上")){
             pickerList = ["策略","友情破壞","技巧","經營","運氣","劇情","TRPG","其他"]
         }else{
-            
             pickerList = ["遊戲","主機","周邊","其他"]
         }
         //刷新pick內容
@@ -423,6 +426,10 @@ class AddProductViewController: BaseViewController {
             tfProductDescription.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             tfTradeMethod.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""){
             return false;
+        }
+        if(productType=="" || productType1=="" || productType==""
+            || productCity=="" || productRegion==""){
+            return false
         }
         return true;
     }
@@ -508,6 +515,7 @@ class AddProductViewController: BaseViewController {
         tfProductDeposit.lineHeight = size
         tfProductRent.lineHeight = size
         tfProductPrice.lineHeight = size
+        tfTradeMethod.lineHeight = size
     }
     private func setModify(isModify:Bool){
         //其實可以把整個view鎖死
@@ -538,7 +546,7 @@ class AddProductViewController: BaseViewController {
         setTextFieldUnderLine(size: CGFloat(0))
         btnCancel.isHidden = true
         btnModify.setTitle("編輯", for:.normal)
-        btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        btnModify.backgroundColor = UIColor(named: "labelColor")
         productImages.removeAll()
         NetworkController.instance().getProductById(productId: product.id){
             [weak self] (responseValue,isSuccess) in
@@ -572,7 +580,7 @@ class AddProductViewController: BaseViewController {
             }
             btnCancel.isHidden = true
             btnModify.setTitle("編輯", for:.normal)
-            btnModify.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+            btnModify.backgroundColor = UIColor(named: "labelColor")
             if(Global.isOnline){
                 NetworkController.instance().productModify(id:product.id,title: productTitle, description: productDescription, isSale: productIsSale, isRent: productIsRent, isExchange: productIsExchange, deposit: productDeposit, rent: productRent, salePrice: productSalePrice, rentMethod: productRentMethod, amount: productAmount, address: "\(productCity ?? "")\(productRegion ?? "")", type: productType, type1: productType1, type2: productType2, oldPics: oldPics, pics: productImages, weightPrice: productWeightPrice){
                     (reponseValue,isSuccess) in

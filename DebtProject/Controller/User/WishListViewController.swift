@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftAlertView
 
 class WishListViewController: BaseSideMenuViewController {
     // 願望清單
@@ -94,6 +95,16 @@ class WishListViewController: BaseSideMenuViewController {
     }
     @IBAction func btnAddCellClick(_ sender: Any) {
         if(!emptyCheck()){
+            let alertView = SwiftAlertView(title: "", message: "請確認資料是否完整", delegate: nil, cancelButtonTitle: "確定")
+            alertView.messageLabel.textColor = UIColor(named: "labelColor")
+            alertView.messageLabel.font = UIFont.systemFont(ofSize: 25)
+            alertView.button(at: 0)?.backgroundColor = UIColor(named: "Button")
+            alertView.backgroundColor = UIColor(named: "Card-2")
+            alertView.buttonTitleColor = .white
+            alertView.clickedButtonAction = { index in
+                alertView.dismiss()
+            }
+            alertView.show()
             return
         }
         let wishProductName = tfWishProductName.text!
