@@ -8,7 +8,7 @@
 import UIKit
 import SwiftyJSON
 
-class MyBuyerOrderListViewController: BaseViewController {
+class MyBuyerOrderListViewController: BaseSideMenuViewController {
     var orderStatus = ""
     var orders = [OrderModel]()
     var tabbarTitle = [String]()

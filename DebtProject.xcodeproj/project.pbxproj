@@ -45,6 +45,8 @@
 		9F6C4D842577F6110091BEA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6C4D832577F6110091BEA5 /* Global.swift */; };
 		9F6E6C542582831D0082A94E /* UnderLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C532582831D0082A94E /* UnderLineTextField.swift */; };
 		9F6E6C61258316820082A94E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */; };
+		9F80AC5825B03AC90073E2AC /* SideMenuIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F80AC5625B03AC90073E2AC /* SideMenuIconTableViewCell.swift */; };
+		9F80AC5925B03AC90073E2AC /* SideMenuIconTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F80AC5725B03AC90073E2AC /* SideMenuIconTableViewCell.xib */; };
 		9F847C3825A2A0C300CACE2F /* ImgSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C3725A2A0C300CACE2F /* ImgSideMenuController.swift */; };
 		9F847C3F25A2A11B00CACE2F /* ImgSideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F847C3D25A2A11B00CACE2F /* ImgSideMenuCell.swift */; };
 		9F847C4025A2A11B00CACE2F /* ImgSideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F847C3E25A2A11B00CACE2F /* ImgSideMenuCell.xib */; };
@@ -153,6 +155,8 @@
 		9F6C4D832577F6110091BEA5 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9F6E6C532582831D0082A94E /* UnderLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineTextField.swift; sourceTree = "<group>"; };
 		9F6E6C60258316820082A94E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		9F80AC5625B03AC90073E2AC /* SideMenuIconTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuIconTableViewCell.swift; sourceTree = "<group>"; };
+		9F80AC5725B03AC90073E2AC /* SideMenuIconTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuIconTableViewCell.xib; sourceTree = "<group>"; };
 		9F847C3725A2A0C300CACE2F /* ImgSideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgSideMenuController.swift; sourceTree = "<group>"; };
 		9F847C3D25A2A11B00CACE2F /* ImgSideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgSideMenuCell.swift; sourceTree = "<group>"; };
 		9F847C3E25A2A11B00CACE2F /* ImgSideMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImgSideMenuCell.xib; sourceTree = "<group>"; };
@@ -531,6 +535,8 @@
 			isa = PBXGroup;
 			children = (
 				9F934D6E25AF60B70009B626 /* SideMenuTableViewCell.swift */,
+				9F80AC5625B03AC90073E2AC /* SideMenuIconTableViewCell.swift */,
+				9F80AC5725B03AC90073E2AC /* SideMenuIconTableViewCell.xib */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -655,6 +661,7 @@
 				9FE54ECA258CD2BA0016FDC6 /* .gitignore in Resources */,
 				9FB0FFB1259077E400A02A44 /* Sample.storyboard in Resources */,
 				9F3C77982577BF3D0063E641 /* Assets.xcassets in Resources */,
+				9F80AC5925B03AC90073E2AC /* SideMenuIconTableViewCell.xib in Resources */,
 				9F12BCF32585DAD700813616 /* Color.xcassets in Resources */,
 				9F3F2D7D258B563400E156A8 /* PageCollectionViewCell.xib in Resources */,
 				9FB0FFB62590785700A02A44 /* Product.storyboard in Resources */,
@@ -744,6 +751,7 @@
 				9F85284D25937C46004454E6 /* CartCellMenuViewController.swift in Sources */,
 				9F85284325936D47004454E6 /* CartViewController.swift in Sources */,
 				9F17077425A0602B00A126BB /* MakeOrderTableViewCell.swift in Sources */,
+				9F80AC5825B03AC90073E2AC /* SideMenuIconTableViewCell.swift in Sources */,
 				9F85C1F725A547EF002BB99A /* CartItemModel.swift in Sources */,
 				9F1637CE259B816A008E9996 /* MyBuyerOrderListViewController.swift in Sources */,
 				9FEF0413258364DD0041F557 /* SideMenuController.swift in Sources */,

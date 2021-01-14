@@ -8,7 +8,7 @@
 import UIKit
 import SwiftyJSON
 
-class WishListViewController: BaseViewController {
+class WishListViewController: BaseSideMenuViewController {
     // 願望清單
     @IBOutlet weak var tfWishProductName: UnderLineTextField!
     @IBOutlet weak var tfWishProductAmount: UnderLineTextField!

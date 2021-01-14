@@ -1072,6 +1072,62 @@
             </objects>
             <point key="canvasLocation" x="-270" y="457"/>
         </scene>
+        <!--Side Menu View Controller-->
+        <scene sceneID="r7W-h7-Kr9">
+            <objects>
+                <viewController id="tKw-rg-XEH" customClass="SideMenuViewController" customModule="DebtProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iK5-hL-mLT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fhu-Hq-uWr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SideMenuTableViewCell" id="0jt-l4-ugm" customClass="SideMenuTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0jt-l4-ugm" id="u6r-rz-zr8">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdb-64-1I8">
+                                                    <rect key="frame" x="5" y="11.333333333333336" width="41.333333333333336" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="labelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tdb-64-1I8" secondAttribute="trailing" constant="10" id="BZY-uw-WRp"/>
+                                                <constraint firstItem="tdb-64-1I8" firstAttribute="leading" secondItem="u6r-rz-zr8" secondAttribute="leading" constant="5" id="jzP-Yg-N4X"/>
+                                                <constraint firstItem="tdb-64-1I8" firstAttribute="centerY" secondItem="u6r-rz-zr8" secondAttribute="centerY" id="nkI-b1-Kie"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lbTitle" destination="tdb-64-1I8" id="UdS-dv-NRy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1fb-db-Ytk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1fb-db-Ytk" firstAttribute="trailing" secondItem="Fhu-Hq-uWr" secondAttribute="trailing" id="Iab-Rr-Wom"/>
+                            <constraint firstItem="Fhu-Hq-uWr" firstAttribute="leading" secondItem="1fb-db-Ytk" secondAttribute="leading" id="jQr-6l-8to"/>
+                            <constraint firstItem="1fb-db-Ytk" firstAttribute="bottom" secondItem="Fhu-Hq-uWr" secondAttribute="bottom" id="mwQ-NP-BJr"/>
+                            <constraint firstItem="Fhu-Hq-uWr" firstAttribute="top" secondItem="1fb-db-Ytk" secondAttribute="top" id="ppY-bE-EHF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sideMenuTableView" destination="Fhu-Hq-uWr" id="nye-dV-bpH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ecd-6g-ewp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1116" y="-205"/>
+        </scene>
         <!--Side Menu Controller-->
         <scene sceneID="7jw-mD-esR">
             <objects>
@@ -1101,11 +1157,9 @@
                                         <constraint firstAttribute="trailing" secondItem="QWq-GG-S1p" secondAttribute="trailing" constant="5" id="yXE-PY-nix"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="lbTitle" destination="QWq-GG-S1p" id="zMh-t2-iBC"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="FmJ-cX-sO9" id="DL2-di-ZbI"/>
                             <outlet property="delegate" destination="FmJ-cX-sO9" id="YRq-fR-h6d"/>
@@ -2109,264 +2163,258 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-VG-dIZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    願望清單:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-jP-Wgh">
+                                <rect key="frame" x="0.0" y="10" width="204.33333333333334" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" name="labelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0xJ-Zx-GMc">
+                                <rect key="frame" x="0.0" y="68" width="414" height="500"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0xJ-Zx-GMc">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    願望清單:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-jP-Wgh">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="70" id="HyL-dM-BF8"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                                <color key="textColor" name="labelColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="npB-ID-AM2">
-                                                <rect key="frame" x="0.0" y="70" width="414" height="666"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="500" id="Jvt-vr-uAJ"/>
-                                                </constraints>
-                                                <view key="tableFooterView" contentMode="scaleToFill" restorationIdentifier="CustomFooter" id="TYM-wa-FFk" customClass="CustomFooter" customModule="DebtProject" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="156" width="414" height="200"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="npB-ID-AM2">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="500" id="Jvt-vr-uAJ"/>
+                                        </constraints>
+                                        <view key="tableFooterView" contentMode="scaleToFill" restorationIdentifier="CustomFooter" id="TYM-wa-FFk" customClass="CustomFooter" customModule="DebtProject" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="156" width="414" height="200"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JlS-Px-hHv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JlS-Px-hHv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Ci-cd-zD7">
+                                                            <rect key="frame" x="0.0" y="0.0" width="404" height="140"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Ci-cd-zD7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="404" height="140"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6f-nT-UqC">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="404" height="27.666666666666668"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </view>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="D6U-VX-B9v">
+                                                                    <rect key="frame" x="30" y="37.666666666666664" width="344" height="27.333333333333336"/>
                                                                     <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6f-nT-UqC">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="404" height="27.666666666666668"/>
-                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </view>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="D6U-VX-B9v">
-                                                                            <rect key="frame" x="30" y="37.666666666666664" width="344" height="27.333333333333336"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願意交換商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHF-Vc-Hua">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="27.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品名稱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EtL-lS-df0" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                                    <rect key="frame" x="132.66666666666663" y="0.0" width="211.33333333333337" height="27.333333333333332"/>
-                                                                                    <color key="tintColor" name="textfieldSelectedLineColor"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <textInputTraits key="textInputTraits"/>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                                                            <color key="value" name="textfieldLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                                                            <color key="value" name="textfieldSelectedLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                                            <real key="value" value="1"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                    </userDefinedRuntimeAttributes>
-                                                                                </textField>
-                                                                            </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="EtL-lS-df0" firstAttribute="leading" secondItem="QHF-Vc-Hua" secondAttribute="trailing" constant="5" id="AYm-k7-eIs"/>
-                                                                            </constraints>
-                                                                        </stackView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="69s-Kt-unc">
-                                                                            <rect key="frame" x="30" y="75" width="344" height="27.666666666666671"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFw-65-M2a">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="46" height="27.666666666666668"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品交換數量" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fEC-hQ-r4m" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                                    <rect key="frame" x="51" y="0.0" width="293" height="27.666666666666668"/>
-                                                                                    <color key="tintColor" name="textfieldSelectedLineColor"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                                                            <color key="value" name="textfieldLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                                                            <color key="value" name="textfieldSelectedLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                                            <real key="value" value="1"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                    </userDefinedRuntimeAttributes>
-                                                                                </textField>
-                                                                            </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="fEC-hQ-r4m" firstAttribute="leading" secondItem="NFw-65-M2a" secondAttribute="trailing" constant="5" id="fSa-LB-CkX"/>
-                                                                            </constraints>
-                                                                        </stackView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="saO-W5-Rdr">
-                                                                            <rect key="frame" x="30" y="112.66666666666667" width="344" height="27.333333333333329"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94G-sz-WP4">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="27.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品價值權重" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-XC-kbg" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
-                                                                                    <rect key="frame" x="113.66666666666664" y="0.0" width="230.33333333333337" height="27.333333333333332"/>
-                                                                                    <color key="tintColor" name="textfieldSelectedLineColor"/>
-                                                                                    <color key="textColor" name="textfieldTextColor"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                                                                            <color key="value" name="textfieldLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                                                            <color key="value" name="textfieldSelectedLineColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                                            <real key="value" value="1"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                    </userDefinedRuntimeAttributes>
-                                                                                </textField>
-                                                                            </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="QUq-XC-kbg" firstAttribute="leading" secondItem="94G-sz-WP4" secondAttribute="trailing" constant="5" id="qtn-oB-SzN"/>
-                                                                            </constraints>
-                                                                        </stackView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願意交換商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHF-Vc-Hua">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="27.333333333333332"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品名稱" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EtL-lS-df0" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
+                                                                            <rect key="frame" x="132.66666666666663" y="0.0" width="211.33333333333337" height="27.333333333333332"/>
+                                                                            <color key="tintColor" name="textfieldSelectedLineColor"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <textInputTraits key="textInputTraits"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                                                    <color key="value" name="textfieldLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                                                    <color key="value" name="textfieldSelectedLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                                                    <real key="value" value="1"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </textField>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="saO-W5-Rdr" firstAttribute="leading" secondItem="D6U-VX-B9v" secondAttribute="leading" id="69D-q3-z5N"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="U6f-nT-UqC" secondAttribute="trailing" id="Eaz-FJ-azg"/>
-                                                                        <constraint firstItem="U6f-nT-UqC" firstAttribute="leading" secondItem="5Ci-cd-zD7" secondAttribute="leading" id="QcC-ZV-JWM"/>
-                                                                        <constraint firstItem="69s-Kt-unc" firstAttribute="leading" secondItem="D6U-VX-B9v" secondAttribute="leading" id="fub-Bq-0ku"/>
-                                                                        <constraint firstItem="D6U-VX-B9v" firstAttribute="leading" secondItem="5Ci-cd-zD7" secondAttribute="leading" constant="30" id="xAA-cJ-9wu"/>
+                                                                        <constraint firstItem="EtL-lS-df0" firstAttribute="leading" secondItem="QHF-Vc-Hua" secondAttribute="trailing" constant="5" id="AYm-k7-eIs"/>
                                                                     </constraints>
                                                                 </stackView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(建議價值權重以新台幣100元為一個單位)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6d-vE-LzF">
-                                                                    <rect key="frame" x="0.0" y="179.66666666666666" width="404" height="20.333333333333343"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" name="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="69s-Kt-unc">
+                                                                    <rect key="frame" x="30" y="75" width="344" height="27.666666666666671"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFw-65-M2a">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="46" height="27.666666666666668"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品交換數量" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fEC-hQ-r4m" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
+                                                                            <rect key="frame" x="51" y="0.0" width="293" height="27.666666666666668"/>
+                                                                            <color key="tintColor" name="textfieldSelectedLineColor"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                                                    <color key="value" name="textfieldLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                                                    <color key="value" name="textfieldSelectedLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                                                    <real key="value" value="1"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="fEC-hQ-r4m" firstAttribute="leading" secondItem="NFw-65-M2a" secondAttribute="trailing" constant="5" id="fSa-LB-CkX"/>
+                                                                    </constraints>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="saO-W5-Rdr">
+                                                                    <rect key="frame" x="30" y="112.66666666666667" width="344" height="27.333333333333329"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94G-sz-WP4">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="27.333333333333332"/>
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入商品價值權重" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-XC-kbg" customClass="UnderLineTextField" customModule="DebtProject" customModuleProvider="target">
+                                                                            <rect key="frame" x="113.66666666666664" y="0.0" width="230.33333333333337" height="27.333333333333332"/>
+                                                                            <color key="tintColor" name="textfieldSelectedLineColor"/>
+                                                                            <color key="textColor" name="textfieldTextColor"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                                                    <color key="value" name="textfieldLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                                                    <color key="value" name="textfieldSelectedLineColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                                                    <real key="value" value="1"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="QUq-XC-kbg" firstAttribute="leading" secondItem="94G-sz-WP4" secondAttribute="trailing" constant="5" id="qtn-oB-SzN"/>
+                                                                    </constraints>
+                                                                </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="5Ci-cd-zD7" firstAttribute="height" secondItem="JlS-Px-hHv" secondAttribute="height" multiplier="0.7" id="IlK-X4-3fO"/>
-                                                                <constraint firstAttribute="trailing" secondItem="5Ci-cd-zD7" secondAttribute="trailing" constant="10" id="Q7g-Dd-GYu"/>
-                                                                <constraint firstAttribute="trailing" secondItem="B6d-vE-LzF" secondAttribute="trailing" constant="10" id="cRY-mY-Ge1"/>
-                                                                <constraint firstItem="B6d-vE-LzF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JlS-Px-hHv" secondAttribute="leading" id="ucP-tw-CVA"/>
+                                                                <constraint firstItem="saO-W5-Rdr" firstAttribute="leading" secondItem="D6U-VX-B9v" secondAttribute="leading" id="69D-q3-z5N"/>
+                                                                <constraint firstAttribute="trailing" secondItem="U6f-nT-UqC" secondAttribute="trailing" id="Eaz-FJ-azg"/>
+                                                                <constraint firstItem="U6f-nT-UqC" firstAttribute="leading" secondItem="5Ci-cd-zD7" secondAttribute="leading" id="QcC-ZV-JWM"/>
+                                                                <constraint firstItem="69s-Kt-unc" firstAttribute="leading" secondItem="D6U-VX-B9v" secondAttribute="leading" id="fub-Bq-0ku"/>
+                                                                <constraint firstItem="D6U-VX-B9v" firstAttribute="leading" secondItem="5Ci-cd-zD7" secondAttribute="leading" constant="30" id="xAA-cJ-9wu"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNl-0j-PTJ">
-                                                            <rect key="frame" x="362.66666666666669" y="5.9999999999999964" width="41.333333333333314" height="40"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="hNl-0j-PTJ" secondAttribute="height" multiplier="1:1" id="wgA-Ti-c5f"/>
-                                                            </constraints>
-                                                            <color key="tintColor" name="Button"/>
-                                                            <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
-                                                            <connections>
-                                                                <action selector="btnAddCellClick:" destination="I92-QD-yBf" eventType="touchUpInside" id="MFh-Fc-ehk"/>
-                                                            </connections>
-                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(建議價值權重以新台幣100元為一個單位)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6d-vE-LzF">
+                                                            <rect key="frame" x="0.0" y="179.66666666666666" width="404" height="20.333333333333343"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemTealColor"/>
                                                     <constraints>
-                                                        <constraint firstItem="hNl-0j-PTJ" firstAttribute="top" secondItem="TYM-wa-FFk" secondAttribute="top" constant="5" id="7HH-Tg-ETO"/>
-                                                        <constraint firstItem="JlS-Px-hHv" firstAttribute="top" secondItem="TYM-wa-FFk" secondAttribute="top" id="H7K-Wp-jcF"/>
-                                                        <constraint firstItem="JlS-Px-hHv" firstAttribute="leading" secondItem="TYM-wa-FFk" secondAttribute="leading" id="VjE-nx-7tc"/>
-                                                        <constraint firstAttribute="bottom" secondItem="JlS-Px-hHv" secondAttribute="bottom" id="Xjt-8Y-zCH"/>
-                                                        <constraint firstAttribute="trailing" secondItem="hNl-0j-PTJ" secondAttribute="trailing" constant="10" id="Yhe-Vd-eqc"/>
-                                                        <constraint firstItem="hNl-0j-PTJ" firstAttribute="width" secondItem="TYM-wa-FFk" secondAttribute="width" multiplier="0.1" id="aRM-kn-s1W"/>
-                                                        <constraint firstAttribute="trailing" secondItem="JlS-Px-hHv" secondAttribute="trailing" id="cwZ-I5-Kgm"/>
+                                                        <constraint firstItem="5Ci-cd-zD7" firstAttribute="height" secondItem="JlS-Px-hHv" secondAttribute="height" multiplier="0.7" id="IlK-X4-3fO"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5Ci-cd-zD7" secondAttribute="trailing" constant="10" id="Q7g-Dd-GYu"/>
+                                                        <constraint firstAttribute="trailing" secondItem="B6d-vE-LzF" secondAttribute="trailing" constant="10" id="cRY-mY-Ge1"/>
+                                                        <constraint firstItem="B6d-vE-LzF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JlS-Px-hHv" secondAttribute="leading" id="ucP-tw-CVA"/>
                                                     </constraints>
-                                                </view>
-                                                <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WishListTableViewCell" rowHeight="100" id="yGU-Rw-gdv" customClass="WishListTableViewCell" customModule="DebtProject" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yGU-Rw-gdv" id="MBy-LU-GL3">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNl-0j-PTJ">
+                                                    <rect key="frame" x="362.66666666666669" y="5.9999999999999964" width="41.333333333333314" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="hNl-0j-PTJ" secondAttribute="height" multiplier="1:1" id="wgA-Ti-c5f"/>
+                                                    </constraints>
+                                                    <color key="tintColor" name="Button"/>
+                                                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="btnAddCellClick:" destination="I92-QD-yBf" eventType="touchUpInside" id="MFh-Fc-ehk"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemTealColor"/>
+                                            <constraints>
+                                                <constraint firstItem="hNl-0j-PTJ" firstAttribute="top" secondItem="TYM-wa-FFk" secondAttribute="top" constant="5" id="7HH-Tg-ETO"/>
+                                                <constraint firstItem="JlS-Px-hHv" firstAttribute="top" secondItem="TYM-wa-FFk" secondAttribute="top" id="H7K-Wp-jcF"/>
+                                                <constraint firstItem="JlS-Px-hHv" firstAttribute="leading" secondItem="TYM-wa-FFk" secondAttribute="leading" id="VjE-nx-7tc"/>
+                                                <constraint firstAttribute="bottom" secondItem="JlS-Px-hHv" secondAttribute="bottom" id="Xjt-8Y-zCH"/>
+                                                <constraint firstAttribute="trailing" secondItem="hNl-0j-PTJ" secondAttribute="trailing" constant="10" id="Yhe-Vd-eqc"/>
+                                                <constraint firstItem="hNl-0j-PTJ" firstAttribute="width" secondItem="TYM-wa-FFk" secondAttribute="width" multiplier="0.1" id="aRM-kn-s1W"/>
+                                                <constraint firstAttribute="trailing" secondItem="JlS-Px-hHv" secondAttribute="trailing" id="cwZ-I5-Kgm"/>
+                                            </constraints>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WishListTableViewCell" rowHeight="100" id="yGU-Rw-gdv" customClass="WishListTableViewCell" customModule="DebtProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yGU-Rw-gdv" id="MBy-LU-GL3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Dx-nH-xtZ">
+                                                            <rect key="frame" x="10" y="8" width="394" height="84"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Dx-nH-xtZ">
-                                                                    <rect key="frame" x="10" y="8" width="394" height="84"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="k0G-nr-lvB">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="k0G-nr-lvB">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願意交換商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX6-wn-qke">
                                                                             <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="願意交換商品:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX6-wn-qke">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <color key="textColor" name="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                        </stackView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IMu-Ph-z77">
-                                                                            <rect key="frame" x="0.0" y="31.333333333333336" width="46" height="21.333333333333336"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yX-IF-iNM">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="46" height="21.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <color key="textColor" name="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                        </stackView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Yaf-2D-Qtg">
-                                                                            <rect key="frame" x="0.0" y="62.666666666666679" width="127.66666666666667" height="21.333333333333336"/>
-                                                                            <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-Wc-KG1">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                    <color key="textColor" name="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
-                                                                            </subviews>
-                                                                        </stackView>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <color key="textColor" name="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                     </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="IMu-Ph-z77" firstAttribute="leading" secondItem="k0G-nr-lvB" secondAttribute="leading" id="8vQ-cq-1oR"/>
-                                                                        <constraint firstItem="Yaf-2D-Qtg" firstAttribute="leading" secondItem="k0G-nr-lvB" secondAttribute="leading" id="GeT-l7-F5i"/>
-                                                                    </constraints>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="IMu-Ph-z77">
+                                                                    <rect key="frame" x="0.0" y="31.333333333333336" width="46" height="21.333333333333336"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="數量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yX-IF-iNM">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="46" height="21.333333333333332"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <color key="textColor" name="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Yaf-2D-Qtg">
+                                                                    <rect key="frame" x="0.0" y="62.666666666666679" width="127.66666666666667" height="21.333333333333336"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品價值權重:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-Wc-KG1">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21.333333333333332"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                            <color key="textColor" name="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
                                                                 </stackView>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="5Dx-nH-xtZ" secondAttribute="bottom" constant="8" id="13g-M6-fnb"/>
-                                                                <constraint firstAttribute="trailing" secondItem="5Dx-nH-xtZ" secondAttribute="trailing" constant="10" id="6of-Fh-E6K"/>
-                                                                <constraint firstItem="5Dx-nH-xtZ" firstAttribute="top" secondItem="MBy-LU-GL3" secondAttribute="top" constant="8" id="BYh-67-Nxv"/>
-                                                                <constraint firstItem="5Dx-nH-xtZ" firstAttribute="leading" secondItem="MBy-LU-GL3" secondAttribute="leading" constant="10" id="yV0-Th-7UW"/>
+                                                                <constraint firstItem="IMu-Ph-z77" firstAttribute="leading" secondItem="k0G-nr-lvB" secondAttribute="leading" id="8vQ-cq-1oR"/>
+                                                                <constraint firstItem="Yaf-2D-Qtg" firstAttribute="leading" secondItem="k0G-nr-lvB" secondAttribute="leading" id="GeT-l7-F5i"/>
                                                             </constraints>
-                                                        </tableViewCellContentView>
-                                                        <color key="backgroundColor" name="Card-1"/>
-                                                        <connections>
-                                                            <outlet property="lbWishProductAmount" destination="5yX-IF-iNM" id="0bU-Bl-8EG"/>
-                                                            <outlet property="lbWishProductName" destination="uX6-wn-qke" id="wxt-oq-ckP"/>
-                                                            <outlet property="lbWishProductWeightPrice" destination="Urk-Wc-KG1" id="Dgk-aD-4nT"/>
-                                                        </connections>
-                                                    </tableViewCell>
-                                                </prototypes>
-                                            </tableView>
-                                        </subviews>
-                                    </stackView>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="5Dx-nH-xtZ" secondAttribute="bottom" constant="8" id="13g-M6-fnb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5Dx-nH-xtZ" secondAttribute="trailing" constant="10" id="6of-Fh-E6K"/>
+                                                        <constraint firstItem="5Dx-nH-xtZ" firstAttribute="top" secondItem="MBy-LU-GL3" secondAttribute="top" constant="8" id="BYh-67-Nxv"/>
+                                                        <constraint firstItem="5Dx-nH-xtZ" firstAttribute="leading" secondItem="MBy-LU-GL3" secondAttribute="leading" constant="10" id="yV0-Th-7UW"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" name="Card-1"/>
+                                                <connections>
+                                                    <outlet property="lbWishProductAmount" destination="5yX-IF-iNM" id="0bU-Bl-8EG"/>
+                                                    <outlet property="lbWishProductName" destination="uX6-wn-qke" id="wxt-oq-ckP"/>
+                                                    <outlet property="lbWishProductWeightPrice" destination="Urk-Wc-KG1" id="Dgk-aD-4nT"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YzH-QL-t6n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="h5h-VG-dIZ" firstAttribute="top" secondItem="YzH-QL-t6n" secondAttribute="top" id="ICt-Ps-0GI"/>
-                            <constraint firstItem="h5h-VG-dIZ" firstAttribute="leading" secondItem="YzH-QL-t6n" secondAttribute="leading" id="VFm-4p-VPJ"/>
-                            <constraint firstAttribute="bottom" secondItem="h5h-VG-dIZ" secondAttribute="bottom" id="rD3-wl-bOy"/>
-                            <constraint firstItem="h5h-VG-dIZ" firstAttribute="trailing" secondItem="YzH-QL-t6n" secondAttribute="trailing" id="xTv-mF-7oV"/>
+                            <constraint firstItem="Vsf-jP-Wgh" firstAttribute="top" secondItem="YzH-QL-t6n" secondAttribute="top" constant="10" id="6oa-Yq-hga"/>
+                            <constraint firstItem="0xJ-Zx-GMc" firstAttribute="leading" secondItem="YzH-QL-t6n" secondAttribute="leading" id="7va-Jy-CHy"/>
+                            <constraint firstItem="0xJ-Zx-GMc" firstAttribute="top" secondItem="Vsf-jP-Wgh" secondAttribute="bottom" constant="10" id="HFW-rY-R2H"/>
+                            <constraint firstItem="Vsf-jP-Wgh" firstAttribute="leading" secondItem="YzH-QL-t6n" secondAttribute="leading" id="MTU-IG-RnP"/>
+                            <constraint firstItem="YzH-QL-t6n" firstAttribute="trailing" secondItem="Vsf-jP-Wgh" secondAttribute="trailing" constant="209.66666666666666" id="a4l-77-0TF"/>
+                            <constraint firstItem="YzH-QL-t6n" firstAttribute="trailing" secondItem="0xJ-Zx-GMc" secondAttribute="trailing" id="tvt-Of-hhr"/>
                         </constraints>
                     </view>
                     <connections>

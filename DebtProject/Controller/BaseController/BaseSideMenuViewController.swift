@@ -144,6 +144,66 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
                 vcMain.isMyStore = true
                 view = vcMain
             }
+        case .myOrder:
+            if(Global.isOnline){
+                if (User.token.isEmpty){
+                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+                    alertView.clickedCancelButtonAction = {
+                        alertView.dismiss()
+                    }
+                    alertView.clickedButtonAction = {[self] index in
+                        if(index==1){
+                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                                //                            }
+                                self.present(loginView, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
+                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Card-2")
+                    alertView.buttonTitleColor = .white
+                    alertView.show()
+                    return
+                }
+            }
+            if let vcMain = productStoryboard.instantiateViewController(identifier: ProductStoryboardController.myBuyerOrderListViewController.rawValue) as? MyBuyerOrderListViewController{
+                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
+                vcMain.orderStatus = "已立單"
+                view = vcMain
+            }
+        case .wishList:
+            if(Global.isOnline){
+                if (User.token.isEmpty){
+                    let alertView = SwiftAlertView(title: "", message: "請先登入!\n", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "登入")
+                    alertView.clickedCancelButtonAction = {
+                        alertView.dismiss()
+                    }
+                    alertView.clickedButtonAction = {[self] index in
+                        if(index==1){
+                            if let loginView = mainStoryboard.instantiateViewController(identifier:MainStoryboardController.login.rawValue ) as? LoginViewController{
+                                //                            }
+                                self.present(loginView, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                    alertView.messageLabel.textColor = UIColor(named: "labelColor")
+                    alertView.messageLabel.font = UIFont.systemFont(ofSize: 35)
+                    alertView.button(at: 0)?.backgroundColor = UIColor(named: "CancelButton")
+                    alertView.button(at: 1)?.backgroundColor = UIColor(named: "Button")
+                    alertView.backgroundColor = UIColor(named: "Card-2")
+                    alertView.buttonTitleColor = .white
+                    alertView.show()
+                    return
+                }
+            }
+            if let vcMain = mainStoryboard.instantiateViewController(identifier: MainStoryboardController.wishListViewController.rawValue) as? WishListViewController{
+                vcMain.navigationController?.navigationBar.prefersLargeTitles = true
+                view = vcMain
+            }
+
         case .home:
             if let vcMain = mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
                 view = vcMain
@@ -215,8 +275,8 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         
         var sideMenulist = [SideMenuListModel]();
         //設定menu內容
-        sideMenulist.append(SideMenuListModel.init(title: .store, item:[SideMenuItem.store]))
-        sideMenulist.append(SideMenuListModel.init(title:.homePage, item: [SideMenuItem.home]))
+        sideMenulist.append(SideMenuListModel.init(title: .icon, item:[SideMenuItem.home]))
+        sideMenulist.append(SideMenuListModel.init(title: .store, item:[SideMenuItem.store,SideMenuItem.myOrder,SideMenuItem.wishList]))
         sideMenulist.append(SideMenuListModel.init(title:.ps, item: [SideMenuItem.ps5,SideMenuItem.ps4]))
         sideMenulist.append(SideMenuListModel.init(title: .xbox, item:[SideMenuItem.series,SideMenuItem.one]))
         sideMenulist.append(SideMenuListModel.init(title:.Switch, item:[ SideMenuItem.Switch]))
@@ -239,7 +299,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         set.presentationStyle.presentingEndAlpha = 0.5
 
         //設定抽屜長度
-        set.menuWidth = min(view.frame.width, view.frame.height) * 0.60
+        set.menuWidth = min(view.frame.width, view.frame.height) * 0.45
         //menu.sideMenuManager.addScreenEdgePanGesturesToPresent(toView: self.view)
         menu?.settings = set
         //SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view)
