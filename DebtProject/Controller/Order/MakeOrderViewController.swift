@@ -21,6 +21,7 @@ class MakeOrderViewController: BaseViewController {
     @IBOutlet weak var lbProductTitle: UILabel!
     @IBOutlet weak var IVProductImg: UIImageView!
     @IBOutlet weak var wishListTableView: UITableView!
+    @IBOutlet weak var btnConfirm: UIButton!
     var buyAmount:Float! = 0.0
     var exchangeList = [String]()
     var wishList = [WishItemModel]()
@@ -328,6 +329,7 @@ class MakeOrderViewController: BaseViewController {
     }
     
     @IBAction func confirmClick(_ sender: Any) {
+        btnConfirm.isEnabled = false
         let alertView = SwiftAlertView(title: "", message: "", delegate: nil, cancelButtonTitle: "確定")
         alertView.messageLabel.textColor = UIColor(named: "labelColor")
         alertView.messageLabel.font = UIFont.systemFont(ofSize: 30)
@@ -335,6 +337,7 @@ class MakeOrderViewController: BaseViewController {
         alertView.backgroundColor = UIColor(named: "Card-2")
         alertView.buttonTitleColor = .white
         alertView.clickedButtonAction = { index in
+            self.btnConfirm.isEnabled = true
             alertView.dismiss()
         }
         guard let tradeQuantity = tradeQuantity else {
@@ -384,18 +387,21 @@ class MakeOrderViewController: BaseViewController {
             guard let weakSelf = self else{return}
             alertView.messageLabel.text = responseValue
             if(isSuccess){
+                
                 alertView.messageLabel.text = "下單成功！"
                 alertView.clickedButtonAction = {index in
                     weakSelf.delegate?.addOrderFinish()
+                    weakSelf.btnConfirm.isEnabled = true
                     weakSelf.dismiss(animated: true, completion: nil)
-//                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
-//
-//                        mainView.modalPresentationStyle = .fullScreen
-//                        weakSelf.show(mainView, sender: nil)
-                        //                        weakSelf.showDetailViewController(mainView, sender: nil)
-//                    }
+                    //                    if let mainView = Global.mainStoryboard.instantiateViewController(identifier: MainStoryboardController.mainPageViewController.rawValue) as? MainPageViewController{
+                    //
+                    //                        mainView.modalPresentationStyle = .fullScreen
+                    //                        weakSelf.show(mainView, sender: nil)
+                    //                        weakSelf.showDetailViewController(mainView, sender: nil)
+                    //                    }
                 }
             }else{
+                weakSelf.btnConfirm.isEnabled = true
                 alertView.clickedButtonAction = {index in
                     alertView.dismiss()
                 }

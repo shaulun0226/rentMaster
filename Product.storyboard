@@ -252,7 +252,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSv-WN-yZh">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="65.5"/>
                                         <color key="backgroundColor" name="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="加入關注清單"/>
                                         <connections>
@@ -262,7 +262,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u8y-xW-qiN">
                                         <rect key="frame" x="207" y="0.0" width="207" height="65.5"/>
                                         <color key="backgroundColor" name="Button"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="立即下單"/>
                                         <connections>
@@ -3419,6 +3419,7 @@
                     <navigationItem key="navigationItem" id="zxV-Hk-cdD"/>
                     <connections>
                         <outlet property="IVProductImg" destination="iQO-6L-oqO" id="CJk-un-7lZ"/>
+                        <outlet property="btnConfirm" destination="Glc-x8-DHL" id="OET-Sd-cNI"/>
                         <outlet property="btnTradeAmount" destination="CWU-Hq-85W" id="A7Z-51-OQ6"/>
                         <outlet property="btnTradeType" destination="OQ2-HP-aDQ" id="gZq-DR-rFE"/>
                         <outlet property="currentWeightPriceView" destination="tg4-HZ-Ttr" id="3kn-d8-2sE"/>
@@ -3549,7 +3550,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldLineColor">
-            <color red="0.13333333333333333" green="0.48627450980392156" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28627450980392155" green="0.34509803921568627" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfieldSelectedLineColor">
             <color red="1" green="0.79607843137254897" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
