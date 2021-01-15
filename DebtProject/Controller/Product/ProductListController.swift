@@ -38,6 +38,7 @@ class ProductListController: BaseSideMenuViewController{
     //order
     var isOrder = false
     var orderSelectStatus = ""
+    var currentOrderSelectStatus = ""
     var orders = [OrderModel]()
     
     //searchbar
@@ -348,6 +349,9 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
         //刪掉所有訂單
         orders.removeAll()
         let selectedProductType = tabbarTitle[indexPath.row]
+        if !currentOrderSelectStatus.isEmpty && currentOrderSelectStatus.elementsEqual(selectedProductType){
+            return
+        }
         if(isMyStore){
             switch selectedProductType {
             case "上架中":
@@ -356,10 +360,10 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     [weak self](responseValue, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
-                        let jsonArr = JSON(responseValue)
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.isOrder = false
                         DispatchQueue.main.async {
+                            let jsonArr = JSON(responseValue)
+                            weakSelf.parseProduct(jsonArr: jsonArr)
+                            weakSelf.isOrder = false
                             weakSelf.tableview.reloadData()
                         }
                     }else{
@@ -375,10 +379,11 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     [weak self](responseValue, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
-                        let jsonArr = JSON(responseValue)
-                        weakSelf.parseProduct(jsonArr: jsonArr)
-                        weakSelf.isOrder = false
+                        
                         DispatchQueue.main.async {
+                            let jsonArr = JSON(responseValue)
+                            weakSelf.parseProduct(jsonArr: jsonArr)
+                            weakSelf.isOrder = false
                             weakSelf.tableview.reloadData()
                         }
                     }else{
@@ -391,14 +396,19 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 return
             case "已立單":
                 orderSelectStatus = selectedProductType
+                currentOrderSelectStatus = selectedProductType
             case "已寄送":
                 orderSelectStatus = selectedProductType
+                currentOrderSelectStatus = selectedProductType
             case "已抵達":
                 orderSelectStatus = selectedProductType
+                currentOrderSelectStatus = selectedProductType
             case"歸還已寄出":
                 orderSelectStatus = selectedProductType
+                currentOrderSelectStatus = selectedProductType
             case"歷史記錄":
                 orderSelectStatus = "已結單"
+                currentOrderSelectStatus = "已結單"
             default:
                 print("標籤錯誤")
 //                self.products = ProductModel.defaultAllList
@@ -408,16 +418,17 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                     [weak self](responseValue, isSuccess) in
                     guard let weakSelf = self else {return}
                     if(isSuccess){
-                        let jsonArr = JSON(responseValue)
-                        weakSelf.parseOrder(jsonArr: jsonArr)
-                        weakSelf.isOrder = true
+                        DispatchQueue.main.async {
+                            let jsonArr = JSON(responseValue)
+                            weakSelf.parseOrder(jsonArr: jsonArr)
+                            weakSelf.isOrder = true
+                            weakSelf.tableview.reloadData()
+                        }
                     }else{
                         print("進賣出訂單API失敗")
 //                        weakSelf.products = ProductModel.defaultHostLists
                     }
-                    DispatchQueue.main.async {
-                        weakSelf.tableview.reloadData()
-                    }
+                    
                 }
             }
         }else{
@@ -473,9 +484,9 @@ extension ProductListController :UICollectionViewDelegate,UICollectionViewDataSo
                 [weak self](value, isSuccess) in
                 guard let weakSelf = self else {return}
                 if(isSuccess){
-                    let jsonArr = JSON(value)
-                    weakSelf.parseProduct(jsonArr: jsonArr)
                     DispatchQueue.main.async {
+                        let jsonArr = JSON(value)
+                        weakSelf.parseProduct(jsonArr: jsonArr)
                         weakSelf.tableview.reloadData()
                     }
                 }else{
@@ -520,6 +531,9 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
 //                    ((searchController?.isActive)!)
 //                        ?cell.configure(with: searchOrders[indexPath.row])
 //                        :cell.configure(with: orders[indexPath.row])
+                    if(indexPath.row>=orders.count){
+                        return UITableViewCell()
+                    }
                     cell.configure(with: orders[indexPath.row])
                     return cell;
                 }
@@ -528,6 +542,9 @@ extension ProductListController :UITableViewDelegate,UITableViewDataSource{
 //                    ((searchController?.isActive)!)
 //                        ?cell.configure(with: searchProducts[indexPath.row])
 //                        :cell.configure(with: products[indexPath.row])
+                    if(indexPath.row>=products.count){
+                        return UITableViewCell()
+                    }
                     cell.configure(with: products[indexPath.row])
                     return cell;
                 }
