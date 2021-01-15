@@ -34,7 +34,7 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         flowLayout?.itemSize = CGSize(width: self.view.frame.size.width/3.5, height:45)
         flowLayout?.estimatedItemSize = .zero
-        flowLayout?.minimumInteritemSpacing = 1
+        flowLayout?.minimumInteritemSpacing = 0
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +54,7 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
         }
     }
     private func setupSlider(){
-        self.slider.frame.size = CGSize(width: self.view.frame.size.width/3.5, height: 5)
+        self.slider.frame.size = CGSize(width: self.view.frame.size.width/3.5, height: 3)
         self.slider.center.y = collectionView.bounds.maxY-14
         self.slider.backgroundColor = UIColor(named: "slider")
         collectionView.addSubview(slider)

@@ -207,10 +207,19 @@ class OrderViewController: BaseViewController {
         return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
     }
     private func setOrderOwnerInfo(orderOwner:UserModel){
-        lbOwnerName.text = "稱呼 : \(orderOwner.name)"
+        if orderOwner.nickName.isEmpty{
+            lbOwnerName.text = "稱呼:\(orderOwner.name)"
+        }else{
+            lbOwnerName.text = "稱呼:\(orderOwner.nickName)"
+        }
         lbOwnerEmail.text = "Email : \(orderOwner.email)"
         lbOwnerPhone.text = "聯絡電話 : \(orderOwner.phone)"
-        lbOwnerAddress.text = "地區 : \(orderOwner.address)"
+        if orderOwner.address.isEmpty{
+            lbOwnerAddress.text = "地區 : 使用者未輸入"
+        }else{
+            lbOwnerAddress.text = "地區 : \(orderOwner.address)"
+        }
+        
     }
     
     //MARK: - 訂單狀態
@@ -356,7 +365,11 @@ class OrderViewController: BaseViewController {
                     weakSelf.NoteTableView.reloadData()
                     weakSelf.txSend.text = "請輸入留言內容"
                     weakSelf.txSend.textColor = UIColor.lightGray
-                    weakSelf.NoteTableView.scrollToRow(at: IndexPath(row: weakSelf.notes.count-1, section: 0), at: .bottom, animated: true)
+                    let bottomOffset = CGPoint(x: 0, y: weakSelf.orderScrollView.contentSize.height - weakSelf.orderScrollView.bounds.size.height+150)
+                    print("滑到最下面\(weakSelf.orderScrollView.contentSize.height)      \(weakSelf.orderScrollView.bounds.size.height)")
+                    weakSelf.orderScrollView.setContentOffset(bottomOffset, animated: true)
+                    
+//                    weakSelf.NoteTableView.scrollToRow(at: IndexPath(row: weakSelf.notes.count-1, section: 0), at: .bottom, animated: true)
                 }
             }
         }

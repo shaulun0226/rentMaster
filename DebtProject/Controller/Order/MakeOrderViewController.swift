@@ -107,7 +107,11 @@ class MakeOrderViewController: BaseViewController {
                     let jsonArr = JSON(responseValue)
                     weakSelf.parseUser(jsonArr: jsonArr)
                     DispatchQueue.main.async {
-                        weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.nickName)"
+                        if weakSelf.user.nickName.isEmpty{
+                            weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.name)"
+                        }else{
+                            weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.nickName)"
+                        }
                         weakSelf.lbSellerEmail.text = "Email:\(weakSelf.user.email)"
                         weakSelf.lbSellerPhone.text = "聯絡電話:\(weakSelf.user.phone)"
                         weakSelf.lbSellerLocation.text = "地區:\(weakSelf.product.address)"

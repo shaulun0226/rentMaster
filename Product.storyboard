@@ -2573,7 +2573,7 @@
                                                     <rect key="frame" x="10" y="11" width="160" height="24"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <color key="textColor" name="labelColor"/>
-                                                    <nil key="highlightedColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" name="Card-2"/>
@@ -2584,6 +2584,7 @@
                                                 <constraint firstItem="VLF-ix-RDW" firstAttribute="leading" secondItem="4bX-OY-BKI" secondAttribute="leading" constant="10" id="S7l-c2-whu"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="180" height="45.666666666666657"/>
                                         <connections>
                                             <outlet property="lbTitle" destination="VLF-ix-RDW" id="8mh-rc-rYD"/>
                                         </connections>
