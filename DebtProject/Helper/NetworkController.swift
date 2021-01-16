@@ -40,6 +40,39 @@ class NetworkController{
 //        let msg = value
         print("error msg: \(value)")
     }
+    private func parseProduct(jsonArr:JSON) -> [ProductModel]{
+        var products = [ProductModel]()
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string ?? ""
+            let title = jsonArr[index]["title"].string  ?? ""
+            let description = jsonArr[index]["description"].string ?? ""
+            let isSale = jsonArr[index]["isSale"].bool ?? false
+            let isRent = jsonArr[index]["isRent"].bool ?? false
+            let isExchange = jsonArr[index]["isExchange"].bool ?? false
+            let address = jsonArr[index]["address"].string ?? ""
+            let deposit = jsonArr[index]["deposit"].int ?? 0
+            let rent = jsonArr[index]["rent"].int ?? 0
+            let salePrice = jsonArr[index]["salePrice"].int ?? 0
+            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
+            let amount = jsonArr[index]["amount"].int ?? 0
+            let type = jsonArr[index]["type"].string ?? ""
+            let type1 = jsonArr[index]["type1"].string ?? ""
+            let type2 = jsonArr[index]["type2"].string ?? ""
+            let userId = jsonArr[index]["userId"].string ?? ""
+            let picsArr = jsonArr[index]["pics"].array ?? []
+            let weightPrice = jsonArr[index]["weightPrice"].float ?? 0.0
+            
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id  = picsArr[index]["id"].string ?? ""
+                let path  = picsArr[index]["path"].string ?? ""
+                let productId  = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
+            products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
+        }
+        return products
+    }
     // MARK: - memberCenter
     func login(email:String,password:String,deviceToken:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Users/login";
@@ -268,6 +301,35 @@ class NetworkController{
                 }
             }
     }
+    func emailConfirm(email:String,completionHandler:@escaping (Bool) -> ()){
+        let parameters :Parameters = ["Email":email]
+        let url = "\(serverUrl)/Users/security/check";
+        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default)
+            .responseString{ response in
+                switch response.result {
+                //先看連線有沒有成功
+                case.success(let value):
+                    //再解析errorCode
+                    if let status = response.response?.statusCode {
+                        print(status)
+                        switch(status){
+                        case 200:
+                            //to get JSON return value
+                            completionHandler(true)
+                            break
+                        default:
+                            self.textNotCode200(status: status, value: value)
+                            completionHandler(false)
+                            break
+                        }
+                    }
+                case .failure(let error):
+                    print("error:\(error)")
+                    completionHandler( false)
+                    break
+                }
+            }
+    }
     // MARK: - productList
     //產品清單區
     func getProductListByType(type:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
@@ -384,7 +446,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr =  JSON(value)
+                            let products =  self.parseProduct(jsonArr: jsonArr)
+                            completionHandler(products,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -457,35 +521,7 @@ class NetworkController{
                 }
             }
     }
-    func emailConfirm(email:String,completionHandler:@escaping (Bool) -> ()){
-        let parameters :Parameters = ["Email":email]
-        let url = "\(serverUrl)/Users/security/check";
-        AF.request(url,method: .post,parameters: parameters,encoding:JSONEncoding.default)
-            .responseString{ response in
-                switch response.result {
-                //先看連線有沒有成功
-                case.success(let value):
-                    //再解析errorCode
-                    if let status = response.response?.statusCode {
-                        print(status)
-                        switch(status){
-                        case 200:
-                            //to get JSON return value
-                            completionHandler(true)
-                            break
-                        default:
-                            self.textNotCode200(status: status, value: value)
-                            completionHandler(false)
-                            break
-                        }
-                    }
-                case .failure(let error):
-                    print("error:\(error)")
-                    completionHandler( false)
-                    break
-                }
-            }
-    }
+   
     func getProductListBySellerId(sellerId:String,pageBegin:Int,pageEnd:Int,completionHandler:@escaping (_ :Any,Bool) -> ()){
         let url = "\(serverUrl)/Products/listBySeller/\(sellerId)/\(pageBegin)/\(pageEnd)";
         //因為網址含有中文，需要做編碼處理

@@ -97,8 +97,9 @@ extension MainPageViewController:UITableViewDelegate,UITableViewDataSource{
                         if(isSuccess){
                             let jsonArr = JSON(value)
                             cell.products.removeAll()
-                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
+//                            weakSelf.parseProduct(cell:cell,jsonArr: jsonArr)
                             DispatchQueue.main.async {
+                                cell.products = value as! [ProductModel]
                                 cell.pageCollectionView.reloadData()
                             }
                         }else{

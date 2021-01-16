@@ -298,7 +298,7 @@ class OrderViewController: BaseViewController {
             case 0:
                 switch order.status {
                 case "已立單":
-                    btnNextStatus.isHidden = true
+                    btnNextStatus.isHidden = false
                 case "已寄送":
                     btnNextStatus.isHidden = false
                 case "已抵達":
@@ -313,7 +313,7 @@ class OrderViewController: BaseViewController {
             default:
                 switch order.status {
                 case "已立單":
-                    btnNextStatus.isHidden = true
+                    btnNextStatus.isHidden = false
                 case "已寄送":
                     btnNextStatus.isHidden = false
                 case "已抵達":
