@@ -25,9 +25,8 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
                 [weak self] (reponseJSON,isSuccess) in
                 guard let weakSelf = self else{return}
                 if(isSuccess){
-                    let jsonItemArr = JSON(reponseJSON)
-                    print("購物車解析清單\(jsonItemArr)")
-                    weakSelf.parseProduct(jsonArr: jsonItemArr)
+                    guard let products = reponseJSON as? [ProductModel] else { return  }
+                    weakSelf.cartProducts = products
                     DispatchQueue.main.async {
                         weakSelf.cartTableView.reloadData()
                     }
@@ -35,37 +34,6 @@ class CartViewController: BaseViewController ,UITableViewDelegate,UITableViewDat
                     print("購物車清單取得失敗")
                 }
             }
-        }
-    }
-    private func parseProduct(jsonArr:JSON){
-        for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string ?? ""
-            let title = jsonArr[index]["title"].string ?? ""
-            let description = jsonArr[index]["description"].string ?? ""
-            let isSale = jsonArr[index]["isSale"].bool ?? false
-            let isRent = jsonArr[index]["isRent"].bool ?? false
-            let isExchange = jsonArr[index]["isExchange"].bool ?? false
-            let address = jsonArr[index]["address"].string ?? ""
-            let deposit = jsonArr[index]["deposit"].int ?? 0
-            let rent = jsonArr[index]["rent"].int ?? 0
-            let salePrice = jsonArr[index]["salePrice"].int ?? 0
-            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
-            let amount = jsonArr[index]["amount"].int ?? 0
-            let type = jsonArr[index]["type"].string ?? ""
-            let type1 = jsonArr[index]["type1"].string ?? ""
-            let type2 = jsonArr[index]["type2"].string ?? ""
-            let userId = jsonArr[index]["userId"].string ?? ""
-            let picsArr = jsonArr[index]["pics"].array ?? []
-            let weightPrice = jsonArr[index]["weightPrice"].float ?? 0.0
-            
-            var pics = [PicModel]()
-            for index in 0..<picsArr.count{
-                let id  = picsArr[index]["id"].string ?? ""
-                let path  = picsArr[index]["path"].string ?? ""
-                let productId  = picsArr[index]["productId"].string ?? ""
-                pics.append(PicModel.init(id: id, path: path, productId: productId))
-            }
-            self.cartProducts.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

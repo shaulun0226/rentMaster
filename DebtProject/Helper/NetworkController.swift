@@ -40,7 +40,44 @@ class NetworkController{
 //        let msg = value
         print("error msg: \(value)")
     }
-    private func parseProduct(jsonArr:JSON) -> [ProductModel]{
+    private func parseUser(json:JSON)->UserModel{
+        let id = json["id"].string ?? ""
+        let email = json["email"].string ?? ""
+        let name = json["name"].string ?? ""
+        let nickName = json["nickName"].string ?? ""
+        let phone = json["phone"].string ?? ""
+        let address = json["address"].string ?? ""
+        return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
+    }
+    private func parseProduct(json:JSON) -> ProductModel{
+        let id = json["id"].string  ?? ""
+        let title = json["title"].string  ?? ""
+        let description = json["description"].string  ?? ""
+        let isSale = json["isSale"].bool  ?? false
+        let isRent = json["isRent"].bool  ?? false
+        let isExchange = json["isExchange"].bool ?? false
+        let address = json["address"].string ?? ""
+        let deposit = json["deposit"].int ?? 0
+        let rent = json["rent"].int ?? 0
+        let salePrice = json["salePrice"].int ?? 0
+        let rentMethod = json["rentMethod"].string  ?? ""
+        let amount = json["amount"].int ?? 0
+        let type = json["type"].string ?? ""
+        let type1 = json["type1"].string  ?? ""
+        let type2 = json["type2"].string ?? ""
+        let userId = json["userId"].string ?? ""
+        let picsArr = json["pics"].array ?? []
+        let weightPrice = json["weightPrice"].float ?? 0.0
+        var pics = [PicModel]()
+        for index in 0..<picsArr.count{
+            let id  = picsArr[index]["id"].string ?? ""
+            let path  = picsArr[index]["path"].string ?? ""
+            let productId  = picsArr[index]["productId"].string ?? ""
+            pics.append(PicModel.init(id: id, path: path, productId: productId))
+        }
+       return ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
+    }
+    private func parseProductArr(jsonArr:JSON) -> [ProductModel]{
         var products = [ProductModel]()
         for index in 0..<jsonArr.count{
             let id = jsonArr[index]["id"].string ?? ""
@@ -72,6 +109,71 @@ class NetworkController{
             products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
         }
         return products
+    }
+    private func parseOrderArr(jsonArr:JSON) -> [OrderModel]{
+        var orders = [OrderModel]()
+        for index in 0..<jsonArr.count{
+            let id = jsonArr[index]["id"].string ?? ""
+            let p_Title = jsonArr[index]["p_Title"].string ?? ""
+            let p_Desc = jsonArr[index]["p_Desc"].string ?? ""
+            let p_Address = jsonArr[index]["p_Address"].string ?? ""
+            let p_isSale = jsonArr[index]["p_isSale"].bool ?? false
+            let p_isRent = jsonArr[index]["p_isRent"].bool ?? false
+            let p_isExchange = jsonArr[index]["p_isExchange"].bool ?? false
+            let p_Deposit = jsonArr[index]["p_Deposit"].int ?? 0
+            let p_Rent = jsonArr[index]["p_Rent"].int ?? 0
+            let p_salePrice = jsonArr[index]["p_salePrice"].int ?? 0
+            let p_RentMethod = jsonArr[index]["p_RentMethod"].string ?? ""
+            let p_Type = jsonArr[index]["p_Type"].string ?? ""
+            let p_Type1 = jsonArr[index]["p_Type1"].string ?? ""
+            let p_Type2 = jsonArr[index]["p_Type2"].string ?? ""
+            let p_ownerId = jsonArr[index]["p_ownerId"].string ?? ""
+            let p_weightPrice = jsonArr[index]["p_WeightPrice"].float ?? 0.0
+            let tradeMethod = jsonArr[index]["tradeMethod"].int!
+            let picsArr = jsonArr[index]["pics"].array ?? []
+            let orderExchangeItemsArr = jsonArr[index]["orderExchangeItems"].array ?? []
+            let tradeQuantity = jsonArr[index]["tradeQuantity"].int!
+            let status = jsonArr[index]["status"].string ?? ""
+            let orderTime = jsonArr[index]["orderTime"].string ?? ""
+            let payTime = jsonArr[index]["payTime"].string ?? ""
+            
+            let productSend = jsonArr[index]["productSend"].object
+            let productArrive = jsonArr[index]["productArrive"].string ?? ""
+            let productSendBack = jsonArr[index]["productSendBack"].string ?? ""
+            let productGetBack = jsonArr[index]["productGetBack"].string ?? ""
+            let productId = jsonArr[index]["productId"].string ?? ""
+            let lender = jsonArr[index]["lender"].string ?? ""
+            
+            let notesArr = jsonArr[index]["notes"].array ?? []
+            var pics = [PicModel]()
+            for index in 0..<picsArr.count{
+                let id = picsArr[index]["id"].string ?? ""
+                let path = picsArr[index]["path"].string ?? ""
+                let productId = picsArr[index]["productId"].string ?? ""
+                pics.append(PicModel.init(id: id, path: path, productId: productId))
+            }
+            var orderExchangeItems = [ExchangeModel]()
+            for index in 0..<orderExchangeItemsArr.count{
+                let id  = orderExchangeItemsArr[index]["id"].string ?? ""
+                let orderId  = orderExchangeItemsArr[index]["orderId"].string ?? ""
+                let wishItemId  = orderExchangeItemsArr[index]["wishItemId"].string ?? ""
+                let exchangeItem  = orderExchangeItemsArr[index]["exchangeItem"].string ?? ""
+                let packageQuantity  = orderExchangeItemsArr[index]["packageQuantity"].int ?? 0
+                orderExchangeItems.append(ExchangeModel.init(id: id, orderId: orderId, wishItemId: wishItemId, exchangeItem: exchangeItem, packageQuantity: packageQuantity))
+            }
+            var notes = [NoteModel]()
+            for index in 0..<notesArr.count{
+                let id  = notesArr[index]["id"].string ?? ""
+                let orderId  = notesArr[index]["orderId"].string ?? ""
+                let senderId  = notesArr[index]["senderId"].string ?? ""
+                let senderName  = notesArr[index]["senderName"].string ?? ""
+                let message  = notesArr[index]["message"].string ?? ""
+                let createTime  = notesArr[index]["createTime"].string ?? ""
+                notes.append(NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime))
+            }
+            orders.append(OrderModel.init(id: id, p_Title: p_Title, p_Desc: p_Desc, p_Address: p_Address, p_isSale: p_isSale, p_isRent: p_isRent, p_isExchange: p_isExchange, p_Deposit: p_Deposit, p_Rent: p_Rent, p_salePrice: p_salePrice, p_RentMethod: p_RentMethod, p_Type: p_Type, p_Type1: p_Type1, p_Type2: p_Type2, p_ownerId: p_ownerId, p_weightPrice: p_weightPrice,pics:pics, tradeMethod: tradeMethod, orderExchangeItems: orderExchangeItems, tradeQuantity: tradeQuantity, status: status, orderTime: orderTime, payTime: payTime, productSend: productSend, productArrive: productArrive, productSendBack: productSendBack, productGetBack: productGetBack, productId: productId, lender: lender, notes: notes))
+        }
+        return orders
     }
     // MARK: - memberCenter
     func login(email:String,password:String,deviceToken:String,completionHandler:@escaping (_ :Any,Bool) -> ()){
@@ -258,7 +360,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let json = JSON(value)
+                            let user = self.parseUser(json: json)
+                            completionHandler(user,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -286,7 +390,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let json = JSON(value)
+                            let user = self.parseUser(json: json)
+                            completionHandler(user,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -447,7 +553,7 @@ class NetworkController{
                         case 200:
                             //to get JSON return value
                             let jsonArr =  JSON(value)
-                            let products =  self.parseProduct(jsonArr: jsonArr)
+                            let products =  self.parseProductArr(jsonArr: jsonArr)
                             completionHandler(products,true)
                             break
                         default:
@@ -537,7 +643,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let products = self.parseProductArr(jsonArr: jsonArr)
+                            completionHandler(products,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -565,7 +673,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let json = JSON(value)
+                            let product = self.parseProduct(json: json)
+                            completionHandler(product,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -710,7 +820,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let products =  self.parseProductArr(jsonArr: jsonArr)
+                            completionHandler(products,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -739,7 +851,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let products =  self.parseProductArr(jsonArr: jsonArr)
+                            completionHandler(products,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -963,10 +1077,10 @@ class NetworkController{
                     //再解析errorCode
                     if let status = response.response?.statusCode {
                         switch(status){
-                        
                         case 200:
-                            //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let orders = self.parseOrderArr(jsonArr: jsonArr)
+                            completionHandler(orders,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -996,7 +1110,9 @@ class NetworkController{
                         switch(status){
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let orders = self.parseOrderArr(jsonArr: jsonArr)
+                            completionHandler(orders,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)
@@ -1086,10 +1202,11 @@ class NetworkController{
                     if let status = response.response?.statusCode {
                         print(status)
                         switch(status){
-                        
                         case 200:
                             //to get JSON return value
-                            completionHandler(value,true)
+                            let jsonArr = JSON(value)
+                            let products = self.parseProductArr(jsonArr: jsonArr)
+                            completionHandler(products,true)
                             break
                         default:
                             self.textNotCode200(status: status, value: value)

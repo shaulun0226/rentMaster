@@ -64,8 +64,8 @@ class ProductInfoViewController: BaseViewController {
             [weak self] (responseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let jsonArr = JSON(responseValue)
-                weakSelf.productsBySeller = weakSelf.parseProduct(jsonArr: jsonArr)
+                guard let products = responseValue as?[ProductModel] else { return  }
+                weakSelf.productsBySeller = products
                 DispatchQueue.main.async {
                     weakSelf.productInfoTableView.reloadData()
                 }
@@ -73,70 +73,6 @@ class ProductInfoViewController: BaseViewController {
                 
             }
         }
-    }
-    private func parseProduct(jsonArr:JSON) -> [ProductModel]{
-        var products = [ProductModel]()
-        for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string ?? ""
-            if(id.elementsEqual(product.id)){
-                continue
-            }
-            let title = jsonArr[index]["title"].string ?? ""
-            let description = jsonArr[index]["description"].string ?? ""
-            let isSale = jsonArr[index]["isSale"].bool ?? false
-            let isRent = jsonArr[index]["isRent"].bool ?? false
-            let isExchange = jsonArr[index]["isExchange"].bool ?? false
-            let address = jsonArr[index]["address"].string ?? ""
-            let deposit = jsonArr[index]["deposit"].int ?? 0
-            let rent = jsonArr[index]["rent"].int ?? 0
-            let salePrice = jsonArr[index]["salePrice"].int ?? 0
-            let rentMethod = jsonArr[index]["rentMethod"].string ?? ""
-            let amount = jsonArr[index]["amount"].int ?? 0
-            let type = jsonArr[index]["type"].string ?? ""
-            let type1 = jsonArr[index]["type1"].string ?? ""
-            let type2 = jsonArr[index]["type2"].string ?? ""
-            let userId = jsonArr[index]["userId"].string ?? ""
-            let picsArr = jsonArr[index]["pics"].array ?? []
-            let weightPrice = jsonArr[index]["weightPrice"].float ?? 0.0
-            
-            var pics = [PicModel]()
-            for index in 0..<picsArr.count{
-                let id  = picsArr[index]["id"].string ?? ""
-                let path  = picsArr[index]["path"].string ?? ""
-                let productId  = picsArr[index]["productId"].string ?? ""
-                pics.append(PicModel.init(id: id, path: path, productId: productId))
-            }
-            products.append(ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice))
-        }
-        return products
-    }
-    private func parseProduct(json:JSON){
-        let id = json["id"].string  ?? ""
-        let title = json["title"].string  ?? ""
-        let description = json["description"].string  ?? ""
-        let isSale = json["isSale"].bool  ?? false
-        let isRent = json["isRent"].bool  ?? false
-        let isExchange = json["isExchange"].bool ?? false
-        let address = json["address"].string ?? ""
-        let deposit = json["deposit"].int ?? 0
-        let rent = json["rent"].int ?? 0
-        let salePrice = json["salePrice"].int ?? 0
-        let rentMethod = json["rentMethod"].string  ?? ""
-        let amount = json["amount"].int ?? 0
-        let type = json["type"].string ?? ""
-        let type1 = json["type1"].string  ?? ""
-        let type2 = json["type2"].string ?? ""
-        let userId = json["userId"].string ?? ""
-        let picsArr = json["pics"].array ?? []
-        let weightPrice = json["weightPrice"].float ?? 0.0
-        var pics = [PicModel]()
-        for index in 0..<picsArr.count{
-            let id  = picsArr[index]["id"].string ?? ""
-            let path  = picsArr[index]["path"].string ?? ""
-            let productId  = picsArr[index]["productId"].string ?? ""
-            pics.append(PicModel.init(id: id, path: path, productId: productId))
-        }
-        self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
     }
     func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
         return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
@@ -300,12 +236,15 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.lbMainPageTitle.text = "賣場其他商品"
                 if(Global.isOnline){
                     NetworkController.instance().getProductListBySellerId(sellerId: product.userId, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
-                        [weak self] (responseValue,isSuccess) in
+                        [weak self](responseValue,isSuccess) in
                         guard let weakSelf = self else{return}
                         if(isSuccess){
-                            let jsonArr = JSON(responseValue)
+                            guard var products = responseValue as? [ProductModel] else { return  }
                             cell.products.removeAll()
-                            cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
+                            if(products[0].id.elementsEqual(weakSelf.product.id)){
+                                products.remove(at: 0)
+                            }
+                            cell.products = products
                             DispatchQueue.main.async {
                                 cell.pageCollectionView.reloadData()
                             }
@@ -314,24 +253,24 @@ extension ProductInfoViewController:UITableViewDelegate,UITableViewDataSource{
                         }
                     }
                 }
-            case 1:
-                cell.lbMainPageTitle.text = "您可能喜歡"
-                if(Global.isOnline){
-                    NetworkController.instance().getProductListByType2(type1: product.type1, type2: product.type2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
-                        [weak self] (responseValue,isSuccess) in
-                        guard let weakSelf = self else{return}
-                        if(isSuccess){
-                            let jsonArr = JSON(responseValue)
-                            cell.products.removeAll()
-                            cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
-                            DispatchQueue.main.async {
-                                cell.pageCollectionView.reloadData()
-                            }
-                        }else{
-                            print("取得可能喜歡商品失敗")
-                        }
-                    }
-                }
+//            case 1:
+//                cell.lbMainPageTitle.text = "您可能喜歡"
+//                if(Global.isOnline){
+//                    NetworkController.instance().getProductListByType2(type1: product.type1, type2: product.type2, pageBegin: Global.pageBegin, pageEnd: Global.pageEnd){
+//                        [weak self] (responseValue,isSuccess) in
+//                        guard let weakSelf = self else{return}
+//                        if(isSuccess){
+//                            let jsonArr = JSON(responseValue)
+//                            cell.products.removeAll()
+//                            cell.products = weakSelf.parseProduct(jsonArr: jsonArr)
+//                            DispatchQueue.main.async {
+//                                cell.pageCollectionView.reloadData()
+//                            }
+//                        }else{
+//                            print("取得可能喜歡商品失敗")
+//                        }
+//                    }
+//                }
             default:
                 cell.lbMainPageTitle.text = ""
             }
@@ -411,8 +350,8 @@ extension ProductInfoViewController:MakeOrderViewControllerDelegate{
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let json = JSON(reponseValue)
-                weakSelf.parseProduct(json: json)
+                guard let product = reponseValue as? ProductModel else {return}
+                weakSelf.product = product
                 weakSelf.setText()
             }else{
                 print("錯誤")

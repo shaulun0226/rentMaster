@@ -142,10 +142,10 @@ extension WishListViewController:UITableViewDelegate,UITableViewDataSource{
         }
         return UITableViewCell()
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //選到後馬上解除選取
-        wishListTV.deselectRow(at: indexPath, animated: false)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        //選到後馬上解除選取
+//        wishListTV.deselectRow(at: indexPath, animated: false)
+//    }
     //側滑刪除
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "") { (action, sourceView, completionHandler) in

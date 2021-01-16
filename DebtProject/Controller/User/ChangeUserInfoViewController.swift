@@ -34,9 +34,8 @@ class ChangeUserInfoViewController:BaseViewController {
                 [weak self](responseValue, isSuccess) in
                 guard let weakSelf = self else {return}
                 if(isSuccess){
-                    let jsonArr = JSON(responseValue)
-                    print("使用者資訊   \(jsonArr)")
-                    weakSelf.parseUser(json: jsonArr)
+                    guard let user = responseValue as? UserModel else { return  }
+                    weakSelf.user = user
                     weakSelf.tfEmail.text = weakSelf.user?.email
                     weakSelf.tfName.text = weakSelf.user?.name
                     weakSelf.tfNickName.text = weakSelf.user?.nickName
@@ -59,15 +58,6 @@ class ChangeUserInfoViewController:BaseViewController {
         //                設定按外面會把鍵盤收起(有可能會手勢衝突)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tap) // to Replace "TouchesBegan"
-    }
-    private func parseUser(json:JSON){
-        let id = json["id"].string ?? ""
-        let email = json["email"].string ?? ""
-        let name = json["name"].string ?? ""
-        let nickName = json["nickName"].string ?? ""
-        let phone = json["phone"].string ?? ""
-        let address = json["address"].string ?? ""
-        self.user = UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
     }
     private func setTextFieldUnderLine(size:CGFloat){
         tfName.lineHeight = size
@@ -95,9 +85,8 @@ class ChangeUserInfoViewController:BaseViewController {
             [weak self](responseValue, isSuccess) in
             guard let weakSelf = self else {return}
             if(isSuccess){
-                let jsonArr = JSON(responseValue)
-                print("使用者資訊   \(jsonArr)")
-                weakSelf.parseUser(json: jsonArr)
+                guard let user = responseValue as? UserModel else { return  }
+                weakSelf.user = user
                 weakSelf.tfEmail.text = weakSelf.user?.email
                 weakSelf.tfName.text = weakSelf.user?.name
                 weakSelf.tfNickName.text = weakSelf.user?.nickName

@@ -283,7 +283,7 @@ class BaseSideMenuViewController: BaseViewController,SideMenuControllerDelegate 
         menu?.setNavigationBarHidden(true, animated: false)
         
         //設定手勢，因為tabbar的關係先關掉
-                SideMenuManager.default.addPanGestureToPresent(toView: self.view);
+//                SideMenuManager.default.addPanGestureToPresent(toView: self.view);
         var set = SideMenuSettings()
         
         set.statusBarEndAlpha = 0

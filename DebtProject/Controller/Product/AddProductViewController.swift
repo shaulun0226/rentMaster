@@ -552,8 +552,8 @@ class AddProductViewController: BaseViewController {
             [weak self] (responseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let json = JSON(responseValue)
-                weakSelf.parseProduct(json: json)
+                guard let product = responseValue as? ProductModel else { return  }
+                weakSelf.product = product
                 weakSelf.putInProductInfo()
                 DispatchQueue.main.async {
                     weakSelf.addProductImageCV.reloadData()
@@ -610,35 +610,6 @@ class AddProductViewController: BaseViewController {
         case .some(_):
             return
         }
-    }
-    //MARK:-解析JSON
-    private func parseProduct(json:JSON){
-        let id = json["id"].string  ?? ""
-        let title = json["title"].string  ?? ""
-        let description = json["description"].string  ?? ""
-        let isSale = json["isSale"].bool  ?? false
-        let isRent = json["isRent"].bool  ?? false
-        let isExchange = json["isExchange"].bool ?? false
-        let address = json["address"].string ?? ""
-        let deposit = json["deposit"].int ?? 0
-        let rent = json["rent"].int ?? 0
-        let salePrice = json["salePrice"].int ?? 0
-        let rentMethod = json["rentMethod"].string  ?? ""
-        let amount = json["amount"].int ?? 0
-        let type = json["type"].string ?? ""
-        let type1 = json["type1"].string  ?? ""
-        let type2 = json["type2"].string ?? ""
-        let userId = json["userId"].string ?? ""
-        let picsArr = json["pics"].array ?? []
-        let weightPrice = json["weightPrice"].float ?? 0.0
-        var pics = [PicModel]()
-        for index in 0..<picsArr.count{
-            let id  = picsArr[index]["id"].string ?? ""
-            let path  = picsArr[index]["path"].string ?? ""
-            let productId  = picsArr[index]["productId"].string ?? ""
-            pics.append(PicModel.init(id: id, path: path, productId: productId))
-        }
-        self.product = ProductModel.init(id: id, title: title, description: description, isSale: isSale, isRent: isRent, isExchange: isExchange, deposit: deposit, rent: rent, salePrice: salePrice, address: address, rentMethod: rentMethod, amount: amount, type: type, type1: type1, type2: type2, userId: userId, pics: pics, weightPrice: weightPrice)
     }
 }
 extension AddProductViewController:UIPickerViewDelegate,UIPickerViewDataSource{

@@ -89,9 +89,8 @@ class OrderViewController: BaseViewController {
             [weak self] (reponseValue,isSuccess)in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let json = JSON(reponseValue)
-                weakSelf.user =  weakSelf.parseUser(json: json)
-                
+                guard let user = reponseValue as? UserModel else { return  }
+                weakSelf.user = user
             }else{
                 print("沒拿到使用者資訊")
             }
@@ -101,8 +100,8 @@ class OrderViewController: BaseViewController {
             [weak self] (reponseValue,isSuccess)in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let json = JSON(reponseValue)
-                weakSelf.orderOwner = weakSelf.parseUser(json: json)
+                guard let orderUser = reponseValue as? UserModel else { return  }
+                weakSelf.orderOwner = orderUser
                 guard let orderOwner = weakSelf.orderOwner else {
                     return
                 }
@@ -197,15 +196,7 @@ class OrderViewController: BaseViewController {
         print("id\(id),orderid\(orderId),senderId:\(senderId),senderName\(senderName),message\(message)createTime\(createTime)")
         return NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime)
     }
-    private func parseUser(json:JSON)->UserModel{
-        let id = json["id"].string ?? ""
-        let email = json["email"].string ?? ""
-        let name = json["name"].string ?? ""
-        let nickName = json["nickName"].string ?? ""
-        let phone = json["phone"].string ?? ""
-        let address = json["address"].string ?? ""
-        return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
-    }
+    
     private func setOrderOwnerInfo(orderOwner:UserModel){
         if orderOwner.nickName.isEmpty{
             lbOwnerName.text = "稱呼:\(orderOwner.name)"

@@ -43,8 +43,8 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
             [weak self] (reponseValue,isSuccess) in
             guard let weakSelf = self else{return}
             if(isSuccess){
-                let jsonArr = JSON(reponseValue)
-                weakSelf.parseOrder(jsonArr: jsonArr)
+                guard let orders = reponseValue as?[OrderModel] else { return  }
+                weakSelf.orders = orders
                 DispatchQueue.main.async {
                     weakSelf.tableview.reloadData()
                 }
@@ -58,67 +58,6 @@ class MyBuyerOrderListViewController: BaseSideMenuViewController {
         self.slider.center.y = collectionView.bounds.maxY-14
         self.slider.backgroundColor = UIColor(named: "slider")
         collectionView.addSubview(slider)
-    }
-    private func parseOrder(jsonArr:JSON){
-        for index in 0..<jsonArr.count{
-            let id = jsonArr[index]["id"].string ?? ""
-            let p_Title = jsonArr[index]["p_Title"].string ?? ""
-            let p_Desc = jsonArr[index]["p_Desc"].string ?? ""
-            let p_Address = jsonArr[index]["p_Address"].string ?? ""
-            let p_isSale = jsonArr[index]["p_isSale"].bool ?? false
-            let p_isRent = jsonArr[index]["p_isRent"].bool ?? false
-            let p_isExchange = jsonArr[index]["p_isExchange"].bool ?? false
-            let p_Deposit = jsonArr[index]["p_Deposit"].int ?? 0
-            let p_Rent = jsonArr[index]["p_Rent"].int ?? 0
-            let p_salePrice = jsonArr[index]["p_salePrice"].int ?? 0
-            let p_RentMethod = jsonArr[index]["p_RentMethod"].string ?? ""
-            let p_Type = jsonArr[index]["p_Type"].string ?? ""
-            let p_Type1 = jsonArr[index]["p_Type1"].string ?? ""
-            let p_Type2 = jsonArr[index]["p_Type2"].string ?? ""
-            let p_ownerId = jsonArr[index]["p_ownerId"].string ?? ""
-            let p_weightPrice = jsonArr[index]["p_WeightPrice"].float ?? 0.0
-            let tradeMethod = jsonArr[index]["tradeMethod"].int!
-            let picsArr = jsonArr[index]["pics"].array ?? []
-            let orderExchangeItemsArr = jsonArr[index]["orderExchangeItems"].array ?? []
-            let tradeQuantity = jsonArr[index]["tradeQuantity"].int!
-            let status = jsonArr[index]["status"].string ?? ""
-            let orderTime = jsonArr[index]["orderTime"].string ?? ""
-            let payTime = jsonArr[index]["payTime"].string ?? ""
-            let productSend = jsonArr[index]["productSend"].object
-            let productArrive = jsonArr[index]["productArrive"].string ?? ""
-            let productSendBack = jsonArr[index]["productSendBack"].string ?? ""
-            let productGetBack = jsonArr[index]["productGetBack"].string ?? ""
-            let productId = jsonArr[index]["productId"].string ?? ""
-            let lender = jsonArr[index]["lender"].string ?? ""
-            let notesArr = jsonArr[index]["notes"].array ?? []
-            var pics = [PicModel]()
-            for index in 0..<picsArr.count{
-                let id = picsArr[index]["id"].string ?? ""
-                let path = picsArr[index]["path"].string ?? ""
-                let productId = picsArr[index]["productId"].string ?? ""
-                pics.append(PicModel.init(id: id, path: path, productId: productId))
-            }
-            var orderExchangeItems = [ExchangeModel]()
-            for index in 0..<orderExchangeItemsArr.count{
-                let id  = orderExchangeItemsArr[index]["id"].string ?? ""
-                let orderId  = orderExchangeItemsArr[index]["orderId"].string ?? ""
-                let wishItemId  = orderExchangeItemsArr[index]["wishItemId"].string ?? ""
-                let exchangeItem  = orderExchangeItemsArr[index]["exchangeItem"].string ?? ""
-                let packageQuantity  = orderExchangeItemsArr[index]["packageQuantity"].int ?? 0
-                orderExchangeItems.append(ExchangeModel.init(id: id, orderId: orderId, wishItemId: wishItemId, exchangeItem: exchangeItem, packageQuantity: packageQuantity))
-            }
-            var notes = [NoteModel]()
-            for index in 0..<notesArr.count{
-                let id  = notesArr[index]["id"].string ?? ""
-                let orderId  = notesArr[index]["orderId"].string ?? ""
-                let senderId  = notesArr[index]["senderId"].string ?? ""
-                let senderName  = notesArr[index]["senderName"].string ?? ""
-                let message  = notesArr[index]["message"].string ?? ""
-                let createTime  = notesArr[index]["createTime"].string ?? ""
-                notes.append(NoteModel.init(id: id, orderId: orderId, senderId: senderId, senderName: senderName, message: message, createTime: createTime))
-            }
-            self.orders.append(OrderModel.init(id: id, p_Title: p_Title, p_Desc: p_Desc, p_Address: p_Address, p_isSale: p_isSale, p_isRent: p_isRent, p_isExchange: p_isExchange, p_Deposit: p_Deposit, p_Rent: p_Rent, p_salePrice: p_salePrice, p_RentMethod: p_RentMethod, p_Type: p_Type, p_Type1: p_Type1, p_Type2: p_Type2, p_ownerId: p_ownerId, p_weightPrice: p_weightPrice,pics:pics, tradeMethod: tradeMethod, orderExchangeItems: orderExchangeItems, tradeQuantity: tradeQuantity, status: status, orderTime: orderTime, payTime: payTime, productSend: productSend, productArrive: productArrive, productSendBack: productSendBack, productGetBack: productGetBack, productId: productId, lender: lender, notes: notes))
-        }
     }
 }
 extension MyBuyerOrderListViewController:UITableViewDelegate,UITableViewDataSource{
@@ -211,13 +150,16 @@ extension MyBuyerOrderListViewController:UICollectionViewDelegate,UICollectionVi
                 [weak self] (reponseValue,isSuccess) in
                 guard let weakSelf = self else{return}
                 if(isSuccess){
-                    let jsonArr = JSON(reponseValue)
-                    weakSelf.parseOrder(jsonArr: jsonArr)
+                    guard let orders = reponseValue as?[OrderModel] else { return  }
+                    weakSelf.orders = orders
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
+                    }
                 }else{
                     print("進到我的訂單")
-                }
-                DispatchQueue.main.async {
-                    weakSelf.tableview.reloadData()
+                    DispatchQueue.main.async {
+                        weakSelf.tableview.reloadData()
+                    }
                 }
             }
         }
