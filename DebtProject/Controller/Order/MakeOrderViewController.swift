@@ -104,10 +104,16 @@ class MakeOrderViewController: BaseViewController {
                 [weak self] (responseValue,isSuccess) in
                 guard let weakSelf = self else {return}
                 if(isSuccess){
-                    let jsonArr = JSON(responseValue)
-                    weakSelf.parseUser(jsonArr: jsonArr)
+                    guard let user = responseValue as? UserModel else { return  }
+                    weakSelf.user = user
                     
                     DispatchQueue.main.async {
+                        weakSelf.wishList = weakSelf.user.wishItems
+                        print("願望數量\( weakSelf.wishList.count)")
+                        for index in 0..<weakSelf.wishList.count{
+                            weakSelf.wishNameList.append( weakSelf.wishList[index].productName)
+                            weakSelf.wishAmountList.updateValue( weakSelf.wishList[index].amount, forKey:  weakSelf.wishList[index].productName)
+                        }
                         if weakSelf.user.nickName.isEmpty{
                             weakSelf.lbSellerName.text = "稱呼:\(weakSelf.user.name)"
                         }else{
@@ -273,6 +279,7 @@ class MakeOrderViewController: BaseViewController {
                 setBuyViewHidden(bool: true)
                 setRentViewHidden(bool: false)
             case "交換":
+                print("選交換")
                 tradeMethod = 2
                 setExchangeViewHidden(bool: false)
                 setBuyViewHidden(bool: true)

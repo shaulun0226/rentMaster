@@ -185,6 +185,7 @@ class AddProductViewController: BaseViewController {
             btnExchange.setBackgroundImage(UIImage(systemName: "circle"), for:.normal)
             btnExchange.tintColor = .darkGray
         }
+        exchangeWorthView.isHidden = !btnExchangeSelected
         //補上權重
         if(product.address.contains("市")){
             let address = product.address.split(separator: "市")

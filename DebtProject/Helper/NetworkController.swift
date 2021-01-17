@@ -47,8 +47,34 @@ class NetworkController{
         let nickName = json["nickName"].string ?? ""
         let phone = json["phone"].string ?? ""
         let address = json["address"].string ?? ""
-        return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: [])
+        let wishItemsArr = json["wishItems"].array ?? []
+        var wishList = [WishItemModel]()
+                for index in 0..<wishItemsArr.count{
+                    let id = wishItemsArr[index]["id"].string  ?? ""
+                    let userId = wishItemsArr[index]["userId"].string ?? ""
+                    let wishProductName = wishItemsArr[index]["exchangeItem"].string ?? ""
+                    let wishProductAmount = wishItemsArr[index]["requestQuantity"].int ?? 0
+                    let wishProductWeightPrice = wishItemsArr[index]["weightPoint"].float ?? 99.0
+                    wishList.append(WishItemModel.init(id: id, userId: userId, productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
+                }
+        return UserModel.init(id: id, email: email, name: name, nickName: nickName, phone: phone, address: address, products: [], wishItems: wishList)
     }
+//    private func parseWishItem(jsonArr:JSON)-> [WishItemModel]{
+//        var wishListTmp = [WishItemModel]()
+//        print("下訂單頁面解析願望清單,共\(jsonArr.count)項")
+//        for index in 0..<jsonArr.count{
+//            let id = jsonArr[index]["id"].string  ?? ""
+//            let userId = jsonArr[index]["userId"].string ?? ""
+//            let wishProductName = jsonArr[index]["exchangeItem"].string ?? ""
+//            let wishProductAmount = jsonArr[index]["requestQuantity"].int ?? 0
+//            let wishProductWeightPrice = jsonArr[index]["weightPoint"].float ?? 99.0
+//            print("\(id)\(userId)\(wishProductName)\(wishProductAmount)\(wishProductWeightPrice)")
+//            self.wishNameList.append(wishProductName)
+//            self.wishAmountList.updateValue(wishProductAmount, forKey: wishProductName)
+//            wishListTmp.append(WishItemModel.init(id: id, userId: userId, productName: wishProductName, amount: wishProductAmount, weightPrice: wishProductWeightPrice))
+//        }
+//        return wishListTmp
+//    }
     private func parseProduct(json:JSON) -> ProductModel{
         let id = json["id"].string  ?? ""
         let title = json["title"].string  ?? ""

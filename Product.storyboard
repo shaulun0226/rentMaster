@@ -2442,7 +2442,7 @@
                                                     <color key="textColor" name="labelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gi-mK-35t">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gi-mK-35t">
                                                     <rect key="frame" x="362" y="34" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="7gi-mK-35t" secondAttribute="height" multiplier="1:1" id="4V7-ao-T5G"/>

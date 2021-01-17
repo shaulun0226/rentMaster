@@ -127,7 +127,7 @@ class OrderViewController: BaseViewController {
         if(Global.isOnline){
             lbProductTtile.text = "\(order.p_Title)"
             lbProductType.text = "\(order.p_Type)/\(order.p_Type1)/\(order.p_Type2)"
-            lbRentMethod.text = "交貨數量 : \(order.p_RentMethod)"
+            lbRentMethod.text = "交貨方式 : \(order.p_RentMethod)"
             lbAmount.text = "交易數量 : \(order.tradeQuantity)"
             lbOrderOwnerInfo.text = orderOwnerInfo ?? ""
             lbProductDescription.text = "\(order.p_Desc)"
