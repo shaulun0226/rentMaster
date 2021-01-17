@@ -7,7 +7,6 @@
 
 import UIKit
 
-@IBDesignable
 class DesignableView: UIView {
     @IBInspectable var shadowColor: UIColor = UIColor.clear {
         didSet {

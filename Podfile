@@ -7,17 +7,12 @@ target 'DebtProject' do
 
   # Pods for DebtProject
 pod 'Alamofire', '~>5.2'
-pod 'SignaturePad', '~> 1.0.3'
 pod 'SideMenu', '~> 6.5'
-
-
-  target 'DebtProjectTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'DebtProjectUITests' do
-    # Pods for testing
-  end
+pod "TLPhotoPicker"
+pod 'SwiftyJSON', '~> 4.0'
+pod 'Kingfisher'
+pod 'SwiftAlertView', '~> 1.3.0'
+pod 'Firebase/Firestore'
+pod 'Firebase/Messaging'
 
 end

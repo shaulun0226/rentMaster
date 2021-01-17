@@ -6,9 +6,14 @@
 //
 
 import UIKit
-
+protocol UnderLineTextFieldDelegate {
+    func underLineTextFieldShouldReturn(_ textField: UITextField) -> Bool
+    func underLineTextFieldTextFieldDidBeginEditing(_ textField: UITextField)
+    func underLineTextFieldTextFieldDidEndEditing(_ textField: UITextField)
+}
 class UnderLineTextField: UITextField,UITextFieldDelegate{
     let border = CALayer();
+    var  underLineTextFieldDelegate:UnderLineTextFieldDelegate?
     
     //底線的顏色
     @IBInspectable open var lineColor : UIColor = UIColor.black {
@@ -56,10 +61,20 @@ class UnderLineTextField: UITextField,UITextFieldDelegate{
        func textFieldDidBeginEditing(_ textField: UITextField) {
 //        border.borderColor = #colorLiteral(red: 0.3729024529, green: 0.9108788371, blue: 0.7913612723, alpha: 1)
         border.borderColor = selectedLineColor.cgColor
+        underLineTextFieldDelegate?.underLineTextFieldTextFieldDidBeginEditing(textField)
        }
 
        func textFieldDidEndEditing(_ textField: UITextField) {
-        border.borderColor = UIColor.darkGray.cgColor
+        border.borderColor = UIColor(named: "textfieldLineColor")?.cgColor
+        underLineTextFieldDelegate?.underLineTextFieldTextFieldDidEndEditing(textField)
 //           border.borderColor = lineColor.cgColor
        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.endEditing(true)
+        }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return ((underLineTextFieldDelegate?.underLineTextFieldShouldReturn(textField)) != nil)
+        
+    }
 }
